@@ -1,16 +1,8 @@
 package com.busyqa.crm.model.academics;
 
-
-
-import com.busyqa.crm.model.clients.Lead;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.*;
-
-import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
@@ -27,12 +19,6 @@ public class Course {
 
     @OneToMany(cascade = PERSIST)
     private List<Class> classes = new ArrayList<>();
-
-
-//    @JsonIgnore
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(referencedColumnName = "id")
-//    private Lead lead;
 
     // DATES
     @Basic
@@ -149,3 +135,8 @@ public class Course {
 
 }
 
+
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(referencedColumnName = "id")
+//    private Client lead;

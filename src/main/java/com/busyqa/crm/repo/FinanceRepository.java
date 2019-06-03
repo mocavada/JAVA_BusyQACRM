@@ -40,7 +40,7 @@ public class FinanceRepository implements IFinanceRepository {
         Payment updatePayment = getPaymentById(payment.getId());
         updatePayment.setAmount(payment.getAmount());
         updatePayment.setTransactionCode(payment.getTransactionCode());
-        updatePayment.setStudent(payment.getStudent());
+        updatePayment.setClient(payment.getClient());
 
         entityManager.flush();
     }

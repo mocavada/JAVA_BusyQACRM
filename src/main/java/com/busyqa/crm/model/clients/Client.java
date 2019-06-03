@@ -1,23 +1,22 @@
 package com.busyqa.crm.model.clients;
 
-import com.busyqa.crm.model.academics.Class;
 import com.busyqa.crm.model.academics.Course;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.busyqa.crm.model.finance.Payment;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.File;
-import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name="LEAD")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Lead implements Cloneable {
+@Table(name="CLIENT")
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,13 +36,6 @@ public class Lead implements Cloneable {
     @JoinColumn(name = "course_id")
     private Course course;
 
-//    private List<Course> courses = new ArrayList<>();
-
-
-//    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    private List<Class> classes = new ArrayList<>();
-
     // DATE
     @CreationTimestamp
     private LocalDateTime createdTime;
@@ -51,7 +43,6 @@ public class Lead implements Cloneable {
     private LocalDateTime modifiedTime;
     @Basic
     private Instant lastActivityTime;
-
 
     // FOR LEADS ONLY
     private String leadStatus;
@@ -74,12 +65,20 @@ public class Lead implements Cloneable {
     private String paymentPlanStatus;
     private Boolean registrationFeePaid;
 
+    // FOR LEADS ONLY
+    private double totalFee;
+    private double balance;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Payment> payments = new ArrayList<>();
 
 
-    public Lead() {
+
+    public Client() {
         super();}
 
-    public Lead(String firstName, String lastName, String email, String phone, String emergencyPhone, String clientStatus, double registrationFee, Course course, LocalDateTime createdTime, LocalDateTime modifiedTime, Instant lastActivityTime, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingCity, String mailingCountry, String mailingState, String mailingStreet, String mailingZip, String paymentPlan, File planAgreement, String paymentPlanStatus, Boolean registrationFeePaid) {
+    public Client(String firstName, String lastName, String email, String phone, String emergencyPhone, String clientStatus, double registrationFee, Course course, LocalDateTime createdTime, LocalDateTime modifiedTime, Instant lastActivityTime, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingCity, String mailingCountry, String mailingState, String mailingStreet, String mailingZip, String paymentPlan, File planAgreement, String paymentPlanStatus, Boolean registrationFeePaid, double totalFee, double balance, List<Payment> payments) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -106,12 +105,10 @@ public class Lead implements Cloneable {
         this.planAgreement = planAgreement;
         this.paymentPlanStatus = paymentPlanStatus;
         this.registrationFeePaid = registrationFeePaid;
+        this.totalFee = totalFee;
+        this.balance = balance;
+        this.payments = payments;
     }
-
-
-    //    public void addCourse(Course course) {
-//        this.courses.add(course);
-//    }
 
     public Long getId() {
         return id;
@@ -127,6 +124,30 @@ public class Lead implements Cloneable {
 
     public void setLeadStatus(String leadStatus) {
         this.leadStatus = leadStatus;
+    }
+
+    public double getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(double totalFee) {
+        this.totalFee = totalFee;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 
     public void setFirstName(String firstName) {
@@ -325,6 +346,42 @@ public class Lead implements Cloneable {
         this.registrationFeePaid = registrationFeePaid;
     }
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", emergencyPhone='" + emergencyPhone + '\'' +
+                ", clientStatus='" + clientStatus + '\'' +
+                ", registrationFee=" + registrationFee +
+                ", course=" + course +
+                ", createdTime=" + createdTime +
+                ", modifiedTime=" + modifiedTime +
+                ", lastActivityTime=" + lastActivityTime +
+                ", leadStatus='" + leadStatus + '\'' +
+                ", leadSource='" + leadSource + '\'' +
+                ", comments='" + comments + '\'' +
+                ", currentlyEmployed=" + currentlyEmployed +
+                ", currentlyITEmployed=" + currentlyITEmployed +
+                ", desiredJob='" + desiredJob + '\'' +
+                ", mailingCity='" + mailingCity + '\'' +
+                ", mailingCountry='" + mailingCountry + '\'' +
+                ", mailingState='" + mailingState + '\'' +
+                ", mailingStreet='" + mailingStreet + '\'' +
+                ", mailingZip='" + mailingZip + '\'' +
+                ", paymentPlan='" + paymentPlan + '\'' +
+                ", planAgreement=" + planAgreement +
+                ", paymentPlanStatus='" + paymentPlanStatus + '\'' +
+                ", registrationFeePaid=" + registrationFeePaid +
+                ", totalFee=" + totalFee +
+                ", balance=" + balance +
+                ", payments=" + payments +
+                '}';
+    }
+
     // REGISTRATION FEE OF 500 or More
 
 
@@ -343,3 +400,7 @@ public class Lead implements Cloneable {
 
 }
 
+
+//    public void addCourse(Course course) {
+//        this.courses.add(course);
+//    }

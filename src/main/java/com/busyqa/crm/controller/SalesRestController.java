@@ -1,9 +1,7 @@
 package com.busyqa.crm.controller;
 
-import com.busyqa.crm.model.academics.Class;
 import com.busyqa.crm.model.academics.Course;
-import com.busyqa.crm.model.clients.Lead;
-import com.busyqa.crm.model.clients.Student;
+import com.busyqa.crm.model.clients.Client;
 import com.busyqa.crm.service.AcademicsService;
 import com.busyqa.crm.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,59 +26,30 @@ public class SalesRestController {
     ///////////////////
     // LEAD SERVICE CONTROLLERS
     ///////////////////
-    @GetMapping("leadslist")
-    public ResponseEntity<List<Lead>> getAllLeads() {
-        List<Lead> list = clientsService.getAllLeads();
-        return new ResponseEntity<List<Lead>>(list, HttpStatus.OK);
-    }
-
     @PostMapping("addlead")
-    public ResponseEntity<Void> addLead(@RequestBody Lead lead, UriComponentsBuilder builder) {
+    public ResponseEntity<Void> addLead(@RequestBody Client client, UriComponentsBuilder builder) {
 
-        boolean flag = clientsService.addLead(lead);
+        boolean flag = clientsService.addClient(client);
 
         if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("addlead/{id}").buildAndExpand(lead.getId()).toUri());
+        headers.setLocation(builder.path("addlead/{id}").buildAndExpand(client.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
-
-    @GetMapping("lead/{id}")
-    public ResponseEntity<Lead> getLeadById(@PathVariable("id") Long id) {
-        Lead lead = clientsService.getLeadById(id);
-        return new ResponseEntity<Lead>(lead, HttpStatus.OK);
+    @GetMapping("leadslist")
+    public ResponseEntity<List<Client>> getAllLeads() {
+        List<Client> list = clientsService.getAllLead();
+        return new ResponseEntity<List<Client>>(list, HttpStatus.OK);
     }
 
-//    @PutMapping("updatelead")
-//    public ResponseEntity<Lead> updateJobPost(@RequestBody Lead lead) {
-//        clientsService.updateLead(lead);
-//        return new ResponseEntity<Lead>(lead, HttpStatus.OK);
-//    }
 
     @PutMapping("updatelead")
-    public ResponseEntity<Lead> updateJobPost(@RequestBody Lead lead) {
-        clientsService.updateLead(lead);
-        return new ResponseEntity<Lead>(lead, HttpStatus.OK);
+    public ResponseEntity<Client> updateLead(@RequestBody Client client) {
+        clientsService.updateLead(client);
+        return new ResponseEntity<Client>(client, HttpStatus.OK);
     }
 
-
-    @PostMapping("copyleadtostudent")
-    public ResponseEntity<Void> copyLeadToStudent(@RequestBody Lead lead, UriComponentsBuilder builder) {
-
-        boolean flag = clientsService.copyLeadToStudent(lead);
-
-        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("copyleadtostudent/{id}").buildAndExpand(lead.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("deletelead/{id}")
-    public ResponseEntity<Void> deleteLeadById(@PathVariable("id") long id ) {
-        clientsService.deleteLeadById(id);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    }
 
     ///////////////////
     // COURSE SERVICE CONTROLLERS
@@ -120,7 +89,6 @@ public class SalesRestController {
     ///////////////////
     // CLASS SERVICE CONTROLLERS
     ///////////////////
-
     @PutMapping("course/{classId}/{courseId}")
     public ResponseEntity<Void> addClassToCourse(@PathVariable("classId") Integer classId, @PathVariable("courseId") Integer courseId, UriComponentsBuilder builder) {
         academicsService.addClass(classId, courseId);
@@ -128,3 +96,26 @@ public class SalesRestController {
     }
 
 }
+
+
+
+
+
+
+//    @PutMapping("updatelead")
+//    public ResponseEntity<Client> updateJobPost(@RequestBody Client lead) {
+//        clientsService.updateLead(lead);
+//        return new ResponseEntity<Client>(lead, HttpStatus.OK);
+//    }
+
+
+//    @PostMapping("copyleadtostudent")
+//    public ResponseEntity<Void> copyLeadToStudent(@RequestBody Client client, UriComponentsBuilder builder) {
+//
+//        boolean flag = clientsService.copyLeadToStudent(client);
+//
+//        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(builder.path("copyleadtostudent/{id}").buildAndExpand(client.getId()).toUri());
+//        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+//    }

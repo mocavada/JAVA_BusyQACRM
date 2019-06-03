@@ -1,15 +1,12 @@
 package com.busyqa.crm.controller;
 
-import com.busyqa.crm.model.clients.Lead;
-import com.busyqa.crm.model.clients.Student;
+import com.busyqa.crm.model.clients.Client;
 import com.busyqa.crm.service.AcademicsService;
 import com.busyqa.crm.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,12 +22,16 @@ public class AuditRestController {
 
 
     @GetMapping("studentlist")
-    public ResponseEntity<List<Student>> getAllStudents() {
-        List<Student> list = clientsService.getAllStudent();
-        return new ResponseEntity<List<Student>>(list, HttpStatus.OK);
+    public ResponseEntity<List<Client>> getAllStudent() {
+        List<Client> list = clientsService.getAllStudent();
+        return new ResponseEntity<List<Client>>(list, HttpStatus.OK);
     }
 
-
+    @PutMapping("updatestudent")
+    public ResponseEntity<Client> updateStudent(@RequestBody Client client) {
+        clientsService.updateStudent(client);
+        return new ResponseEntity<Client>(client, HttpStatus.OK);
+    }
 
 
 

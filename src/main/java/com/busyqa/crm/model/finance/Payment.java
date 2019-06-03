@@ -1,7 +1,7 @@
 package com.busyqa.crm.model.finance;
 
 
-import com.busyqa.crm.model.clients.Student;
+import com.busyqa.crm.model.clients.Client;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,8 +18,8 @@ public class Payment {
     private String transactionCode;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     // DATE
     @CreationTimestamp
@@ -31,10 +31,10 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(double amount, String transactionCode, Student student, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public Payment(double amount, String transactionCode, Client client, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.amount = amount;
         this.transactionCode = transactionCode;
-        this.student = student;
+        this.client = client;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
     }
@@ -59,12 +59,31 @@ public class Payment {
         this.transactionCode = transactionCode;
     }
 
-    public Student getStudent() {
-        return student;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public Client getClient() {
+        return client;
     }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public LocalDateTime getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(LocalDateTime modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
 }

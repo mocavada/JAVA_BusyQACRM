@@ -1,41 +1,43 @@
 package com.busyqa.crm.repo;
 
-import com.busyqa.crm.model.clients.Lead;
-import com.busyqa.crm.model.clients.Student;
+import com.busyqa.crm.model.clients.Client;
 
 import java.util.List;
 
 public interface IClientRepository {
 
-    // LEAD
-    void addLead(Lead lead);
 
-//    void addCourse(Long courseId, Long leadId);
+    // CLIENT
+    void addClient(Client client);
+    List<Client> getAllClient();
+    Client getClientById(long id);
 
-    List<Lead> getAllLead();
 
-    Lead getLeadById(long id);
+    List<Client> getAllLead();
+    List<Client> getAllStudent();
 
-    void updateLead(Lead lead);
 
-    void deleteLeadById(long id);
+    void updateLead(Client client);
+    void updateStudent(Client client);
 
-    // STUDENT
+    void deleteClientById(long id);
 
-    void copyLeadToStudent(Student student);
 
-    boolean leadExists(String email);
+    boolean clientExist(String email);
 
-    boolean studentExists(String email);
 
-    List<Student> getAllStudent();
 
-    Student getStudentById(long id);
 
-    void updateStudent(Student student);
 
-    void deleteStudentById(long id);
 
+
+
+
+    // NOT USE
+
+    //    void addCourse(Long courseId, Long leadId);
+
+//    void copyClientTObject(Student student);
 
 
 
