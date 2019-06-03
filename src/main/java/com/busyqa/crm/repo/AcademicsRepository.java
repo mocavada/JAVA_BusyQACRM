@@ -51,6 +51,8 @@ public class AcademicsRepository implements IAcademicsRepository {
         entityManager.remove(id);
     }
 
+
+
     // COURSES
     public List<Course> getAllCourse() {
         String jpql = "SELECT j FROM Course j ORDER BY j.id";
@@ -84,9 +86,17 @@ public class AcademicsRepository implements IAcademicsRepository {
         entityManager.flush();
     }
 
-
     @Override
     public void deleteCourseById(int id) {
             entityManager.remove(id);
+    }
+
+    @Override
+    public void addClassToCourse(int classId, int courseId) {
+        Class classes = getClassById(classId);
+        Course course = getCourseById(classId);
+
+        course.addClass(classes);
+        entityManager.flush();
     }
 }

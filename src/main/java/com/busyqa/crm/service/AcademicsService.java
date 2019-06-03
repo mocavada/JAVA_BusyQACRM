@@ -30,6 +30,9 @@ public class AcademicsService {
     public void updateCourse(Course course) { academicsRepository.updateCourse(course); }
     public Course getCourseById(int id) { return academicsRepository.getCourseById(id); }
     public void deleteCourseById(int id) { academicsRepository.deleteCourseById(id); }
+    public void addClass(int classId, int courseId) {
+        academicsRepository.addClassToCourse(classId,courseId);
+    }
 
 
 }

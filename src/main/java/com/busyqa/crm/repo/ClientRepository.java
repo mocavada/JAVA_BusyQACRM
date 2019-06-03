@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,20 +29,24 @@ public class ClientRepository implements IClientRepository {
 
     @Override
     public void addLead(Lead lead) {
+        lead.setClientStatus("Lead");
         entityManager.persist(lead);
     }
 
     @Override
     public List<Lead> getAllLead() {
-        String query1 = "SELECT j FROM Lead j WHERE j.clientStatus = 'Registered' OR j.clientStatus = 'Interested' ORDER BY j.id";
-
-
-        String query2 = "SELECT j FROM Lead j ORDER BY j.id";
-
-        return (List<Lead>) entityManager.createQuery(query1)
-                .getResultStream()
-                .collect(Collectors.toList());
+        //note Ticket is the class name; not the table name; class name is case sensitive; use class field names - column names
+        //String query = "select t from Ticket t order by t.title";
+        //return (List<Ticket>) entityManager.createQuery(query).getResultList();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Lead> cq = cb.createQuery(Lead.class);
+        Root<Lead> lead = cq.from(Lead.class);
+        cq.select(lead).where(cb.equal(lead.get("clientStatus"), "Lead"));
+        TypedQuery<Lead> q = entityManager.createQuery(cq);
+        List<Lead> allTickets = q.getResultList();
+        return allTickets;
     }
+
 
     @Override
     public Lead getLeadById(long id) {
@@ -47,7 +55,7 @@ public class ClientRepository implements IClientRepository {
 
     @Override
     public void updateLead(Lead lead) {
-        updateLead(lead);
+        getUpdatedLead(lead);
         flushAndClear();
     }
 
@@ -57,37 +65,11 @@ public class ClientRepository implements IClientRepository {
     }
 
 
+
+
     // STUDENT
     @Override
-    public void copyLeadToStudent(Lead lead) {
-        Lead newlead = getLeadById(lead.getId());
-        Student student = new Student(
-                newlead.getFirstName(),
-                newlead.getLastName(),
-                newlead.getEmail(),
-                newlead.getPhone(),
-                newlead.getEmergencyPhone(),
-                newlead.getClientStatus(),
-                newlead.getRegistrationFee(),
-                newlead.getCourse(),
-                newlead.getCreatedTime(),
-                newlead.getModifiedTime(),
-                newlead.getLastActivityTime(),
-                newlead.getLeadSource(),
-                newlead.getComments(),
-                newlead.getCurrentlyEmployed(),
-                newlead.getCurrentlyITEmployed(),
-                newlead.getDesiredJob(),
-                newlead.getMailingCity(),
-                newlead.getMailingCountry(),
-                newlead.getMailingState(),
-                newlead.getMailingStreet(),
-                newlead.getMailingZip(),
-                newlead.getPaymentPlan(),
-                newlead.getPlanAgreement(),
-                newlead.getPaymentPlanStatus(),
-                newlead.getRegistrationFeePaid()
-        );
+    public void copyLeadToStudent(Student student) {
         entityManager.persist(student);
     }
 
@@ -103,14 +85,11 @@ public class ClientRepository implements IClientRepository {
 
     @Override
     public boolean leadExists(String email) {
-
         String jpql = "from Lead as a WHERE a.email =:email";
         int count = entityManager.createQuery(jpql).setParameter("email",email).getResultList().size();
 
         return count > 0;
     }
-
-
 
     /////
     @Override
@@ -122,15 +101,15 @@ public class ClientRepository implements IClientRepository {
     }
 
     @Override
-    public Lead getStudentById(long id) {
+    public Student getStudentById(long id) {
 
-        return entityManager.find(Lead.class,id);
+        return entityManager.find(Student.class,id);
     }
 
     @Override
     public void updateStudent(Student student) {
 
-        getUpdatedLead(student);
+        getUpdatedStudent(student);
         flushAndClear();
 
     }
@@ -141,35 +120,61 @@ public class ClientRepository implements IClientRepository {
         entityManager.remove(id);
     }
 
-    //
 
+
+    // HELPER METHODS
 
     private Lead getUpdatedLead(Lead lead) {
 
         Lead newLead = getLeadById(lead.getId());
 
+        // PERSONAL INFO
         newLead.setFirstName(lead.getFirstName());
         newLead.setLastName(lead.getLastName());
         newLead.setEmail(lead.getEmail());
         newLead.setPhone(lead.getPhone());
+        newLead.setEmergencyPhone(lead.getEmergencyPhone());
+
+        // ADDRESS
+        newLead.setMailingStreet(lead.getMailingStreet());
+        newLead.setMailingCity(lead.getMailingCity());
+        newLead.setMailingZip(lead.getMailingZip());
+        newLead.setMailingState(lead.getMailingState());
+        newLead.setMailingCountry(lead.getMailingCountry());
+
+        // ACADEMICS
+        newLead.setCourse(lead.getCourse());
+        newLead.setPaymentPlan(lead.getPaymentPlan());
+        newLead.setPaymentPlanStatus(lead.getPaymentPlanStatus());
+
+        // EMPLOYMENT STATUS
+        newLead.setComments(lead.getComments());
+        newLead.setCurrentlyEmployed(lead.getCurrentlyEmployed());
+        newLead.setCurrentlyITEmployed(lead.getCurrentlyITEmployed());
+        newLead.setDesiredJob(lead.getDesiredJob());
+
+        // CLIENT STATUS
+        newLead.setClientStatus(lead.getClientStatus());
+        newLead.setRegistrationFee(lead.getRegistrationFee());
+        newLead.setLeadStatus(lead.getLeadStatus());
+        newLead.setLeadSource(lead.getLeadSource());
+        newLead.setRegistrationFeePaid(lead.getRegistrationFeePaid());
 
         return newLead;
     }
 
-    private Student updateStudentToLead(Lead lead) {
+    private Student getUpdatedStudent(Student student) {
 
-        Student student = new Student(getLeadById(lead.getId()));
+        Student student1 = getStudentById(student.getId());
 
-        student.setFirstName(lead.getFirstName());
-        student.setLastName(lead.getLastName());
-        student.setEmail(lead.getEmail());
-        student.setPhone(lead.getPhone());
-        student.setEmergencyPhone(lead.getEmergencyPhone());
-        student.setClientStatus(lead.getClientStatus());
-        student.setRegistrationFee(lead.getRegistrationFee());
-        student.setCourse(lead.getCourse());
-        return student;
+        student1 = (Student) getUpdatedLead(student);
+
+        student1.setPayments(student.getPayments());
+        student1.setBalance(student.getBalance());
+        student1.setTotalFee(student.getTotalFee());
+        return student1;
     }
+
 
     private void flushAndClear() {
         entityManager.flush();
@@ -186,11 +191,19 @@ public class ClientRepository implements IClientRepository {
                 .collect(Collectors.toList());
     }
 
+
+
+    //    @Override
+//    public List<Lead> getAllLead() {
+//        String query1 =
+//        "SELECT j FROM Lead j WHERE j.clientStatus = 'Registered' " +
+//                "OR j.clientStatus = 'Interested' ORDER BY j.id";
+//
+//        return (List<Lead>) entityManager.createQuery(query1)
+//                .getResultStream()
+//                .collect(Collectors.toList());
+//    }
+
+
 }
 
-// Query
-
-
-
-
-//

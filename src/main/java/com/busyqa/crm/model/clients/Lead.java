@@ -54,6 +54,7 @@ public class Lead implements Cloneable {
 
 
     // FOR LEADS ONLY
+    private String leadStatus;
     private String leadSource;
     private String comments;
     private Boolean currentlyEmployed;
@@ -78,9 +79,7 @@ public class Lead implements Cloneable {
     public Lead() {
         super();}
 
-
-
-    public Lead(String firstName, String lastName, String email, String phone, String emergencyPhone, String clientStatus, double registrationFee, Course course, LocalDateTime createdTime, LocalDateTime modifiedTime, Instant lastActivityTime, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingCity, String mailingCountry, String mailingState, String mailingStreet, String mailingZip, String paymentPlan, File planAgreement, String paymentPlanStatus, Boolean registrationFeePaid) {
+    public Lead(String firstName, String lastName, String email, String phone, String emergencyPhone, String clientStatus, double registrationFee, Course course, LocalDateTime createdTime, LocalDateTime modifiedTime, Instant lastActivityTime, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingCity, String mailingCountry, String mailingState, String mailingStreet, String mailingZip, String paymentPlan, File planAgreement, String paymentPlanStatus, Boolean registrationFeePaid) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -92,6 +91,7 @@ public class Lead implements Cloneable {
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.lastActivityTime = lastActivityTime;
+        this.leadStatus = leadStatus;
         this.leadSource = leadSource;
         this.comments = comments;
         this.currentlyEmployed = currentlyEmployed;
@@ -108,6 +108,7 @@ public class Lead implements Cloneable {
         this.registrationFeePaid = registrationFeePaid;
     }
 
+
     //    public void addCourse(Course course) {
 //        this.courses.add(course);
 //    }
@@ -116,14 +117,17 @@ public class Lead implements Cloneable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
+    public String getLeadStatus() {
+        return leadStatus;
+    }
+
+    public void setLeadStatus(String leadStatus) {
+        this.leadStatus = leadStatus;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

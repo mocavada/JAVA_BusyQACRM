@@ -19,6 +19,7 @@ public interface IAcademicsRepository {
     Course getCourseById(int id);
     void updateCourse(Course course);
     void deleteCourseById(int id);
+    void addClassToCourse(int classId, int courseId);
 
 
 }

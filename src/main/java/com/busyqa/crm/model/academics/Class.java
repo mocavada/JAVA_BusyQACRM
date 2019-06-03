@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
     @Column(unique=true)
     private String name;
     private String description;
@@ -27,14 +27,14 @@ public class Class {
     public Class() {
     }
 
-    public Class(int units, String name, String description, Course course) {
-        this.units = units;
+    public Class(String name, String description, int units, Course course) {
         this.name = name;
         this.description = description;
+        this.units = units;
         this.course = course;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

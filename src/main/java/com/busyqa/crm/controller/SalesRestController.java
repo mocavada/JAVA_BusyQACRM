@@ -121,12 +121,10 @@ public class SalesRestController {
     // CLASS SERVICE CONTROLLERS
     ///////////////////
 
-    @PostMapping("addclass")
-    public ResponseEntity<Void> addClass(@RequestBody Class classes, UriComponentsBuilder builder) {
-        academicsService.addClass(classes);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("addclass/{id}").buildAndExpand(classes.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    @PutMapping("course/{classId}/{courseId}")
+    public ResponseEntity<Void> addClassToCourse(@PathVariable("classId") Integer classId, @PathVariable("courseId") Integer courseId, UriComponentsBuilder builder) {
+        academicsService.addClass(classId, courseId);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

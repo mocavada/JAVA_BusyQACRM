@@ -138,14 +138,13 @@ public class Course {
     }
 
     // CUSTOM METHODS
-    public void addClass(Class classEntry) {
-        classes.add(classEntry);
-        classEntry.setCourse(this);
+    public void addClass(Class newClass) {
+        this.classes.add(newClass);
+
     }
 
     public void removeClass(Class classEntry) {
-        classes.remove(classEntry);
-        classEntry.setCourse(this);
+        this.classes.remove(classEntry);
     }
 
 }

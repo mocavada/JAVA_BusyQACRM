@@ -41,11 +41,40 @@ public class ClientsService {
 
     // STUDENT //
     public synchronized boolean copyLeadToStudent(Lead lead)  {
+        Lead newlead = getLeadById(lead.getId());
 
-        if (clientRepository.studentExists(lead.getEmail())) {
+        Student student = new Student(
+            newlead.getFirstName(),
+            newlead.getLastName(),
+            newlead.getEmail(),
+            newlead.getPhone(),
+            newlead.getEmergencyPhone(),
+            newlead.getClientStatus(),
+            newlead.getRegistrationFee(),
+            newlead.getCourse(),
+            newlead.getCreatedTime(),
+            newlead.getModifiedTime(),
+            newlead.getLastActivityTime(),
+            newlead.getLeadStatus(),
+            newlead.getLeadSource(),
+            newlead.getComments(),
+            newlead.getCurrentlyEmployed(),
+            newlead.getCurrentlyITEmployed(),
+            newlead.getDesiredJob(),
+            newlead.getMailingCity(),
+            newlead.getMailingCountry(),
+            newlead.getMailingState(),
+            newlead.getMailingStreet(),
+            newlead.getMailingZip(),
+            newlead.getPaymentPlan(),
+            newlead.getPlanAgreement(),
+            newlead.getPaymentPlanStatus(),
+            newlead.getRegistrationFeePaid());
+
+        if (clientRepository.studentExists(student.getEmail())) {
             return false;
         } else {
-            clientRepository.copyLeadToStudent(lead);
+            clientRepository.copyLeadToStudent(student);
             return true;
         }
     }
@@ -53,7 +82,5 @@ public class ClientsService {
 
     public List<Student> getAllStudent() { return clientRepository.getAllStudent(); }
 
-
-
-
 }
+

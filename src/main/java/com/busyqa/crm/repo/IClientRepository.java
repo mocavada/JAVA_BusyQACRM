@@ -22,7 +22,7 @@ public interface IClientRepository {
 
     // STUDENT
 
-    void copyLeadToStudent(Lead lead);
+    void copyLeadToStudent(Student student);
 
     boolean leadExists(String email);
 
@@ -30,7 +30,7 @@ public interface IClientRepository {
 
     List<Student> getAllStudent();
 
-    Lead getStudentById(long id);
+    Student getStudentById(long id);
 
     void updateStudent(Student student);
 
