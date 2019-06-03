@@ -1,35 +1,47 @@
 package com.busyqa.crm.model.academics;
 
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+
+import com.busyqa.crm.model.clients.Lead;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
 @Table(name = "COURSES")
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="course_id")
+    private Integer id;
     private String name;
     private String description;
     private String location;
     private String trainer;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = PERSIST)
     private List<Class> classes = new ArrayList<>();
 
+
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(referencedColumnName = "id")
+//    private Lead lead;
+
+    // DATES
     @Basic
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Calendar startDate;
     @Basic
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Calendar endDate;
 
     //
@@ -46,9 +58,10 @@ public class Course {
         this.endDate = endDate;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
+
 
     public String getName() {
         return name;
@@ -74,9 +87,6 @@ public class Course {
         this.location = location;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Calendar getStartDate() {
         return startDate;
@@ -109,6 +119,9 @@ public class Course {
     public void setTrainer(String trainer) {
         this.trainer = trainer;
     }
+
+
+
 
     @Override
     public String toString() {

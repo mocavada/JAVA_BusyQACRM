@@ -4,7 +4,10 @@ import com.busyqa.crm.model.finance.Payment;
 
 import java.util.List;
 
-public interface IPaymentRepository {
+
+public interface IFinanceRepository {
+
+    // PAYMENT
     List<Payment> getAllPayment();
     void addPayment(Payment payment);
     Payment getPaymentById(long id);

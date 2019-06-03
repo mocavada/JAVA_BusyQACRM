@@ -1,18 +1,25 @@
 package com.busyqa.crm.model.academics;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CLASSES")
+@Table(name = "CLASSES",
+       uniqueConstraints = {
+       @UniqueConstraint(columnNames = {"name"}),
+})
 public class Class {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int units;
+    @Column(unique=true)
     private String name;
     private String description;
+    private int units;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
 

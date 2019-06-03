@@ -1,14 +1,18 @@
 package com.busyqa.crm.model.clients;
 
-import com.busyqa.crm.model.academics.Class;
 import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.finance.Payment;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.io.File;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 
 @Entity
 @Table(name="STUDENTS")
@@ -21,22 +25,16 @@ public class Student extends Lead {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Payment> payments = new ArrayList<>();
 
+    public Student(Lead lead) {
 
-    public Student() {
         super();
     }
 
-    public Student(double totalFee, double balance, List<Payment> payments) {
-        this.totalFee = totalFee;
-        this.balance = balance;
-        this.payments = payments;
+    public Student() {
     }
 
-    public Student(String firstName, String lastName, String phone, String email, String status, String leadSource, String comments, double registrationFee, Course course, double totalFee, double balance, List<Payment> payments) {
-        super(firstName, lastName, phone, email, status, leadSource, comments, registrationFee, course);
-        this.totalFee = totalFee;
-        this.balance = balance;
-        this.payments = payments;
+    public Student(String firstName, String lastName, String email, String phone, String emergencyPhone, String clientStatus, double registrationFee, Course course, LocalDateTime createdTime, LocalDateTime modifiedTime, Instant lastActivityTime, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingCity, String mailingCountry, String mailingState, String mailingStreet, String mailingZip, String paymentPlan, File planAgreement, String paymentPlanStatus, Boolean registrationFeePaid) {
+        super(firstName, lastName, email, phone, emergencyPhone, clientStatus, registrationFee, course, createdTime, modifiedTime, lastActivityTime, leadSource, comments, currentlyEmployed, currentlyITEmployed, desiredJob, mailingCity, mailingCountry, mailingState, mailingStreet, mailingZip, paymentPlan, planAgreement, paymentPlanStatus, registrationFeePaid);
     }
 
     public double getTotalFee() {

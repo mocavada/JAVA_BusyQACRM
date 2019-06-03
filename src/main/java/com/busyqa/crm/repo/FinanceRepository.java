@@ -1,6 +1,5 @@
 package com.busyqa.crm.repo;
 
-import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.model.finance.Payment;
 import org.springframework.stereotype.Repository;
 
@@ -12,14 +11,14 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Repository
-public class PaymentRepositoryRepository implements IPaymentRepository {
+public class FinanceRepository implements IFinanceRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public List<Payment> getAllPayment() {
-        String jpql = "SELECT j FROM Student j ORDER BY j.id";
+        String jpql = "SELECT j FROM Payment j ORDER BY j.id";
 
         return (List<Payment>) entityManager.createQuery(jpql)
                 .getResultStream()
@@ -44,7 +43,6 @@ public class PaymentRepositoryRepository implements IPaymentRepository {
         updatePayment.setStudent(payment.getStudent());
 
         entityManager.flush();
-
     }
 
     @Override
