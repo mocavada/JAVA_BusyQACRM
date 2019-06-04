@@ -208,6 +208,17 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "GET /sales/lead/3",
+			"request": {
+				"url": "http://localhost:8080/sales/lead/3",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
