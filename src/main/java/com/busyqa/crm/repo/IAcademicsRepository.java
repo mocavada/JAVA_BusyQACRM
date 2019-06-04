@@ -13,6 +13,8 @@ public interface IAcademicsRepository {
     void updateClass(Class classes);
     void deleteClassById(int id);
 
+
+
     // COURSE
     List<Course> getAllCourse();
     void addCourse(Course course);
@@ -20,6 +22,8 @@ public interface IAcademicsRepository {
     void updateCourse(Course course);
     void deleteCourseById(int id);
     void addClassToCourse(int classId, int courseId);
+
+    boolean courseExist(String name);
 
 
 }

@@ -13,15 +13,17 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ALL")
 @Transactional
 @Repository
-public class ClientRepository implements IClientRepository {
+public class ClientsRepository implements IClientsRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public void addClient(Client client) {
+        client.setClientStatus("Lead");
         entityManager.persist(client);
     }
 
@@ -33,10 +35,23 @@ public class ClientRepository implements IClientRepository {
                 .collect(Collectors.toList());
     }
 
+
     @Override
-    public Client getClientById(long id) {
-        return entityManager.find(Client.class,id);
+    public Client getClientById(int id) {
+        return entityManager.find(Client.class, id);
     }
+
+    @Override
+    public Client getClientByEmail(String email) {
+        Client client = entityManager
+                .createQuery("SELECT u from Client u WHERE u.email = :email", Client.class)
+                .setParameter("email", email)
+                .getSingleResult();
+
+        return client;
+
+    }
+
 
     @Override
     public List<Client> getAllLead() {
@@ -70,9 +85,20 @@ public class ClientRepository implements IClientRepository {
         flushAndClear();
     }
 
+
+    @Override
+    public void saveLeadToStudent(Client client) {
+
+        Client newClient = getClientById(client.getId());
+        Client student = getUpdatedLead(newClient);
+        student.setClientStatus("Student");
+        flushAndClear();
+//        entityManager.merge(client);
+    }
+
     @Override
     public void updateStudent(Client client) {
-        getUpdatedLead(client);
+        getUpdatedStudent(client);
         flushAndClear();
     }
 
@@ -83,53 +109,94 @@ public class ClientRepository implements IClientRepository {
 
     @Override
     public boolean clientExist(String email) {
-        String jpql = "from Student as a WHERE a.email =:email";
+        String jpql = "from Client as a WHERE a.email =: email";
         int count = entityManager.createQuery(jpql)
                 .setParameter("email",email)
                 .getResultList().size();
         return count > 0;
     }
 
+
+
+
+    //////////////////
     // HELPER METHODS
+    //////////////////
+
     private Client getUpdatedLead(Client client) {
 
-        Client newClient = getClientById(client.getId());
+        Client lead = getClientById(client.getId());
 
         // PERSONAL INFO
-        newClient.setFirstName(client.getFirstName());
-        newClient.setLastName(client.getLastName());
-        newClient.setEmail(client.getEmail());
-        newClient.setPhone(client.getPhone());
-        newClient.setEmergencyPhone(client.getEmergencyPhone());
+        lead.setFirstName(client.getFirstName());
+        lead.setLastName(client.getLastName());
+        lead.setEmail(client.getEmail());
+        lead.setPhone(client.getPhone());
+        lead.setEmergencyPhone(client.getEmergencyPhone());
 
         // ADDRESS
-        newClient.setMailingStreet(client.getMailingStreet());
-        newClient.setMailingCity(client.getMailingCity());
-        newClient.setMailingZip(client.getMailingZip());
-        newClient.setMailingState(client.getMailingState());
-        newClient.setMailingCountry(client.getMailingCountry());
+        lead.setMailingStreet(client.getMailingStreet());
+        lead.setMailingCity(client.getMailingCity());
+        lead.setMailingZip(client.getMailingZip());
+        lead.setMailingState(client.getMailingState());
+        lead.setMailingCountry(client.getMailingCountry());
 
         // ACADEMICS
-        newClient.setCourse(client.getCourse());
-        newClient.setPaymentPlan(client.getPaymentPlan());
-        newClient.setPaymentPlanStatus(client.getPaymentPlanStatus());
+        lead.setCourse(client.getCourse());
+        lead.setPaymentPlan(client.getPaymentPlan());
+        lead.setPaymentPlanStatus(client.getPaymentPlanStatus());
 
         // EMPLOYMENT STATUS
-        newClient.setComments(client.getComments());
-        newClient.setCurrentlyEmployed(client.getCurrentlyEmployed());
-        newClient.setCurrentlyITEmployed(client.getCurrentlyITEmployed());
-        newClient.setDesiredJob(client.getDesiredJob());
+        lead.setComments(client.getComments());
+        lead.setCurrentlyEmployed(client.getCurrentlyEmployed());
+        lead.setCurrentlyITEmployed(client.getCurrentlyITEmployed());
+        lead.setDesiredJob(client.getDesiredJob());
 
         // CLIENT STATUS
-        newClient.setClientStatus(client.getClientStatus());
-        newClient.setRegistrationFee(client.getRegistrationFee());
-        newClient.setLeadStatus(client.getLeadStatus());
-        newClient.setLeadSource(client.getLeadSource());
-        newClient.setRegistrationFeePaid(client.getRegistrationFeePaid());
+        lead.setRegistrationFee(client.getRegistrationFee());
+        lead.setLeadStatus(client.getLeadStatus());
+        lead.setLeadSource(client.getLeadSource());
+        lead.setRegistrationFeePaid(client.getRegistrationFeePaid());
 
-        return newClient;
+        return lead;
     }
 
+    private Client getUpdatedStudent(Client client) {
+
+        Client student = getClientById(client.getId());
+
+        // PERSONAL INFO
+        student.setFirstName(client.getFirstName());
+        student.setLastName(client.getLastName());
+        student.setEmail(client.getEmail());
+        student.setPhone(client.getPhone());
+        student.setEmergencyPhone(client.getEmergencyPhone());
+
+        // ADDRESS
+        student.setMailingStreet(client.getMailingStreet());
+        student.setMailingCity(client.getMailingCity());
+        student.setMailingZip(client.getMailingZip());
+        student.setMailingState(client.getMailingState());
+        student.setMailingCountry(client.getMailingCountry());
+
+        // ACADEMICS
+        student.setPaymentPlan(client.getPaymentPlan());
+        student.setPaymentPlanStatus(client.getPaymentPlanStatus());
+
+
+        // CLIENT STATUS
+
+        student.setRegistrationFee(client.getRegistrationFee());
+        student.setLeadStatus(client.getLeadStatus());
+        student.setLeadSource(client.getLeadSource());
+        student.setRegistrationFeePaid(client.getRegistrationFeePaid());
+
+        student.setTotalFee(client.getTotalFee());
+        student.setBalance(client.getBalance());
+        student.setPayments(client.getPayments());
+
+        return student;
+    }
 
     private void flushAndClear() {
         entityManager.flush();

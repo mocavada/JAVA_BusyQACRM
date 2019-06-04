@@ -1,0 +1,15 @@
+<h3 class="mt-2">VIEW LEADS</h3>
+<div class="list-group m-1" *ngFor="let item of leadList; let i = index">
+    <a [routerLink]="['/dashboard/sales/lead',item.email]" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="m-0 p-0 my-auto d-flex w-100 justify-content-between">
+            <p class="text-success"><b>Status:</b><small>{{item.leadStatus}}</small></p>
+            <h5 class="">{{item.firstName}} {{item.lastName}}</h5>
+            <p><small><fa-icon icon="envelope"></fa-icon></small>  {{item.email}}</p>
+            <p><small><fa-icon icon="phone"></fa-icon></small>  {{item.phone}}</p>
+            <small>Last Updated: {{item.modifiedTime | date: 'dd/MM/yyyy'}}</small>
+            <p class=""><b>Comments:  </b><small>{{item.comments}}</small></p>
+            <fa-icon class="text-success" icon="pen"></fa-icon>
+        </div> 
+      </a>
+</div>
+

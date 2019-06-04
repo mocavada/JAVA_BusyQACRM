@@ -17,26 +17,25 @@ public class AdminRestController {
     @Autowired
     private ClientsService clientsService;
 
-    @Autowired
-    private AcademicsService academicsService;
-
+    ///////////////////
+    // CLIENT SERVICE CONTROLLERS
+    ///////////////////
     @GetMapping("clientlist")
     public ResponseEntity<List<Client>> getAllClient() {
         List<Client> list = clientsService.getAllClient();
         return new ResponseEntity<List<Client>>(list, HttpStatus.OK);
     }
 
-    @GetMapping("lead/{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable("id") Long id) {
-        Client client = clientsService.getClientById(id);
-        return new ResponseEntity<Client>(client, HttpStatus.OK);
-    }
 
     @DeleteMapping("deleteclient/{id}")
     public ResponseEntity<Void> deleteClientById(@PathVariable("id") long id ) {
         clientsService.deleteClientById(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
+
+    ///////////////////
+    // USER SERVICE CONTROLLERS
+    ///////////////////
 
 
 

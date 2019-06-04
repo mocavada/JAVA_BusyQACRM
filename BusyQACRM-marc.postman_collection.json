@@ -1,0 +1,213 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BusyQACRM-marc",
+		"_postman_id": "be8b4bae-8316-d057-bae5-3ab501ea8ae3",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /sales/leadslist",
+			"request": {
+				"url": "http://localhost:8080/sales/leadslist",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /sales/lead/2",
+			"request": {
+				"url": "http://localhost:8080/sales/lead/2",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /sales/courselist",
+			"request": {
+				"url": "http://localhost:8080/sales/courselist",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /sales/addcourse",
+			"request": {
+				"url": "http://localhost:8080/sales/addcourse",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"name\": \"Full Stack – Java/Spring\",\n        \"description\": \"This course is designed to give students the theoretical background and practical knowledge and skills required to succeed in the software industry as Full Stack Java Developer.\",\n        \"location\": \"123 Main St., Toronto, ON\",\n        \"trainer\": \"James Uy\",\n        \"startDate\": \"2019-09-14\",\n        \"endDate\": \"2019-09-14\"\n    }\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /sales/addclass",
+			"request": {
+				"url": "http://localhost:8080/sales/addclass",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Multiple Assignees Needed\",\n\t\"description\" : \"There are cases where we need to assign a ticket to more than one person.\",\n\t\"units\": 2,\n\t\"course\": {\"id\":\"1\"}\n\n}\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /sales/updatelead",
+			"request": {
+				"url": "http://localhost:8080/sales/updatelead",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 3,\n\t\"firstName\" : \"Marc\",\n\t\"lastName\" : \"Change\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /sales/updatelead",
+			"request": {
+				"url": "http://localhost:8080/sales/copylead",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 2,\n\t\"firstName\" : \"Bruce\",\n\t\"lastName\" : \"Student\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /audit/studentlist",
+			"request": {
+				"url": "http://localhost:8080/audit/studentlist",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /sales/addlead",
+			"request": {
+				"url": "http://localhost:8080/sales/addlead",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"firstName\": \"Steve\",\n        \"lastName\": \"Cavada\",\n        \"email\": \"Steve@mail.ca\",\n        \"phone\": \"234567890\",\n        \"emergencyPhone\": null,\n        \"registrationFee\": 0,\n        \"course\": {\"id\":7},\n        \"leadSource\": \"Website\",\n        \"comments\": \"Will Call Back Tomorrow\",\n        \"currentlyEmployed\": null,\n        \"currentlyITEmployed\": null,\n        \"desiredJob\": null,\n        \"mailingCity\": null,\n        \"mailingCountry\": null,\n        \"mailingState\": null,\n        \"mailingStreet\": null,\n        \"mailingZip\": null,\n        \"paymentPlan\": null,\n        \"planAgreement\": null,\n        \"paymentPlanStatus\": null,\n        \"registrationFeePaid\": null\n    \n}\n\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /sales/copyleadtostudent",
+			"request": {
+				"url": "http://localhost:8080/sales/copyleadtostudent",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"24\"\n}\n\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /sales/saveleadtostudent",
+			"request": {
+				"url": "http://localhost:8080/sales/saveleadtostudent",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"2\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

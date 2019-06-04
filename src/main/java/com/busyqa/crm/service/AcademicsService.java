@@ -2,6 +2,7 @@ package com.busyqa.crm.service;
 
 import com.busyqa.crm.model.academics.Class;
 import com.busyqa.crm.model.academics.Course;
+import com.busyqa.crm.model.clients.Client;
 import com.busyqa.crm.repo.IAcademicsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,18 @@ public class AcademicsService {
 
     // COURSE //
     public List<Course> getAllCourse() { return academicsRepository.getAllCourse(); }
-    public void addCourse(Course course) { academicsRepository.addCourse(course); }
+
+
+    public synchronized boolean addCourse(Course course) {
+        if( academicsRepository.courseExist(course.getName())) {
+            return false;
+        } else {
+            academicsRepository.addCourse(course);
+            return true;
+        }
+    }
+
+
     public void updateCourse(Course course) { academicsRepository.updateCourse(course); }
     public Course getCourseById(int id) { return academicsRepository.getCourseById(id); }
     public void deleteCourseById(int id) { academicsRepository.deleteCourseById(id); }

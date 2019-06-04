@@ -1,0 +1,49 @@
+1. CLASS
+POST http://localhost:8080/sales/addclass
+{
+	"name": "Multiple Assignees Needed",
+	"description" : "There are cases where we need to assign a ticket to more than one person.",
+	"units": 1,
+	"course": {"id":"1"}
+}
+
+2. COURSE
+POST http://localhost:8080/sales/addcourse
+{
+    "name": "Full Stack – Java/Spring with Angular + Co-op",
+    "description": "This course is designed to give students the theoretical background and practical knowledge and skills required to succeed in the software industry as Full Stack Java Developer.",
+    "location": "123 Main St., Toronto, ON",
+    "trainer": "James Uy",
+    "startDate": "2019-09-14",
+    "endDate": "2019-09-14",
+}
+
+
+3. LEAD
+POST http://localhost:8080/sales/addlead
+{
+        "firstName": "Marc",
+        "lastName": "Cavada",
+        "email": "marc@mail.ca",
+        "phone": "234567890",
+        "emergencyPhone": null,
+        "clientStatus": "Interested",
+        "registrationFee": 0,
+        "course": {"id":7},
+        "leadSource": "Website",
+        "comments": "Will Call Back Tomorrow",
+        "currentlyEmployed": null,
+        "currentlyITEmployed": null,
+        "desiredJob": null,
+        "mailingCity": null,
+        "mailingCountry": null,
+        "mailingState": null,
+        "mailingStreet": null,
+        "mailingZip": null,
+        "paymentPlan": null,
+        "planAgreement": null,
+        "paymentPlanStatus": null,
+        "registrationFeePaid": null
+
+}
+

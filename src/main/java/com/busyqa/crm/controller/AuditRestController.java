@@ -17,11 +17,12 @@ public class AuditRestController {
     @Autowired
     private ClientsService clientsService;
 
-    @Autowired
-    private AcademicsService academicsService;
 
 
-    @GetMapping("studentlist")
+    ///////////////////
+    // STUDENT SERVICE CONTROLLERS
+    ///////////////////
+    @GetMapping("studentslist")
     public ResponseEntity<List<Client>> getAllStudent() {
         List<Client> list = clientsService.getAllStudent();
         return new ResponseEntity<List<Client>>(list, HttpStatus.OK);

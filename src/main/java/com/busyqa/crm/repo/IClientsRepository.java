@@ -4,20 +4,20 @@ import com.busyqa.crm.model.clients.Client;
 
 import java.util.List;
 
-public interface IClientRepository {
-
+public interface IClientsRepository {
 
     // CLIENT
     void addClient(Client client);
     List<Client> getAllClient();
-    Client getClientById(long id);
-
+    Client getClientById(int id);
+    Client getClientByEmail(String email);
 
     List<Client> getAllLead();
     List<Client> getAllStudent();
-
-
     void updateLead(Client client);
+
+
+    void saveLeadToStudent(Client client);
     void updateStudent(Client client);
 
     void deleteClientById(long id);
@@ -26,7 +26,7 @@ public interface IClientRepository {
     boolean clientExist(String email);
 
 
-
+}
 
 
 
@@ -44,4 +44,4 @@ public interface IClientRepository {
 
 
 
-}
+

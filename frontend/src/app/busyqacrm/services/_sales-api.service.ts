@@ -1,0 +1,96 @@
+import { Client } from '../model/client';
+import { Lead } from '../model/lead';
+import { LeadRequest } from '../model/lead-request';
+import { TokenStorageService } from '../auth/token-storage.service';
+import { User } from '../model/user';
+import { ApiResponse } from '../model/api-response';
+import { environment } from '../../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SalesApiService {
+  salesApiUrl = environment.serverAddress + '/sales';
+  clientResult$ = new BehaviorSubject <[Client]>(null);
+
+  info: any;
+
+  constructor(private http: HttpClient,
+              private token: TokenStorageService) { }
+
+  getLeadsList() {
+    this.http.get<[Client]>(this.salesApiUrl + '/leadslist').subscribe(data => {
+      this.clientResult$.next(data);
+    }, err => {
+      console.log('Something Wrong Getting Leads List! ' + err);
+    });
+  }
+
+  getLeadByEmail(email: string) {
+    return this.http.get(this.salesApiUrl + '/lead/' + email);
+  }
+
+
+  // addLead(entry: Client) {
+
+  //   this.http
+  //     .post<[Client]>(this.salesApiUrl + '/updatelead/', entry)
+  //     .subscribe(data => {
+  //       this.clientResult$.next(data);
+  //       console.log(data);
+  //     }, err => {
+  //       console.log('Something wrong in Posting Data');
+  //   });
+  // }
+
+  // updateLead(entry: Client) {
+  //     const body = JSON.stringify(entry);
+  //     return this.http.put(this.salesApiUrl + '/updatelead/', entry);
+  // }
+
+  // deleteClient(id: number) {
+  //   return this.http.delete(this.salesApiUrl + '/deleteclient/' + id);
+  // }
+
+
+
+
+
+
+  // listLeads() {
+  //   // this.info = {
+  //   //   token: this.token.getToken(),
+  //   //   username: this.token.getUsername(),
+  //   //   authorities: this.token.getAuthorities()
+  //   // };
+  //   return this.http.get(this.pmUrl + '/leads');
+  // }
+
+  // listLeadById(id: number) {
+  //   return this.http.get(this.pmUrl + '/leads/' + id);
+  // }
+
+  // updateLead(id: number, lead: Lead) {
+  //   const body = JSON.stringify(lead);
+  //   return this.http.put(this.pmUrl + '/leads/' + id, lead);
+  // }
+
+  // deleteLead(id: number) {
+  //   return this.http.delete(this.pmUrl + '/leads/' + id);
+  // }
+
+  // changeLeadToStudent(id: number) {
+  //   return this.http.delete(this.pmUrl + '/changeLeadToStudent/' + id);
+  // }
+
+  // signUpLead(leadRequest: LeadRequest): Observable<ApiResponse> {
+  //   return this.http.post<ApiResponse>(this.leadSignUpUrl, leadRequest);
+  // }
+
+
+
+}

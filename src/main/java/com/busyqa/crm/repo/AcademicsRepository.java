@@ -99,4 +99,14 @@ public class AcademicsRepository implements IAcademicsRepository {
         course.addClass(classes);
         entityManager.flush();
     }
+
+
+    @Override
+    public boolean courseExist(String name) {
+        String jpql = "from Client as a WHERE a.name =: name";
+        int count = entityManager.createQuery(jpql)
+                .setParameter("name",name)
+                .getResultList().size();
+        return count > 0;
+    }
 }

@@ -1,7 +1,7 @@
 package com.busyqa.crm.service;
 
 import com.busyqa.crm.model.clients.Client;
-import com.busyqa.crm.repo.IClientRepository;
+import com.busyqa.crm.repo.IClientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +13,9 @@ import java.util.List;
 public class ClientsService {
 
     @Autowired
-    private IClientRepository clientRepository;
+    private IClientsRepository clientRepository;
 
-    ////
     public synchronized boolean addClient(Client client) {
-
         if( clientRepository.clientExist(client.getEmail())) {
             return false;
         } else {
@@ -30,8 +28,14 @@ public class ClientsService {
         return clientRepository.getAllClient();
     }
 
-    public Client getClientById(long id) {
+    public Client getClientById(int id) {
+
         return clientRepository.getClientById(id);
+    }
+
+    public Client getClientByEmail(String email) {
+
+        return clientRepository.getClientByEmail(email);
     }
 
     public List<Client> getAllLead() {
@@ -44,7 +48,11 @@ public class ClientsService {
 
     public void updateLead(Client client) {
         clientRepository.updateLead(client);
+    }
 
+
+    public void saveLeadToStudent(Client client) {
+        clientRepository.saveLeadToStudent(client);
     }
 
     public void updateStudent(Client client) {

@@ -2,6 +2,7 @@ package com.busyqa.crm.model.clients;
 
 import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.finance.Payment;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.File;
+import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,11 +18,12 @@ import java.util.List;
 
 @Entity
 @Table(name="CLIENT")
-public class Client {
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @JsonProperty
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
@@ -65,7 +68,7 @@ public class Client {
     private String paymentPlanStatus;
     private Boolean registrationFeePaid;
 
-    // FOR LEADS ONLY
+    // FOR STUDENTS ONLY
     private double totalFee;
     private double balance;
 
@@ -110,7 +113,7 @@ public class Client {
         this.payments = payments;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 

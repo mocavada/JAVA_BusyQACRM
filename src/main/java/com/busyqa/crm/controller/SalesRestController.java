@@ -33,6 +33,7 @@ public class SalesRestController {
 
         if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         HttpHeaders headers = new HttpHeaders();
+
         headers.setLocation(builder.path("addlead/{id}").buildAndExpand(client.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
@@ -43,10 +44,31 @@ public class SalesRestController {
         return new ResponseEntity<List<Client>>(list, HttpStatus.OK);
     }
 
+//    @GetMapping("lead/{id}")
+//    public ResponseEntity<Client> getApplicationById(@PathVariable("id") Integer id) {
+//        Client client = clientsService.getClientById(id);
+//        return new ResponseEntity<Client>(client, HttpStatus.OK);
+//
+//    }
+
+
+    @GetMapping("lead/{email}")
+    public ResponseEntity<Client> getClientByEmail(@PathVariable("email") String email) {
+        Client client = clientsService.getClientByEmail(email);
+        return new ResponseEntity<Client>(client, HttpStatus.OK);
+
+    }
+
 
     @PutMapping("updatelead")
     public ResponseEntity<Client> updateLead(@RequestBody Client client) {
         clientsService.updateLead(client);
+        return new ResponseEntity<Client>(client, HttpStatus.OK);
+    }
+
+    @PutMapping("saveleadtostudent")
+    public ResponseEntity<Client> saveLeadToStudent(@RequestBody Client client) {
+        clientsService.saveLeadToStudent(client);
         return new ResponseEntity<Client>(client, HttpStatus.OK);
     }
 
@@ -61,8 +83,11 @@ public class SalesRestController {
     }
 
     @PostMapping("addcourse")
-    public ResponseEntity<Void> addCourse(@RequestBody Course course, UriComponentsBuilder builder) {
-        academicsService.addCourse(course);
+    public ResponseEntity<Void> addLead(@RequestBody Course course, UriComponentsBuilder builder) {
+
+        boolean flag = academicsService.addCourse(course);
+
+        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("addcourse/{id}").buildAndExpand(course.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -79,6 +104,8 @@ public class SalesRestController {
         academicsService.updateCourse(course);
         return new ResponseEntity<Course>(course, HttpStatus.OK);
     }
+
+
 
     @DeleteMapping("deletecourse/{id}")
     public ResponseEntity<Void> deleteCourseById(@PathVariable("id") int id ) {
