@@ -63,6 +63,7 @@ public class AcademicsRepository implements IAcademicsRepository {
 
     @Override
     public void addCourse(Course course) {
+
         entityManager.persist(course);
     }
 
@@ -103,7 +104,7 @@ public class AcademicsRepository implements IAcademicsRepository {
 
     @Override
     public boolean courseExist(String name) {
-        String jpql = "from Client as a WHERE a.name =: name";
+        String jpql = "from Course as a WHERE a.name =: name";
         int count = entityManager.createQuery(jpql)
                 .setParameter("name",name)
                 .getResultList().size();

@@ -18,7 +18,7 @@ export class CrmHeaderComponent implements OnInit {
   roles: string[];
   authority: string;
   username: string;
-  private urlRoot = environment.apiUrl;
+  private urlRoot = environment.serverAddress;
   path: any;
 
   title = 'BusyQA';

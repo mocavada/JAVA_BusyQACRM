@@ -1,3 +1,5 @@
+import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
+import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 import { HomeComponent } from './home/home.component';
 import { CrmHeaderComponent } from './header/crm-header.component';
@@ -23,7 +25,6 @@ import { SalesComponent } from './busyqacrm/_sales/sales.component';
 import { LeadsListComponent } from './busyqacrm/_sales/leads-list/leads-list.component';
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
 
 // DEPENDENCIES
 import { BrowserModule } from '@angular/platform-browser';
@@ -54,7 +55,6 @@ library.add(fas, far, fab);
 import { AppComponent } from './app.component';
 
 
-
 @NgModule({
    declarations: [
       AppComponent,
@@ -72,7 +72,9 @@ import { AppComponent } from './app.component';
       StudentsListComponent,
       SalesComponent,
       LeadsListComponent,
-      LeadDetailsComponent
+      LeadDetailsComponent,
+      AddLeadComponent,
+      SearchLeadsComponent
    ],
    imports: [
       BrowserModule,

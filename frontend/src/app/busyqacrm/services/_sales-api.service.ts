@@ -1,3 +1,4 @@
+import { Course } from './../model/course';
 import { Client } from '../model/client';
 import { Lead } from '../model/lead';
 import { LeadRequest } from '../model/lead-request';
@@ -9,14 +10,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class SalesApiService {
   salesApiUrl = environment.serverAddress + '/sales';
   clientResult$ = new BehaviorSubject <[Client]>(null);
-
+  courseResult$ = new BehaviorSubject <[Course]>(null);
   info: any;
 
   constructor(private http: HttpClient,
@@ -33,6 +33,21 @@ export class SalesApiService {
   getLeadByEmail(email: string) {
     return this.http.get(this.salesApiUrl + '/lead/' + email);
   }
+
+  pullCourseList(courseList: [Course]) {
+    this.courseResult$.next(courseList);
+  }
+  getCourseList() {
+    this.http.get<[Course]>(this.salesApiUrl + '/courselist')
+    .subscribe(data => {
+      this.pullCourseList(data);
+    }, err => {
+      console.log('Something Wrong With Getting CourseList');
+    });
+  }
+
+
+
 
 
   // addLead(entry: Client) {

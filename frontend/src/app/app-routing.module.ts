@@ -1,3 +1,5 @@
+import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
+import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 
 
@@ -32,7 +34,9 @@ export const router: Routes = [
       { path: 'admin', component: AdminComponent},
       { path: 'audit', component: AuditComponent },
       { path: 'sales', component: SalesComponent },
-      { path: 'sales/lead/:email', component: LeadDetailsComponent }
+      { path: 'sales/lead/:email', component: LeadDetailsComponent },
+      { path: 'sales/addlead', component: AddLeadComponent },
+      { path: 'sales/searchlead', component: SearchLeadsComponent }
 
     ]}
 

@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.io.File;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -56,17 +56,17 @@ public class Client implements Serializable {
     private String desiredJob;
 
     // ADDRESS
-    private String mailingCity;
-    private String mailingCountry;
-    private String mailingState;
     private String mailingStreet;
+    private String mailingCity;
+    private String mailingState;
     private String mailingZip;
+    private String mailingCountry;
 
     // PLAN
     private String paymentPlan;
-    private File planAgreement;
     private String paymentPlanStatus;
     private Boolean registrationFeePaid;
+    private Boolean planAgreement;
 
     // FOR STUDENTS ONLY
     private double totalFee;
@@ -81,7 +81,7 @@ public class Client implements Serializable {
     public Client() {
         super();}
 
-    public Client(String firstName, String lastName, String email, String phone, String emergencyPhone, String clientStatus, double registrationFee, Course course, LocalDateTime createdTime, LocalDateTime modifiedTime, Instant lastActivityTime, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingCity, String mailingCountry, String mailingState, String mailingStreet, String mailingZip, String paymentPlan, File planAgreement, String paymentPlanStatus, Boolean registrationFeePaid, double totalFee, double balance, List<Payment> payments) {
+    public Client(String firstName, String lastName, String email, String phone, String emergencyPhone, String clientStatus, double registrationFee, Course course, LocalDateTime createdTime, LocalDateTime modifiedTime, Instant lastActivityTime, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, String paymentPlan, String paymentPlanStatus, Boolean registrationFeePaid, Boolean planAgreement, double totalFee, double balance, List<Payment> payments) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -99,15 +99,15 @@ public class Client implements Serializable {
         this.currentlyEmployed = currentlyEmployed;
         this.currentlyITEmployed = currentlyITEmployed;
         this.desiredJob = desiredJob;
-        this.mailingCity = mailingCity;
-        this.mailingCountry = mailingCountry;
-        this.mailingState = mailingState;
         this.mailingStreet = mailingStreet;
+        this.mailingCity = mailingCity;
+        this.mailingState = mailingState;
         this.mailingZip = mailingZip;
+        this.mailingCountry = mailingCountry;
         this.paymentPlan = paymentPlan;
-        this.planAgreement = planAgreement;
         this.paymentPlanStatus = paymentPlanStatus;
         this.registrationFeePaid = registrationFeePaid;
+        this.planAgreement = planAgreement;
         this.totalFee = totalFee;
         this.balance = balance;
         this.payments = payments;
@@ -325,11 +325,11 @@ public class Client implements Serializable {
         this.paymentPlan = paymentPlan;
     }
 
-    public File getPlanAgreement() {
+    public Boolean getPlanAgreement() {
         return planAgreement;
     }
 
-    public void setPlanAgreement(File planAgreement) {
+    public void setPlanAgreement(Boolean planAgreement) {
         this.planAgreement = planAgreement;
     }
 

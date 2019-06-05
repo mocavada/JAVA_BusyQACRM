@@ -2,69 +2,106 @@ main {
     font-family: gibbs, sans-serif;
 }
 
-h3 {
-    font-weight: 200;
-}
+h3 {font-weight: 200;}
+
+li { list-style: none; font-size: 0.8em;}
 
 
 /*  */
-.bg-primary, .btn-primary {
-    background-color: #377bb5;
-    border: inherit;
-  }
+.card-header {
+  width: 100%;
+  padding: 2% 4%;
+}
 
-.add-appointment .card-body {
-    display: none;
-  }
-  
+.add-courses .card-body {
+  display: none;
+}
 
-  .appointment-list {
-    font-size: 1.1em;
-  }
-  
-  .appointment-list .pet-item {
-    border-bottom: 1px dotted gray;
-  }
-  
-  .appointment-list .pet-item:last-child {
-    border-bottom: none;
-  }
-  
-  .appointment-list .pet-name {
-    font-weight: 600;
-    color: #337ab7;
-    font-size: 1em;
-    line-height: 100%;
-  }
-  
-  .appointment-list .label-item {
-    font-weight: 600;
-    color: #667b82;
-    font-size: 1em;
-  }
-  
-  .appointment-list .apt-date {
-    font-style: italic;
-    font-size: 0.8em;
-  }
-  
-  .appointment-list .apt-notes {
-    line-height: 100%;
-  }
-  
-  .dropdown-item.active,
-  .dropdown-item:active {
-    background-color: #a9aeb2;
-  }
+.add-address .card-body {
+  display: none;
+}
 
-  .apt-addheading {
-    cursor: pointer;
-    user-select: none;
-    height: 50px;
-    color: #fff;
-    text-align: left;
-    content: "Reference ";
-  }
+.courses-addheading, .address-addheading {
+  cursor: pointer;
+  user-select: none;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 0 0 20px;
+}
+
+.coursebody { background-color: rgba(127,195,191,0.1)}
+.addressbody { background-color: rgba(234,160,167,0.1)}
+.courses-addheading { background-color: #7fc3bf; }
+.address-addheading { background-color: #eaa0a7; }
+
+/* .appointment-list {
+  font-size: 1.1em;
+}
+
+.appointment-list .pet-item {
+  border-bottom: 1px dotted gray;
+}
+
+.appointment-list .pet-item:last-child {
+  border-bottom: none;
+}
+
+.appointment-list .pet-name {
+  font-weight: 400;
+  color: #337ab7;
+  font-size: 1em;
+  line-height: 100%;
+}
+
+.appointment-list .label-item {
+  font-weight: 400;
+  color: #667b82;
+  font-size: 1em;
+}
+
+.appointment-list .apt-date {
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+.appointment-list .apt-notes {
+  line-height: 100%;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #a9aeb2;
+}
+
+input::placeholder, label {
+  font-size: 14px !important;
+  color: #ababab;
+  font-weight: 400;
+}
+
+.jobpost-section1 div:first-child {
+  padding: 0 2%;
+  margin: 0 auto;
+  border-right: 1px solid #CDCDCD;
+}
+
+.jobpost-section1 div:nth-child(2) {
+  padding: 0 5%;
+  margin: 0 auto;
+}
+
+#postButton {
+    width: 120px;
+    transition: all 0.3s ease;
+}
+
+#postButton:hover {
+    color: #CC3333 !important;
+    background-color: #FFC107 !important;
+    width: 130px;  
+} */
+
+
 
 /* VERY IMPORTANT STYLE */
   * {

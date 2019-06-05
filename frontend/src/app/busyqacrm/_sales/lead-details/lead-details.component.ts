@@ -1,3 +1,4 @@
+import { Course } from './../../model/course';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { Client } from './../../model/client';
 import { SalesApiService } from './../../services/_sales-api.service';
@@ -21,6 +22,10 @@ editForm: FormGroup;
 validMessage = '';
 message: string;
 leadExample: any;
+courseList: Course[];
+showCourse: boolean;
+showAddress: boolean;
+
 
 paymentPlanList = [
   'One_Time_Credit_Card',
@@ -29,11 +34,7 @@ paymentPlanList = [
   'Automated_Weekly',
   'Automated_BiWeekly'
 ];
-paymentPlanStatusList = [
-  'CONFIRMED',
-  'UNCONFIRMED'
-];
-test: any;
+
 
 leadSourceList = [
   'Advertisement',
@@ -51,47 +52,42 @@ leadSourceList = [
   'Web_Research',
   'Chat'
 ];
-leadStatusList = [
-  'CONFIRMED',
-  'UNCONFIRMED'
-];
-currentYear = new Date().getFullYear().toString();
-courseList = [
-  'AUTOMATION_TESTING' ,
-  'DATA_SCIENCE',
-  'SCRUM_MASTER',
-  'SOFTWARE_TESTING',
-  'BUSINESS_ANALYSIS',
-  'CERTIFIED_SCRUM_MASTER',
-  'FULLSTACK_JAVA_DEVELOPER',
-  'PERFORMANCE_TESTING',
-  'AUTOMATION_TESTING_ONLINE',
-  'DATA_SCIENCE_ONLINE',
-  'SOFTWARE_TESTING_ONLINE'
-];
-termList = [
-  'WINTER ' + this.currentYear,
-  'SPRING ' + this.currentYear,
-  'SUMMER ' + this.currentYear,
-  'FALL ' + this.currentYear,
-];
-classList = [];
-
 
 constructor(private salesService: SalesApiService,
             private route: ActivatedRoute,
             private fb: FormBuilder) {
+    this.showCourse = true;
+    this.showAddress = true;
 }
 
   ngOnInit() {
     this.updateForm();
+
+    this.salesService.courseResult$
+    .subscribe(data => {
+      if (data != null) {
+        console.log('Courses' + data);
+        this.courseList = data;
+      }
+    });
+    this.salesService.getCourseList();
+
+
     this.sub = this.route.paramMap.subscribe(
       params => {
         const email = params.get('email');
         this.getLead(email);
       }
     );
+  }
 
+  toggleCourseDisplay() {
+    console.log(this.showCourse);
+    this.showCourse = !this.showCourse;
+  }
+  toggleAddressDisplay() {
+    console.log(this.showAddress);
+    this.showAddress = !this.showAddress;
   }
 
   updateForm() {
@@ -106,12 +102,20 @@ constructor(private salesService: SalesApiService,
       paymentPlanStatus: '',
       leadSource: '',
       leadStatus: '',
+      currentlyEmployed: '',
+      currentlyITEmployed: '',
       comments: '',
-      course: ''
+      course: this.fb.group({
+        id: [0],
+      }),
+      mailingStreet: '',
+      mailingCity: '',
+      mailingState: '',
+      mailingZip: '',
+      mailingCountry: '',
     });
 
   }
-
 
   getLead(email: string): void {
     this.salesService.getLeadByEmail(email)
@@ -132,23 +136,32 @@ constructor(private salesService: SalesApiService,
     this.leadExample = data;
 
     this.editForm.patchValue({
+      // BASIC
       firstName: this.leadExample.firstName,
       lastName: this.leadExample.lastName,
-      phone: this.leadExample.phone,
       email: this.leadExample.email,
-
-      registrationFeePaid: this.leadExample.registrationFeePaid,
-      createdTime: this.leadExample.createdTime,
-      currentlyEmployed: this.leadExample.currentlyEmployed,
-      currentlyITEmployed: this.leadExample.currentlyITEmployed,
-
-      desiredJob: this.leadExample.desiredJob,
+      phone: this.leadExample.phone,
       emergencyPhone: this.leadExample.emergencyPhone,
-      leadStatus: this.leadExample.leadStatus,
-      leadSource: this.leadExample.leadSource,
-
       comments: this.leadExample.comments,
       course: this.leadExample.course,
+      // STATUS
+      registrationFeePaid: this.leadExample.registrationFeePaid,
+      leadStatus: this.leadExample.leadStatus,
+
+      // PROFILE
+      leadSource: this.leadExample.leadSource,
+      currentlyEmployed: this.leadExample.currentlyEmployed,
+      currentlyITEmployed: this.leadExample.currentlyITEmployed,
+      desiredJob: this.leadExample.desiredJob,
+
+      // ADDRESS
+      mailingStreet: this.leadExample.mailingStreet,
+      mailingCity: this.leadExample.mailingCity,
+      mailingState: this.leadExample.mailingState,
+      mailingZip: this.leadExample.mailingZip,
+      mailingCountry: this.leadExample.mailingCountry,
+
+      createdTime: this.leadExample.createdTime,
     });
 
   }
@@ -231,5 +244,6 @@ constructor(private salesService: SalesApiService,
   //   }
 
   // }
- 
+
 }
+
