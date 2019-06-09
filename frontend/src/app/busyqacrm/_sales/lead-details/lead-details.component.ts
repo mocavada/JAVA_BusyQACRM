@@ -104,7 +104,7 @@ constructor(private salesService: SalesApiService,
       comments: '',
       // ACADEMICS
       course: this.fb.group({
-        id: '', name: ''
+        id: [0]
       }),
       // BOOLEAN STATUS
       registrationFeePaid: false,

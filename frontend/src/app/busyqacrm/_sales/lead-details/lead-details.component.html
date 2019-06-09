@@ -2,10 +2,9 @@
 
 <div class="m-3 row">
   <div class="col-3">
-    <p class="m-0"><b>ID</b> {{leadExample.id}}</p>
-    <p class="m-0"><b>Client Status</b> {{leadExample.clientStatus}}</p>
-    
-    <p class="m-0"><b>Status</b> {{leadExample.leadStatus}}</p>
+    <p class="m-0"><b>{{leadExample.id}}</b> </p>
+    <p class="m-0">Client Status: <b>{{leadExample.clientStatus}}</b></p>
+    <p class="m-0">Lead Status: <b>{{leadExample.leadStatus}}</b></p>
     <li>Registration Paid ? <b>{{leadExample.registrationFeePaid}}</b></li>
     <li>Plan Agreement Signed : <b>{{leadExample.planAgreement}}</b></li>
     <li>Amount Paid : <b>{{leadExample.registrationFee}}</b></li>
@@ -28,6 +27,7 @@
     <hr>
     <p class="m-0"><b>Client Profile</b></p>
     <li>Lead Source : <b>{{leadExample.leadSource}}</b></li>
+    <li>Payment Plan : <b>{{leadExample.paymentPlan}}</b></li>
     <li>Desired Job : <b>{{leadExample.desiredJob}}</b></li>
     <li>Currently Employed ? <b>{{leadExample.currentlyEmployed}}</b></li>
     <li>IT Related Job ? <b>{{leadExample.currentlyITEmployed}}</b></li>
@@ -47,9 +47,8 @@
                 </button>
   
                 <button class="btn btn-outline-primary text-center mr-3 my-auto"
-                          style="width:100px;"
-                          type="submit"
-                          [disabled]="!editForm.valid"> UPDATE
+                          style="width:100px;" type="submit"
+                          [disabled]="!editCLientForm.valid"> UPDATE
                 </button>
                 <button class="btn btn-outline-success text-center mr-3 my-auto" 
                           style="width:140px" type="button" title="Change to student"
@@ -158,8 +157,8 @@
               <div class="form-group">
                 <fieldset formGroupName="course">
                 <div class="form-check" *ngFor="let item of courseList; let i = index">
-                  <input class="form-check-input" type="radio" name="name" id="c{{i}}"
-                  [checked]="leadExample.course.id === item.id" formControlName="name" value="{{item.id}}">
+                  <input class="form-check-input" type="radio" name="id" id="c{{i}}"
+                  [checked]="leadExample.course.id === item.id" formControlName="id" value={{item.id}}>
                   <label class="form-check-label" for="c{{i}}"><p>{{item.name}}</p></label>
                 </div>
               </fieldset>

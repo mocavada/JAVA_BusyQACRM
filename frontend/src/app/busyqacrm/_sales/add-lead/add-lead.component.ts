@@ -127,6 +127,7 @@ export class AddLeadComponent implements OnInit {
       this.validMessage = 'Your information has been saved. Thank you!';
       console.log('This form is good to go.');
       this.salesService.postClient(f.value);
+      this.createClientForm.reset();
     } else {
       console.log(f.value);
     }

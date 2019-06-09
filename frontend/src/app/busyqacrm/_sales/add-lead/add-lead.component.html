@@ -101,11 +101,10 @@
                           </label>
                         </div>
                         <label for="exampleFormControlSelect1">Choose Payment Plan</label>
-                        <select class="form-control">
+                        <select class="form-control" formControlName="paymentPlan">
                             <option value="">Select</option>
-                            <option *ngFor="let item of paymentPlanList"
-                            formControlName="paymentPlan" value="item">{{item}}
-                            </option>
+                            <option *ngFor="let item of paymentPlanList" [value]="item">
+                            {{item}}</option>
                         </select>
                   </div>
                   <div class="form-group col-md-6">
@@ -124,12 +123,10 @@
                             </label>
                         </div> 
                         <label for="exampleFormControlSelect1">Choose Lead Source</label>
-                        <select class="form-control">
+                        <select class="form-control" formControlName="leadSource">
                             <option value="">Select</option>
-                            <option *ngFor="let item of leadSourceList"
-                            formControlName="leadSource" value="{{item}}">
-                                    {{item}}
-                            </option>
+                            <option *ngFor="let item of leadSourceList" [value]="item">
+                            {{item}}</option>
                         </select>
                   </div>
                     
