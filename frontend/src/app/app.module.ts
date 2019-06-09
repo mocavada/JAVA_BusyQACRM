@@ -1,6 +1,3 @@
-import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
-import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
-import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 import { HomeComponent } from './home/home.component';
 import { CrmHeaderComponent } from './header/crm-header.component';
 import { BusyQaCrmComponent } from './busyqacrm/busyqacrm.component';
@@ -14,13 +11,16 @@ import { ResetPasswordComponent } from './busyqacrm/auth/reset-password/reset-pa
 // ADMIN
 import { AdminComponent } from './busyqacrm/_admin/admin.component';
 import { UsersListComponent } from './busyqacrm/_admin/users-list/users-list.component';
-import { AddUsersComponent } from './busyqacrm/_admin/add-users/add-users.component';
+import { AddUserComponent } from './busyqacrm/_admin/add-user/add-user.component';
 
 // AUDIT
 import { AuditComponent } from './busyqacrm/_audit/audit.component';
 import { StudentsListComponent } from './busyqacrm/_audit/students-list/students-list.component';
 
 // SALES
+import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
+import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
+import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 import { SalesComponent } from './busyqacrm/_sales/sales.component';
 import { LeadsListComponent } from './busyqacrm/_sales/leads-list/leads-list.component';
 
@@ -67,7 +67,7 @@ import { AppComponent } from './app.component';
       HomeComponent,
       AdminComponent,
       UsersListComponent,
-      AddUsersComponent,
+      AddUserComponent,
       AuditComponent,
       StudentsListComponent,
       SalesComponent,

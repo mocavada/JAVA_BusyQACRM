@@ -1,7 +1,7 @@
-import { Course } from './../../model/course';
+import { Course } from '../../model/course';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
-import { Client } from './../../model/client';
-import { SalesApiService } from './../../services/_sales-api.service';
+import { Client } from '../../model/client';
+import { SalesApiService } from '../../services/_sales-api.service';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -17,7 +17,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 export class AddLeadComponent implements OnInit {
 
   private sub: Subscription;
-  editForm: FormGroup;
+  createClientForm: FormGroup;
   validMessage = '';
   message: string;
   leadExample: any;
@@ -58,7 +58,16 @@ export class AddLeadComponent implements OnInit {
 }
 
   ngOnInit() {
-    this.updateForm();
+    this.createForm();
+
+    this.salesService.courseResult$
+    .subscribe(data => {
+      if (data != null) {
+        console.log(data);
+        this.courseList = data;
+      }
+    });
+    this.salesService.getCourseList();
   }
 
   toggleCourseDisplay() {
@@ -70,24 +79,34 @@ export class AddLeadComponent implements OnInit {
     this.showAddress = !this.showAddress;
   }
 
-  updateForm() {
-    // const formControls = this.rolesArray.map(control => new FormControl(false));
-    this.editForm = this.fb.group({
+  createForm() {
+    this.createClientForm = this.fb.group({
+      // BASIC
+      id: '',
+      clientStatus: '',
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', Validators.required],
-      registrationFeePaid: false,
-      paymentPlan: '',
-      paymentPlanStatus: '',
-      leadSource: '',
-      leadStatus: '',
-      currentlyEmployed: '',
-      currentlyITEmployed: '',
+      emergencyPhone: '',
       comments: '',
+      // ACADEMICS
       course: this.fb.group({
-        id: [0],
+        id: '',
       }),
+      // BOOLEAN STATUS
+      registrationFeePaid: false,
+      planAgreement: false,
+      currentlyEmployed: false,
+      currentlyITEmployed: false,
+      // STATUS
+      leadStatus: '',
+      paymentPlan: '',
+      leadSource: '',
+      // NOT USED
+      desiredJob: '',
+      paymentPlanStatus: '',
+      // ADDRESS
       mailingStreet: '',
       mailingCity: '',
       mailingState: '',
@@ -95,6 +114,16 @@ export class AddLeadComponent implements OnInit {
       mailingCountry: '',
     });
 
+  }
+
+  onSubmit(f) {
+    if (f.valid) {
+      this.validMessage = 'Your information has been saved. Thank you!';
+      console.log('This form is good to go.');
+      this.salesService.postClient(f.value);
+    } else {
+      console.log(f.value);
+    }
   }
 
 }

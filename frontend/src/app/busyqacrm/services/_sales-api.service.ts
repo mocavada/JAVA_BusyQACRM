@@ -37,6 +37,7 @@ export class SalesApiService {
   pullCourseList(courseList: [Course]) {
     this.courseResult$.next(courseList);
   }
+
   getCourseList() {
     this.http.get<[Course]>(this.salesApiUrl + '/courselist')
     .subscribe(data => {
@@ -45,6 +46,41 @@ export class SalesApiService {
       console.log('Something Wrong With Getting CourseList');
     });
   }
+
+  postClient(client: Client) {
+    this.http
+    .post<any>(this.salesApiUrl + '/addlead', client)
+    .subscribe(data => {
+      console.log(data);
+      this.clientResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Post Client' + err);
+    });
+  }
+
+  // updateLead(client: Client) {
+  //   return this.http
+  //   .patch<any>(this.salesApiUrl + '/updatelead', client);
+  // }
+
+  updateLead(client: Client) {
+    return this.http
+    .patch<any>(this.salesApiUrl + '/updatelead', client)
+    .subscribe(data => {
+      console.log(data);
+      this.clientResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Post Client' + err);
+    });
+  }
+
+
+  updateLeadLead(email: string, client: Client) {
+    const body = JSON.stringify(client);
+    return this.http.put(this.salesApiUrl + '/updateleadlead/' + email, client);
+  }
+
+
 
 
 

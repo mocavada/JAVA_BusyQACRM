@@ -2,6 +2,8 @@ package com.busyqa.crm.controller;
 
 import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.clients.Client;
+import com.busyqa.crm.model.clients.DTOClientRequest;
+import com.busyqa.crm.model.clients.DTOClientResponse;
 import com.busyqa.crm.service.AcademicsService;
 import com.busyqa.crm.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class SalesRestController {
     ///////////////////
     // LEAD SERVICE CONTROLLERS
     ///////////////////
+
+
     @PostMapping("addlead")
     public ResponseEntity<Void> addLead(@RequestBody Client client, UriComponentsBuilder builder) {
 
@@ -51,7 +55,6 @@ public class SalesRestController {
 //
 //    }
 
-
     @GetMapping("lead/{email}")
     public ResponseEntity<Client> getClientByEmail(@PathVariable("email") String email) {
         Client client = clientsService.getClientByEmail(email);
@@ -59,11 +62,16 @@ public class SalesRestController {
 
     }
 
+//
+//    @PutMapping("updatelead")
+//    public ResponseEntity<Client> updateLead(@RequestBody Client client) {
+//        clientsService.updateLead(client);
+//        return new ResponseEntity<Client>(client, HttpStatus.OK);
+//    }
 
-    @PutMapping("updatelead")
-    public ResponseEntity<Client> updateLead(@RequestBody Client client) {
-        clientsService.updateLead(client);
-        return new ResponseEntity<Client>(client, HttpStatus.OK);
+    @PutMapping("updateleadlead/{email}")
+    public ResponseEntity<DTOClientResponse> updateLeadLead(@PathVariable("email") String email, @RequestBody DTOClientRequest leadRequest) {
+        return clientsService.updateLeadLead(email, leadRequest);
     }
 
     @PutMapping("saveleadtostudent")

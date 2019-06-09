@@ -2,15 +2,10 @@ import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-lea
 import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 
-
-
-
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
-
 import { HomeComponent } from './home/home.component';
-
 import { AdminComponent } from './busyqacrm/_admin/admin.component';
 import { AuditComponent } from './busyqacrm/_audit/audit.component';
 import { SalesComponent } from './busyqacrm/_sales/sales.component';
@@ -44,7 +39,7 @@ export const router: Routes = [
     //   { path: '', component: BusyQaCrmComponent, canActivate: [AuthGuardService] },
     //   { path: 'leads', component: LeadsListComponent, canActivate: [AuthGuardService] },
     //   { path: 'students', component: StudentsListComponent, canActivate: [AuthGuardService] },
-    //   { path: 'users', component: UsersListComponent, canActivate: [AuthGuardService] },
+    //   { path: 'auth', component: UsersListComponent, canActivate: [AuthGuardService] },
 
     // ]}
 

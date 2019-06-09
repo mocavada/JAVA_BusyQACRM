@@ -4,12 +4,12 @@
     <div class="col-sm-1 col-md-2">
     </div>
     <div class="col col-centered">
-            <form [formGroup]="editForm" novalidate>
+            <form [formGroup]="createClientForm" (ngSubmit)="onSubmit(createClientForm)">
               <div *ngIf="validMessage != ''">
                 <h3 class="has-info">{{validMessage}}</h3>
               </div>
     
-              <!-- SAVE BUTTONS -->
+              <!-- HEADER BUTTONS -->
               <div class="form-row mb-4 mt-3">
                 <div class="col-lg-6 col-md-4"></div>
                 <div class="col">
@@ -19,8 +19,7 @@
                   </button>
     
                   <button class="btn btn-outline-success text-center mr-3 my-auto" 
-                            style="width:140px" type="button" title="Change to student"
-                            >SAVE TO LEAD
+                            style="width:140px" type="submit">SAVE TO LEAD
                   </button>
                   </div>
                 </div>
@@ -29,27 +28,27 @@
             <div class="form-row mb-2 mt-2">
                 <div class="form-check form-check-inline col-sm-6 col-md-2">
                     <input class="form-check-input" type="radio" name="radio" id="inlineRadio1" 
-                    value="For Payment">
+                    value="For Payment" formControlName="leadStatus">
                     <label class="form-check-label" for="inlineRadio1"><small>For Payment</small></label>
                   </div>
                   <div class="form-check form-check-inline col-sm-6 col-md-2">
                     <input class="form-check-input" type="radio" name="radio" id="inlineRadio2" 
-                    value="Interested">
+                    value="Interested" formControlName="leadStatus">
                     <label class="form-check-label" for="inlineRadio2"><small>Interested</small></label>
                   </div>
                   <div class="form-check form-check-inline col-sm-6 col-md-2">
                       <input class="form-check-input" type="radio" name="radio" id="inlineRadio3" checked
-                      value="Request Info">
+                      value="Request Info" formControlName="leadStatus">
                       <label class="form-check-label" for="inlineRadio3"><small>Request Info</small></label>
                     </div>
                     <div class="form-check form-check-inline col-sm-6 col-md-2">
                       <input class="form-check-input" type="radio" name="radio" id="inlineRadio4" 
-                      value="For Deletion">
+                      value="For Deletion" formControlName="leadStatus">
                       <label class="form-check-label" for="inlineRadio4"><small>For Deletion</small></label>
                     </div>
             </div>
 
-               <!-- COURSE LIST -->
+              <!-- COURSE LIST -->
           <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
             
               <div class="courses-addheading card-header text-white"
@@ -59,7 +58,8 @@
               <fieldset formGroupName="course">
                 <div class="form-group">
                   <div class="form-check" *ngFor="let item of courseList; let i = index">
-                    <input class="form-check-input" type="radio" id="course{{i}}" value="{{item.id}}">
+                    <input class="form-check-input" type="radio" id="course{{i}}" 
+                    formControlName="id" value="{{i + 1}}">
                     <label class="form-check-label" for="course{{i}}"><p>{{item.name}}</p></label>
                   </div>
                 </div>
@@ -99,7 +99,7 @@
                   <div class="form-group col-md-6">
                       <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="payment1"
-                          value=true
+                          value="true"
                           >
                           <label class="form-check-label" for="payment1">
                             Registration Payed ?
@@ -107,7 +107,7 @@
                         </div>
                         <div class="form-check mb-2">
                             <input class="form-check-input" type="checkbox" id="payment2"
-                           value=true
+                           value="true"
                             >
                             <label class="form-check-label" for="payment2">
                               Plan Agreement Signed ?

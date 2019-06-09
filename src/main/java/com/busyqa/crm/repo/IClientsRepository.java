@@ -1,6 +1,8 @@
 package com.busyqa.crm.repo;
 
 import com.busyqa.crm.model.clients.Client;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -14,16 +16,14 @@ public interface IClientsRepository {
 
     List<Client> getAllLead();
     List<Client> getAllStudent();
-    void updateLead(Client client);
 
+    void deleteClientById(long id);
+    boolean clientExist(String email);
 
+    // FOR DELETE
     void saveLeadToStudent(Client client);
     void updateStudent(Client client);
 
-    void deleteClientById(long id);
-
-
-    boolean clientExist(String email);
 
 
 }

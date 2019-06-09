@@ -27,8 +27,8 @@ export class AuditComponent implements OnInit {
 
 // this.userService.getPmUserByTeam().subscribe(
     //     data => {
-    //       this.users = data.result;
-    //       console.log(this.users);
+    //       this.auth = data.result;
+    //       console.log(this.auth);
     //     },
     //     error => {
     //       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;

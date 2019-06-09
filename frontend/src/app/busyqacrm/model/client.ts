@@ -3,13 +3,14 @@ import { Payment } from './payment';
 
 export class Client {
     id: number;
+    clientStatus: string;
+    leadStatus: string;
     firstName: string;
     lastName: string;
-    email: string;
     phone: string;
+    email: string;
     emergencyPhone: string;
 
-     clientStatus: string;
      registrationFee: number;
      course: Course;
      createdTime: Date;
@@ -17,7 +18,6 @@ export class Client {
      lastActivityTime: any;
 
     // FOR LEADS ONLY
-     leadStatus: string;
      leadSource: string;
      comments: string;
      currentlyEmployed: boolean;

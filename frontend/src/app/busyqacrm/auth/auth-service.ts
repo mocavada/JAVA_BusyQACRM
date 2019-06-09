@@ -18,7 +18,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.serverAddress;
   private loginUrl = this.apiUrl + '/api/auth/signin';
   private signupUrl = this.apiUrl + '/api/auth/signup';
   private resetCredentialUrl = this.apiUrl + '/api/auth/resetpassword/';

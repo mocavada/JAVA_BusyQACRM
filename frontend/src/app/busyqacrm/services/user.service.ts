@@ -45,7 +45,7 @@ export class UserService {
       username: this.token.getUsername(),
       authorities: this.token.getAuthorities()
     };
-    return this.http.get<ApiResponse>(this.adminUrl + '/users/' + this.info.username);
+    return this.http.get<ApiResponse>(this.adminUrl + '/auth/' + this.info.username);
   }
 
   getClientssByTeam(): Observable<ApiResponse> {
@@ -72,7 +72,7 @@ export class UserService {
       username: this.token.getUsername(),
       authorities: this.token.getAuthorities()
     };
-    return this.http.get<ApiResponse>(this.pmUrl + '/users/' + this.info.username);
+    return this.http.get<ApiResponse>(this.pmUrl + '/auth/' + this.info.username);
   }
 
   getUserById(id: number): Observable<ApiResponse> {

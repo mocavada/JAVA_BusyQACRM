@@ -1,5 +1,5 @@
 import { AuthService } from '../../auth/auth-service';
-import { SignUpInfo } from './../../auth/signup-info';
+import { SignUpInfo } from '../../auth/signup-info';
 
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
@@ -13,11 +13,11 @@ import { without, findIndex } from 'lodash';
 
 
 @Component({
-  selector: 'app-add-users',
-  templateUrl: './add-users.component.html',
+  selector: 'app-add-user',
+  templateUrl: './add-user.component.html',
   styleUrls: ['../.././busyqacrm.component.css']
 })
-export class AddUsersComponent implements OnInit {
+export class AddUserComponent implements OnInit {
   showForm: boolean;
 
   editForm: FormGroup;

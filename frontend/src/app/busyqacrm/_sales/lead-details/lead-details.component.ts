@@ -18,7 +18,7 @@ import 'rxjs/add/operator/map';
 export class LeadDetailsComponent implements OnInit {
 
 private sub: Subscription;
-editForm: FormGroup;
+editCLientForm: FormGroup;
 validMessage = '';
 message: string;
 leadExample: any;
@@ -26,7 +26,9 @@ courseList: Course[];
 showCourse: boolean;
 showAddress: boolean;
 
-
+leadStatus = [
+  'For Payment', 'Interested', 'Request Info', 'For Deletion'
+];
 paymentPlanList = [
   'One_Time_Credit_Card',
   'One_Time_Debit_Card_Or_Cash',
@@ -34,7 +36,6 @@ paymentPlanList = [
   'Automated_Weekly',
   'Automated_BiWeekly'
 ];
-
 
 leadSourceList = [
   'Advertisement',
@@ -70,8 +71,8 @@ constructor(private salesService: SalesApiService,
         this.courseList = data;
       }
     });
-    this.salesService.getCourseList();
 
+    this.salesService.getCourseList();
 
     this.sub = this.route.paramMap.subscribe(
       params => {
@@ -91,23 +92,33 @@ constructor(private salesService: SalesApiService,
   }
 
   updateForm() {
-    // const formControls = this.rolesArray.map(control => new FormControl(false));
-    this.editForm = this.fb.group({
+    this.editCLientForm = this.fb.group({
+      // BASIC
+      id: '',
+      clientStatus: '',
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', Validators.required],
-      registrationFeePaid: false,
-      paymentPlan: '',
-      paymentPlanStatus: '',
-      leadSource: '',
-      leadStatus: '',
-      currentlyEmployed: '',
-      currentlyITEmployed: '',
+      emergencyPhone: '',
       comments: '',
+      // ACADEMICS
       course: this.fb.group({
-        id: [0],
+        id: '', name: ''
       }),
+      // BOOLEAN STATUS
+      registrationFeePaid: false,
+      planAgreement: false,
+      currentlyEmployed: false,
+      currentlyITEmployed: false,
+      // STATUS
+      leadStatus: '',
+      paymentPlan: '',
+      leadSource: '',
+      // NOT USED
+      desiredJob: '',
+      paymentPlanStatus: '',
+      // ADDRESS
       mailingStreet: '',
       mailingCity: '',
       mailingState: '',
@@ -129,60 +140,94 @@ constructor(private salesService: SalesApiService,
   }
 
   displayForm(data: any): void {
-    if (this.editForm) {
-      this.editForm.reset();
+    if (this.editCLientForm) {
+      this.editCLientForm.reset();
     }
-
     this.leadExample = data;
 
-    this.editForm.patchValue({
+    this.editCLientForm.patchValue({
       // BASIC
+      id: this.leadExample.id,
+      clientStatus: this.leadExample.clientStatus,
       firstName: this.leadExample.firstName,
       lastName: this.leadExample.lastName,
-      email: this.leadExample.email,
       phone: this.leadExample.phone,
+      email: this.leadExample.email,
       emergencyPhone: this.leadExample.emergencyPhone,
       comments: this.leadExample.comments,
+      // ACADEMICS
       course: this.leadExample.course,
-      // STATUS
+      courseid: this.leadExample.course.id,
+      coursename: this.leadExample.course.name,
+      // BOOLEAN STATUS
       registrationFeePaid: this.leadExample.registrationFeePaid,
-      leadStatus: this.leadExample.leadStatus,
-
-      // PROFILE
-      leadSource: this.leadExample.leadSource,
+      planAgreement: this.leadExample.planAgreement,
       currentlyEmployed: this.leadExample.currentlyEmployed,
       currentlyITEmployed: this.leadExample.currentlyITEmployed,
+      // STATUS
+      leadStatus: this.leadExample.leadStatus,
+      leadSource: this.leadExample.leadSource,
+      paymentPlan: this.leadExample.paymentPlan,
+      // NOT USED
       desiredJob: this.leadExample.desiredJob,
-
+      paymentPlanStatus: this.leadExample.paymentPlanStatus,
       // ADDRESS
       mailingStreet: this.leadExample.mailingStreet,
       mailingCity: this.leadExample.mailingCity,
       mailingState: this.leadExample.mailingState,
       mailingZip: this.leadExample.mailingZip,
       mailingCountry: this.leadExample.mailingCountry,
-
       createdTime: this.leadExample.createdTime,
     });
 
   }
 
-  // updateForm() {
-  //   // const formControls = this.rolesArray.map(control => new FormControl(false));
-  //   this.editForm = this.fb.group({
-  //     firstName: ['', Validators.required],
-  //     lastName: ['', Validators.required],
-  //     phone: ['', Validators.required],
-  //     email: ['', Validators.required],
-  //     registrationFee: 0,
-  //     paymentPlan: '',
-  //     paymentPlanStatus: '',
-  //     leadSource: '',
-  //     leadStatus: '',
-  //     comments: '',
-  //     course: '',
-  //   });
+  onUpdate() {
+    if (this.editCLientForm.valid) {
+      this.validMessage = 'Your information has been updated!';
+      this.salesService
+      .updateLeadLead(this.route.snapshot.params.email, this.editCLientForm.value)
+      .subscribe(
+        data => {
+          this.message = 'The lead has been updated!';
+          return true;
+        },
+        error => {
+          alert('Couldnt update this lead!'); });
+    } else {
+      this.validMessage = 'Please make sure the inputs are valid!';
+    }
+  }
 
+  // onUpdate(editForm: any) {
+  //   if (this.editForm.valid) {
+  //     console.log('This form is good to go.');
+  //     this.salesService.updateLead(editForm.value);
+  //   } else {
+  //     console.log(editForm.value);
+  //   }
   // }
+
+
+
+  // onUpdate(editForm: any) {
+  //   if (this.editForm.valid) {
+  //     this.validMessage = 'Your information has been updated!';
+  //     this.salesService
+  //     .updateLead(this.editForm.value)
+  //     .subscribe(
+  //       data => {
+  //         this.message = 'The lead has been updated!';
+  //         return true;
+  //       },
+  //       error => {
+  //         alert('Couldnt update this lead!'); });
+  //   } else {
+  //     this.validMessage = 'Please make sure the inputs are valid!';
+  //   }
+  // }
+
+
 
   // displayLeadInfo(data: any): void {
   //     if (this.editForm) {
@@ -205,20 +250,6 @@ constructor(private salesService: SalesApiService,
   //   });
   // }
 
-  // onUpdate() {
-  //   if (this.editForm.valid) {
-  //     this.validMessage = 'Your information has been updated!';
-  //     this.salesService.updateLead(this.editForm.value).subscribe(
-  //       data => {
-  //         this.message = 'The lead has been updated!';
-  //         return true;
-  //       },
-  //       error => {
-  //         alert('Couldnt update this lead!'); });
-  //   } else {
-  //     this.validMessage = 'Please make sure the inputs are valid!';
-  //   }
-  // }
 
   // deleteLead() {
   //   if (confirm('Are you sure you want to delete this lead?')) {
@@ -230,7 +261,7 @@ constructor(private salesService: SalesApiService,
   //   }
   // }
 
-  // onConvertToStudent() {
+  onConvertToStudent() {
   // tslint:disable-next-line:max-line-length
   //   if (! this.editForm.value.paidDeposit) {alert('You cannot convert this lead to a student because the deposite has not been paid yet!');
   //   } else {
@@ -241,7 +272,7 @@ constructor(private salesService: SalesApiService,
   //         (error: any) => console.error(error)
   //       );
   //     }
-  //   }
+    }
 
   // }
 

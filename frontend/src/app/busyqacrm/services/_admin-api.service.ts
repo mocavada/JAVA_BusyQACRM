@@ -40,7 +40,7 @@ export class AdminApiService {
     };
     // this is to get information to test in postman
     console.log(this.info.token);
-    return this.http.get<ApiResponse>(this.adminUrl + '/users/' + this.info.username);
+    return this.http.get<ApiResponse>(this.adminUrl + '/auth/' + this.info.username);
   }
 
   getUserByUsername(username: string): Observable<ApiResponse> {
