@@ -94,7 +94,10 @@ import { AppComponent } from './app.component';
    providers: [
       httpInterceptorProviders,
       { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-      JwtHelperService
+      JwtHelperService,
+      // { provide: NG_VALUE_ACCESSOR,
+      //    multi: true,
+      //    useExisting: forwardRef(() => MyControlComponent),}
    ],
    bootstrap: [
       AppComponent

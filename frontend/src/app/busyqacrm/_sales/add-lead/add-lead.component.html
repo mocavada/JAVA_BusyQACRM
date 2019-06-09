@@ -19,33 +19,18 @@
                   </button>
     
                   <button class="btn btn-outline-success text-center mr-3 my-auto" 
-                            style="width:140px" type="submit">SAVE TO LEAD
+                          style="width:140px" value="Post" type="submit">SAVE TO LEAD
                   </button>
                   </div>
                 </div>
                
               <!-- LEAD STATUS -->
-            <div class="form-row mb-2 mt-2">
-                <div class="form-check form-check-inline col-sm-6 col-md-2">
-                    <input class="form-check-input" type="radio" name="radio" id="inlineRadio1" 
-                    value="For Payment" formControlName="leadStatus">
-                    <label class="form-check-label" for="inlineRadio1"><small>For Payment</small></label>
-                  </div>
-                  <div class="form-check form-check-inline col-sm-6 col-md-2">
-                    <input class="form-check-input" type="radio" name="radio" id="inlineRadio2" 
-                    value="Interested" formControlName="leadStatus">
-                    <label class="form-check-label" for="inlineRadio2"><small>Interested</small></label>
-                  </div>
-                  <div class="form-check form-check-inline col-sm-6 col-md-2">
-                      <input class="form-check-input" type="radio" name="radio" id="inlineRadio3" checked
-                      value="Request Info" formControlName="leadStatus">
-                      <label class="form-check-label" for="inlineRadio3"><small>Request Info</small></label>
-                    </div>
-                    <div class="form-check form-check-inline col-sm-6 col-md-2">
-                      <input class="form-check-input" type="radio" name="radio" id="inlineRadio4" 
-                      value="For Deletion" formControlName="leadStatus">
-                      <label class="form-check-label" for="inlineRadio4"><small>For Deletion</small></label>
-                    </div>
+            <div class="form-row mb-2 mt-2" *ngFor="let item of leadStatus; let i = index">
+                <div class="form-check form-check-inline col-2">
+                    <input class="form-check-input" type="radio" name="leadStatus" id="ls{{i}}" 
+                    value="{{item}}" formControlName="leadStatus">
+                    <label class="form-check-label" for="ls{{i}}"><small>{{item}}</small></label>
+                </div>
             </div>
 
               <!-- COURSE LIST -->
@@ -59,7 +44,7 @@
                 <div class="form-group">
                   <div class="form-check" *ngFor="let item of courseList; let i = index">
                     <input class="form-check-input" type="radio" id="course{{i}}" 
-                    formControlName="id" value="{{i + 1}}">
+                    formControlName="id" value="{{item.id}}">
                     <label class="form-check-label" for="course{{i}}"><p>{{item.name}}</p></label>
                   </div>
                 </div>
@@ -68,30 +53,33 @@
             </div>
             
              <!-- BASIC INFO -->
-  
             <label class="mt-2" for="firstName">Full Name</label>    
             <div class="row mb-2">
                 <div class="col">
-                  <input type="text" class="form-control" placeholder="First name">
+                  <input type="text" class="form-control" placeholder="First name"
+                  formControlName="firstName" value="">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" placeholder="Last name">
+                  <input type="text" class="form-control" placeholder="Last name"
+                  formControlName="lastName" value="">
                 </div>
             </div>
     
             <label class="mt-2" for="firstName">Contacts</label>    
             <div class="row">
                 <div class="col">
-                  <input type="text" class="form-control" placeholder="Email Address">
+                  <input type="text" class="form-control" placeholder="Email Address"
+                  formControlName="email" value="">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" placeholder="Phone Number">
+                  <input type="text" class="form-control" placeholder="Phone Number"
+                  formControlName="phone" value="">
                 </div>
              </div>
            
             <div class="mt-3 form-group">
                 <label>Comments:</label>
-                <textarea placeholder="" class="form-control"></textarea>
+                <textarea placeholder="" class="form-control" formControlName="comments"></textarea>
             </div>
   
             <!-- LEAD PROFILE -->
@@ -99,49 +87,47 @@
                   <div class="form-group col-md-6">
                       <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="payment1"
-                          value="true"
-                          >
+                          formControlName="registrationFeePaid" value="true">
                           <label class="form-check-label" for="payment1">
-                            Registration Payed ?
+                            Registration Fee Payed ?
                           </label>
                         </div>
                         <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="payment2"
-                           value="true"
-                            >
-                            <label class="form-check-label" for="payment2">
-                              Plan Agreement Signed ?
-                            </label>
+                          <input class="form-check-input" type="checkbox" id="payment2"
+                          formControlName="planAgreement" value="true"
+                          >
+                          <label class="form-check-label" for="payment2">
+                            Plan Agreement Signed ?
+                          </label>
                         </div>
                         <label for="exampleFormControlSelect1">Choose Payment Plan</label>
                         <select class="form-control">
                             <option value="">Select</option>
                             <option *ngFor="let item of paymentPlanList"
-                            [value]="item">{{item}}
+                            formControlName="paymentPlan" value="item">{{item}}
                             </option>
                         </select>
                   </div>
                   <div class="form-group col-md-6">
                       <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="cEmployed"
-                          value=true  
-                          >
+                          formControlName="currentlyEmployed" value="true">
                           <label class="form-check-label" for="cEmployed">
                             Currently Employed ?
                           </label>
                         </div>
                         <div class="form-check mb-2">
                             <input class="form-check-input" type="checkbox" id="cITEmployed"
-                            value=true>
+                            formControlName="currentlyITEmployed" value="true">
                             <label class="form-check-label" for="cITEmployed">
-                              Working In IT ?
+                              Working in IT ?
                             </label>
                         </div> 
-                        <label for="exampleFormControlSelect1">Choose Payment Plan</label>
-                        <select class="form-control" required>
+                        <label for="exampleFormControlSelect1">Choose Lead Source</label>
+                        <select class="form-control">
                             <option value="">Select</option>
-                            <option *ngFor="let item of paymentPlanList"
-                                    [value]="item">
+                            <option *ngFor="let item of leadSourceList"
+                            formControlName="leadSource" value="{{item}}">
                                     {{item}}
                             </option>
                         </select>

@@ -2,11 +2,11 @@ import { Course } from '../../model/course';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { Client } from '../../model/client';
 import { SalesApiService } from '../../services/_sales-api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, forwardRef } from '@angular/core';
 import {Router} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 
 @Component({
@@ -16,6 +16,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 export class AddLeadComponent implements OnInit {
 
+
   private sub: Subscription;
   createClientForm: FormGroup;
   validMessage = '';
@@ -24,6 +25,10 @@ export class AddLeadComponent implements OnInit {
   courseList: Course[];
   showCourse: boolean;
   showAddress: boolean;
+
+  leadStatus = [
+    'For Payment', 'Interested', 'Request Info', 'For Deletion'
+  ];
 
   paymentPlanList = [
     'One_Time_Credit_Card',
@@ -53,8 +58,9 @@ export class AddLeadComponent implements OnInit {
   constructor(private salesService: SalesApiService,
               private route: ActivatedRoute,
               private fb: FormBuilder) {
-        this.showCourse = true;
-        this.showAddress = true;
+
+          this.showCourse = true;
+          this.showAddress = true;
 }
 
   ngOnInit() {
@@ -116,7 +122,7 @@ export class AddLeadComponent implements OnInit {
 
   }
 
-  onSubmit(f) {
+  onSubmit(f: any) {
     if (f.valid) {
       this.validMessage = 'Your information has been saved. Thank you!';
       console.log('This form is good to go.');
