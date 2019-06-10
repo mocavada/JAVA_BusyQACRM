@@ -23,6 +23,7 @@ import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 import { SalesComponent } from './busyqacrm/_sales/sales.component';
 import { LeadsListComponent } from './busyqacrm/_sales/leads-list/leads-list.component';
+import { AddCourseComponent } from './busyqacrm/_sales/add-course/add-course.component';
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
@@ -74,7 +75,8 @@ import { AppComponent } from './app.component';
       LeadsListComponent,
       LeadDetailsComponent,
       AddLeadComponent,
-      SearchLeadsComponent
+      SearchLeadsComponent,
+      AddCourseComponent
    ],
    imports: [
       BrowserModule,

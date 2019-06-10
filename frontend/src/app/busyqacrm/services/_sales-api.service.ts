@@ -60,6 +60,17 @@ export class SalesApiService {
     });
   }
 
+  postCourse(course: Course) {
+    this.http
+    .post<any>(this.salesApiUrl + '/addcourse', course)
+    .subscribe(data => {
+      console.log(data);
+      this.courseResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Post Course' + err);
+    });
+  }
+
   updateLead(client: Client) {
     return this.http
     .patch<any>(this.salesApiUrl + '/updatelead', client)
