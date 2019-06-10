@@ -88,10 +88,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
-
                 //Enable Default Login System
 //                .httpBasic();
-
 
     }
 

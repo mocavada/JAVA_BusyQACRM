@@ -63,7 +63,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": " {\n        \"name\": \"Full Stack – Java/Spring\",\n        \"description\": \"This course is designed to give students the theoretical background and practical knowledge and skills required to succeed in the software industry as Full Stack Java Developer.\",\n        \"location\": \"123 Main St., Toronto, ON\",\n        \"trainer\": \"James Uy\",\n        \"startDate\": \"2019-09-14\",\n        \"endDate\": \"2019-09-14\"\n    }\n"
+					"raw": " {\n    \"name\": \"Course 6\",\n    \"description\": \"This Certified Scrum Master course is a professional development program designed for anyone considering a career in Agile Project Management.\",\n    \"location\": \"123 Main St., Toronto, ON\",\n    \"trainer\": \"James Uy\",\n    \"startDate\": \"2019-09-14\",\n    \"endDate\": \"2019-09-14\",\n\t\"classes\": [\n\t\t{\"name\": \"Java\", \"description\": \"App added with release\", \"units\": 10},\n\t\t{\"name\": \"PHP\", \"description\": \"App added with release\", \"units\": 10},\n\t\t{\"name\": \"C++\", \"description\": \"App added with release\", \"units\": 10},\n\t\t{\"name\": \"Spring\", \"description\": \"App added with release\", \"units\": 10},\n\t\t{\"name\": \"Ruby\", \"description\": \"App added with release\", \"units\": 10}\n\t\t]\n      \n}\n"
 				},
 				"description": ""
 			},
@@ -103,7 +103,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": 3,\n\t\"firstName\" : \"Marc\",\n\t\"lastName\" : \"Change\"\n}"
+					"raw": "{\n\t\"id\": 11,\n    \"firstName\": \"Cora\",\n    \"lastName\": \"Change\",\n    \"email\": \"Cora@mail.ca\",\n    \"phone\": \"234567890\",\n    \"emergencyPhone\": null,\n    \"clientStatus\": null,\n    \"registrationFee\": 0,\n    \"course\": null,\n    \"createdTime\": null,\n    \"modifiedTime\": null,\n    \"lastActivityTime\": null,\n    \"leadStatus\": \"Request Info\",\n    \"leadSource\": null,\n    \"comments\": null,\n    \"currentlyEmployed\": null,\n    \"currentlyITEmployed\": null,\n    \"desiredJob\": null,\n    \"mailingStreet\": null,\n    \"mailingCity\": null,\n    \"mailingState\": null,\n    \"mailingZip\": null,\n    \"mailingCountry\": null,\n    \"paymentPlan\": null,\n    \"paymentPlanStatus\": null,\n    \"registrationFeePaid\": null,\n    \"planAgreement\": null,\n    \"totalFee\": 0,\n    \"balance\": 0,\n    \"payments\": []\n}"
 				},
 				"description": ""
 			},
@@ -163,7 +163,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"firstName\": \"Steve\",\n        \"lastName\": \"Cavada\",\n        \"email\": \"Steve@mail.ca\",\n        \"phone\": \"234567890\",\n        \"emergencyPhone\": null,\n        \"registrationFee\": 0,\n        \"course\": {\"id\":7},\n        \"leadSource\": \"Website\",\n        \"comments\": \"Will Call Back Tomorrow\",\n        \"currentlyEmployed\": null,\n        \"currentlyITEmployed\": null,\n        \"desiredJob\": null,\n        \"mailingCity\": null,\n        \"mailingCountry\": null,\n        \"mailingState\": null,\n        \"mailingStreet\": null,\n        \"mailingZip\": null,\n        \"paymentPlan\": null,\n        \"planAgreement\": null,\n        \"paymentPlanStatus\": null,\n        \"registrationFeePaid\": null\n    \n}\n\n"
+					"raw": "{\n        \"firstName\": \"Mango\",\n        \"lastName\": \"Man\",\n        \"email\": \"Mango@mail.ca\",\n        \"phone\": \"234567890\",\n        \"emergencyPhone\": \"234567890\",\n        \"registrationFee\": 0,\n        \"course\": {\"id\":13},\n        \"leadSource\": \"Website\",\n        \"leadStatus\": \"For Deletion\",\n        \"comments\": \"Will Call Back Tomrrow\",\n        \"currentlyEmployed\": false,\n        \"currentlyITEmployed\": false,\n        \"desiredJob\": \"Junior Developer\",\n        \"mailingCity\": \"Brampton\",\n        \"mailingCountry\": \"Canada\",\n        \"mailingState\": \"ON\",\n        \"mailingStreet\": \"123 Main St.\",\n        \"mailingZip\": \"L7WS2R\",\n        \"paymentPlan\": \"6 Months Installment\",\n        \"planAgreement\": null,\n        \"paymentPlanStatus\": \"On Schedule\",\n        \"registrationFeePaid\": false\n    \n}\n\n"
 				},
 				"description": ""
 			},

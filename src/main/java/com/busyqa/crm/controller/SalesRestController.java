@@ -92,22 +92,26 @@ public class SalesRestController {
     ///////////////////
     // COURSE SERVICE CONTROLLERS
     ///////////////////
+//
+    @PostMapping("/addcourse")
+    public ResponseEntity<Void> addCourse(@RequestBody Course course, UriComponentsBuilder builder) {
+
+        boolean flag = academicsService.addCourse(course);
+
+        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/addcourse").buildAndExpand(course.getName()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+
     @GetMapping("/courselist")
     public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> list = academicsService.getAllCourse();
         return new ResponseEntity<List<Course>>(list, HttpStatus.OK);
     }
 
-    @PostMapping("/addcourse")
-    public ResponseEntity<Void> addLead(@RequestBody Course course, UriComponentsBuilder builder) {
 
-        boolean flag = academicsService.addCourse(course);
-
-        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/addcourse/{id}").buildAndExpand(course.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-    }
 
     @GetMapping("/course/{id}")
     public ResponseEntity<Course> getCourseById(@PathVariable("id") int id) {
@@ -115,28 +119,28 @@ public class SalesRestController {
         return new ResponseEntity<Course>(course, HttpStatus.OK);
     }
 
-    @PutMapping("/updatecourse")
-    public ResponseEntity<Course> updateCourse(@RequestBody Course course) {
-        academicsService.updateCourse(course);
-        return new ResponseEntity<Course>(course, HttpStatus.OK);
-    }
+//    @PutMapping("/updatecourse")
+//    public ResponseEntity<Course> updateCourse(@RequestBody Course course) {
+//        academicsService.updateCourse(course);
+//        return new ResponseEntity<Course>(course, HttpStatus.OK);
+//    }
 
 
 
-    @DeleteMapping("/deletecourse/{id}")
-    public ResponseEntity<Void> deleteCourseById(@PathVariable("id") int id ) {
-        academicsService.deleteCourseById(id);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    }
+//    @DeleteMapping("/deletecourse/{id}")
+//    public ResponseEntity<Void> deleteCourseById(@PathVariable("id") int id ) {
+//        academicsService.deleteCourseById(id);
+//        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//    }
 
     ///////////////////
     // CLASS SERVICE CONTROLLERS
     ///////////////////
-    @PutMapping("/course/{classId}/{courseId}")
-    public ResponseEntity<Void> addClassToCourse(@PathVariable("classId") Integer classId, @PathVariable("courseId") Integer courseId, UriComponentsBuilder builder) {
-        academicsService.addClass(classId, courseId);
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
+//    @PutMapping("/course/{classId}/{courseId}")
+//    public ResponseEntity<Void> addClassToCourse(@PathVariable("classId") Integer classId, @PathVariable("courseId") Integer courseId, UriComponentsBuilder builder) {
+//        academicsService.addClass(classId, courseId);
+//        return new ResponseEntity<Void>(HttpStatus.OK);
+//    }
 
     ///////////////////
     // EMAIL SERVICE CONTROLLERS

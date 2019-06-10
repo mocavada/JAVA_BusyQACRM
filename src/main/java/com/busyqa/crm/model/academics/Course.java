@@ -10,7 +10,6 @@ import static javax.persistence.CascadeType.PERSIST;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="course_id")
     private Integer id;
     private String name;
     private String description;

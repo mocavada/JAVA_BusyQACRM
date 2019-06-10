@@ -18,17 +18,7 @@ public class AcademicsService {
     private IAcademicsRepository academicsRepository;
 
 
-    // CLASS //
-    public List<Class> getAllClass() { return academicsRepository.getAllClass(); }
-    public void addClass(Class classes) { academicsRepository.addClass(classes); }
-    public void updateClass(Class classes) { academicsRepository.updateClass(classes); }
-    public Class getClassById(long id) { return academicsRepository.getClassById(id); }
-    public void deleteClassById(int id) { academicsRepository.deleteClassById(id); }
-
     // COURSE //
-    public List<Course> getAllCourse() { return academicsRepository.getAllCourse(); }
-
-
     public synchronized boolean addCourse(Course course) {
         if( academicsRepository.courseExist(course.getName())) {
             return false;
@@ -38,13 +28,29 @@ public class AcademicsService {
         }
     }
 
-
-    public void updateCourse(Course course) { academicsRepository.updateCourse(course); }
-    public Course getCourseById(int id) { return academicsRepository.getCourseById(id); }
-    public void deleteCourseById(int id) { academicsRepository.deleteCourseById(id); }
-    public void addClass(int classId, int courseId) {
-        academicsRepository.addClassToCourse(classId,courseId);
+    public void addClass(Integer classId, Integer courseId) {
+        academicsRepository.addClass(classId, courseId);
     }
+
+
+    public List<Course> getAllCourse() {
+        return academicsRepository.getAllCourse(); }
+
+
+
+
+    public Course getCourseById(int id) { return academicsRepository.getCourseById(id); }
+
+
+
+
+
+    // CLASS //
+    public List<Class> getAllClass() { return academicsRepository.getAllClass(); }
+    public void addClass(Class classes) { academicsRepository.addClass(classes); }
+
+    public Class getClassById(long id) { return academicsRepository.getClassById(id); }
+
 
 
 }

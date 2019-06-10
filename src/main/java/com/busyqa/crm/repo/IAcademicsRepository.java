@@ -10,18 +10,16 @@ public interface IAcademicsRepository {
     List<Class> getAllClass();
     void addClass(Class classes);
     Class getClassById(long id);
-    void updateClass(Class classes);
-    void deleteClassById(int id);
 
 
 
     // COURSE
-    List<Course> getAllCourse();
     void addCourse(Course course);
+    void addClass(Integer classId, Integer courseId);
+
+    List<Course> getAllCourse();
+
     Course getCourseById(int id);
-    void updateCourse(Course course);
-    void deleteCourseById(int id);
-    void addClassToCourse(int classId, int courseId);
 
     boolean courseExist(String name);
 

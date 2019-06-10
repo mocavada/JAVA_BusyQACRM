@@ -5,33 +5,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CLASSES",
-       uniqueConstraints = {
-       @UniqueConstraint(columnNames = {"name"}),
-})
+@Table(name = "CLASSES")
 public class Class {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @Column(unique=true)
     private String name;
     private String description;
     private int units;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
-    private Course course;
-
     //
     public Class() {
     }
 
-    public Class(String name, String description, int units, Course course) {
+    public Class(String name, String description, int units) {
         this.name = name;
         this.description = description;
         this.units = units;
-        this.course = course;
     }
 
     public int getId() {
@@ -62,22 +54,13 @@ public class Class {
         this.description = description;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
     @Override
     public String toString() {
         return "Class{" +
                 "id=" + id +
-                ", units=" + units +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", course=" + course +
+                ", units=" + units +
                 '}';
     }
 }

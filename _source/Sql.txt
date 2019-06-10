@@ -1,0 +1,22 @@
+
+
+INSERT INTO USERS (email,password,username)
+VALUES ('admin@mail.ca','$2a$11$cl1i0k2Y8SLZ/N./2MW2v.sqM5f7t4pJEMEYe0wf3ubQxxWWd0wTu','adminmarc');
+
+INSERT INTO USERS (email,password,username)
+VALUES ('auditmarc@mail.ca','$2a$11$cl1i0k2Y8SLZ/N./2MW2v.sqM5f7t4pJEMEYe0wf3ubQxxWWd0wTu','auditmarc');
+
+INSERT INTO USERS (email,password,username)
+VALUES ('salesmarc@mail.ca','$2a$11$cl1i0k2Y8SLZ/N./2MW2v.sqM5f7t4pJEMEYe0wf3ubQxxWWd0wTu','salesmarc');
+
+
+
+INSERT INTO USERS_GROUPS (groups,role,user_id)
+VALUES ('EMPLOYEE','ROLE_ADMIN',1);
+
+
+INSERT INTO USERS_GROUPS (groups,role,user_id)
+VALUES ('EMPLOYEE','ROLE_AUDIT',2);
+
+INSERT INTO USERS_GROUPS (groups,role,user_id)
+VALUES ('EMPLOYEE','ROLE_SALES',3);
