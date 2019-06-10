@@ -12,7 +12,6 @@ export class LeadsListComponent implements OnInit {
 
   leadList: Client[];
 
-
   constructor(private salesService: SalesApiService,
               private router: Router) {
   }

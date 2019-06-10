@@ -20,6 +20,7 @@ export class LeadDetailsComponent implements OnInit {
 private sub: Subscription;
 editCLientForm: FormGroup;
 validMessage = '';
+confirmationMessage = '';
 message: string;
 leadExample: any;
 courseList: Course[];
@@ -199,6 +200,17 @@ constructor(private salesService: SalesApiService,
     }
   }
 
+  onSendPortalLink() {
+    if (confirm('Are you sure you want to send portal link to this lead?')) {
+      this.salesService.sendEmailWithAttachment(this.route.snapshot.params.email)
+      .subscribe(
+        () => this.confirmationMessage = 'The portal link has been sent.',
+        (error: any) => console.error(error)
+      );
+    }
+  }
+
+
   // onUpdate(editForm: any) {
   //   if (this.editForm.valid) {
   //     console.log('This form is good to go.');
@@ -261,18 +273,6 @@ constructor(private salesService: SalesApiService,
   //   }
   // }
 
-  onConvertToStudent() {
-  // tslint:disable-next-line:max-line-length
-  //   if (! this.editForm.value.paidDeposit) {alert('You cannot convert this lead to a student because the deposite has not been paid yet!');
-  //   } else {
-  //     if (confirm('Are you sure you want to change this lead to a student?')) {
-  //       this.deleteLead.changeLeadToStudent(this.route.snapshot.params.email)
-  //       .subscribe(
-  //         () => this.editForm.reset(),
-  //         (error: any) => console.error(error)
-  //       );
-  //     }
-    }
 
   // }
 

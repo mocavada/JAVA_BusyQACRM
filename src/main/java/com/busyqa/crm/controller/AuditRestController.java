@@ -28,11 +28,11 @@ public class AuditRestController {
         return new ResponseEntity<List<Client>>(list, HttpStatus.OK);
     }
 
-    @PutMapping("updatestudent")
-    public ResponseEntity<Client> updateStudent(@RequestBody Client client) {
-        clientsService.updateStudent(client);
-        return new ResponseEntity<Client>(client, HttpStatus.OK);
-    }
+//    @PutMapping("updatestudent")
+//    public ResponseEntity<Client> updateStudent(@RequestBody Client client) {
+//        clientsService.updateStudent(client);
+//        return new ResponseEntity<Client>(client, HttpStatus.OK);
+//    }
 
 
 

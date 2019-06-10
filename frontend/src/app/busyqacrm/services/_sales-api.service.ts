@@ -1,3 +1,4 @@
+import { Mail } from './../model/mail';
 import { Course } from './../model/course';
 import { Client } from '../model/client';
 import { Lead } from '../model/lead';
@@ -9,6 +10,7 @@ import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -58,11 +60,6 @@ export class SalesApiService {
     });
   }
 
-  // updateLead(client: Client) {
-  //   return this.http
-  //   .patch<any>(this.salesApiUrl + '/updatelead', client);
-  // }
-
   updateLead(client: Client) {
     return this.http
     .patch<any>(this.salesApiUrl + '/updatelead', client)
@@ -74,10 +71,19 @@ export class SalesApiService {
     });
   }
 
-
   updateLeadLead(email: string, client: Client) {
     const body = JSON.stringify(client);
     return this.http.put(this.salesApiUrl + '/updateleadlead/' + email, client);
+  }
+
+  sendTemplateEmail(mail: Mail) {
+    return this.http
+    .post(this.salesApiUrl + '/sendEmailWithTemplate/', mail);
+  }
+
+  sendEmailWithAttachment(email: string) {
+    return this.http
+    .get(this.salesApiUrl + '/sendEmailWithAttachment/' + email);
   }
 
 

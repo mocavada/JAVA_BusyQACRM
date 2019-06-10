@@ -50,21 +50,47 @@
                           style="width:100px;" type="submit"
                           [disabled]="!editCLientForm.valid"> UPDATE
                 </button>
+
+                <!-- <button class="btn btn-outline-success text-center mr-3 my-auto" 
+                style="width:140px" type="button" title="Change to student"
+                (click)="onConvertToStudent()">TO STUDENT
+                </button> -->
+
                 <button class="btn btn-outline-success text-center mr-3 my-auto" 
-                          style="width:140px" type="button" title="Change to student"
-                          (click)="onConvertToStudent()">TO STUDENT
+                          style="width:140px" type="button" title="Send Portal Link"
+                          (click)="onSendPortalLink()">SEND LINK
                 </button>
               </div>
 
             <!-- LEAD STATUS -->
-
-            <div class="form-row mb-2 mt-2" *ngFor="let item of leadStatus; let i = index">
-                <div class="form-check form-check-inline col-2">
+            <div class="row"> 
+              <div class="col">
+                <label>Lead Status</label>
+                <div class="form-check" *ngFor="let item of leadStatus; let i = index">
                     <input class="form-check-input" type="radio" name="leadStatus" id="ls{{i}}" 
                     value="{{item}}" formControlName="leadStatus">
-                    <label class="form-check-label" for="ls{{i}}"><small>{{item}}</small></label>
+                    <label class="form-check-label" for="ls{{i}}">{{item}}</label>
                 </div>
-            </div>
+              </div>
+              <div class="col">
+                  <label>Payment Status</label>
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="rfp1"
+                      [checked]="leadExample.registrationFeePaid" value="true" formControlName="registrationFeePaid">
+                      <label class="form-check-label" for="rfp1">
+                        Registration Fee Payed ?
+                      </label>
+                  </div>
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="pas1"
+                      [checked]="leadExample.planAgreement" value="true" formControlName="planAgreement">
+                      <label class="form-check-label" for="pas1">
+                        Plan Agreement Signed ?
+                      </label>
+                  </div>
+                
+              </div>
+          </div> 
           
            <!-- BASIC INFO -->
 
@@ -101,47 +127,33 @@
            <div class="row">
                 <div class="form-group col-md-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="rfp1"
-                        [checked]="leadExample.registrationFeePaid" value="true" formControlName="registrationFeePaid">
-                        <label class="form-check-label" for="rfp1">
-                          Registration Fee Payed ?
-                        </label>
+                        <input class="form-check-input" type="checkbox" name="currentlyEmployed" id="ce1" 
+                        [checked]="leadExample.currentlyEmployed" value="true" formControlName="currentlyEmployed">
+                        <label class="form-check-label" for="ce1">Is Currently Working ?</label>
                       </div>
-                      <div class="form-check mb-2">
-                          <input class="form-check-input" type="checkbox" id="pas1"
-                          [checked]="leadExample.planAgreement" value="true" formControlName="planAgreement">
-                          <label class="form-check-label" for="pas1">
-                            Plan Agreement Signed ?
-                          </label>
-                      </div>
-                      <!-- <label for="exampleFormControlSelect1">Payment Plan</label>
+                      <label for="exampleFormControlSelect1" formControlName="paymentPlan">Payment Plan</label>
                       <select class="form-control">
                           <option value="" disabled>Select</option>
                           <option *ngFor="let item of paymentPlanList"
-                          [selected]="leadExample.paymentPlan" [value]="item" formControlName="paymentPlan">{{item}}
+                          [selected]="leadExample.paymentPlan" [value]="item">{{item}}
                           </option>
-                      </select> -->
+                      </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="currentlyEmployed" id="ce1" 
-                        [checked]="leadExample.currentlyEmployed" value="true" formControlName="currentlyEmployed">
-                        <label class="form-check-label" for="ce1">Is Working ?</label>
-                      </div>
-                      <div class="form-check mb-2">
+                    
+                      <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="currentlyITEmployed" id="cit1" 
                         [checked]="leadExample.currentlyITEmployed" value="true" formControlName="currentlyITEmployed">
                         <label class="form-check-label" for="cit1">Experience In IT ?</label>
                       </div> 
-
-                      <!-- <label for="exampleFormControlSelect1">Lead Source</label>
+                      <label for="exampleFormControlSelect1">Lead Source</label>
                       <select class="form-control" formControlName="leadSource" required>
                           <option value="" disabled>Select</option>
                           <option *ngFor="let item of leadSourceList"
-                          [selected]="leadExample.leadSource" [value]="item" formControlName="leadSource">{{item}}
+                          [selected]="leadExample.leadSource" [value]="item">{{item}}
                           </option>
                          
-                      </select> -->
+                      </select>
                 </div> 
             </div>
            

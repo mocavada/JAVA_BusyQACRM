@@ -21,8 +21,8 @@ public interface IClientsRepository {
     boolean clientExist(String email);
 
     // FOR DELETE
-    void saveLeadToStudent(Client client);
-    void updateStudent(Client client);
+//    void saveLeadToStudent(Client client);
+//    void updateStudent(Client client);
 
 
 

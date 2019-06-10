@@ -52,13 +52,13 @@ public class ClientsService {
         return clientRepository.getAllStudent();
     }
 
-    public void saveLeadToStudent(Client client) {
-        clientRepository.saveLeadToStudent(client);
-    }
-
-    public void updateStudent(Client client) {
-        clientRepository.updateStudent(client);
-    }
+//    public void saveLeadToStudent(Client client) {
+//        clientRepository.saveLeadToStudent(client);
+//    }
+//
+//    public void updateStudent(Client client) {
+//        clientRepository.updateStudent(client);
+//    }
 
     public void deleteClientById(long id) {
         clientRepository.deleteClientById(id);
