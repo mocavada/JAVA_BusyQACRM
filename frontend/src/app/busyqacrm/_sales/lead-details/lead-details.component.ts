@@ -112,12 +112,14 @@ constructor(private salesService: SalesApiService,
       planAgreement: false,
       currentlyEmployed: false,
       currentlyITEmployed: false,
+      // PAYMENT
+      registrationFee: '',
       // STATUS
       leadStatus: '',
       paymentPlan: '',
       leadSource: '',
-      // NOT USED
       desiredJob: '',
+      // NOT USED
       paymentPlanStatus: '',
       // ADDRESS
       mailingStreet: '',
@@ -165,6 +167,8 @@ constructor(private salesService: SalesApiService,
       planAgreement: this.leadExample.planAgreement,
       currentlyEmployed: this.leadExample.currentlyEmployed,
       currentlyITEmployed: this.leadExample.currentlyITEmployed,
+      // PAYMENT
+      registrationFee: this.leadExample.registrationFee,
       // STATUS
       leadStatus: this.leadExample.leadStatus,
       leadSource: this.leadExample.leadSource,

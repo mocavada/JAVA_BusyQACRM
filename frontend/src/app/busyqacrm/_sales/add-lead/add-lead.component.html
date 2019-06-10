@@ -11,47 +11,70 @@
     
               <!-- HEADER BUTTONS -->
               <div class="form-row mb-4 mt-3">
-                <div class="col-lg-6 col-md-4"></div>
+                <div class="col-9"></div>
                 <div class="col">
-                  <button class="btn btn-outline-secondary text-center mr-3 my-auto"
+                  <!-- <button class="btn btn-outline-secondary text-center mr-3 my-auto"
                   style="width:100px;" type="button"
-                  [routerLink]="['/dashboard/sales']">CANCEL
-                  </button>
+                  routerLink="/dashboard/{{authority}}">CANCEL
+                  </button> -->
     
                   <button class="btn btn-outline-success text-center mr-3 my-auto" 
                           style="width:140px" value="Post" type="submit">SAVE TO LEAD
                   </button>
                   </div>
                 </div>
+              <hr>
                
               <!-- LEAD STATUS -->
-            <div class="form-row mb-2 mt-2" *ngFor="let item of leadStatus; let i = index">
-                <div class="form-check form-check-inline col-2">
-                    <input class="form-check-input" type="radio" name="leadStatus" id="ls{{i}}" 
-                    value="{{item}}" formControlName="leadStatus">
-                    <label class="form-check-label" for="ls{{i}}"><small>{{item}}</small></label>
-                </div>
-            </div>
-
-              <!-- COURSE LIST -->
-          <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
-            
-              <div class="courses-addheading card-header text-white"
-              (click)="toggleCourseDisplay()"><fa-icon icon="plus"></fa-icon> ADD COURSE
-              </div>
-              <div class="coursebody card-body">
-              <fieldset formGroupName="course">
-                <div class="form-group">
-                  <div class="form-check" *ngFor="let item of courseList; let i = index">
-                    <input class="form-check-input" type="radio" id="course{{i}}" 
-                    formControlName="id" value="{{item.id}}">
-                    <label class="form-check-label" for="course{{i}}"><p>{{item.name}}</p></label>
+            <div class="row pb-3"> 
+                <div class="col">
+                  <label>Lead Status</label>
+                  <div class="form-row mb-2">
+                      <select class="form-control" formControlName="leadSource" required>
+                          <option value="" disabled>Choose Lead Source</option>
+                          <option *ngFor="let item of leadSourceList"
+                          [value]="item">{{item}}
+                          </option>
+                      </select>
+                  </div>
+                  <div class="form-check" *ngFor="let item of leadStatus; let i = index">
+                      <input class="form-check-input" type="radio" name="leadStatus" id="ls{{i}}" 
+                      value="{{item}}" formControlName="leadStatus">
+                      <label class="form-check-label" for="ls{{i}}">{{item}}</label>
                   </div>
                 </div>
-              </fieldset>
-              </div>
-            </div>
-            
+                <div class="col">
+                    <label>Payment Status</label>
+                    <div class="form-row mb-2">
+                        <select class="form-control" formControlName="paymentPlan">
+                            <option value="" disabled>Choose Payment Plan</option>
+                            <option *ngFor="let item of paymentPlanList"
+                            [value]="item">{{item}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="pas1"
+                        value="true" formControlName="planAgreement">
+                        <label class="form-check-label" for="pas1">
+                          Plan Agreement Signed ?
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="rfp1"
+                        value="true" formControlName="registrationFeePaid">
+                        <label class="form-check-label" for="rfp1">
+                          Registration Fee Payed ?
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" class="form-control" placeholder="Amount Paid"
+                        formControlName="registrationFee" value="">
+                    </div>                  
+                </div>
+            </div> 
+
+            <hr>
              <!-- BASIC INFO -->
             <label class="mt-2" for="firstName">Full Name</label>    
             <div class="row mb-2">
@@ -82,60 +105,50 @@
                 <textarea placeholder="" class="form-control" formControlName="comments"></textarea>
             </div>
   
-            <!-- LEAD PROFILE -->
-             <div class="row">
-                  <div class="form-group col-md-6">
-                      <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="payment1"
-                          formControlName="registrationFeePaid" value="true">
-                          <label class="form-check-label" for="payment1">
-                            Registration Fee Payed ?
-                          </label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input class="form-check-input" type="checkbox" id="payment2"
-                          formControlName="planAgreement" value="true"
-                          >
-                          <label class="form-check-label" for="payment2">
-                            Plan Agreement Signed ?
-                          </label>
-                        </div>
-                        <label for="exampleFormControlSelect1">Choose Payment Plan</label>
-                        <select class="form-control" formControlName="paymentPlan">
-                            <option value="">Select</option>
-                            <option *ngFor="let item of paymentPlanList" [value]="item">
-                            {{item}}</option>
-                        </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                      <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="cEmployed"
-                          formControlName="currentlyEmployed" value="true">
-                          <label class="form-check-label" for="cEmployed">
-                            Currently Employed ?
-                          </label>
-                        </div>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="cITEmployed"
-                            formControlName="currentlyITEmployed" value="true">
-                            <label class="form-check-label" for="cITEmployed">
-                              Working in IT ?
-                            </label>
-                        </div> 
-                        <label for="exampleFormControlSelect1">Choose Lead Source</label>
-                        <select class="form-control" formControlName="leadSource">
-                            <option value="">Select</option>
-                            <option *ngFor="let item of leadSourceList" [value]="item">
-                            {{item}}</option>
-                        </select>
-                  </div>
+            <!-- EMPLOYMENT PROFILE -->
+            <div class="row">
+                <div class="form-group col-5">
+                    <input type="text" class="form-control" placeholder="Desired Job"
+                    formControlName="desiredJob" value="">
+                </div> 
+                <div class="form-group col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="currentlyEmployed" id="ce1" 
+                        value="true" formControlName="currentlyEmployed">
+                        <label class="form-check-label" for="ce1">Currently Working?</label>
+                      </div>
+                </div>
+                <div class="form-group col">
                     
-             </div>
-             
-         
-          
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="currentlyITEmployed" id="cit1" 
+                        value="true" formControlName="currentlyITEmployed">
+                        <label class="form-check-label" for="cit1">Experienced IT?</label>
+                      </div> 
+                </div> 
+            </div>
+
+          <!-- COURSE LIST -->
+          <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
+            
+              <div class="courses-addheading card-header text-white"
+              (click)="toggleCourseDisplay()"><fa-icon icon="plus"></fa-icon> ADD COURSE
+              </div>
+              <div class="coursebody card-body">
+              <fieldset formGroupName="course">
+                <div class="form-group">
+                  <div class="form-check" *ngFor="let item of courseList; let i = index">
+                    <input class="form-check-input" type="radio" id="course{{i}}" 
+                    formControlName="id" value="{{item.id}}">
+                    <label class="form-check-label" for="course{{i}}"><p>{{item.name}}</p></label>
+                  </div>
+                </div>
+              </fieldset>
+              </div>
+            </div>
+            
+               
             <!-- ADDRESS -->
-  
             <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-address': showAddress}">
               <div class="address-addheading card-header text-white"
               (click)="toggleAddressDisplay()"><fa-icon icon="plus"></fa-icon> ADD MAILING ADDRESS

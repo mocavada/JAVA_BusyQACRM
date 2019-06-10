@@ -2,7 +2,7 @@ import { Course } from '../../model/course';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { Client } from '../../model/client';
 import { SalesApiService } from '../../services/_sales-api.service';
-import { Component, OnInit, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Router} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, ControlValueAccessor, 
 })
 export class AddLeadComponent implements OnInit {
 
+  @Input() authority: any;
 
   private sub: Subscription;
   createClientForm: FormGroup;
@@ -29,7 +30,6 @@ export class AddLeadComponent implements OnInit {
   leadStatus = [
     'For Payment', 'Interested', 'Request Info', 'For Deletion'
   ];
-
   paymentPlanList = [
     'One_Time_Credit_Card',
     'One_Time_Debit_Card_Or_Cash',
@@ -105,6 +105,8 @@ export class AddLeadComponent implements OnInit {
       planAgreement: false,
       currentlyEmployed: false,
       currentlyITEmployed: false,
+      // PAYMENT
+      registrationFee: '',
       // STATUS
       leadStatus: '',
       paymentPlan: '',

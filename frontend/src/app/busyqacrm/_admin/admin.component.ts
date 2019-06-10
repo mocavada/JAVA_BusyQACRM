@@ -3,6 +3,7 @@ import { UserRequest } from './../model/user-request';
 import { UserResponse } from './../model/user-response';
 import { User } from '../model/user';
 import { Role } from '../model/role';
+import { HttpClient } from '@angular/common/http';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -17,44 +18,52 @@ import {Router} from '@angular/router';
   styleUrls: ['.././busyqacrm.component.css']
 })
 export class AdminComponent implements OnInit {
+  roles: string[];
+  authority: string;
+  username: string;
+
+
   board: string;
   errorMessage: string;
   users: User[];
 
 
-  constructor(private router: Router,
-              private userService: UserService,
-              private token: TokenStorageService) {}
+  constructor(private http: HttpClient,
+              private router: Router,
+              private tokenStorage: TokenStorageService) {
+
+              }
 
     ngOnInit() {
-      this.userService.getUsersByTeam().subscribe(
-          data => {
-            this.users = data.result;
-            console.log(this.users);
-          },
-          error => {
-            this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-          }
-        );
-      }
 
-      editUser(user: User): void {
-        window.localStorage.removeItem('editUserId');
-        window.localStorage.setItem('editUserId', user.id.toString());
-        this.router.navigate(['edit-user']);
-      }
-      addUser(): void {
-        this.router.navigate(['adminsignup']);
-      }
+    this.roleAccess();
+    console.log('url ' + this.router.url);
+  }
 
-      deleteUser(user: User): void {
-        this.userService.deleteUser(user.id)
-          .subscribe( data => {
-            this.users = this.users.filter(u => u !== user);
-            alert('User Deleted Successfully!!');
-            this.router.navigate(['home']);
-            this.router.navigate(['admin']);
-            this.router.navigate(['admin']);
-          });
-      }
+  roleAccess() {
+    if (this.tokenStorage.getToken()) {
+      this.roles = this.tokenStorage.getAuthorities();
+
+    // Find the User ROLE
+      this.roles.find(role => {
+        if (this.roles.includes('ROLE_ADMIN' || 'ADMIN')) {
+          this.authority = 'admin';
+          return false;
+        } else if (this.roles.includes('ROLE_AUDIT' || 'AUDIT')) {
+          this.authority = 'audit';
+          return false;
+        } else if (this.roles.includes('ROLE_SALES' || 'SALES')) {
+          this.authority = 'sales';
+          return false;
+        } else {
+          this.authority = 'user';
+          return true;
+        }
+      });
+
+  //     // Find the User USERNAME
+      this.username = this.tokenStorage.getUsername();
     }
+  }
+
+}

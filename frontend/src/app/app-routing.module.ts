@@ -1,14 +1,20 @@
-import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
-import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
-import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
+
 
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { HomeComponent } from './home/home.component';
 import { AdminComponent } from './busyqacrm/_admin/admin.component';
+// AUDIT
 import { AuditComponent } from './busyqacrm/_audit/audit.component';
+import { StudentsListComponent } from './busyqacrm/_audit/students-list/students-list.component';
+// SALES
 import { SalesComponent } from './busyqacrm/_sales/sales.component';
+import { LeadsListComponent } from './busyqacrm/_sales/leads-list/leads-list.component';
+import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
+import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
+import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
+
 
 
 import { AuthGuardService } from './busyqacrm/services/auth-guard.service';
@@ -16,8 +22,10 @@ import { RegisterComponent } from './busyqacrm/auth/register/register.component'
 import { LoginComponent } from './busyqacrm/auth/login/login.component';
 import { ResetPasswordComponent } from './busyqacrm/auth/reset-password/reset-password.component';
 
+
+
 export const router: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'auth', children: [
       { path: 'signup', component: RegisterComponent },
@@ -28,7 +36,9 @@ export const router: Routes = [
     { path: 'dashboard', children: [
       { path: 'admin', component: AdminComponent},
       { path: 'audit', component: AuditComponent },
+      { path: 'audit/studentslist', component: StudentsListComponent },
       { path: 'sales', component: SalesComponent },
+      { path: 'sales/leadslist', component: LeadsListComponent },
       { path: 'sales/lead/:email', component: LeadDetailsComponent },
       { path: 'sales/addlead', component: AddLeadComponent },
       { path: 'sales/searchlead', component: SearchLeadsComponent }

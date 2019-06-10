@@ -18,16 +18,44 @@ import {Router} from '@angular/router';
 
 export class SalesComponent implements OnInit {
   errorMessage: string;
-  user: UserResponse;
+  roles: string[];
+  authority: string;
   username: string;
 
 
-  constructor(private token: TokenStorageService,
+  constructor(private tokenStorage: TokenStorageService,
               private salesService: SalesApiService,
               private router: Router) {
   }
 
   ngOnInit() {
+    this.roleAccess();
+  }
+
+  roleAccess() {
+    if (this.tokenStorage.getToken()) {
+      this.roles = this.tokenStorage.getAuthorities();
+
+    // Find the User ROLE
+      this.roles.find(role => {
+        if (this.roles.includes('ROLE_ADMIN' || 'ADMIN')) {
+          this.authority = 'admin';
+          return false;
+        } else if (this.roles.includes('ROLE_AUDIT' || 'AUDIT')) {
+          this.authority = 'audit';
+          return false;
+        } else if (this.roles.includes('ROLE_SALES' || 'SALES')) {
+          this.authority = 'sales';
+          return false;
+        } else {
+          this.authority = 'user';
+          return true;
+        }
+      });
+
+  //     // Find the User USERNAME
+      this.username = this.tokenStorage.getUsername();
+    }
   }
 }
 

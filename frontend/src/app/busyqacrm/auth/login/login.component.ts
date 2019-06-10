@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
         } else if (this.roles.includes('ROLE_AUDIT' || 'AUDIT')) {
           this.authority = 'audit';
           return false;
-        } else if (this.roles.includes('ROLE_USER' || 'USER')) {
+        } else if (this.roles.includes('ROLE_SALES' || 'USER')) {
           this.authority = 'sales';
           return false;
         } else {
