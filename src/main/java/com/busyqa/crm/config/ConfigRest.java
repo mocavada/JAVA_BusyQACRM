@@ -1,4 +1,4 @@
-package com.busyqa.crm.config.security;
+package com.busyqa.crm.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
