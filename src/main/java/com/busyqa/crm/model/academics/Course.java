@@ -15,6 +15,7 @@ public class Course {
     private String description;
     private String location;
     private String trainer;
+    private String time;
 
     @OneToMany(cascade = PERSIST)
     private List<Class> classes = new ArrayList<>();
@@ -33,11 +34,12 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, String description, String location, String trainer, List<Class> classes, Calendar startDate, Calendar endDate) {
+    public Course(String name, String description, String location, String trainer, String time, List<Class> classes, Calendar startDate, Calendar endDate) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.trainer = trainer;
+        this.time = time;
         this.classes = classes;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -47,6 +49,17 @@ public class Course {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getName() {
         return name;

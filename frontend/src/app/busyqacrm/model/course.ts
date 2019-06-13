@@ -6,6 +6,7 @@ export class Course {
     description: string;
     location: string;
     trainer: string;
+    time: string;
     startDate: Date;
     endDate: Date;
     classes: Array<Class>;

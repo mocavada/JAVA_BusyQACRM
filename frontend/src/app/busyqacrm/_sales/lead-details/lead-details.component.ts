@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 
 import 'rxjs/add/operator/map';
+import { stringify } from '@angular/core/src/render3/util';
 
 @Component({
   selector: 'app-lead-details',
@@ -29,6 +30,8 @@ leadExample: any;
 courseList: Course[];
 showCourse: boolean;
 showAddress: boolean;
+messageObject: any;
+welcomeString: any;
 
 leadStatus = [
   'For Payment', 'Interested', 'Request Info', 'For Deletion'
@@ -63,6 +66,7 @@ constructor(private salesService: SalesApiService,
             private fb: FormBuilder) {
     this.showCourse = true;
     this.showAddress = true;
+
 }
 
   ngOnInit() {
@@ -84,6 +88,8 @@ constructor(private salesService: SalesApiService,
         this.getLead(email);
       }
     );
+
+    // console.log('welcome -' + this.welcomeString);
   }
 
   toggleCourseDisplay() {
@@ -145,6 +151,7 @@ constructor(private salesService: SalesApiService,
     );
   }
 
+
   displayForm(data: any): void {
     if (this.editCLientForm) {
       this.editCLientForm.reset();
@@ -188,6 +195,16 @@ constructor(private salesService: SalesApiService,
       createdTime: this.leadExample.createdTime,
     });
 
+    this.welcomeString = this.leadExample.firstName + '@' +
+                         this.leadExample.course.name + '@' +
+                         this.leadExample.course.description + '@' +
+                         this.leadExample.course.location + '@' +
+                         this.leadExample.course.time + '@' +
+                         this.leadExample.course.trainer + '@' +
+                         this.leadExample.course.startDate + '@' +
+                         this.leadExample.course.endDate;
+
+    console.log('Message Strings - ' + this.welcomeString);
   }
 
   onUpdate() {
@@ -218,11 +235,13 @@ constructor(private salesService: SalesApiService,
   }
 
 
+
+
   onSendTemplate() {
     console.log(this.leadExample);
     this.mail = new Mail(this.leadExample.email,
                         'BusyQA Welcome Package',
-                        this.leadExample.firstName
+                        this.welcomeString
                         );
     if (confirm('Are you sure you want to send the welcome package?')) {
       this.salesService.sendTemplateEmail(this.mail)

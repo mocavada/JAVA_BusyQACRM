@@ -32,7 +32,7 @@
                                        color: #111111;
                                        text-align: left;"
 
-                                    th:text="${message}">Name</span> to BusyQA!
+                                    th:text="${firstname}">Name</span> to BusyQA!
 
                     </td>
                 </tr>
@@ -52,10 +52,12 @@
                                                vertical-align: top;
                                                text-align: left;">
                         <b>Course :</b><br />
-                        <b>Time :</b><br />
-                        <b>Start Date :</b><br />
                         <b>Location :</b><br />
-                        <b>Trainer : </b><br />
+                        <b>Time :</b><br />
+                        <b>Trainer :</b><br />
+                        <b>Start Date : </b><br />
+                        <b>End Date :</b><br />
+                        <b>Description :</b><br />
 
                     </td>
                     <td width="80%"
@@ -64,11 +66,14 @@
                                                color: #070060;
                                                vertical-align: top;
                                                text-align: left;">
-                        <span th:text="${message}">Values</span><br />
-                        <span th:text="${message}">Values</span><br />
-                        <span th:text="${message}">Values</span><br />
-                        <span th:text="${message}">Values</span><br />
-                        <span th:text="${message}">Values</span><br />
+                        <span th:text="${coursename}">Values</span><br />
+                        <span th:text="${location}">Values</span><br />
+                        <span th:text="${time}">Values</span><br />
+                        <span th:text="${trainer}">Trainer</span><br />
+                        <span th:text="${startDate}">Values</span><br />
+                        <span th:text="${endDate}">Trainer</span><br />
+                        <span th:text="${description}">Trainer</span><br />
+
 
                     </td>
 

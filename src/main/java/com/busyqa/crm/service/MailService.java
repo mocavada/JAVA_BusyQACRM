@@ -94,9 +94,22 @@ public class MailService {
 
     // SEND EMAIL with TEMPLATE
     public void sendTemplatedMail(Mail mail) {
+
+        String messages = mail.getMessage();
+        String[] messagesArray = messages.split("@");
+
+
         //get and fill the template
         final Context context = new Context();
 
+        context.setVariable("firstname", messagesArray[0]);
+        context.setVariable("coursename", messagesArray[1]);
+        context.setVariable("description", messagesArray[2]);
+        context.setVariable("location", messagesArray[3]);
+        context.setVariable("time", messagesArray[4]);
+        context.setVariable("trainer", messagesArray[5]);
+        context.setVariable("startDate", messagesArray[6]);
+        context.setVariable("endDate", messagesArray[7]);
         context.setVariable("message", mail.getMessage());
         context.setVariable("welcomeheader", mail.getImageUrl());
 
