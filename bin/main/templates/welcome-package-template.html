@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title> Busy QA Email</title>
+</head>
+<body>
+<table width="100%" bgcolor="#ebeff0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>
+            <table width="700" bgcolor="#ffffff" cellpadding="0" cellspacing="32" align="center">
+                <tr>
+                    <td rowspan="7">&nbsp;</td>
+                    <td colspan="2">
+                        <img th:src="@{${welcomeheader}}" alt="photo"/>
+                    <td>
+                    <td rowspan="7">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="font-family: Arial, Helvetica, sans-serif;
+                                       font-size: 24px;
+                                       font-weight: bold;
+                                       color: #111111;
+                                       text-align: left;">
+
+                        Welcome <span style="font-family: Arial, Helvetica, sans-serif;
+                                       font-size: 24px;
+                                       font-weight: bold;
+                                       color: #111111;
+                                       text-align: left;"
+
+                                    th:text="${message}">Name</span> to BusyQA!
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="font-family: Arial, Helvetica, sans-serif;
+                                       font-size: 9px;
+                                       color: #111111;
+                                       text-align: left;">
+                        As you have shown interest in our In-Class Automation Testing Course + Co-op Program, we would like you to know some vital information regarding the upcoming batch. Please find the course details below
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%"
+                        style="font-family: Arial, Helvetica, sans-serif;
+                                               font-size: 14px;
+                                               color: #070060;
+                                               vertical-align: top;
+                                               text-align: left;">
+                        <b>Course :</b><br />
+                        <b>Time :</b><br />
+                        <b>Start Date :</b><br />
+                        <b>Location :</b><br />
+                        <b>Trainer : </b><br />
+
+                    </td>
+                    <td width="80%"
+                        style="font-family: Arial, Helvetica, sans-serif;
+                                               font-size: 14px;
+                                               color: #070060;
+                                               vertical-align: top;
+                                               text-align: left;">
+                        <span th:text="${message}">Values</span><br />
+                        <span th:text="${message}">Values</span><br />
+                        <span th:text="${message}">Values</span><br />
+                        <span th:text="${message}">Values</span><br />
+                        <span th:text="${message}">Values</span><br />
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="2" style="font-family: Arial, Helvetica, sans-serif;
+                                       font-size: 9px;
+                                       color: #111111;
+                                       text-align: left;">
+                        <p>Attached to this e-mail are your Course Syllabus and Registration Form.
+                        <p/>
+                        <p>Watch the following videos to learn more about us: Why busyQA, Paid coop, Hiba Student Testimonial. Visit our website to read testimonials from our students. We also attached pictures of our current facilities and the current class shortly before they graduate. Visit our Facebook to see more of our social side.
+                        <p/>
+                        We look forward to hearing from you and seeing you at busyQA!
+                        <p/>
+                        <p>Regards,
+                        </p>
+                        <p><b>Surbhi Bithel</b> | Marketing Manager
+                        </p>
+                        <p>Office (905) 499 3705 Extn:1 Cell 905 581 2846
+
+                            Software Services is our thing. We get it, we do it and we stand by our work.
+
+                            www.busyqa.com. Follow us on facebook and LinkedIn.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
+
+
+
+
+<!--<img th:src="@{/photos/busyqaemailmeetinstructor.png}" alt="photp" />-->
+<!--<img th:href="@{https://www.jefcoed.com/cms/lib/AL50000183/Centricity/ModuleInstance/2784/large/IMG_6482av-cropped.jpg}"-->
+<!--alt="photp" />-->
+
+<!--<tbody>-->
+<!--<tr>-->
+<!--<td><img th:src="@{${welcomeheader}}" alt="photo"/></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<h5>-->
+<!--Welcome to busyQA!-->
+<!--</h5>-->
+<!--<p>-->
+<!--As you have shown interest in our In-Class Automation Testing Course + Co-op Program, we would like you to know some vital information regarding the upcoming batch. Please find the course details below.-->
+<!--</p>-->
+<!--</tr>-->
+<!--<tr>-->
+
+<!--<td>Message: </td>-->
+
+<!--</tr>-->
+<!--<tr>-->
+<!--<p>Attached to this e-mail are your Course Syllabus and Registration Form.</p>-->
+
+
+<!--<p>Watch the following videos to learn more about us: Why busyQA, Paid coop, Hiba Student Testimonial. Visit our website to read testimonials from our students. We also attached pictures of our current facilities and the current class shortly before they graduate. Visit our Facebook to see more of our social side.-->
+<!--</p>-->
+
+<!--<p>We look forward to hearing from you and seeing you at busyQA!</p>-->
+
+<!--<p>Regards,</p>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><p th:text="${message}">Hello</p></td>-->
+<!--</tr>-->
+
+<!--</tbody>-->

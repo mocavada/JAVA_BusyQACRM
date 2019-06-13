@@ -35,11 +35,14 @@
 
 
   <div class="pl-4 col border-left border-secondary col-centered">
+          <div class="row pb-2 pt-2">
+              <div class="col text-danger">{{confirmationMessage}}</div>
+          </div>
           <form [formGroup]="editCLientForm" (ngSubmit)="onUpdate()" novalidate>
             <div *ngIf="validMessage != ''">
               <h3 class="has-info">{{validMessage}}</h3>
             </div>
-  
+           
             <div class="form-row mb-3">
                 <button class="btn btn-outline-secondary text-center mr-3 my-auto"
                 style="width:100px;" type="button"
@@ -51,14 +54,14 @@
                           [disabled]="!editCLientForm.valid"> UPDATE
                 </button>
 
-                <!-- <button class="btn btn-outline-success text-center mr-3 my-auto" 
-                style="width:140px" type="button" title="Change to student"
-                (click)="onConvertToStudent()">TO STUDENT
-                </button> -->
+                <button class="btn btn-outline-success text-center mr-3 my-auto" 
+                    style="width:140px" type="button" title="Send Portal Link"
+                    (click)="onSendPortalLink()">SEND LINK
+                </button>
 
                 <button class="btn btn-outline-success text-center mr-3 my-auto" 
-                          style="width:140px" type="button" title="Send Portal Link"
-                          (click)="onSendPortalLink()">SEND LINK
+                  style="width:180px" type="button" title="Send Welcome Package"
+                  (click)="onSendTemplate()">SEND PACKAGE
                 </button>
               </div>
 

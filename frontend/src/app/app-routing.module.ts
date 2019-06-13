@@ -1,5 +1,3 @@
-
-
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
@@ -15,13 +13,10 @@ import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-lea
 import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 
-
-
 import { AuthGuardService } from './busyqacrm/services/auth-guard.service';
 import { RegisterComponent } from './busyqacrm/auth/register/register.component';
 import { LoginComponent } from './busyqacrm/auth/login/login.component';
 import { ResetPasswordComponent } from './busyqacrm/auth/reset-password/reset-password.component';
-
 
 
 export const router: Routes = [

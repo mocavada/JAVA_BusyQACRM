@@ -1,3 +1,4 @@
+import { Mail } from './../../model/mail';
 import { Course } from './../../model/course';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { Client } from './../../model/client';
@@ -7,6 +8,7 @@ import {Router} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
 
 import 'rxjs/add/operator/map';
 
@@ -22,6 +24,7 @@ editCLientForm: FormGroup;
 validMessage = '';
 confirmationMessage = '';
 message: string;
+mail: Mail;
 leadExample: any;
 courseList: Course[];
 showCourse: boolean;
@@ -213,6 +216,26 @@ constructor(private salesService: SalesApiService,
       );
     }
   }
+
+
+  onSendTemplate() {
+    console.log(this.leadExample);
+    this.mail = new Mail(this.leadExample.email,
+                        'BusyQA Welcome Package',
+                        this.leadExample.firstName
+                        );
+    if (confirm('Are you sure you want to send the welcome package?')) {
+      this.salesService.sendTemplateEmail(this.mail)
+      .subscribe(
+        data => {
+          this.confirmationMessage = 'Welcome Package Was Sent Successfully!';
+          return true;
+        },
+        (error: any) => console.error(error)
+      );
+    }
+  }
+
 
 
   // onUpdate(editForm: any) {

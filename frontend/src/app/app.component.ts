@@ -15,8 +15,6 @@ export class AppComponent {
 }
 
 
-
-
 // export class AppComponent implements OnInit {
 //   private roles: string[];
 //   private authority: string;

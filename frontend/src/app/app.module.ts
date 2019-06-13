@@ -12,6 +12,7 @@ import { ResetPasswordComponent } from './busyqacrm/auth/reset-password/reset-pa
 import { AdminComponent } from './busyqacrm/_admin/admin.component';
 import { UsersListComponent } from './busyqacrm/_admin/users-list/users-list.component';
 import { AddUserComponent } from './busyqacrm/_admin/add-user/add-user.component';
+import { AddCourseComponent } from './busyqacrm/_admin/add-course/add-course.component';
 
 // AUDIT
 import { AuditComponent } from './busyqacrm/_audit/audit.component';
@@ -23,7 +24,7 @@ import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 import { SalesComponent } from './busyqacrm/_sales/sales.component';
 import { LeadsListComponent } from './busyqacrm/_sales/leads-list/leads-list.component';
-import { AddCourseComponent } from './busyqacrm/_sales/add-course/add-course.component';
+
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 

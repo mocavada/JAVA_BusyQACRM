@@ -173,6 +173,7 @@ public class SalesRestController {
     }
 
 
+    // SEND WELCOME PACKAGE EMAIL
     @PostMapping("/sendEmailWithTemplate/")
     public ResponseEntity<?> sendMailWithTemplate(@Valid @RequestBody Mail mail, Errors errors){
         if(errors.hasErrors()){

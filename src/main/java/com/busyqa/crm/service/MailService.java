@@ -83,20 +83,31 @@ public class MailService {
         javaMailSender.send(mimeMessage);
     }
 
+
+
+    // SEND EMAIL
     public ResponseEntity<?> sendPreparedMail(Mail mail){
         sendTemplatedMail(mail);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
+    // SEND EMAIL with TEMPLATE
     public void sendTemplatedMail(Mail mail) {
         //get and fill the template
         final Context context = new Context();
+
         context.setVariable("message", mail.getMessage());
-        String body = templateEngine.process("email-template", context);
+        context.setVariable("welcomeheader", mail.getImageUrl());
+
+
+
+        String body = templateEngine.process("welcome-package-template", context);
         //send the html template
         sendPreparedMail(mail.getEmail(), mail.getSubject(), body, true);
     }
 
+    // RETURN EMAIL FORMAT
     private void sendPreparedMail(String to, String subject, String text, Boolean isHtml) {
         try {
             MimeMessage mail = javaMailSender.createMimeMessage();

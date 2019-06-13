@@ -87,11 +87,13 @@ export class SalesApiService {
     return this.http.put(this.salesApiUrl + '/updateleadlead/' + email, client);
   }
 
+  // SEND WELCOME PACKAGE, INSTRUCTORS INFO and COURSE INFO
   sendTemplateEmail(mail: Mail) {
     return this.http
     .post(this.salesApiUrl + '/sendEmailWithTemplate/', mail);
   }
 
+  // SEND EMAIL WITH ATTACHMENT
   sendEmailWithAttachment(email: string) {
     return this.http
     .get(this.salesApiUrl + '/sendEmailWithAttachment/' + email);

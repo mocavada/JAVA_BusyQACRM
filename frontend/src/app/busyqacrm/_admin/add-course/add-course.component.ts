@@ -1,4 +1,4 @@
-import { SalesApiService } from './../../services/_sales-api.service';
+import { SalesApiService } from '../../services/_sales-api.service';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 

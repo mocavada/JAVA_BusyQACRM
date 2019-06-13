@@ -3,4 +3,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'JAVA_BusyQACRM'
+rootProject.name = 'SPRING_BusyQACRM'

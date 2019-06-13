@@ -12,6 +12,17 @@ public class Mail {
     @NotNull
     private String message;
 
+    private String imageUrl;
+
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getEmail() {
         return email;
     }
