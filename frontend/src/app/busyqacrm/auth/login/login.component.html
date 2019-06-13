@@ -5,7 +5,7 @@
   <div *ngIf="isLoggedIn; else loggedOut">
       <h3>Hello {{username}}</h3>
       <h5>Login As {{authority|uppercase}}</h5>
-      <button centered routerLink="/dashboard/{{authority}}">VIEW DASHBOARD</button>
+      <button class="mt-5" centered routerLink="/dashboard/{{authority}}">VIEW DASHBOARD</button>
   </div>
 
   <ng-template #loggedOut>

@@ -28,10 +28,14 @@ message: string;
 mail: Mail;
 leadExample: any;
 courseList: Course[];
-showCourse: boolean;
-showAddress: boolean;
 messageObject: any;
 welcomeString: any;
+showCourse: boolean;
+showAddress: boolean;
+isWPSent: boolean;
+isTISent: boolean;
+isPLSent: boolean;
+isWPSent1: boolean;
 
 leadStatus = [
   'For Payment', 'Interested', 'Request Info', 'For Deletion'
@@ -66,6 +70,9 @@ constructor(private salesService: SalesApiService,
             private fb: FormBuilder) {
     this.showCourse = true;
     this.showAddress = true;
+    this.isWPSent = true;
+    // this.isTISent = false;
+    // this.isPLSent = false;
 
 }
 
@@ -248,6 +255,7 @@ constructor(private salesService: SalesApiService,
       .subscribe(
         data => {
           this.confirmationMessage = 'Welcome Package Was Sent Successfully!';
+          this.isWPSent = true;
           return true;
         },
         (error: any) => console.error(error)

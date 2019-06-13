@@ -12,6 +12,10 @@
     <hr>
     <p class="m-0 p-0 text-danger">{{leadExample.comments}}</p>
     <hr>
+    <li class="m-0 p-0 text-success" *ngIf="isWPSent"><fa-icon icon="check"></fa-icon> Welcome Package Sent</li>
+    <li class="m-0 p-0 text-success" *ngIf="isTISent"><fa-icon icon="check"></fa-icon> Trainer Info Sent</li>
+    <li class="m-0 p-0 text-success" *ngIf="isPLSent"><fa-icon icon="check"></fa-icon> Portal Link Sent</li>
+    <hr>
     <h3 class="text-dark">{{leadExample.firstName}} {{leadExample.lastName}}</h3>
     <small>Last Updated: {{leadExample.createdTime | date: 'short'}}</small>
     <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample.email}}</p>

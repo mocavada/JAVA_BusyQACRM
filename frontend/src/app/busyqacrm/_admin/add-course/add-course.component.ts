@@ -23,6 +23,7 @@ export class AddCourseComponent implements OnInit {
       trainer: [],
       location: [],
       description: [],
+      time: [],
       startDate: [],
       endDate: [],
       //
