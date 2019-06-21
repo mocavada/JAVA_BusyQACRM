@@ -1,9 +1,10 @@
 package com.busyqa.crm.model.auth;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name="USERS_GROUPS")
+@Table(name="USERGROUPS")
 public class UserGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,22 +14,14 @@ public class UserGroup {
 
     private String role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToMany(mappedBy = "usergroups")
+    private Set<User> user;
 
-    // Custom Methods
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserGroup)) return false;
-        return id != null && id.equals(((UserGroup) o).getId());
-    }
 
     public UserGroup() {
     }
 
-    public UserGroup(String groups, String role, User user) {
+    public UserGroup(String groups, String role, Set<User> user) {
         this.groups = groups;
         this.role = role;
         this.user = user;
@@ -58,11 +51,21 @@ public class UserGroup {
         this.role = role;
     }
 
-    public User getUser() {
+    public Set<User> getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Set<User> user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "UserGroup{" +
+                "id=" + id +
+                ", groups='" + groups + '\'' +
+                ", role='" + role + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

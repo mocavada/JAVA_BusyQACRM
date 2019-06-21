@@ -11,8 +11,8 @@ VALUES ('salesmarc@mail.ca','$2a$11$cl1i0k2Y8SLZ/N./2MW2v.sqM5f7t4pJEMEYe0wf3ubQ
 
 
 
-INSERT INTO USERS_GROUPS (groups,role,user_id)
-VALUES ('EMPLOYEE','ROLE_ADMIN',1);
+INSERT INTO USERGROUPS (groups,role)
+VALUES ('GROUP_CLIENT','ROLE_USER');
 
 
 INSERT INTO USERS_GROUPS (groups,role,user_id)
