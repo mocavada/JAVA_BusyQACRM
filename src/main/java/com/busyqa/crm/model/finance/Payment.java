@@ -1,6 +1,6 @@
 package com.busyqa.crm.model.finance;
 
-import com.busyqa.crm.model.clients.Client;
+import com.busyqa.crm.model.clients.Student;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,8 +18,8 @@ public class Payment implements Serializable {
     private String transactionCode;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     // DATE
     @CreationTimestamp
@@ -31,10 +31,10 @@ public class Payment implements Serializable {
     public Payment() {
     }
 
-    public Payment(double amount, String transactionCode, Client client, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public Payment(double amount, String transactionCode, Student student, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.amount = amount;
         this.transactionCode = transactionCode;
-        this.client = client;
+        this.student = student;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
     }
@@ -63,14 +63,6 @@ public class Payment implements Serializable {
         this.id = id;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public LocalDateTime getCreatedTime() {
         return createdTime;
     }
@@ -85,5 +77,13 @@ public class Payment implements Serializable {
 
     public void setModifiedTime(LocalDateTime modifiedTime) {
         this.modifiedTime = modifiedTime;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

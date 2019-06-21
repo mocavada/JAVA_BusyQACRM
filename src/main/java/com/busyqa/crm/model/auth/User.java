@@ -1,65 +1,115 @@
 package com.busyqa.crm.model.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "USERS")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
-    private String email;
     @Column(name="USERNAME", nullable = false, unique = true)
     private String username;
     @Column(name="PASSWORD")
     private String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<UserGroup> userGroups;
 
+    @Column(name="EMAIL", nullable = false, unique = true)
+    private String email;
     //Common User Fields
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String phoneNumber;
-    private String comments;
+    private String emergencyPhone;
 
-    // DATE
+    // TEMPORAL
     @CreationTimestamp
     private LocalDateTime createdTime;
     @UpdateTimestamp
     private LocalDateTime modifiedTime;
 
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_usergroup",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "usergroup_id"))
+    @JsonIgnore
+    private Set<UserGroup> usergroups;
 
-    public void addGroup(UserGroup userGroup) {
-        userGroups.add(userGroup);
-        userGroup.setUser(this);
+    // CUSTOM METHODS
+
+    public void addUserGroup(UserGroup userGroup) {
+        usergroups.add(userGroup);
+        userGroup.getUser().add(this);
     }
 
-    public void removeGroup(UserGroup userGroup) {
-        userGroups.remove(userGroup);
-        userGroup.setUser(this);
+    public void removeUserGroup(UserGroup userGroup) {
+        Boolean exist = false;
+        for (UserGroup ug: usergroups) {
+            if ((userGroup.getRole() == ug.getRole()) && (userGroup.getGroups() == ug.getGroups())) {
+                exist = true;
+            }
+        }
+        if (exist) {
+            usergroups.remove(userGroup);
+            userGroup.getUser().remove(this);
+        }
+
     }
+
+    public List<String> getRoles() {
+        return this.getUsergroups().stream().
+                map(ug -> ug.getRole()).collect(Collectors.toList());
+    }
+
+    public List<String> getGroups() {
+        return this.getUsergroups().stream().
+                map(ug -> ug.getGroups()).collect(Collectors.toList());
+    }
+
+    public List<String> getRolesGroups() {
+        return this.getUsergroups().stream().
+                map(ug -> (ug.getRole() + "," + ug.getGroups())).collect(Collectors.toList());
+    }
+
+    // CONST
 
     public User() {
     }
 
-    public User(String email, String username, String password, Set<UserGroup> userGroups, String firstname, String lastname, String phoneNumber, String comments, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public User(String username, String password, String email, String firstName, Set<UserGroup> usergroups) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.usergroups = usergroups;
+    }
+
+    public User(String email, String username, String password, String firstName, String lastName, String phoneNumber, String emergencyPhone, LocalDateTime createdTime, LocalDateTime modifiedTime, Set<UserGroup> usergroups) {
         this.email = email;
         this.username = username;
         this.password = password;
-        this.userGroups = userGroups;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.comments = comments;
+        this.emergencyPhone = emergencyPhone;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
+        this.usergroups = usergroups;
     }
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
 
     public Long getId() {
         return id;
@@ -93,28 +143,28 @@ public class User {
         this.password = password;
     }
 
-    public Set<UserGroup> getUserGroups() {
-        return userGroups;
+    public Set<UserGroup> getUsergroups() {
+        return usergroups;
     }
 
-    public void setUserGroups(Set<UserGroup> userGroups) {
-        this.userGroups = userGroups;
+    public void setUsergroups(Set<UserGroup> usergroups) {
+        this.usergroups = usergroups;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhoneNumber() {
@@ -125,13 +175,14 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getComments() {
-        return comments;
+    public String getEmergencyPhone() {
+        return emergencyPhone;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setEmergencyPhone(String emergencyPhone) {
+        this.emergencyPhone = emergencyPhone;
     }
+
 
     public LocalDateTime getCreatedTime() {
         return createdTime;
@@ -148,4 +199,6 @@ public class User {
     public void setModifiedTime(LocalDateTime modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
+
+
 }
