@@ -26,6 +26,4 @@ public interface IUserGroupRepository extends JpaRepository<UserGroup, Long> {
     @Query("select p from UserGroup p where p.role = :role and p.groups = :groups")
     List<UserGroup> findUserGroupByRoleAndGroups(@Param("role") String role,@Param("groups") String groups);
 
-
-
 }

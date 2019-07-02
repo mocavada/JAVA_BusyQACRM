@@ -2,10 +2,9 @@ package com.busyqa.crm.service;
 
 
 import com.busyqa.crm.model.academics.Course;
-import com.busyqa.crm.model.auth.DTOResponseMessage;
 import com.busyqa.crm.model.auth.UserGroup;
-import com.busyqa.crm.model.clients.DTOLeadRequest;
-import com.busyqa.crm.model.clients.DTOLeadResponse;
+import com.busyqa.crm.model.clients.DTOClientRequest;
+import com.busyqa.crm.model.clients.DTOClientResponse;
 import com.busyqa.crm.model.clients.Lead;
 import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.repo.*;
@@ -24,7 +23,7 @@ import java.util.Set;
 public class LeadService {
 
     @Autowired
-    private IUserGroupRepository userGroupRepository;
+    private IUserGroupRepository IUserGroupRepository;
 
     @Autowired
     private ILeadRepository leadRepository;
@@ -36,16 +35,15 @@ public class LeadService {
     private IAcademicsRepository academicsRepository;
 
     /**
-     *
      * @return
      */
-    public List<DTOLeadResponse> getAllLeadsMO() {
+    public List<DTOClientResponse> getAllLeadsMO() {
 
         List<Lead> leads = leadRepository.findAll();
 
         if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
 
-        List<DTOLeadResponse> leadResponses = new ArrayList<>();
+        List<DTOClientResponse> leadResponses = new ArrayList<>();
 
         System.out.println(leads.size());
 
@@ -60,7 +58,7 @@ public class LeadService {
      * @param email
      * @return
      */
-    public DTOLeadResponse getLeadByEmailMO(String email) {
+    public DTOClientResponse getLeadByEmailMO(String email) {
 
         Lead l = leadRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("Error: Email not found!"));
@@ -74,8 +72,7 @@ public class LeadService {
      * @param leadRequest
      * @return
      */
-
-    public ResponseEntity<DTOLeadResponse> updateLeadMO(String email, DTOLeadRequest leadRequest) {
+    public ResponseEntity<DTOClientResponse> updateLeadMO(String email, DTOClientRequest leadRequest) {
 
         return leadRepository.findByEmail(email).map(l -> {
             l.setEmail(leadRequest.getEmail());
@@ -86,6 +83,8 @@ public class LeadService {
             l.setClientStatus(leadRequest.getClientStatus());
             l.setRegistrationFee(leadRequest.getRegistrationFee());
             l.setDiscount(leadRequest.getDiscount());
+
+            l.setTransactionDate(LocalDateTime.now().toString());
             l.setLeadStatus(leadRequest.getLeadStatus());
             l.setLeadSource(leadRequest.getLeadSource());
             l.setComments(leadRequest.getComments());
@@ -101,6 +100,7 @@ public class LeadService {
             l.setMailingState(leadRequest.getMailingState());
             l.setMailingZip(leadRequest.getMailingZip());
             l.setMailingCountry(leadRequest.getMailingCountry());
+
             l.setCourse(leadRequest.getCourse());
             l.setCourseSchedule(leadRequest.getCourseSchedule());
             l.setTrainer(leadRequest.getTrainer());
@@ -108,7 +108,7 @@ public class LeadService {
 
             this.leadRepository.save(l);
 
-            DTOLeadResponse leadResonse = new DTOLeadResponse();
+            DTOClientResponse leadResonse = new DTOClientResponse();
             BeanUtils.copyProperties(leadRequest, leadResonse);
 
             return ResponseEntity.ok().body(leadResonse);
@@ -129,14 +129,14 @@ public class LeadService {
         Course course = academicsRepository.findByCourseName(lead.getCourse()
                 .getName()).orElseThrow(() -> new RuntimeException("Fail! -> No Course Found"));
 
-        List<UserGroup> usergroups = userGroupRepository.findAll();
+        List<UserGroup> usergroups = IUserGroupRepository.findAll();
 
         for(UserGroup ug: usergroups) {
             lead.removeUserGroup(ug);
-            userGroupRepository.save(ug);
+            IUserGroupRepository.save(ug);
         }
 
-        UserGroup userGroup = userGroupRepository
+        UserGroup userGroup = IUserGroupRepository
                 .findByRoleAndGroups("ROLE_USER", "GROUP_CLIENT")
                 .orElseThrow(() -> new RuntimeException("Fail! -> UserGroup Not Found"));
 
@@ -166,9 +166,9 @@ public class LeadService {
      * @param l
      * @return
      */
-    public DTOLeadResponse getLead(Lead l) {
+    public DTOClientResponse getLead(Lead l) {
 
-        return new DTOLeadResponse(
+        return new DTOClientResponse(
                 l.getEmail(),
                 l.getFirstName(),
                 l.getLastName(),

@@ -4,12 +4,10 @@ import com.busyqa.crm.config.security.JwtProvider;
 import com.busyqa.crm.config.security.UserPrincipal;
 import com.busyqa.crm.model.auth.*;
 import com.busyqa.crm.model.clients.Lead;
-import com.busyqa.crm.repo.ILeadRepository;
 import com.busyqa.crm.repo.IUserGroupRepository;
 import com.busyqa.crm.repo.IUserRepository;
 import com.busyqa.crm.service.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,12 +31,12 @@ public class AuthRestController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    IUserGroupRepository userGroupRepository;
+    IUserGroupRepository IUserGroupRepository;
     @Autowired
     IUserRepository userRepository;
 
     @Autowired
-    ILeadRepository leadRepository;
+    com.busyqa.crm.repo.ILeadRepository ILeadRepository;
     @Autowired
     LeadService leadService;
 
@@ -76,7 +73,7 @@ public class AuthRestController {
                 new RuntimeException("Error: Username is Already Used");
 
         List<UserGroup> userGroupList = new ArrayList<>();
-        UserGroup userGroup = userGroupRepository.findByRoleAndGroups("ROLE_USER","GROUP_CLIENT")
+        UserGroup userGroup = IUserGroupRepository.findByRoleAndGroups("ROLE_USER","GROUP_CLIENT")
                 .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Group Not Found."));
 
         userGroupList.add(userGroup);
@@ -92,7 +89,7 @@ public class AuthRestController {
                 userGroupSet
         );
 
-        leadRepository.save(lead);
+        ILeadRepository.save(lead);
         UserPrincipal userPrincipal = UserPrincipal.build(lead);
 
         return signUpRequest;

@@ -1,7 +1,12 @@
 package com.busyqa.crm.model.finance;
 
+import com.busyqa.crm.model.EnumList;
+import com.busyqa.crm.model.clients.Intern;
 import com.busyqa.crm.model.clients.Student;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -14,12 +19,29 @@ public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String date;
+    private double regularFee;
+    private double taxFee;
+    private double lateFee;
     private double amount;
+
+    private String paymentStatus;
+
     private String transactionCode;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JsonIgnore
+    @JoinColumn(name = "student_id",referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Student student;
+
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "intern_id",referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Intern intern;
+
 
     // DATE
     @CreationTimestamp
@@ -31,16 +53,38 @@ public class Payment implements Serializable {
     public Payment() {
     }
 
-    public Payment(double amount, String transactionCode, Student student, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    // Students
+    public Payment(String date, double regularFee, double taxFee, double lateFee, double amount, String paymentStatus) {
+        this.date = date;
+        this.regularFee = regularFee;
+        this.taxFee = taxFee;
+        this.lateFee = lateFee;
         this.amount = amount;
-        this.transactionCode = transactionCode;
-        this.student = student;
-        this.createdTime = createdTime;
-        this.modifiedTime = modifiedTime;
+        this.paymentStatus = paymentStatus;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public Intern getIntern() {
+        return intern;
+    }
+
+    public void setIntern(Intern intern) {
+        this.intern = intern;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getAmount() {
@@ -51,6 +95,30 @@ public class Payment implements Serializable {
         this.amount = amount;
     }
 
+    public double getRegularFee() {
+        return regularFee;
+    }
+
+    public void setRegularFee(double regularFee) {
+        this.regularFee = regularFee;
+    }
+
+    public double getTaxFee() {
+        return taxFee;
+    }
+
+    public void setTaxFee(double taxFee) {
+        this.taxFee = taxFee;
+    }
+
+    public double getLateFee() {
+        return lateFee;
+    }
+
+    public void setLateFee(double lateFee) {
+        this.lateFee = lateFee;
+    }
+
     public String getTransactionCode() {
         return transactionCode;
     }
@@ -59,8 +127,21 @@ public class Payment implements Serializable {
         this.transactionCode = transactionCode;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public LocalDateTime getCreatedTime() {
@@ -79,11 +160,13 @@ public class Payment implements Serializable {
         this.modifiedTime = modifiedTime;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
+    @JsonIgnore
+    public double getPaidAmount() {
+        if( paymentStatus.equals(EnumList.PAID.toString())) {
+            return (regularFee + taxFee);
+        } else if (paymentStatus.equals(EnumList.PAID_WITH_LATE_FEE.toString())) {
+            return amount;
+        } else {
+            return 0;}
     }
 }
