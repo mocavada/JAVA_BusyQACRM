@@ -1,12 +1,13 @@
 package com.busyqa.crm.model.academics;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
@@ -19,10 +20,15 @@ public class Course {
     private String batch;
     private String description;
     private Double fee;
+    private Double taxPercentage;
+    private Double lateFeeRate;
+    private double durationWeek;
+    private double paymentDurationWeek;
+    private double paymentDurationBiWeek;
+
 
     @OneToMany(cascade = PERSIST)
     private List<Class> classes = new ArrayList<>();
-
 
     // TEMPORAL
     @CreationTimestamp
@@ -34,11 +40,16 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, String batch, String description, Double fee, List<Class> classes, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public Course(String name, String batch, String description, Double fee, Double taxPercentage, Double lateFeeRate, double durationWeek, double paymentDurationWeek, double paymentDurationBiWeek, List<Class> classes, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.name = name;
         this.batch = batch;
         this.description = description;
         this.fee = fee;
+        this.taxPercentage = taxPercentage;
+        this.lateFeeRate = lateFeeRate;
+        this.durationWeek = durationWeek;
+        this.paymentDurationWeek = paymentDurationWeek;
+        this.paymentDurationBiWeek = paymentDurationBiWeek;
         this.classes = classes;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
@@ -109,6 +120,45 @@ public class Course {
         this.classes = classes;
     }
 
+    public Double getTaxPercentage() {
+        return taxPercentage;
+    }
+
+    public void setTaxPercentage(Double taxPercentage) {
+        this.taxPercentage = taxPercentage;
+    }
+
+    public Double getLateFeeRate() {
+        return lateFeeRate;
+    }
+
+    public void setLateFeeRate(Double lateFeeRate) {
+        this.lateFeeRate = lateFeeRate;
+    }
+
+    public double getPaymentDurationWeek() {
+        return paymentDurationWeek;
+    }
+
+    public void setPaymentDurationWeek(double paymentDurationWeek) {
+        this.paymentDurationWeek = paymentDurationWeek;
+    }
+
+    public double getDurationWeek() {
+        return durationWeek;
+    }
+
+    public void setDurationWeek(double durationWeek) {
+        this.durationWeek = durationWeek;
+    }
+
+    public double getPaymentDurationBiWeek() {
+        return paymentDurationBiWeek;
+    }
+
+    public void setPaymentDurationBiWeek(double paymentDurationBiWeek) {
+        this.paymentDurationBiWeek = paymentDurationBiWeek;
+    }
 
     // CUSTOM METHODS
     public void addClass(Class newClass) {
@@ -118,6 +168,9 @@ public class Course {
     public void removeClass(Class classEntry) {
         this.classes.remove(classEntry);
     }
+
+
+
 
 }
 

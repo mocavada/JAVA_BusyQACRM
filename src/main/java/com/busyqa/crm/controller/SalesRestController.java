@@ -2,7 +2,9 @@ package com.busyqa.crm.controller;
 
 import com.busyqa.crm.model.Mail;
 import com.busyqa.crm.model.academics.Course;
-import com.busyqa.crm.model.clients.*;
+import com.busyqa.crm.model.clients.DTOClientRequest;
+import com.busyqa.crm.model.clients.DTOClientResponse;
+import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.service.AcademicsService;
 import com.busyqa.crm.service.LeadService;
 import com.busyqa.crm.service.MailService;
@@ -37,21 +39,29 @@ public class SalesRestController {
     // LEAD SERVICE
     ///////////////////
     @GetMapping("/leadslist")
-    public List<DTOLeadResponse> getLeadList() {
+    public List<DTOClientResponse> getLeadList() {
         return this.leadService.getAllLeadsMO();
     }
 
 
     @GetMapping("/lead/{email}")
-    public DTOLeadResponse getLeadByEmail(@PathVariable("email") String email) {
+    public DTOClientResponse getLeadByEmail(@PathVariable("email") String email) {
         return this.leadService.getLeadByEmailMO(email);
     }
 
 
     @PutMapping("/updatelead/{email}")
-    public ResponseEntity<DTOLeadResponse> updateLead(@PathVariable("email") String email, @RequestBody DTOLeadRequest leadRequest) {
+    public ResponseEntity<DTOClientResponse> updateLead(@PathVariable("email") String email, @RequestBody DTOClientRequest leadRequest) {
         return leadService.updateLeadMO(email,leadRequest);
     }
+
+    @DeleteMapping("/changeLeadToStudent/{email}")
+    public Student leadToStudent(@PathVariable("email") String email) {
+
+        return leadService.changeLeadToStudent(email);
+    }
+
+
 
     ///////////////////
     // ACADEMICS --- COURSE SERVICE
