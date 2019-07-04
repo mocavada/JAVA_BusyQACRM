@@ -38,12 +38,11 @@ public class SalesRestController {
     ///////////////////
     // LEAD SERVICE
     ///////////////////
-    @GetMapping("/leadslist")
-    public List<DTOClientResponse> getLeadList() {
+    @GetMapping("/typeleadslist/{type}")
+    public List<DTOClientResponse> getLeadListByDType(@PathVariable("type") String type) {
 
-        return this.leadService.getAllLeads();
+        return this.leadService.getAllByDtype(type);
     }
-
 
 
     @GetMapping("/lead/{email}")

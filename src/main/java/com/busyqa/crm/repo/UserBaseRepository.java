@@ -18,9 +18,16 @@ public interface UserBaseRepository<T extends User> extends JpaRepository<T, Lon
     Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
     List<T> findAll();
+    List<T> findAllByDtype(String type);
+
+    Optional<T> findByEmail(String email);
+    Optional<T> findById(Long id);
+
+
 
     List<T> findByUsergroups_Groups(String group);
     List<T> findByUsergroups_Role(String role);
+
 
 
     @Modifying

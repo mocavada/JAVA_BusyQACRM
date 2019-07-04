@@ -1,17 +1,38 @@
 package com.busyqa.crm.controller;
 
 
+import com.busyqa.crm.model.clients.DTOClientResponse;
 import com.busyqa.crm.service.AcademicsService;
+import com.busyqa.crm.service.LeadService;
+import com.busyqa.crm.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/admin/")
 public class AdminRestController {
+
+    @Autowired
+    private AcademicsService academicsService;
+
+    @Autowired
+    private MailService mailService;
+
+    @Autowired
+    private LeadService leadService;
+
+
+    @GetMapping("/userslist")
+    public List<DTOClientResponse> getUsersList() {
+
+        return this.leadService.getAllUsers();
+    }
+
+
 
 //    @Autowired
 //    private ClientsService clientsService;

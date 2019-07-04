@@ -33,7 +33,8 @@ public class User {
     private String phoneNumber;
     private String emergencyPhone;
 
-    @Column(insertable = false, updatable = false) private String dtype;
+    @Column(insertable = false, updatable = false)
+    private String dtype;
 
 
     // DATE
