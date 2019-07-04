@@ -40,19 +40,21 @@ public class SalesRestController {
     ///////////////////
     @GetMapping("/leadslist")
     public List<DTOClientResponse> getLeadList() {
-        return this.leadService.getAllLeadsMO();
+
+        return this.leadService.getAllLeads();
     }
+
 
 
     @GetMapping("/lead/{email}")
     public DTOClientResponse getLeadByEmail(@PathVariable("email") String email) {
-        return this.leadService.getLeadByEmailMO(email);
+        return this.leadService.getLeadByEmail(email);
     }
 
 
     @PutMapping("/updatelead/{email}")
     public ResponseEntity<DTOClientResponse> updateLead(@PathVariable("email") String email, @RequestBody DTOClientRequest leadRequest) {
-        return leadService.updateLeadMO(email,leadRequest);
+        return leadService.updateLead(email,leadRequest);
     }
 
     @DeleteMapping("/changeLeadToStudent/{email}")
@@ -60,7 +62,6 @@ public class SalesRestController {
 
         return leadService.changeLeadToStudent(email);
     }
-
 
 
     ///////////////////

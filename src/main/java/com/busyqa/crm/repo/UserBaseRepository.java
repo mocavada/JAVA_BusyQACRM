@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface IUserBaseRepository<T extends User> extends JpaRepository<T, Long> {
+public interface UserBaseRepository<T extends User> extends JpaRepository<T, Long> {
 
     Optional<T> findByUsername(String username);
     Boolean existsByUsername(String username);

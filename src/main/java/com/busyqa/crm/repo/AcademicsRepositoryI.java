@@ -6,7 +6,7 @@ import com.busyqa.crm.model.academics.Class;
 import java.util.List;
 import java.util.Optional;
 
-public interface IAcademicsRepository {
+public interface AcademicsRepositoryI {
     // COURSE
     void addCourse(Course course);
     List<Course> getAllCourse();

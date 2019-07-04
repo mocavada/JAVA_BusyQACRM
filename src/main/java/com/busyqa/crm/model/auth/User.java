@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 @Table(name = "USERS")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,13 +26,17 @@ public class User {
 
     @Column(name="EMAIL", nullable = false, unique = true)
     private String email;
+
     //Common User Fields
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String emergencyPhone;
 
-    // TEMPORAL
+    @Column(insertable = false, updatable = false) private String dtype;
+
+
+    // DATE
     @CreationTimestamp
     private LocalDateTime createdTime;
     @UpdateTimestamp
@@ -93,17 +99,27 @@ public class User {
         this.usergroups = usergroups;
     }
 
-    public User(String email, String username, String password, String firstName, String lastName, String phoneNumber, String emergencyPhone, LocalDateTime createdTime, LocalDateTime modifiedTime, Set<UserGroup> usergroups) {
-        this.email = email;
+
+    public User(String username, String password, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, LocalDateTime createdTime, LocalDateTime modifiedTime, Set<UserGroup> usergroups) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emergencyPhone = emergencyPhone;
+        this.dtype = dtype;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.usergroups = usergroups;
+    }
+
+    public String getDtype() {
+        return dtype;
+    }
+
+    public void setDtype(String dtype) {
+        this.dtype = dtype;
     }
 
     public String getFullName() {

@@ -1,43 +1,41 @@
 package com.busyqa.crm.service;
 
 
-import com.busyqa.crm.model.academics.Course;
-import com.busyqa.crm.model.auth.UserGroup;
 import com.busyqa.crm.model.clients.DTOClientRequest;
 import com.busyqa.crm.model.clients.DTOClientResponse;
 import com.busyqa.crm.model.clients.Lead;
 import com.busyqa.crm.model.clients.Student;
-import com.busyqa.crm.repo.*;
+import com.busyqa.crm.repo.AcademicsRepositoryI;
+import com.busyqa.crm.repo.LeadRepository;
+import com.busyqa.crm.repo.StudentRepository;
+import com.busyqa.crm.repo.UserGroupRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class LeadService {
 
     @Autowired
-    private IUserGroupRepository IUserGroupRepository;
+    private UserGroupRepository userGroupRepository;
 
     @Autowired
-    private ILeadRepository leadRepository;
+    private LeadRepository leadRepository;
 
     @Autowired
-    private IStudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    private IAcademicsRepository academicsRepository;
+    private AcademicsRepositoryI academicsRepository;
 
     /**
      * @return
      */
-    public List<DTOClientResponse> getAllLeadsMO() {
+    public List<DTOClientResponse> getAllLeads() {
 
         List<Lead> leads = leadRepository.findAll();
 
@@ -58,56 +56,63 @@ public class LeadService {
      * @param email
      * @return
      */
-    public DTOClientResponse getLeadByEmailMO(String email) {
+    public DTOClientResponse getLeadByEmail(String email) {
 
         Lead l = leadRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("Error: Email not found!"));
         return getLead(l);
     }
 
-
-
     /**
      * @param email
      * @param leadRequest
      * @return
      */
-    public ResponseEntity<DTOClientResponse> updateLeadMO(String email, DTOClientRequest leadRequest) {
+    public ResponseEntity<DTOClientResponse> updateLead(String email, DTOClientRequest leadRequest) {
 
         return leadRepository.findByEmail(email).map(l -> {
+
+            double totalFee = getTotalFee(l);
+            boolean discountGiven = isDiscountGiven(l);
+            boolean registrationPaid = isRegistrationPaid(l);
+
             l.setEmail(leadRequest.getEmail());
             l.setFirstName(leadRequest.getFirstName());
             l.setLastName(leadRequest.getLastName());
             l.setPhoneNumber(leadRequest.getPhoneNumber());
             l.setEmergencyPhone(leadRequest.getEmergencyPhone());
-            l.setClientStatus(leadRequest.getClientStatus());
-            l.setRegistrationFee(leadRequest.getRegistrationFee());
-            l.setDiscount(leadRequest.getDiscount());
 
-            l.setTransactionDate(LocalDateTime.now().toString());
-            l.setLeadStatus(leadRequest.getLeadStatus());
+            l.setClientStatus(leadRequest.getClientStatus());
             l.setLeadSource(leadRequest.getLeadSource());
             l.setComments(leadRequest.getComments());
             l.setCurrentlyEmployed(leadRequest.getCurrentlyEmployed());
             l.setCurrentlyITEmployed(leadRequest.getCurrentlyITEmployed());
             l.setDesiredJob(leadRequest.getDesiredJob());
-            l.setPaymentPlan(leadRequest.getPaymentPlan());
-            l.setPaymentPlanStatus(leadRequest.getPaymentPlanStatus());
-            l.setRegistrationFeePaid(leadRequest.getRegistrationFeePaid());
-            l.setPlanAgreement(leadRequest.getPlanAgreement());
+
             l.setMailingStreet(leadRequest.getMailingStreet());
             l.setMailingCity(leadRequest.getMailingCity());
             l.setMailingState(leadRequest.getMailingState());
             l.setMailingZip(leadRequest.getMailingZip());
             l.setMailingCountry(leadRequest.getMailingCountry());
 
+            l.setRegistrationFeePaid(registrationPaid);
+            l.setPlanAgreementSigned(leadRequest.getPlanAgreementSigned());
+            l.setDiscountGiven(discountGiven);
+
+            l.setRegistrationFee(leadRequest.getRegistrationFee());
+            l.setDiscount(leadRequest.getDiscount());
+            l.setPaymentPlan(leadRequest.getPaymentPlan());
+
             l.setCourse(leadRequest.getCourse());
+
+            l.setTotalCourseFee(totalFee);
+
             l.setCourseSchedule(leadRequest.getCourseSchedule());
             l.setTrainer(leadRequest.getTrainer());
             l.setTrainingLocation(leadRequest.getTrainingLocation());
 
-            this.leadRepository.save(l);
 
+            this.leadRepository.save(l);
             DTOClientResponse leadResonse = new DTOClientResponse();
             BeanUtils.copyProperties(leadRequest, leadResonse);
 
@@ -126,41 +131,40 @@ public class LeadService {
                 .orElseThrow(() ->
                         new RuntimeException("Fail! -> Lead Not Found"));
 
-        Course course = academicsRepository.findByCourseName(lead.getCourse()
-                .getName()).orElseThrow(() -> new RuntimeException("Fail! -> No Course Found"));
+//        Course course = academicsRepository.findByCourseName(lead.getCourse()
+//                .getName()).orElseThrow(() -> new RuntimeException("Fail! -> No Course Found"));
 
-        List<UserGroup> usergroups = IUserGroupRepository.findAll();
+//        List<UserGroup> usergroups = userGroupRepository.findAll();
+//
+//        for(UserGroup ug: usergroups) {
+//            lead.removeUserGroup(ug);
+//            userGroupRepository.save(ug);
+//        }
+//
+//        UserGroup userGroup = userGroupRepository
+//                .findByRoleAndGroups("ROLE_USER", "GROUP_CLIENT")
+//                .orElseThrow(() -> new RuntimeException("Fail! -> UserGroup Not Found"));
+//
+//        Set<UserGroup> newUserGroupSet = new HashSet<>();
+//
+//        newUserGroupSet.add(userGroup);
 
-        for(UserGroup ug: usergroups) {
-            lead.removeUserGroup(ug);
-            IUserGroupRepository.save(ug);
-        }
-
-        UserGroup userGroup = IUserGroupRepository
-                .findByRoleAndGroups("ROLE_USER", "GROUP_CLIENT")
-                .orElseThrow(() -> new RuntimeException("Fail! -> UserGroup Not Found"));
-
-        Set<UserGroup> newUserGroupSet = new HashSet<>();
-
-        newUserGroupSet.add(userGroup);
 
         Student student = new Student();
 
         BeanUtils.copyProperties(lead,student);
 
-        student.setCourse(course);
-        student.setRegistrationFee(300);
-        student.setBalance(course.getFee() - 300);
-        student.setTransactionDate(LocalDateTime.now().toString());
-        student.setRegistrationFeePaid(true);
+//        student.setCourse(course);
 
+
+//        student.setRegistrationFeePaid(true);
 
         leadRepository.deleteByEmail(email);
-        studentRepository.save(student);
-        return student;
+
+        Student savedStudent = studentRepository.save(student);
+        return savedStudent;
 
     }
-
 
     /**
      * @param l
@@ -168,39 +172,86 @@ public class LeadService {
      */
     public DTOClientResponse getLead(Lead l) {
 
+
         return new DTOClientResponse(
+
+                l.getCreatedTime(),
+                l.getModifiedTime(),
                 l.getEmail(),
                 l.getFirstName(),
                 l.getLastName(),
                 l.getPhoneNumber(),
                 l.getEmergencyPhone(),
+
                 l.getClientStatus(),
-                l.getRegistrationFee(),
-                l.getDiscount(),
-                l.getLeadStatus(),
                 l.getLeadSource(),
                 l.getComments(),
                 l.getCurrentlyEmployed(),
                 l.getCurrentlyITEmployed(),
                 l.getDesiredJob(),
-                l.getPaymentPlan(),
-                l.getPaymentPlanStatus(),
-                l.getRegistrationFeePaid(),
-                l.getPlanAgreement(),
+
                 l.getMailingStreet(),
                 l.getMailingCity(),
                 l.getMailingState(),
                 l.getMailingZip(),
                 l.getMailingCountry(),
+
+                l.getRegistrationFeePaid(),
+                l.getPlanAgreementSigned(),
+                l.getDiscountGiven(),
+
+                l.getRegistrationFee(),
+                l.getDiscount(),
+                l.getPaymentPlan(),
+
                 l.getCourse(),
+
+                l.getTotalCourseFee(),
+
+
                 l.getCourseSchedule(),
                 l.getTrainer(),
-                l.getTrainingLocation(),
-                l.getCreatedTime(),
-                l.getModifiedTime()
+                l.getTrainingLocation()
+
         );
 
     }
+
+
+    public double getTotalFee(Lead l) {
+
+        if(l.getDiscountGiven()) {
+            return l.getCourse().getFee() - l.getDiscount().getAmount();
+
+        } else {
+            return l.getCourse().getFee();
+        }
+
+    }
+
+    public Boolean isDiscountGiven(Lead l) {
+
+        if (l.getDiscount() != null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public Boolean isRegistrationPaid(Lead l) {
+
+        if (l.getRegistrationFee() != null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
+
+
 
 
 

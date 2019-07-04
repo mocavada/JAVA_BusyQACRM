@@ -31,6 +31,9 @@ public class CRMApplication extends SpringBootServletInitializer {
 		om.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		Version version = om.version();
 		System.out.println(version);
+
 	}
+
+
 
 }

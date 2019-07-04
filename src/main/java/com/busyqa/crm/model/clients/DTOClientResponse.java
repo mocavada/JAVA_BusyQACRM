@@ -4,61 +4,65 @@ import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.academics.CourseSchedule;
 import com.busyqa.crm.model.academics.Trainer;
 import com.busyqa.crm.model.academics.TrainingLocation;
+import com.busyqa.crm.model.finance.*;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.List;
 
 public class DTOClientResponse {
 
-    private String email;
+    private LocalDateTime createdTime;
+    private LocalDateTime modifiedTime;
 
-    //Common User Fields
+    //USER FIELDS
+    private String email;
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String emergencyPhone;
 
-    // STATUS
+    // FOR LEADS
     private String clientStatus;
-    private double registrationFee;
-    private double discount;
-
-    // FOR LEADS ONLY
-    private String leadStatus;
     private String leadSource;
     private String comments;
     private Boolean currentlyEmployed;
     private Boolean currentlyITEmployed;
     private String desiredJob;
-
-    // PLAN
-    private String paymentPlan;
-    private String paymentPlanStatus;
-    private Boolean registrationFeePaid;
-    private Boolean planAgreement;
-
     // ADDRESS
     private String mailingStreet;
     private String mailingCity;
     private String mailingState;
     private String mailingZip;
     private String mailingCountry;
-
+    // IS
+    private Boolean isRegistrationFeePaid;
+    private Boolean isPlanAgreementSigned;
+    private Boolean isDiscountGiven;
+    // FINANCE
+    private RegistrationFee registrationFee;
+    private Discount discount;
+    private PaymentPlan paymentPlan;
     // ACADEMICS
     private Course course;
+    private double totalCourseFee;
     private CourseSchedule courseSchedule;
     private Trainer trainer;
     private TrainingLocation trainingLocation;
 
-    // TEMPORAL
-    private LocalDateTime createdTime;
-    private LocalDateTime modifiedTime;
 
-    // STUDENTS
+    // FOR STUDENTS
     private double amountPaid;
     private double balance;
+    private double weeklyPayment;
+    private Boolean isPaymentLate;
 
-    //INTERNS
+
+    private List<Payment> payments;
+    private Tax taxRate;
+    private LateFee lateFee;
+
+    //FOR INTERNS
     private String coopStatus;
     private String projectAssigned;
     private String performance;
@@ -68,110 +72,123 @@ public class DTOClientResponse {
     public DTOClientResponse() {
     }
 
-    // STUDENTS
-    public DTOClientResponse(String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String clientStatus, double registrationFee, double discount, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String paymentPlan, String paymentPlanStatus, Boolean registrationFeePaid, Boolean planAgreement, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Course course, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, LocalDateTime createdTime, LocalDateTime modifiedTime, double amountPaid, double balance) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.emergencyPhone = emergencyPhone;
-        this.clientStatus = clientStatus;
-        this.registrationFee = registrationFee;
-        this.discount = discount;
-        this.leadStatus = leadStatus;
-        this.leadSource = leadSource;
-        this.comments = comments;
-        this.currentlyEmployed = currentlyEmployed;
-        this.currentlyITEmployed = currentlyITEmployed;
-        this.desiredJob = desiredJob;
-        this.paymentPlan = paymentPlan;
-        this.paymentPlanStatus = paymentPlanStatus;
-        this.registrationFeePaid = registrationFeePaid;
-        this.planAgreement = planAgreement;
-        this.mailingStreet = mailingStreet;
-        this.mailingCity = mailingCity;
-        this.mailingState = mailingState;
-        this.mailingZip = mailingZip;
-        this.mailingCountry = mailingCountry;
-        this.course = course;
-        this.courseSchedule = courseSchedule;
-        this.trainer = trainer;
-        this.trainingLocation = trainingLocation;
-        this.createdTime = createdTime;
-        this.modifiedTime = modifiedTime;
-        this.amountPaid = amountPaid;
-        this.balance = balance;
-    }
+    // CTOR FOR LEADS
 
-    // LEADS
-    public DTOClientResponse(String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String clientStatus, double registrationFee, double discount, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String paymentPlan, String paymentPlanStatus, Boolean registrationFeePaid, Boolean planAgreement, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Course course, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public DTOClientResponse(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String clientStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
+        this.createdTime = createdTime;
+        this.modifiedTime = modifiedTime;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emergencyPhone = emergencyPhone;
         this.clientStatus = clientStatus;
-        this.registrationFee = registrationFee;
-        this.discount = discount;
-        this.leadStatus = leadStatus;
         this.leadSource = leadSource;
         this.comments = comments;
         this.currentlyEmployed = currentlyEmployed;
         this.currentlyITEmployed = currentlyITEmployed;
         this.desiredJob = desiredJob;
-        this.paymentPlan = paymentPlan;
-        this.paymentPlanStatus = paymentPlanStatus;
-        this.registrationFeePaid = registrationFeePaid;
-        this.planAgreement = planAgreement;
         this.mailingStreet = mailingStreet;
         this.mailingCity = mailingCity;
         this.mailingState = mailingState;
         this.mailingZip = mailingZip;
         this.mailingCountry = mailingCountry;
+        this.isRegistrationFeePaid = isRegistrationFeePaid;
+        this.isPlanAgreementSigned = isPlanAgreementSigned;
+        this.isDiscountGiven = isDiscountGiven;
+        this.registrationFee = registrationFee;
+        this.discount = discount;
+        this.paymentPlan = paymentPlan;
         this.course = course;
+        this.totalCourseFee = totalCourseFee;
         this.courseSchedule = courseSchedule;
         this.trainer = trainer;
         this.trainingLocation = trainingLocation;
-        this.createdTime = createdTime;
-        this.modifiedTime = modifiedTime;
     }
 
 
-    //INTERNS
+    // CTOR FOR STUDENTS
 
-
-    public DTOClientResponse(String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String clientStatus, double registrationFee, double discount, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String paymentPlan, String paymentPlanStatus, Boolean registrationFeePaid, Boolean planAgreement, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Course course, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, LocalDateTime createdTime, LocalDateTime modifiedTime, double amountPaid, double balance, String coopStatus, String projectAssigned, String performance, Calendar coopStartDate, Calendar coopEndDate) {
+    public DTOClientResponse(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String clientStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee) {
+        this.createdTime = createdTime;
+        this.modifiedTime = modifiedTime;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emergencyPhone = emergencyPhone;
         this.clientStatus = clientStatus;
-        this.registrationFee = registrationFee;
-        this.discount = discount;
-        this.leadStatus = leadStatus;
         this.leadSource = leadSource;
         this.comments = comments;
         this.currentlyEmployed = currentlyEmployed;
         this.currentlyITEmployed = currentlyITEmployed;
         this.desiredJob = desiredJob;
-        this.paymentPlan = paymentPlan;
-        this.paymentPlanStatus = paymentPlanStatus;
-        this.registrationFeePaid = registrationFeePaid;
-        this.planAgreement = planAgreement;
         this.mailingStreet = mailingStreet;
         this.mailingCity = mailingCity;
         this.mailingState = mailingState;
         this.mailingZip = mailingZip;
         this.mailingCountry = mailingCountry;
+        this.isRegistrationFeePaid = isRegistrationFeePaid;
+        this.isPlanAgreementSigned = isPlanAgreementSigned;
+        this.isDiscountGiven = isDiscountGiven;
+        this.registrationFee = registrationFee;
+        this.discount = discount;
+        this.paymentPlan = paymentPlan;
         this.course = course;
+        this.totalCourseFee = totalCourseFee;
         this.courseSchedule = courseSchedule;
         this.trainer = trainer;
         this.trainingLocation = trainingLocation;
-        this.createdTime = createdTime;
-        this.modifiedTime = modifiedTime;
         this.amountPaid = amountPaid;
         this.balance = balance;
+        this.weeklyPayment = weeklyPayment;
+        this.isPaymentLate = isPaymentLate;
+        this.payments = payments;
+        this.taxRate = taxRate;
+        this.lateFee = lateFee;
+    }
+
+
+    // CTOR FOR INTERNS
+
+
+    public DTOClientResponse(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String clientStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee, String coopStatus, String projectAssigned, String performance, Calendar coopStartDate, Calendar coopEndDate) {
+        this.createdTime = createdTime;
+        this.modifiedTime = modifiedTime;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.emergencyPhone = emergencyPhone;
+        this.clientStatus = clientStatus;
+        this.leadSource = leadSource;
+        this.comments = comments;
+        this.currentlyEmployed = currentlyEmployed;
+        this.currentlyITEmployed = currentlyITEmployed;
+        this.desiredJob = desiredJob;
+        this.mailingStreet = mailingStreet;
+        this.mailingCity = mailingCity;
+        this.mailingState = mailingState;
+        this.mailingZip = mailingZip;
+        this.mailingCountry = mailingCountry;
+        this.isRegistrationFeePaid = isRegistrationFeePaid;
+        this.isPlanAgreementSigned = isPlanAgreementSigned;
+        this.isDiscountGiven = isDiscountGiven;
+        this.registrationFee = registrationFee;
+        this.discount = discount;
+        this.paymentPlan = paymentPlan;
+        this.course = course;
+        this.totalCourseFee = totalCourseFee;
+        this.courseSchedule = courseSchedule;
+        this.trainer = trainer;
+        this.trainingLocation = trainingLocation;
+        this.amountPaid = amountPaid;
+        this.balance = balance;
+        this.weeklyPayment = weeklyPayment;
+        this.isPaymentLate = isPaymentLate;
+        this.payments = payments;
+        this.taxRate = taxRate;
+        this.lateFee = lateFee;
         this.coopStatus = coopStatus;
         this.projectAssigned = projectAssigned;
         this.performance = performance;
@@ -179,52 +196,20 @@ public class DTOClientResponse {
         this.coopEndDate = coopEndDate;
     }
 
-    public double getBalance() {
-        return balance;
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public String getCoopStatus() {
-        return coopStatus;
+    public LocalDateTime getModifiedTime() {
+        return modifiedTime;
     }
 
-    public void setCoopStatus(String coopStatus) {
-        this.coopStatus = coopStatus;
-    }
-
-    public String getProjectAssigned() {
-        return projectAssigned;
-    }
-
-    public void setProjectAssigned(String projectAssigned) {
-        this.projectAssigned = projectAssigned;
-    }
-
-    public String getPerformance() {
-        return performance;
-    }
-
-    public void setPerformance(String performance) {
-        this.performance = performance;
-    }
-
-    public Calendar getCoopStartDate() {
-        return coopStartDate;
-    }
-
-    public void setCoopStartDate(Calendar coopStartDate) {
-        this.coopStartDate = coopStartDate;
-    }
-
-    public Calendar getCoopEndDate() {
-        return coopEndDate;
-    }
-
-    public void setCoopEndDate(Calendar coopEndDate) {
-        this.coopEndDate = coopEndDate;
+    public void setModifiedTime(LocalDateTime modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 
     public String getEmail() {
@@ -255,6 +240,7 @@ public class DTOClientResponse {
         return phoneNumber;
     }
 
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -273,30 +259,6 @@ public class DTOClientResponse {
 
     public void setClientStatus(String clientStatus) {
         this.clientStatus = clientStatus;
-    }
-
-    public double getRegistrationFee() {
-        return registrationFee;
-    }
-
-    public void setRegistrationFee(double registrationFee) {
-        this.registrationFee = registrationFee;
-    }
-
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
-    public String getLeadStatus() {
-        return leadStatus;
-    }
-
-    public void setLeadStatus(String leadStatus) {
-        this.leadStatus = leadStatus;
     }
 
     public String getLeadSource() {
@@ -339,38 +301,6 @@ public class DTOClientResponse {
         this.desiredJob = desiredJob;
     }
 
-    public String getPaymentPlan() {
-        return paymentPlan;
-    }
-
-    public void setPaymentPlan(String paymentPlan) {
-        this.paymentPlan = paymentPlan;
-    }
-
-    public String getPaymentPlanStatus() {
-        return paymentPlanStatus;
-    }
-
-    public void setPaymentPlanStatus(String paymentPlanStatus) {
-        this.paymentPlanStatus = paymentPlanStatus;
-    }
-
-    public Boolean getRegistrationFeePaid() {
-        return registrationFeePaid;
-    }
-
-    public void setRegistrationFeePaid(Boolean registrationFeePaid) {
-        this.registrationFeePaid = registrationFeePaid;
-    }
-
-    public Boolean getPlanAgreement() {
-        return planAgreement;
-    }
-
-    public void setPlanAgreement(Boolean planAgreement) {
-        this.planAgreement = planAgreement;
-    }
-
     public String getMailingStreet() {
         return mailingStreet;
     }
@@ -411,12 +341,68 @@ public class DTOClientResponse {
         this.mailingCountry = mailingCountry;
     }
 
+    public Boolean getRegistrationFeePaid() {
+        return isRegistrationFeePaid;
+    }
+
+    public void setRegistrationFeePaid(Boolean registrationFeePaid) {
+        isRegistrationFeePaid = registrationFeePaid;
+    }
+
+    public Boolean getPlanAgreementSigned() {
+        return isPlanAgreementSigned;
+    }
+
+    public void setPlanAgreementSigned(Boolean planAgreementSigned) {
+        isPlanAgreementSigned = planAgreementSigned;
+    }
+
+    public Boolean getDiscountGiven() {
+        return isDiscountGiven;
+    }
+
+    public void setDiscountGiven(Boolean discountGiven) {
+        isDiscountGiven = discountGiven;
+    }
+
+    public RegistrationFee getRegistrationFee() {
+        return registrationFee;
+    }
+
+    public void setRegistrationFee(RegistrationFee registrationFee) {
+        this.registrationFee = registrationFee;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    public PaymentPlan getPaymentPlan() {
+        return paymentPlan;
+    }
+
+    public void setPaymentPlan(PaymentPlan paymentPlan) {
+        this.paymentPlan = paymentPlan;
+    }
+
     public Course getCourse() {
         return course;
     }
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public double getTotalCourseFee() {
+        return totalCourseFee;
+    }
+
+    public void setTotalCourseFee(double totalCourseFee) {
+        this.totalCourseFee = totalCourseFee;
     }
 
     public CourseSchedule getCourseSchedule() {
@@ -443,22 +429,6 @@ public class DTOClientResponse {
         this.trainingLocation = trainingLocation;
     }
 
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public LocalDateTime getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(LocalDateTime modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
-
     public double getAmountPaid() {
         return amountPaid;
     }
@@ -466,4 +436,94 @@ public class DTOClientResponse {
     public void setAmountPaid(double amountPaid) {
         this.amountPaid = amountPaid;
     }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public double getWeeklyPayment() {
+        return weeklyPayment;
+    }
+
+    public void setWeeklyPayment(double weeklyPayment) {
+        this.weeklyPayment = weeklyPayment;
+    }
+
+    public Boolean getPaymentLate() {
+        return isPaymentLate;
+    }
+
+    public void setPaymentLate(Boolean paymentLate) {
+        isPaymentLate = paymentLate;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public Tax getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(Tax taxRate) {
+        this.taxRate = taxRate;
+    }
+
+    public LateFee getLateFee() {
+        return lateFee;
+    }
+
+    public void setLateFee(LateFee lateFee) {
+        this.lateFee = lateFee;
+    }
+
+    public String getCoopStatus() {
+        return coopStatus;
+    }
+
+    public void setCoopStatus(String coopStatus) {
+        this.coopStatus = coopStatus;
+    }
+
+    public String getProjectAssigned() {
+        return projectAssigned;
+    }
+
+    public void setProjectAssigned(String projectAssigned) {
+        this.projectAssigned = projectAssigned;
+    }
+
+    public String getPerformance() {
+        return performance;
+    }
+
+    public void setPerformance(String performance) {
+        this.performance = performance;
+    }
+
+    public Calendar getCoopStartDate() {
+        return coopStartDate;
+    }
+
+    public void setCoopStartDate(Calendar coopStartDate) {
+        this.coopStartDate = coopStartDate;
+    }
+
+    public Calendar getCoopEndDate() {
+        return coopEndDate;
+    }
+
+    public void setCoopEndDate(Calendar coopEndDate) {
+        this.coopEndDate = coopEndDate;
+    }
+
+
 }

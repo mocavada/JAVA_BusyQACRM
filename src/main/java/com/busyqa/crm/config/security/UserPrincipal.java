@@ -1,13 +1,14 @@
 package com.busyqa.crm.config.security;
 
-import com.busyqa.crm.model.auth.User;
-import com.busyqa.crm.model.auth.UserGroup;
+import com.busyqa.crm.model.clients.Lead;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
@@ -39,7 +40,7 @@ public class UserPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserPrincipal build(User user) {
+    public static UserPrincipal build(Lead user) {
         List<String> strRoles = user.getUsergroups().stream()
                 .map(ug -> ug.getRole()).collect(Collectors.toList());
 
