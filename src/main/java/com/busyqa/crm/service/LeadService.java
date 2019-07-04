@@ -35,7 +35,7 @@ public class LeadService {
     /**
      * @return
      */
-    public List<DTOClientResponse> getAllLeads() {
+    public List<DTOClientResponse> getAllUsers() {
 
         List<Lead> leads = leadRepository.findAll();
 
@@ -50,6 +50,24 @@ public class LeadService {
         }
 
         return leadResponses;
+    }
+
+    public List<DTOClientResponse> getAllByDtype(String type) {
+
+        List<Lead> leads = leadRepository.findAllByDtype(type);
+
+        if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
+
+        List<DTOClientResponse> leadResponses = new ArrayList<>();
+
+        System.out.println(leads.size());
+
+        for (Lead l: leads) {
+            leadResponses.add(getLead(l));
+        }
+
+        return leadResponses;
+
     }
 
     /**

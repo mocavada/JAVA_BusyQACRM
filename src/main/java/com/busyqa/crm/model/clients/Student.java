@@ -33,6 +33,7 @@ public class Student extends Lead {
     public Student() {
     }
 
+
     public Student(double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee) {
         this.amountPaid = amountPaid;
         this.balance = balance;
