@@ -9,7 +9,6 @@ import com.busyqa.crm.model.auth.UserGroup;
 import com.busyqa.crm.model.clients.Lead;
 import com.busyqa.crm.repo.LeadRepository;
 import com.busyqa.crm.repo.UserGroupRepository;
-import com.busyqa.crm.repo.UserRepository;
 import com.busyqa.crm.service.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +36,8 @@ public class AuthRestController {
     @Autowired
     UserGroupRepository userGroupRepository;
 
-    @Autowired
-    UserRepository userRepository;
+//    @Autowired
+//    UserRepository userRepository;
 
     @Autowired
     LeadRepository leadRepository;
