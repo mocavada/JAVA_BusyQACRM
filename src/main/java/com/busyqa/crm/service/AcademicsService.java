@@ -2,7 +2,7 @@ package com.busyqa.crm.service;
 
 import com.busyqa.crm.model.academics.Class;
 import com.busyqa.crm.model.academics.Course;
-import com.busyqa.crm.repo.IAcademicsRepository;
+import com.busyqa.crm.repo.AcademicsRepositoryI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class AcademicsService {
 
     @Autowired
-    private IAcademicsRepository academicsRepository;
+    private AcademicsRepositoryI academicsRepository;
 
 
     //////////////

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("ALL")
 @Transactional
 @Repository
-public class AcademicsRepository implements IAcademicsRepository {
+public class AcademicsRepository implements AcademicsRepositoryI {
 
     @PersistenceContext
     private EntityManager entityManager;

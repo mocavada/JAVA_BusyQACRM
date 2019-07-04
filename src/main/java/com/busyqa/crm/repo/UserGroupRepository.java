@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface IUserGroupRepository extends JpaRepository<UserGroup, Long> {
+public interface UserGroupRepository extends JpaRepository<UserGroup, Long> {
 //    List<UserGroup> findByUser_Username(String username);
 //    List<UserGroup> findByUsername(String username);
 
@@ -18,10 +18,10 @@ public interface IUserGroupRepository extends JpaRepository<UserGroup, Long> {
     Optional<UserGroup> findByRoleAndGroups(String role, String group);
 
     @Query("select p from UserGroup p where p.role = :role")
-    List<IUserGroupRepository> findUserGroupByRole(@Param("role") String role);
+    List<UserGroupRepository> findUserGroupByRole(@Param("role") String role);
 
     @Query("select p from UserGroup p where p.groups = :groups")
-    List<IUserGroupRepository> findUserGroupByGroups(@Param("groups") String groups);
+    List<UserGroupRepository> findUserGroupByGroups(@Param("groups") String groups);
 
     @Query("select p from UserGroup p where p.role = :role and p.groups = :groups")
     List<UserGroup> findUserGroupByRoleAndGroups(@Param("role") String role,@Param("groups") String groups);

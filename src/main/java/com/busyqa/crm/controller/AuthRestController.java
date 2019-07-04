@@ -2,10 +2,14 @@ package com.busyqa.crm.controller;
 
 import com.busyqa.crm.config.security.JwtProvider;
 import com.busyqa.crm.config.security.UserPrincipal;
-import com.busyqa.crm.model.auth.*;
+import com.busyqa.crm.model.auth.DTOJwtResponse;
+import com.busyqa.crm.model.auth.DTOUserLoginForm;
+import com.busyqa.crm.model.auth.DTOUserSignupForm;
+import com.busyqa.crm.model.auth.UserGroup;
 import com.busyqa.crm.model.clients.Lead;
-import com.busyqa.crm.repo.IUserGroupRepository;
-import com.busyqa.crm.repo.IUserRepository;
+import com.busyqa.crm.repo.LeadRepository;
+import com.busyqa.crm.repo.UserGroupRepository;
+import com.busyqa.crm.repo.UserRepository;
 import com.busyqa.crm.service.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +35,14 @@ public class AuthRestController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    IUserGroupRepository IUserGroupRepository;
-    @Autowired
-    IUserRepository userRepository;
+    UserGroupRepository userGroupRepository;
 
     @Autowired
-    com.busyqa.crm.repo.ILeadRepository ILeadRepository;
+    UserRepository userRepository;
+
+    @Autowired
+    LeadRepository leadRepository;
+
     @Autowired
     LeadService leadService;
 
@@ -66,14 +72,15 @@ public class AuthRestController {
     @PostMapping("/signup")
     public DTOUserSignupForm registerUser(@Valid @RequestBody DTOUserSignupForm signUpRequest) {
 
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) throw
+        if(leadRepository.existsByEmail(signUpRequest.getEmail())) throw
                 new RuntimeException("Error: Email is Already Used");
 
-        if(userRepository.existsByUsername(signUpRequest.getUsername())) throw
+        if(leadRepository.existsByUsername(signUpRequest.getUsername())) throw
                 new RuntimeException("Error: Username is Already Used");
 
         List<UserGroup> userGroupList = new ArrayList<>();
-        UserGroup userGroup = IUserGroupRepository.findByRoleAndGroups("ROLE_USER","GROUP_CLIENT")
+
+        UserGroup userGroup = userGroupRepository.findByRoleAndGroups("ROLE_USER","GROUP_CLIENT")
                 .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Group Not Found."));
 
         userGroupList.add(userGroup);
@@ -89,7 +96,8 @@ public class AuthRestController {
                 userGroupSet
         );
 
-        ILeadRepository.save(lead);
+        leadRepository.save(lead);
+
         UserPrincipal userPrincipal = UserPrincipal.build(lead);
 
         return signUpRequest;

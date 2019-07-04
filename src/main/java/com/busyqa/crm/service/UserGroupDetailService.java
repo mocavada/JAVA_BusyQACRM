@@ -1,8 +1,9 @@
 package com.busyqa.crm.service;
 
 import com.busyqa.crm.config.security.UserPrincipal;
-import com.busyqa.crm.model.auth.User;
-import com.busyqa.crm.repo.IUserRepository;
+import com.busyqa.crm.model.clients.Lead;
+import com.busyqa.crm.repo.LeadRepository;
+import com.busyqa.crm.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +17,10 @@ public class UserGroupDetailService implements UserDetailsService {
 
 
     @Autowired
-    IUserRepository userRepository;
+    UserRepository userRepository;
+
+    @Autowired
+    LeadRepository leadRepository;
 
 
     @Override
@@ -24,7 +28,7 @@ public class UserGroupDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         // Check Username in DB
-        User user = userRepository.findByUsername(username).orElseThrow(
+        Lead user = leadRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User Not Found with -> username or email : " + username));
 
         return UserPrincipal.build(user);

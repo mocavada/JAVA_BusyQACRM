@@ -6,6 +6,9 @@ import com.busyqa.crm.model.academics.Trainer;
 import com.busyqa.crm.model.academics.TrainingLocation;
 import com.busyqa.crm.model.auth.User;
 import com.busyqa.crm.model.auth.UserGroup;
+import com.busyqa.crm.model.finance.Discount;
+import com.busyqa.crm.model.finance.PaymentPlan;
+import com.busyqa.crm.model.finance.RegistrationFee;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,25 +17,14 @@ import java.util.Set;
 @Entity
 @Table(name = "LEADS")
 public class Lead extends User {
-    // STATUS
-    private String clientStatus;
-    private double registrationFee;
-    private double discount;
-    private String transactionDate;
 
     // FOR LEADS ONLY
-    private String leadStatus;
+    private String clientStatus;
     private String leadSource;
     private String comments;
     private Boolean currentlyEmployed;
     private Boolean currentlyITEmployed;
     private String desiredJob;
-
-    // PLAN
-    private String paymentPlan;
-    private String paymentPlanStatus;
-    private Boolean registrationFeePaid;
-    private Boolean planAgreement;
 
     // ADDRESS
     private String mailingStreet;
@@ -41,10 +33,28 @@ public class Lead extends User {
     private String mailingZip;
     private String mailingCountry;
 
+    private Boolean isRegistrationFeePaid;
+    private Boolean isPlanAgreementSigned;
+    private Boolean isDiscountGiven;
+
+    // FINANCE
+    @ManyToOne
+    @JoinColumn(name = "registrationFee_id")
+    private RegistrationFee registrationFee;
+
+    @ManyToOne
+    @JoinColumn(name = "discount_id")
+    private Discount discount;
+
+    @ManyToOne
+    @JoinColumn(name = "paymentPlan_id")
+    private PaymentPlan paymentPlan;
+
     // ACADEMICS
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+    private double totalCourseFee;
 
     @ManyToOne
     @JoinColumn(name = "course_schedule_id")
@@ -58,6 +68,8 @@ public class Lead extends User {
     @JoinColumn(name = "training_location_id")
     private TrainingLocation trainingLocation;
 
+
+
     public Lead() {
     }
 
@@ -65,97 +77,32 @@ public class Lead extends User {
         super(username, password, email, firstName, usergroups);
     }
 
-    public Lead(String clientStatus, double registrationFee, double discount, String transactionDate, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String paymentPlan, String paymentPlanStatus, Boolean registrationFeePaid, Boolean planAgreement, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Course course, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
+
+
+
+    public Lead(String clientStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
         this.clientStatus = clientStatus;
-        this.registrationFee = registrationFee;
-        this.discount = discount;
-        this.transactionDate = transactionDate;
-        this.leadStatus = leadStatus;
         this.leadSource = leadSource;
         this.comments = comments;
         this.currentlyEmployed = currentlyEmployed;
         this.currentlyITEmployed = currentlyITEmployed;
         this.desiredJob = desiredJob;
-        this.paymentPlan = paymentPlan;
-        this.paymentPlanStatus = paymentPlanStatus;
-        this.registrationFeePaid = registrationFeePaid;
-        this.planAgreement = planAgreement;
         this.mailingStreet = mailingStreet;
         this.mailingCity = mailingCity;
         this.mailingState = mailingState;
         this.mailingZip = mailingZip;
         this.mailingCountry = mailingCountry;
-        this.course = course;
-        this.courseSchedule = courseSchedule;
-        this.trainer = trainer;
-        this.trainingLocation = trainingLocation;
-    }
-
-    public Lead(String username, String password, String email, String firstName, Set<UserGroup> usergroups, String clientStatus, double registrationFee, double discount, String transactionDate, String leadStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String paymentPlan, String paymentPlanStatus, Boolean registrationFeePaid, Boolean planAgreement, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Course course, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
-        super(username, password, email, firstName, usergroups);
-        this.clientStatus = clientStatus;
+        this.isRegistrationFeePaid = isRegistrationFeePaid;
+        this.isPlanAgreementSigned = isPlanAgreementSigned;
+        this.isDiscountGiven = isDiscountGiven;
         this.registrationFee = registrationFee;
         this.discount = discount;
-        this.transactionDate = transactionDate;
-        this.leadStatus = leadStatus;
-        this.leadSource = leadSource;
-        this.comments = comments;
-        this.currentlyEmployed = currentlyEmployed;
-        this.currentlyITEmployed = currentlyITEmployed;
-        this.desiredJob = desiredJob;
         this.paymentPlan = paymentPlan;
-        this.paymentPlanStatus = paymentPlanStatus;
-        this.registrationFeePaid = registrationFeePaid;
-        this.planAgreement = planAgreement;
-        this.mailingStreet = mailingStreet;
-        this.mailingCity = mailingCity;
-        this.mailingState = mailingState;
-        this.mailingZip = mailingZip;
-        this.mailingCountry = mailingCountry;
         this.course = course;
+        this.totalCourseFee = totalCourseFee;
         this.courseSchedule = courseSchedule;
         this.trainer = trainer;
         this.trainingLocation = trainingLocation;
-    }
-
-    public String getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
-    }
-
-    public Integer getCourseId() {
-        return course.getId();
-    }
-
-    public Integer getCourseScheduleId() {
-        return courseSchedule.getId();
-    }
-
-    public Integer getTrainerId() {
-        return trainer.getId();
-    }
-
-    public Integer getTrainingLocationId() {
-        return trainingLocation.getId();
-    }
-
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
     }
 
     public String getClientStatus() {
@@ -166,28 +113,20 @@ public class Lead extends User {
         this.clientStatus = clientStatus;
     }
 
-    public double getRegistrationFee() {
-        return registrationFee;
-    }
-
-    public void setRegistrationFee(double registrationFee) {
-        this.registrationFee = registrationFee;
-    }
-
-    public String getLeadStatus() {
-        return leadStatus;
-    }
-
-    public void setLeadStatus(String leadStatus) {
-        this.leadStatus = leadStatus;
-    }
-
     public String getLeadSource() {
         return leadSource;
     }
 
     public void setLeadSource(String leadSource) {
         this.leadSource = leadSource;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public Boolean getCurrentlyEmployed() {
@@ -212,38 +151,6 @@ public class Lead extends User {
 
     public void setDesiredJob(String desiredJob) {
         this.desiredJob = desiredJob;
-    }
-
-    public String getPaymentPlan() {
-        return paymentPlan;
-    }
-
-    public void setPaymentPlan(String paymentPlan) {
-        this.paymentPlan = paymentPlan;
-    }
-
-    public String getPaymentPlanStatus() {
-        return paymentPlanStatus;
-    }
-
-    public void setPaymentPlanStatus(String paymentPlanStatus) {
-        this.paymentPlanStatus = paymentPlanStatus;
-    }
-
-    public Boolean getRegistrationFeePaid() {
-        return registrationFeePaid;
-    }
-
-    public void setRegistrationFeePaid(Boolean registrationFeePaid) {
-        this.registrationFeePaid = registrationFeePaid;
-    }
-
-    public Boolean getPlanAgreement() {
-        return planAgreement;
-    }
-
-    public void setPlanAgreement(Boolean planAgreement) {
-        this.planAgreement = planAgreement;
     }
 
     public String getMailingStreet() {
@@ -286,6 +193,58 @@ public class Lead extends User {
         this.mailingCountry = mailingCountry;
     }
 
+    public Boolean getRegistrationFeePaid() {
+        return isRegistrationFeePaid;
+    }
+
+    public void setRegistrationFeePaid(Boolean registrationFeePaid) {
+        isRegistrationFeePaid = registrationFeePaid;
+    }
+
+    public Boolean getPlanAgreementSigned() {
+        return isPlanAgreementSigned;
+    }
+
+    public void setTotalCourseFee(double totalCourseFee) {
+        this.totalCourseFee = totalCourseFee;
+    }
+
+    public void setPlanAgreementSigned(Boolean planAgreementSigned) {
+        isPlanAgreementSigned = planAgreementSigned;
+    }
+
+    public Boolean getDiscountGiven() {
+        return isDiscountGiven;
+    }
+
+    public void setDiscountGiven(Boolean discountGiven) {
+        isDiscountGiven = discountGiven;
+    }
+
+    public RegistrationFee getRegistrationFee() {
+        return registrationFee;
+    }
+
+    public void setRegistrationFee(RegistrationFee registrationFee) {
+        this.registrationFee = registrationFee;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    public PaymentPlan getPaymentPlan() {
+        return paymentPlan;
+    }
+
+    public void setPaymentPlan(PaymentPlan paymentPlan) {
+        this.paymentPlan = paymentPlan;
+    }
+
     public Course getCourse() {
         return course;
     }
@@ -317,5 +276,11 @@ public class Lead extends User {
     public void setTrainingLocation(TrainingLocation trainingLocation) {
         this.trainingLocation = trainingLocation;
     }
+
+    public double getTotalCourseFee() {
+        return totalCourseFee;
+    }
+
+    // CUSTOM METHODS
 
 }

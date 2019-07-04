@@ -6,6 +6,6 @@ import javax.transaction.Transactional;
 
 
 @Transactional
-public interface IUserRepository extends IUserBaseRepository<User> {
+public interface UserRepository extends UserBaseRepository<User> {
 
 }

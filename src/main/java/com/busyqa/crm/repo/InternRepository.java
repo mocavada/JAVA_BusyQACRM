@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Transactional
-public interface IInternRepository extends IUserBaseRepository<Intern>{
+public interface InternRepository extends UserBaseRepository<Intern> {
 
     Optional<Intern> findByEmail(String email);
 

@@ -4,39 +4,36 @@ import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.clients.DTOClientRequest;
 import com.busyqa.crm.model.clients.DTOClientResponse;
 import com.busyqa.crm.model.clients.Student;
-import com.busyqa.crm.model.finance.Payment;
 import com.busyqa.crm.repo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class StudentService {
     @Autowired
-    private IUserGroupRepository userGroupRepository;
+    private UserGroupRepository userGroupRepository;
 
     @Autowired
-    private IAcademicsRepository academicsRepository;
+    private AcademicsRepositoryI academicsRepository;
 
     @Autowired
-    private IStudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    private ILeadRepository leadRepository;
+    private LeadRepository leadRepository;
 
     @Autowired
-    private IInternRepository internRepository;
+    private InternRepository internRepository;
 
-    @Autowired
-    private IPaymentRepository paymentRepository;
+//    @Autowired
+//    private IPaymentRepository paymentRepository;
 
-    @Autowired
-    private PaymentService paymentService;
 
     /**
      * @return
@@ -61,22 +58,10 @@ public class StudentService {
      * @param email
      * @return
      */
-    public DTOClientResponse getStudentByEmail(String email) {
+    public DTOClientResponse getStudentByEmail(String email) throws ParseException {
 
         Student student = studentRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("Error: Email not found!"));
-
-        List<Payment> payments = paymentService.updatePayments(student.getId(),student.getCourse().getName());
-
-        double feeNeedToPay = 0;
-        for (Payment p : payments) {
-            feeNeedToPay += p.getAmount();
-        }
-
-        student.setAmountPaid(paymentService.getUpdatePaidAmount(student.getId()));
-        student.setBalance(feeNeedToPay - student.getAmountPaid());
-
-        studentRepository.save(student);
 
         return getStudent(student);
     }
@@ -98,34 +83,45 @@ public class StudentService {
             l.setLastName(studentRequest.getLastName());
             l.setPhoneNumber(studentRequest.getPhoneNumber());
             l.setEmergencyPhone(studentRequest.getEmergencyPhone());
-            l.setClientStatus(studentRequest.getClientStatus());
-            l.setRegistrationFee(studentRequest.getRegistrationFee());
-            l.setDiscount(studentRequest.getDiscount());
 
-            l.setTransactionDate(LocalDateTime.now().toString());
-            l.setLeadStatus(studentRequest.getLeadStatus());
+            l.setClientStatus(studentRequest.getClientStatus());
             l.setLeadSource(studentRequest.getLeadSource());
             l.setComments(studentRequest.getComments());
             l.setCurrentlyEmployed(studentRequest.getCurrentlyEmployed());
             l.setCurrentlyITEmployed(studentRequest.getCurrentlyITEmployed());
             l.setDesiredJob(studentRequest.getDesiredJob());
-            l.setPaymentPlan(studentRequest.getPaymentPlan());
-            l.setPaymentPlanStatus(studentRequest.getPaymentPlanStatus());
-            l.setRegistrationFeePaid(studentRequest.getRegistrationFeePaid());
-            l.setPlanAgreement(studentRequest.getPlanAgreement());
+
             l.setMailingStreet(studentRequest.getMailingStreet());
             l.setMailingCity(studentRequest.getMailingCity());
             l.setMailingState(studentRequest.getMailingState());
             l.setMailingZip(studentRequest.getMailingZip());
             l.setMailingCountry(studentRequest.getMailingCountry());
 
+            l.setRegistrationFeePaid(studentRequest.getRegistrationFeePaid());
+            l.setPlanAgreementSigned(studentRequest.getPlanAgreementSigned());
+            l.setDiscountGiven(studentRequest.getDiscountGiven());
+
+            l.setRegistrationFee(studentRequest.getRegistrationFee());
+            l.setDiscount(studentRequest.getDiscount());
+            l.setPaymentPlan(studentRequest.getPaymentPlan());
+
             l.setCourse(studentRequest.getCourse());
+            l.setTotalCourseFee(studentRequest.getTotalCourseFee());
             l.setCourseSchedule(studentRequest.getCourseSchedule());
             l.setTrainer(studentRequest.getTrainer());
             l.setTrainingLocation(studentRequest.getTrainingLocation());
 
-            l.setAmountPaid((studentRequest.getAmountPaid()));
-            l.updateBalance();
+            l.getAmountPaid();
+            l.getBalance();
+            l.getWeeklyPayment();
+
+            l.setPaymentLate(studentRequest.getPaymentLate());
+
+
+            l.setPayments(studentRequest.getPayments());
+            l.setTaxRate(studentRequest.getTaxRate());
+            l.setLateFee(studentRequest.getLateFee());
+
 
             this.studentRepository.save(l);
 
@@ -138,12 +134,6 @@ public class StudentService {
     }
 
 
-
-
-
-
-
-
     /** HELPER METHOD
      * @param l
      * @return
@@ -151,37 +141,49 @@ public class StudentService {
     public DTOClientResponse getStudent(Student l) {
 
         return new DTOClientResponse(
+                l.getCreatedTime(),
+                l.getModifiedTime(),
                 l.getEmail(),
                 l.getFirstName(),
                 l.getLastName(),
                 l.getPhoneNumber(),
                 l.getEmergencyPhone(),
+
                 l.getClientStatus(),
-                l.getRegistrationFee(),
-                l.getDiscount(),
-                l.getLeadStatus(),
                 l.getLeadSource(),
                 l.getComments(),
                 l.getCurrentlyEmployed(),
                 l.getCurrentlyITEmployed(),
                 l.getDesiredJob(),
-                l.getPaymentPlan(),
-                l.getPaymentPlanStatus(),
-                l.getRegistrationFeePaid(),
-                l.getPlanAgreement(),
+
                 l.getMailingStreet(),
                 l.getMailingCity(),
                 l.getMailingState(),
                 l.getMailingZip(),
                 l.getMailingCountry(),
+
+                l.getRegistrationFeePaid(),
+                l.getPlanAgreementSigned(),
+                l.getDiscountGiven(),
+
+                l.getRegistrationFee(),
+                l.getDiscount(),
+                l.getPaymentPlan(),
+
                 l.getCourse(),
+                l.getTotalCourseFee(),
                 l.getCourseSchedule(),
                 l.getTrainer(),
                 l.getTrainingLocation(),
-                l.getCreatedTime(),
-                l.getModifiedTime(),
+
+
                 l.getAmountPaid(),
-                l.getBalance()
+                l.getBalance(),
+                l.getWeeklyPayment(),
+                l.getPaymentLate(),
+                l.getPayments(),
+                l.getTaxRate(),
+                l.getLateFee()
         );
 
     }
