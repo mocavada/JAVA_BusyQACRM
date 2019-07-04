@@ -3,7 +3,6 @@ package com.busyqa.crm.service;
 import com.busyqa.crm.config.security.UserPrincipal;
 import com.busyqa.crm.model.clients.Lead;
 import com.busyqa.crm.repo.LeadRepository;
-import com.busyqa.crm.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,8 +15,8 @@ import javax.transaction.Transactional;
 public class UserGroupDetailService implements UserDetailsService {
 
 
-    @Autowired
-    UserRepository userRepository;
+//    @Autowired
+//    UserRepository userRepository;
 
     @Autowired
     LeadRepository leadRepository;

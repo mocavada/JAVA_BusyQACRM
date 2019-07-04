@@ -38,9 +38,8 @@ public class SalesRestController {
     ///////////////////
     // LEAD SERVICE
     ///////////////////
-    @GetMapping("/typeleadslist/{type}")
+    @GetMapping("/leadslist/{type}")
     public List<DTOClientResponse> getLeadListByDType(@PathVariable("type") String type) {
-
         return this.leadService.getAllByDtype(type);
     }
 
