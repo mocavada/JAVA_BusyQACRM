@@ -1,7 +1,7 @@
 package com.busyqa.crm.service;
 
 import com.busyqa.crm.model.academics.Class;
-import com.busyqa.crm.model.academics.Course;
+import com.busyqa.crm.model.academics.*;
 import com.busyqa.crm.repo.AcademicsRepositoryI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +16,6 @@ public class AcademicsService {
     @Autowired
     private AcademicsRepositoryI academicsRepository;
 
-
-    //////////////
     // COURSE
     //////////////
     public synchronized boolean addCourse(Course course) {
@@ -29,10 +27,6 @@ public class AcademicsService {
         }
     }
 
-    public void addClassByCourseId(Integer classId, Integer courseId) {
-        academicsRepository.addClassByCourseId(classId, courseId);
-    }
-
     public List<Course> getAllCourse() {
         return academicsRepository.getAllCourse(); }
 
@@ -41,12 +35,68 @@ public class AcademicsService {
         return academicsRepository.getCourseById(id);
     }
 
-    //////////////
+    public void addClassByCourseId(Integer classId, Integer courseId) {
+        academicsRepository.addClassByCourseId(classId, courseId);
+    }
+
+
     // CLASS
     //////////////
     public List<Class> getAllClass() { return academicsRepository.getAllClass(); }
     public Class getClassById(int id) { return academicsRepository.getClassById(id); }
 
+
+    // COURSE SCHEDULE
+    //////////////
+    public List<CourseSchedule> getAllCourseSchedule() {
+        return academicsRepository.getAllCourseSchedule(); }
+
+
+    public CourseSchedule getCourseScheduleById(int id) {
+        return academicsRepository.getCourseScheduleById(id);
+    }
+
+    public synchronized boolean addCourseSchedule(CourseSchedule courseSchedule) {
+            academicsRepository.addCourseSchedule(courseSchedule);
+            return true;
+
+    }
+
+
+    // TRAINER
+    //////////////
+    public List<Trainer> getAllTrainer() {
+        return academicsRepository.getAllTrainer(); }
+
+
+    public Trainer getTrainerById(int id) {
+        return academicsRepository.getTrainerById(id);
+    }
+
+    public synchronized boolean addTrainer(Trainer trainer) {
+        if( academicsRepository.trainerExist(trainer.getTrainerName())) {
+            return false;
+        } else {
+            academicsRepository.addTrainer(trainer);
+            return true;
+        }
+    }
+
+
+    // TRAINING LOCATION
+    //////////////
+    public List<TrainingLocation> getAllTrainingLocation() {
+        return academicsRepository.getAllTrainingLocation(); }
+
+
+    public TrainingLocation getTrainingLocationById(int id) {
+        return academicsRepository.getTrainingLocationById(id);
+    }
+
+    public synchronized boolean addTrainingLocation(TrainingLocation trainingSchedule) {
+        academicsRepository.addTrainingLocation(trainingSchedule);
+        return true;
+    }
 
 
 }

@@ -1,7 +1,6 @@
 package com.busyqa.crm.model.auth;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name="USERGROUPS")
@@ -12,17 +11,16 @@ public class UserGroup {
     private String groups;
     private String role;
 
-    @ManyToMany(mappedBy = "usergroups")
-    private Set<User> user;
+//    @ManyToMany(mappedBy = "usergroups")
+//    private Set<User> user;
 
 
     public UserGroup() {
     }
 
-    public UserGroup(String groups, String role, Set<User> user) {
+    public UserGroup(String groups, String role) {
         this.groups = groups;
         this.role = role;
-        this.user = user;
     }
 
     public Long getId() {
@@ -49,21 +47,7 @@ public class UserGroup {
         this.role = role;
     }
 
-    public Set<User> getUser() {
-        return user;
-    }
 
-    public void setUser(Set<User> user) {
-        this.user = user;
-    }
 
-    @Override
-    public String toString() {
-        return "UserGroup{" +
-                "id=" + id +
-                ", groups='" + groups + '\'' +
-                ", role='" + role + '\'' +
-                ", user=" + user +
-                '}';
-    }
+
 }

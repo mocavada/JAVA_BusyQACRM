@@ -138,6 +138,17 @@ public class AcademicsRepository implements AcademicsRepositoryI {
         return entityManager.find(Trainer.class,id);
     }
 
+    @Override
+    public boolean trainerExist(String trainerName) {
+        String jpql = "from Trainer as a WHERE a.trainerName =: trainerName";
+
+        int count = entityManager.createQuery(jpql)
+                .setParameter("trainerName",trainerName)
+                .getResultList().size();
+
+        return count > 0;
+    }
+
     //////////////
     // TRAINING LOCATION
     //////////////
@@ -163,3 +174,4 @@ public class AcademicsRepository implements AcademicsRepositoryI {
 
 
 }
+

@@ -119,7 +119,9 @@ public class EmployeeService {
                 l.getJobTitle(),
                 l.getJobDescription(),
                 l.getJobStatus(),
-                l.getAnnualSalary()
+                l.getAnnualSalary(),
+
+                l.getUsergroups()
 
         );
 

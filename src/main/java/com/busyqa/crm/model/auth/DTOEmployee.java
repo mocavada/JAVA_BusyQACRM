@@ -1,6 +1,7 @@
 package com.busyqa.crm.model.auth;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class DTOEmployee {
 
@@ -22,10 +23,12 @@ public class DTOEmployee {
     private String jobStatus;
     private Double annualSalary;
 
+    private Set<UserGroup> usergroups;
+
     public DTOEmployee() {
     }
 
-    public DTOEmployee(LocalDateTime createdTime, LocalDateTime modifiedTime, Long id, String username, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String jobTitle, String jobDescription, String jobStatus, Double annualSalary) {
+    public DTOEmployee(LocalDateTime createdTime, LocalDateTime modifiedTime, Long id, String username, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String jobTitle, String jobDescription, String jobStatus, Double annualSalary, Set<UserGroup> usergroups) {
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.id = id;
@@ -39,6 +42,7 @@ public class DTOEmployee {
         this.jobDescription = jobDescription;
         this.jobStatus = jobStatus;
         this.annualSalary = annualSalary;
+        this.usergroups = usergroups;
     }
 
     public String getJobTitle() {
@@ -145,4 +149,12 @@ public class DTOEmployee {
         this.emergencyPhone = emergencyPhone;
     }
 
+
+    public Set<UserGroup> getUsergroups() {
+        return usergroups;
+    }
+
+    public void setUsergroups(Set<UserGroup> usergroups) {
+        this.usergroups = usergroups;
+    }
 }
