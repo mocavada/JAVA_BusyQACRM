@@ -36,9 +36,6 @@ public class AuthRestController {
     @Autowired
     UserGroupRepository userGroupRepository;
 
-//    @Autowired
-//    UserRepository userRepository;
-
     @Autowired
     LeadRepository leadRepository;
 
@@ -47,6 +44,7 @@ public class AuthRestController {
 
     @Autowired
     PasswordEncoder encoder;
+
     @Autowired
     JwtProvider jwtProvider;
 

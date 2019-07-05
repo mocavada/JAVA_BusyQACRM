@@ -25,7 +25,7 @@ export class SalesApiService {
               private token: TokenStorageService) { }
 
   getLeadsList() {
-    this.http.get<[Client]>(this.salesApiUrl + '/leadslist').subscribe(data => {
+    this.http.get<[Client]>(this.salesApiUrl + '/leadslist/Lead').subscribe(data => {
       this.clientResult$.next(data);
     }, err => {
       console.log('Something Wrong Getting Leads List! ' + err);
