@@ -29,6 +29,7 @@ public interface AcademicsRepositoryI {
     List<Trainer> getAllTrainer();
     void addTrainer(Trainer trainer);
     Trainer getTrainerById(int id);
+    boolean trainerExist(String name);
 
     // TRAINING LOCATION
     List<TrainingLocation> getAllTrainingLocation();

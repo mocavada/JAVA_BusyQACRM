@@ -47,10 +47,9 @@ public class AdminRestController {
         return this.userGroupService.createUserGroup(dtoUserGroup);
     }
 
-
-    @GetMapping("/userGroupList/{type}")
-    public List<DTOUserGroup> getUserGroupListByDType(@PathVariable("type") String type) {
-        return this.userGroupService.getAllUserGroupsByDtype(type);
+    @GetMapping("/userGroupsList")
+    public List<DTOUserGroup> getUserGroupsList() {
+        return this.userGroupService.getAllUsersGroups();
     }
 
 

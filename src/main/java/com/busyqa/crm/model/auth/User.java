@@ -55,24 +55,24 @@ public class User {
 
     // CUSTOM METHODS
 
-    public void addUserGroup(UserGroup userGroup) {
-        usergroups.add(userGroup);
-        userGroup.getUser().add(this);
-    }
-
-    public void removeUserGroup(UserGroup userGroup) {
-        Boolean exist = false;
-        for (UserGroup ug: usergroups) {
-            if ((userGroup.getRole() == ug.getRole()) && (userGroup.getGroups() == ug.getGroups())) {
-                exist = true;
-            }
-        }
-        if (exist) {
-            usergroups.remove(userGroup);
-            userGroup.getUser().remove(this);
-        }
-
-    }
+//    public void addUserGroup(UserGroup userGroup) {
+//        usergroups.add(userGroup);
+//        userGroup.getUser().add(this);
+//    }
+//
+//    public void removeUserGroup(UserGroup userGroup) {
+//        Boolean exist = false;
+//        for (UserGroup ug: usergroups) {
+//            if ((userGroup.getRole() == ug.getRole()) && (userGroup.getGroups() == ug.getGroups())) {
+//                exist = true;
+//            }
+//        }
+//        if (exist) {
+//            usergroups.remove(userGroup);
+//            userGroup.getUser().remove(this);
+//        }
+//
+//    }
 
     public List<String> getRoles() {
         return this.getUsergroups().stream().

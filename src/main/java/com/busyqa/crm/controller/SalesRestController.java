@@ -2,6 +2,9 @@ package com.busyqa.crm.controller;
 
 import com.busyqa.crm.model.Mail;
 import com.busyqa.crm.model.academics.Course;
+import com.busyqa.crm.model.academics.CourseSchedule;
+import com.busyqa.crm.model.academics.Trainer;
+import com.busyqa.crm.model.academics.TrainingLocation;
 import com.busyqa.crm.model.clients.DTOClient;
 import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.service.AcademicsService;
@@ -60,7 +63,6 @@ public class SalesRestController {
         return leadService.changeLeadToStudent(email);
     }
 
-
     // ACADEMICS --- COURSE SERVICE
     ///////////////////
     @PostMapping("/addCourse")
@@ -85,6 +87,68 @@ public class SalesRestController {
     public ResponseEntity<Course> getCourseById(@PathVariable("id") int id) {
         Course course = academicsService.getCourseById(id);
         return new ResponseEntity<Course>(course, HttpStatus.OK);
+    }
+
+
+    // ACADEMICS --- COURSE SCHEDULE
+    ///////////////////
+    @PostMapping("/addCourseSchedule")
+    public ResponseEntity<Void> addCourseSchedule(@RequestBody CourseSchedule courseSchedule, UriComponentsBuilder builder) {
+
+        boolean flag = academicsService.addCourseSchedule(courseSchedule);
+
+        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/addCourseSchedule").buildAndExpand(courseSchedule.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/getAllCourseSchedule")
+    public ResponseEntity<List<CourseSchedule>> getAllCourseSchedule() {
+        List<CourseSchedule> list = academicsService.getAllCourseSchedule();
+        return new ResponseEntity<List<CourseSchedule>>(list, HttpStatus.OK);
+    }
+
+
+    // ACADEMICS --- TRAINER
+    ///////////////////
+    @PostMapping("/addTrainer")
+    public ResponseEntity<Void> addTrainer(@RequestBody Trainer trainer, UriComponentsBuilder builder) {
+
+        boolean flag = academicsService.addTrainer(trainer);
+
+        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/addTrainer").buildAndExpand(trainer.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/getAllTrainer")
+    public ResponseEntity<List<Trainer>> getAllTrainer() {
+        List<Trainer> list = academicsService.getAllTrainer();
+        return new ResponseEntity<List<Trainer>>(list, HttpStatus.OK);
+    }
+
+    // ACADEMICS --- TRAINING LOCATION
+    ///////////////////
+    @PostMapping("/addTrainingLocation")
+    public ResponseEntity<Void> addTrainingLocation(@RequestBody TrainingLocation trainingLocation, UriComponentsBuilder builder) {
+
+        boolean flag = academicsService.addTrainingLocation(trainingLocation);
+
+        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/addTrainingLocation").buildAndExpand(trainingLocation.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/getAllTrainingLocation")
+    public ResponseEntity<List<TrainingLocation>> getAllTrainingLocation() {
+        List<TrainingLocation> list = academicsService.getAllTrainingLocation();
+        return new ResponseEntity<List<TrainingLocation>>(list, HttpStatus.OK);
     }
 
 

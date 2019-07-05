@@ -13,7 +13,9 @@ public interface UserGroupRepository extends JpaRepository<UserGroup, Long> {
 
     Optional<UserGroup> findById(Long id);
     Optional<UserGroup> findByRoleAndGroups(String role, String group);
-    List<UserGroup> findAllByUser_Dtype(String type);
+    List<UserGroup> findAll();
+
+
 
 
 //    @Query("select p from UserGroup p where p.role = :role")

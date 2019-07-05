@@ -30,23 +30,21 @@ public class UserGroupService {
     }
 
 
-    public List<DTOUserGroup> getAllUserGroupsByDtype(String type) {
+    public List<DTOUserGroup> getAllUsersGroups() {
 
-        List<UserGroup> userGroups = userGroupRepository.findAllByUser_Dtype(type);
+        List<UserGroup> ug = userGroupRepository.findAll();
 
-        if (userGroups.isEmpty()) throw new RuntimeException("Empty User Groups list!");
+        if (ug.isEmpty()) throw new RuntimeException("Empty User-Group list!");
 
         List<DTOUserGroup> ugResponses = new ArrayList<>();
 
-        System.out.println(ugResponses.size());
+        System.out.println(ug.size());
 
-        for (UserGroup l: userGroups) {
+        for (UserGroup l: ug) {
             ugResponses.add(getUserGroup(l));
         }
-
         return ugResponses;
     }
-
 
     public ResponseEntity<?> deleteUserGroupById(Long id) {
         return userGroupRepository.findById(id).map(
@@ -66,8 +64,7 @@ public class UserGroupService {
         return new DTOUserGroup(
                 l.getId(),
                 l.getRole(),
-                l.getGroups(),
-                l.getUser()
+                l.getGroups()
 
         );
 
