@@ -33,7 +33,7 @@ export const router: Routes = [
       { path: 'audit', component: AuditComponent },
       { path: 'audit/studentslist', component: StudentsListComponent },
       { path: 'sales', component: SalesComponent },
-      { path: 'sales/leadslist', component: LeadsListComponent },
+      { path: 'sales/leadslist/Lead', component: LeadsListComponent },
       { path: 'sales/lead/:email', component: LeadDetailsComponent },
       { path: 'sales/addlead', component: AddLeadComponent },
       { path: 'sales/searchlead', component: SearchLeadsComponent }

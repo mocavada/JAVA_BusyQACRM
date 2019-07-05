@@ -17,7 +17,7 @@
               <a class="nav-link" routerLink="/dashboard/{{authority}}">DASHBOARD</a>
           </li>
           <li class="nav-item" *ngIf="authority === 'admin' || authority === 'pm' || authority === 'user'">
-            <a class="nav-link" routerLink="/dashboard/sales/leadslist">LEADS</a>
+            <a class="nav-link" routerLink="/dashboard/sales/leadslist/Lead">LEADS</a>
           </li>
           <li class="nav-item" *ngIf="authority === 'admin' || authority === 'pm'">
               <a class="nav-link" routerLink="/dashboard/audit/studentslist">STUDENTS</a>

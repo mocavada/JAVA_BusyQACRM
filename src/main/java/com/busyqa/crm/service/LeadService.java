@@ -1,14 +1,11 @@
 package com.busyqa.crm.service;
 
 
-import com.busyqa.crm.model.clients.DTOClientRequest;
-import com.busyqa.crm.model.clients.DTOClientResponse;
+import com.busyqa.crm.model.clients.DTOClient;
 import com.busyqa.crm.model.clients.Lead;
 import com.busyqa.crm.model.clients.Student;
-import com.busyqa.crm.repo.AcademicsRepositoryI;
 import com.busyqa.crm.repo.LeadRepository;
 import com.busyqa.crm.repo.StudentRepository;
-import com.busyqa.crm.repo.UserGroupRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +17,6 @@ import java.util.List;
 @Service
 public class LeadService {
 
-    @Autowired
-    private UserGroupRepository userGroupRepository;
 
     @Autowired
     private LeadRepository leadRepository;
@@ -29,19 +24,17 @@ public class LeadService {
     @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    private AcademicsRepositoryI academicsRepository;
 
     /**
      * @return
      */
-    public List<DTOClientResponse> getAllUsers() {
+    public List<DTOClient> getAllUsers() {
 
         List<Lead> leads = leadRepository.findAll();
 
         if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
 
-        List<DTOClientResponse> leadResponses = new ArrayList<>();
+        List<DTOClient> leadResponses = new ArrayList<>();
 
         System.out.println(leads.size());
 
@@ -52,13 +45,13 @@ public class LeadService {
         return leadResponses;
     }
 
-    public List<DTOClientResponse> getAllByDtype(String type) {
+    public List<DTOClient> getAllLeadsByDtype(String type) {
 
         List<Lead> leads = leadRepository.findAllByDtype(type);
 
         if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
 
-        List<DTOClientResponse> leadResponses = new ArrayList<>();
+        List<DTOClient> leadResponses = new ArrayList<>();
 
         System.out.println(leads.size());
 
@@ -67,14 +60,13 @@ public class LeadService {
         }
 
         return leadResponses;
-
     }
 
     /**
      * @param email
      * @return
      */
-    public DTOClientResponse getLeadByEmail(String email) {
+    public DTOClient getLeadByEmail(String email) {
 
         Lead l = leadRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("Error: Email not found!"));
@@ -86,7 +78,7 @@ public class LeadService {
      * @param leadRequest
      * @return
      */
-    public ResponseEntity<DTOClientResponse> updateLead(String email, DTOClientRequest leadRequest) {
+    public ResponseEntity<DTOClient> updateLead(String email, DTOClient leadRequest) {
 
         return leadRepository.findByEmail(email).map(l -> {
 
@@ -131,7 +123,7 @@ public class LeadService {
 
 
             this.leadRepository.save(l);
-            DTOClientResponse leadResonse = new DTOClientResponse();
+            DTOClient leadResonse = new DTOClient();
             BeanUtils.copyProperties(leadRequest, leadResonse);
 
             return ResponseEntity.ok().body(leadResonse);
@@ -179,8 +171,8 @@ public class LeadService {
 
         leadRepository.deleteByEmail(email);
 
-        Student savedStudent = studentRepository.save(student);
-        return savedStudent;
+        Student saveStudent = studentRepository.save(student);
+        return saveStudent;
 
     }
 
@@ -188,11 +180,10 @@ public class LeadService {
      * @param l
      * @return
      */
-    public DTOClientResponse getLead(Lead l) {
+    public DTOClient getLead(Lead l) {
 
 
-        return new DTOClientResponse(
-
+        return new DTOClient(
                 l.getCreatedTime(),
                 l.getModifiedTime(),
                 l.getEmail(),

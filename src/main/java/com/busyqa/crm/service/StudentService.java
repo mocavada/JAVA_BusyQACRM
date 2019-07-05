@@ -1,8 +1,7 @@
 package com.busyqa.crm.service;
 
 import com.busyqa.crm.model.academics.Course;
-import com.busyqa.crm.model.clients.DTOClientRequest;
-import com.busyqa.crm.model.clients.DTOClientResponse;
+import com.busyqa.crm.model.clients.DTOClient;
 import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.repo.*;
 import org.springframework.beans.BeanUtils;
@@ -31,34 +30,32 @@ public class StudentService {
     @Autowired
     private InternRepository internRepository;
 
-//    @Autowired
-//    private IPaymentRepository paymentRepository;
-
-
     /**
      * @return
      */
-    public List<DTOClientResponse> getAllStudents() {
+    public List<DTOClient> getAllByDtype(String type) {
 
-        List<Student> students = studentRepository.findAll();
+        List<Student> students = studentRepository.findAllByDtype(type);
 
         if (students.isEmpty()) throw new RuntimeException("Empty Student list!");
 
-        List<DTOClientResponse> studentResponse = new ArrayList<>();
+        List<DTOClient> studentResponses = new ArrayList<>();
 
         System.out.println(students.size());
 
         for (Student l: students) {
-            studentResponse.add(getStudent(l));
+            studentResponses.add(getStudent(l));
         }
-        return studentResponse;
+
+        return studentResponses;
+
     }
 
     /**
      * @param email
      * @return
      */
-    public DTOClientResponse getStudentByEmail(String email) throws ParseException {
+    public DTOClient getStudentByEmail(String email) throws ParseException {
 
         Student student = studentRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("Error: Email not found!"));
@@ -71,7 +68,7 @@ public class StudentService {
      * @param studentRequest
      * @return
      */
-    public ResponseEntity<DTOClientResponse> updateStudent(String email, DTOClientRequest studentRequest) {
+    public ResponseEntity<DTOClient> updateStudent(String email, DTOClient studentRequest) {
 
         return studentRepository.findByEmail(email).map(l -> {
 
@@ -125,7 +122,7 @@ public class StudentService {
 
             this.studentRepository.save(l);
 
-            DTOClientResponse studentResponse = new DTOClientResponse();
+            DTOClient studentResponse = new DTOClient();
             BeanUtils.copyProperties(studentRequest, studentResponse);
 
             return ResponseEntity.ok().body(studentResponse);
@@ -137,9 +134,9 @@ public class StudentService {
      * @param l
      * @return
      */
-    public DTOClientResponse getStudent(Student l) {
+    public DTOClient getStudent(Student l) {
 
-        return new DTOClientResponse(
+        return new DTOClient(
                 l.getCreatedTime(),
                 l.getModifiedTime(),
                 l.getEmail(),

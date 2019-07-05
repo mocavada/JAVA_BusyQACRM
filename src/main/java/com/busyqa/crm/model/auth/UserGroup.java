@@ -9,9 +9,7 @@ public class UserGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String groups;
-
     private String role;
 
     @ManyToMany(mappedBy = "usergroups")

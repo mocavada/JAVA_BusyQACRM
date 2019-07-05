@@ -1,19 +1,20 @@
 package com.busyqa.crm.controller;
 
 
-import com.busyqa.crm.model.clients.DTOClientResponse;
-import com.busyqa.crm.service.AcademicsService;
-import com.busyqa.crm.service.LeadService;
-import com.busyqa.crm.service.MailService;
+import com.busyqa.crm.model.auth.DTOEmployee;
+import com.busyqa.crm.model.auth.DTOUserGroup;
+import com.busyqa.crm.model.auth.Employee;
+import com.busyqa.crm.model.auth.UserGroup;
+import com.busyqa.crm.model.clients.DTOClient;
+import com.busyqa.crm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/admin/")
+@RequestMapping(path = "/admin")
 public class AdminRestController {
 
     @Autowired
@@ -25,12 +26,58 @@ public class AdminRestController {
     @Autowired
     private LeadService leadService;
 
+    @Autowired
+    private EmployeeService employeeService;
 
-    @GetMapping("/userslist")
-    public List<DTOClientResponse> getUsersList() {
+    @Autowired
+    private UserGroupService userGroupService;
+
+
+    @GetMapping("/usersList")
+    public List<DTOClient> getUsersList() {
 
         return this.leadService.getAllUsers();
     }
+
+
+    // USER GROUP SERVICE
+    @PostMapping("/addUserGroup")
+    @ResponseStatus(HttpStatus.OK)
+    public UserGroup addUserGroup(@RequestBody DTOUserGroup dtoUserGroup) {
+        return this.userGroupService.createUserGroup(dtoUserGroup);
+    }
+
+
+    @GetMapping("/userGroupList/{type}")
+    public List<DTOUserGroup> getUserGroupListByDType(@PathVariable("type") String type) {
+        return this.userGroupService.getAllUserGroupsByDtype(type);
+    }
+
+
+    // EMPLOYEE SERVICE
+    @GetMapping("/usersList/{type}")
+    public List<DTOEmployee> getEmployeeListByDType(@PathVariable("type") String type) {
+        return this.employeeService.getAllEmployeesByDtype(type);
+    }
+
+
+    @GetMapping("/employee/{email}")
+    public DTOEmployee getEmployeeByEmail(@PathVariable("email") String email) {
+        return this.employeeService.getEmployeeByEmail(email);
+    }
+
+
+
+    @DeleteMapping("/changeLeadToEmployee/{email}")
+    public Employee employeeToStudent(@PathVariable("email") String email) {
+
+        return employeeService.changeLeadToEmployee(email);
+    }
+
+
+
+
+
 
 
 

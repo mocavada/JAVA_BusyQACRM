@@ -33,6 +33,7 @@ public class User {
     private String phoneNumber;
     private String emergencyPhone;
 
+    // DTYPE
     @Column(insertable = false, updatable = false)
     private String dtype;
 
@@ -42,6 +43,7 @@ public class User {
     private LocalDateTime createdTime;
     @UpdateTimestamp
     private LocalDateTime modifiedTime;
+
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(

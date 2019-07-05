@@ -14,10 +14,8 @@ import javax.transaction.Transactional;
 @Service
 public class UserGroupDetailService implements UserDetailsService {
 
-
 //    @Autowired
 //    UserRepository userRepository;
-
     @Autowired
     LeadRepository leadRepository;
 

@@ -2,8 +2,7 @@ package com.busyqa.crm.controller;
 
 import com.busyqa.crm.model.Mail;
 import com.busyqa.crm.model.academics.Course;
-import com.busyqa.crm.model.clients.DTOClientRequest;
-import com.busyqa.crm.model.clients.DTOClientResponse;
+import com.busyqa.crm.model.clients.DTOClient;
 import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.service.AcademicsService;
 import com.busyqa.crm.service.LeadService;
@@ -35,23 +34,23 @@ public class SalesRestController {
     @Autowired
     private LeadService leadService;
 
-    ///////////////////
+
     // LEAD SERVICE
     ///////////////////
-    @GetMapping("/leadslist/{type}")
-    public List<DTOClientResponse> getLeadListByDType(@PathVariable("type") String type) {
-        return this.leadService.getAllByDtype(type);
+    @GetMapping("/usersList/{type}")
+    public List<DTOClient> getLeadListByDType(@PathVariable("type") String type) {
+        return this.leadService.getAllLeadsByDtype(type);
     }
 
 
     @GetMapping("/lead/{email}")
-    public DTOClientResponse getLeadByEmail(@PathVariable("email") String email) {
+    public DTOClient getLeadByEmail(@PathVariable("email") String email) {
         return this.leadService.getLeadByEmail(email);
     }
 
 
-    @PutMapping("/updatelead/{email}")
-    public ResponseEntity<DTOClientResponse> updateLead(@PathVariable("email") String email, @RequestBody DTOClientRequest leadRequest) {
+    @PutMapping("/updateLead/{email}")
+    public ResponseEntity<DTOClient> updateLead(@PathVariable("email") String email, @RequestBody DTOClient leadRequest) {
         return leadService.updateLead(email,leadRequest);
     }
 
@@ -62,22 +61,21 @@ public class SalesRestController {
     }
 
 
-    ///////////////////
     // ACADEMICS --- COURSE SERVICE
     ///////////////////
-    @PostMapping("/addcourse")
+    @PostMapping("/addCourse")
     public ResponseEntity<Void> addCourse(@RequestBody Course course, UriComponentsBuilder builder) {
 
         boolean flag = academicsService.addCourse(course);
 
         if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/addcourse").buildAndExpand(course.getName()).toUri());
+        headers.setLocation(builder.path("/addCourse").buildAndExpand(course.getName()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
 
-    @GetMapping("/courselist")
+    @GetMapping("/courseList")
     public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> list = academicsService.getAllCourse();
         return new ResponseEntity<List<Course>>(list, HttpStatus.OK);
@@ -90,7 +88,6 @@ public class SalesRestController {
     }
 
 
-    ///////////////////
     // EMAIL SERVICE CONTROLLERS
     ///////////////////
 
@@ -135,57 +132,3 @@ public class SalesRestController {
 }
 
 
-//    @PutMapping("updatelead")
-//    public ResponseEntity<Client> updateJobPost(@RequestBody Client lead) {
-//        clientsService.updateLead(lead);
-//        return new ResponseEntity<Client>(lead, HttpStatus.OK);
-//    }
-
-
-//    @PostMapping("copyleadtostudent")
-//    public ResponseEntity<Void> copyLeadToStudent(@RequestBody Client client, UriComponentsBuilder builder) {
-//
-//        boolean flag = clientsService.copyLeadToStudent(client);
-//
-//        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(builder.path("copyleadtostudent/{id}").buildAndExpand(client.getId()).toUri());
-//        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-//    }
-
-
-//    @PostMapping("/addlead")
-//    public ResponseEntity<Void> addLead(@RequestBody Client client, UriComponentsBuilder builder) {
-//
-//        boolean flag = clientsService.addClient(client);
-//
-//        if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-//        HttpHeaders headers = new HttpHeaders();
-//
-//        headers.setLocation(builder.path("/addlead/{id}").buildAndExpand(client.getId()).toUri());
-//        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-//    }
-
-
-//    @PutMapping("/updatecourse")
-//    public ResponseEntity<Course> updateCourse(@RequestBody Course course) {
-//        academicsService.updateCourse(course);
-//        return new ResponseEntity<Course>(course, HttpStatus.OK);
-//    }
-
-
-
-//    @DeleteMapping("/deletecourse/{id}")
-//    public ResponseEntity<Void> deleteCourseById(@PathVariable("id") int id ) {
-//        academicsService.deleteCourseById(id);
-//        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-//    }
-
-///////////////////
-// CLASS SERVICE CONTROLLERS
-///////////////////
-//    @PutMapping("/course/{classId}/{courseId}")
-//    public ResponseEntity<Void> addClassToCourse(@PathVariable("classId") Integer classId, @PathVariable("courseId") Integer courseId, UriComponentsBuilder builder) {
-//        academicsService.addClass(classId, courseId);
-//        return new ResponseEntity<Void>(HttpStatus.OK);
-//    }

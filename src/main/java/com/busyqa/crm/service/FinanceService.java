@@ -92,6 +92,7 @@ public class FinanceService {
 
 
     public RegistrationFee getRegistrationFeeById(long id) {
+
         return financeRepository.getRegistrationFeeById(id);
     }
 
@@ -112,10 +113,11 @@ public class FinanceService {
 
 
     public Tax getTaxById(long id) {
+
         return financeRepository.getTaxById(id);
     }
 
-    public synchronized boolean addRegistrationFee(Tax tax) {
+    public synchronized boolean addTax(Tax tax) {
         if( financeRepository.taxExist(tax.getTaxRate())) {
             return false;
         } else {
