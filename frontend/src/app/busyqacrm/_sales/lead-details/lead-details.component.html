@@ -2,13 +2,12 @@
 
 <div class="m-3 row">
   <div class="col-3">
-    <p class="m-0"><b>{{leadExample.id}}</b> </p>
+    <!-- <p class="m-0"><b>{{leadExample.id}}</b> </p> -->
     <p class="m-0">Client Status: <b>{{leadExample.clientStatus}}</b></p>
-    <p class="m-0">Lead Status: <b>{{leadExample.leadStatus}}</b></p>
-    <li>Registration Paid ? <b>{{leadExample.registrationFeePaid}}</b></li>
-    <li>Plan Agreement Signed : <b>{{leadExample.planAgreement}}</b></li>
-    <li>Amount Paid : <b>{{leadExample.registrationFee}}</b></li>
    
+    <li>Registration Paid ? <b>{{leadExample.isRegistrationFeePaid}}</b></li>
+   
+  
     <hr>
     <p class="m-0 p-0 text-danger">{{leadExample.comments}}</p>
     <hr>
@@ -31,7 +30,7 @@
     <hr>
     <p class="m-0"><b>Client Profile</b></p>
     <li>Lead Source : <b>{{leadExample.leadSource}}</b></li>
-    <li>Payment Plan : <b>{{leadExample.paymentPlan}}</b></li>
+   
     <li>Desired Job : <b>{{leadExample.desiredJob}}</b></li>
     <li>Currently Employed ? <b>{{leadExample.currentlyEmployed}}</b></li>
     <li>IT Related Job ? <b>{{leadExample.currentlyITEmployed}}</b></li>
@@ -72,23 +71,24 @@
             <!-- LEAD STATUS -->
           <div class="row pb-3"> 
               <div class="col">
+
                 <label>Lead Status</label>
-                <div class="form-row mb-2">
+                <!-- <div class="form-row mb-2">
                     <select class="form-control" formControlName="leadSource" required>
                         <option value="" disabled>Choose Lead Source</option>
                         <option *ngFor="let item of leadSourceList"
                         [selected]="leadExample.leadSource" [value]="item">{{item}}
                         </option>
                     </select>
-                </div>
-                <div class="form-check" *ngFor="let item of leadStatus; let i = index">
+                </div> -->
+                <!-- <div class="form-check" *ngFor="let item of leadStatus; let i = index">
                     <input class="form-check-input" type="radio" name="leadStatus" id="ls{{i}}" 
                     value="{{item}}" formControlName="leadStatus">
                     <label class="form-check-label" for="ls{{i}}">{{item}}</label>
-                </div>
+                </div> -->
               </div>
 
-              <div class="col">
+              <!-- <div class="col">
                   <label>Payment Status</label>
                   <div class="form-row mb-2">
                       <select class="form-control" formControlName="paymentPlan">
@@ -107,7 +107,7 @@
                   </div>
                   <div class="form-check mb-2">
                       <input class="form-check-input" type="checkbox" id="rfp1"
-                      [checked]="leadExample.registrationFeePaid" value="true" formControlName="registrationFeePaid">
+                      [checked]="leadExample.isRegistrationFeePaid" value="true" formControlName="isRegistrationFeePaid">
                       <label class="form-check-label" for="rfp1">
                         Registration Fee Payed ?
                       </label>
@@ -116,7 +116,7 @@
                       <input type="text" class="form-control" placeholder="Amount Paid"
                       formControlName="registrationFee" value="">
                   </div>                  
-              </div>
+              </div> -->
           </div> 
           
            <!-- BASIC INFO -->
@@ -172,63 +172,63 @@
                       </div> 
                 </div> 
             </div>
-           
-          <!-- COURSE LIST -->
-        <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
-          
-            <div class="courses-addheading card-header text-white"
-            (click)="toggleCourseDisplay()"><fa-icon icon="plus"></fa-icon> CHANGE COURSE
+              <!-- ADDRESS -->
+          <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-address': showAddress}">
+              <div class="address-addheading card-header text-white"
+              (click)="toggleAddressDisplay()"><fa-icon icon="plus"></fa-icon> ADD MAILING ADDRESS
+              </div><!-- card-header -->
+              <div class="addressbody card-body">
+                <div class="form-group">
+                  <label for="inputAddress">Address</label>
+                  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"
+                  formControlName="mailingStreet">
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity" formControlName="mailingCity">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">State</label>
+                    <input type="text" class="form-control" id="inputCity" formControlName="mailingState">
+                  </div>
+                  
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip" formControlName="mailingZip">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputZip">Country</label>
+                        <input type="text" class="form-control" id="inputZip" formControlName="mailingCountry">
+                    </div>
+                </div>
+              </div>
+  
             </div>
-
            
-            <div class="coursebody card-body">
-              <div class="form-group">
-                <fieldset formGroupName="course">
-                <div class="form-check" *ngFor="let item of courseList; let i = index">
-                  <input class="form-check-input" type="radio" name="id" id="c{{i}}"
-                  [checked]="leadExample.course.id === item.id" formControlName="id" value={{item.id}}>
-                  <label class="form-check-label" for="c{{i}}"><p>{{item.name}}</p></label>
+            <!-- ADD COURSE LIST -->
+            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
+            
+              <div class="courses-addheading card-header text-white"
+              (click)="toggleCourseDisplay()"><fa-icon icon="plus"></fa-icon> ADD COURSE
+              </div>
+              <div class="coursebody card-body">
+              <fieldset formGroupName="course">
+                <div class="form-group">
+                  <div class="form-check" *ngFor="let item of courseList; let i = index">
+                    <input class="form-check-input" type="radio" id="course{{i}}" 
+                    formControlName="id" value="{{item.id}}">
+                    <label class="form-check-label" for="course{{i}}"><p>{{item.name}}</p></label>
+                  </div>
                 </div>
               </fieldset>
               </div>
             </div>
-          </div>
+            
         
-          <!-- ADDRESS -->
-          <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-address': showAddress}">
-            <div class="address-addheading card-header text-white"
-            (click)="toggleAddressDisplay()"><fa-icon icon="plus"></fa-icon> ADD MAILING ADDRESS
-            </div><!-- card-header -->
-            <div class="addressbody card-body">
-              <div class="form-group">
-                <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"
-                formControlName="mailingStreet">
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputCity">City</label>
-                  <input type="text" class="form-control" id="inputCity" formControlName="mailingCity">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputCity">State</label>
-                  <input type="text" class="form-control" id="inputCity" formControlName="mailingState">
-                </div>
-                
-              </div>
-              <div class="form-row">
-                  <div class="form-group col-md-6">
-                      <label for="inputZip">Zip</label>
-                      <input type="text" class="form-control" id="inputZip" formControlName="mailingZip">
-                  </div>
-                  <div class="form-group col-md-6">
-                      <label for="inputZip">Country</label>
-                      <input type="text" class="form-control" id="inputZip" formControlName="mailingCountry">
-                  </div>
-              </div>
-            </div>
-
-          </div>
+        
           </form> 
   
         </div>    

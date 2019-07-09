@@ -26,7 +26,7 @@ export class LeadsListComponent implements OnInit {
       }
     });
 
-    this.salesService.getLeadsList();
+    this.salesService.getAllLeads();
     console.log(this.leadList);
 
   }

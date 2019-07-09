@@ -77,7 +77,7 @@ public class SalesRestController {
     }
 
 
-    @GetMapping("/courseList")
+    @GetMapping("/getAllCourse")
     public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> list = academicsService.getAllCourse();
         return new ResponseEntity<List<Course>>(list, HttpStatus.OK);

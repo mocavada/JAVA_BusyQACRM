@@ -1,3 +1,6 @@
+import { Traininglocation } from './../model/academics-traininglocation';
+import { Trainer } from './../model/academics-trainer';
+import { CourseSchedule } from './../model/academics-courseschedule';
 import { Course } from './../model/academics-course';
 import { Lead } from './../model/client-lead';
 import { Mail } from '../model/util-mail';
@@ -16,24 +19,41 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs';
 })
 export class SalesApiService {
   salesApiUrl = environment.serverAddress + '/sales';
-  getLeadListUrl = this.salesApiUrl + '/usersList/Lead/CLIENT';
+  getAllLeadsUrl = this.salesApiUrl + '/usersList/Lead/CLIENT';
   getLeadByEmailUrl = this.salesApiUrl + '/lead/';
   updateLeadByEmailUrl = this.salesApiUrl + '/updateLead/';
   leadToStudentUrl = this.salesApiUrl + '/leadToStudent/';
-  // COURSE URL
+  // COURSE
   addCourseUrl = this.salesApiUrl + '/addCourse';
-  getAllCoursesUrl = this.salesApiUrl + '/courseList';
+  getAllCourseUrl = this.salesApiUrl + '/getAllCourse';
+
+  // COURSE SCHEDULE
+  addCourseScheduleUrl = this.salesApiUrl + '/addCourseSchedule';
+  getAllCourseScheduleUrl = this.salesApiUrl + '/getAllCourseSchedule';
+
+  // TRAINER
+  addTrainerUrl = this.salesApiUrl + '/addTrainer';
+  getAllTrainerUrl = this.salesApiUrl + '/getAllTrainer';
+
+  // TRAINING LOCATION
+  addTrainingLocationUrl = this.salesApiUrl + '/addTrainingLocation';
+  getAllTrainingLocationUrl = this.salesApiUrl + '/getAllTrainingLocation';
 
   leadResult$ = new BehaviorSubject <[Lead]>(null);
   courseResult$ = new BehaviorSubject <[Course]>(null);
+  courseScheduleResult$ = new BehaviorSubject <[CourseSchedule]>(null);
+  trainerResult$ = new BehaviorSubject <[Trainer]>(null);
+  trainingLocationResult$ = new BehaviorSubject <[Traininglocation]>(null);
+
   info: any;
 
   constructor(private http: HttpClient,
               private token: TokenStorageService) { }
 
   // LEAD
-  getLeadsList() {
-    this.http.get<[Lead]>(this.getLeadListUrl).subscribe(data => {
+  getAllLeads() {
+    this.http.get<[Lead]>(this.getAllLeadsUrl)
+    .subscribe(data => {
       this.leadResult$.next(data);
     }, err => {
       console.log('Something Wrong Getting Leads List! ' + err);
@@ -53,12 +73,7 @@ export class SalesApiService {
     return this.http.delete(this.leadToStudentUrl + email);
   }
 
-
   // COURSES
-  pullCourseList(courseList: [Course]) {
-    this.courseResult$.next(courseList);
-  }
-
   addCourse(course: Course) {
     this.http
     .post<any>(this.addCourseUrl, course)
@@ -70,16 +85,79 @@ export class SalesApiService {
     });
   }
 
-  getAllCourses() {
-    this.http.get<[Course]>(this.getAllCoursesUrl)
+  getAllCourse() {
+    this.http.get<[Course]>(this.getAllCourseUrl)
     .subscribe(data => {
-      this.pullCourseList(data);
+      this.courseResult$.next(data);
     }, err => {
       console.log('Something Wrong With Getting CourseList');
     });
   }
 
-  //
+  // COURSES SCHEDULE
+  addCourseSchedule(courseSchedule: CourseSchedule) {
+    this.http
+    .post<any>(this.addCourseScheduleUrl, courseSchedule)
+    .subscribe(data => {
+      console.log(data);
+      this.courseScheduleResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Adding Course' + err);
+    });
+  }
+
+  getAllCourseSchedules() {
+    this.http.get<[CourseSchedule]>(this.getAllCourseScheduleUrl)
+    .subscribe(data => {
+      this.courseScheduleResult$.next(data);
+    }, err => {
+      console.log('Something Wrong With Getting CourseList');
+    });
+  }
+
+  // TRAINER SCHEDULE
+  addTrainer(trainer: Trainer) {
+    this.http
+    .post<any>(this.addTrainerUrl, trainer)
+    .subscribe(data => {
+      console.log(data);
+      this.trainerResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Adding Trainer' + err);
+    });
+  }
+
+  getAllTrainer() {
+    this.http.get<[Trainer]>(this.getAllTrainerUrl)
+    .subscribe(data => {
+      this.trainerResult$.next(data);
+    }, err => {
+      console.log('Something Wrong With Getting Trainer');
+    });
+  }
+
+  // TRAINING LOCATION
+  addTrainingLocation(traininglocation: Traininglocation) {
+    this.http
+    .post<any>(this.addTrainingLocationUrl, traininglocation)
+    .subscribe(data => {
+      console.log(data);
+      this.trainingLocationResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Adding Training Location' + err);
+    });
+  }
+
+  getAllTrainingLocation() {
+    this.http.get<[Traininglocation]>(this.getAllTrainingLocationUrl)
+    .subscribe(data => {
+      this.trainingLocationResult$.next(data);
+    }, err => {
+      console.log('Something Wrong With Getting Training Location');
+    });
+  }
+
+
 
   // SEND WELCOME PACKAGE, INSTRUCTORS INFO and COURSE INFO
   sendTemplateEmail(mail: Mail) {

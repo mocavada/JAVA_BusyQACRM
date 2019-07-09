@@ -74,7 +74,7 @@ export class AddLeadComponent implements OnInit {
         this.courseList = data;
       }
     });
-    this.salesService.getAllCourses();
+    this.salesService.getAllCourse();
   }
 
   toggleCourseDisplay() {
