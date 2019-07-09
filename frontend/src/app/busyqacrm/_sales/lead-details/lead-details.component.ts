@@ -1,6 +1,5 @@
 import { Course } from './../../model/academics-course';
 import { Mail } from '../../model/util-mail';
-import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { SalesApiService } from './../../services/_sales-api.service';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
@@ -18,74 +17,62 @@ import { stringify } from '@angular/core/src/render3/util';
 })
 export class LeadDetailsComponent implements OnInit {
 
-private sub: Subscription;
-editCLientForm: FormGroup;
-validMessage = '';
-confirmationMessage = '';
-message: string;
-mail: Mail;
-leadExample: any;
-courseList: Course[];
-messageObject: any;
-welcomeString: any;
-showCourse: boolean;
-showAddress: boolean;
-isWPSent: boolean;
-isTISent: boolean;
-isPLSent: boolean;
-isWPSent1: boolean;
+  private sub: Subscription;
+  editCLientForm: FormGroup;
+  validMessage = '';
+  confirmationMessage = '';
+  message: string;
+  mail: Mail;
+  leadExample: any;
 
-leadStatus = [
-  'For Payment', 'Interested', 'Request Info', 'For Deletion'
-];
-paymentPlanList = [
-  'One_Time_Credit_Card',
-  'One_Time_Debit_Card_Or_Cash',
-  'One_Time_Email_Money',
-  'Automated_Weekly',
-  'Automated_BiWeekly'
-];
+  messageObject: any;
+  welcomeString: any;
+  showCourse: boolean;
+  showAddress: boolean;
+  isWPSent: boolean;
+  isTISent: boolean;
+  isPLSent: boolean;
+  isWPSent1: boolean;
 
-leadSourceList = [
-  'Advertisement',
-  'Cold_Call',
-  'Employee_Referral',
-  'External_Referral',
-  'Online_Store',
-  'Partner',
-  'Public_Relations',
-  'Sales_Email_Alias',
-  'Seminar_Partner',
-  'Internal_Seminar',
-  'Trade_Show',
-  'Web_Download',
-  'Web_Research',
-  'Chat'
-];
 
-constructor(private salesService: SalesApiService,
-            private route: ActivatedRoute,
-            private fb: FormBuilder) {
-    this.showCourse = true;
-    this.showAddress = true;
-    this.isWPSent = true;
-    // this.isTISent = false;
-    // this.isPLSent = false;
 
-}
+  courseList: Course[];
+
+  constructor(private salesService: SalesApiService,
+              private route: ActivatedRoute,
+              private fb: FormBuilder) {
+      this.showCourse = true;
+      this.showAddress = true;
+      this.isWPSent = true;
+      // this.isTISent = false;
+      // this.isPLSent = false;
+
+  }
+
+  toggleCourseDisplay() {
+    console.log(this.showCourse);
+    this.showCourse = !this.showCourse;
+  }
+
+  toggleAddressDisplay() {
+    console.log(this.showAddress);
+    this.showAddress = !this.showAddress;
+  }
 
   ngOnInit() {
     this.updateForm();
 
-    this.salesService.courseResult$
-    .subscribe(data => {
+    this.salesService.courseResult$.subscribe(data => {
       if (data != null) {
-        console.log('Courses' + data);
         this.courseList = data;
+        console.log('Successful Loading Lead List!');
+        console.log(this.courseList);
       }
     });
 
-    this.salesService.getAllCourses();
+    this.salesService.getAllCourse();
+    console.log(this.courseList);
+
 
     this.sub = this.route.paramMap.subscribe(
       params => {
@@ -97,53 +84,6 @@ constructor(private salesService: SalesApiService,
     // console.log('welcome -' + this.welcomeString);
   }
 
-  toggleCourseDisplay() {
-    console.log(this.showCourse);
-    this.showCourse = !this.showCourse;
-  }
-  toggleAddressDisplay() {
-    console.log(this.showAddress);
-    this.showAddress = !this.showAddress;
-  }
-
-  updateForm() {
-    this.editCLientForm = this.fb.group({
-      // BASIC
-      id: '',
-      clientStatus: '',
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      phone: ['', Validators.required],
-      email: ['', Validators.required],
-      emergencyPhone: '',
-      comments: '',
-      // ACADEMICS
-      course: this.fb.group({
-        id: [0]
-      }),
-      // BOOLEAN STATUS
-      registrationFeePaid: false,
-      planAgreement: false,
-      currentlyEmployed: false,
-      currentlyITEmployed: false,
-      // PAYMENT
-      registrationFee: '',
-      // STATUS
-      leadStatus: '',
-      paymentPlan: '',
-      leadSource: '',
-      desiredJob: '',
-      // NOT USED
-      paymentPlanStatus: '',
-      // ADDRESS
-      mailingStreet: '',
-      mailingCity: '',
-      mailingState: '',
-      mailingZip: '',
-      mailingCountry: '',
-    });
-
-  }
 
   getLead(email: string): void {
     this.salesService.getLeadByEmail(email)
@@ -164,52 +104,90 @@ constructor(private salesService: SalesApiService,
     this.leadExample = data;
 
     this.editCLientForm.patchValue({
-      // BASIC
+      // USER
       id: this.leadExample.id,
-      clientStatus: this.leadExample.clientStatus,
       firstName: this.leadExample.firstName,
       lastName: this.leadExample.lastName,
       phone: this.leadExample.phone,
       email: this.leadExample.email,
       emergencyPhone: this.leadExample.emergencyPhone,
+
+      // LEAD
+      clientStatus: this.leadExample.clientStatus,
+      leadSource: this.leadExample.leadSource,
       comments: this.leadExample.comments,
+      currentlyEmployed: this.leadExample.currentlyEmployed,
+      currentlyITEmployed: this.leadExample.currentlyITEmployed,
+      desiredJob: this.leadExample.desiredJob,
+
+       // ADDRESS
+       mailingStreet: this.leadExample.mailingStreet,
+       mailingCity: this.leadExample.mailingCity,
+       mailingState: this.leadExample.mailingState,
+       mailingZip: this.leadExample.mailingZip,
+       mailingCountry: this.leadExample.mailingCountry,
+
+       // BOOLEANS STATUS
+       isRegistrationFeePaid: this.leadExample.isRegistrationFeePaid,
+       isPlanAgreementSigned: this.leadExample.isPlanAgreementSigned,
+       isDiscountGiven: this.leadExample.isDiscountGiven,
+
+
       // ACADEMICS
       course: this.leadExample.course,
       courseid: this.leadExample.course.id,
       coursename: this.leadExample.course.name,
-      // BOOLEAN STATUS
-      registrationFeePaid: this.leadExample.registrationFeePaid,
-      planAgreement: this.leadExample.planAgreement,
-      currentlyEmployed: this.leadExample.currentlyEmployed,
-      currentlyITEmployed: this.leadExample.currentlyITEmployed,
-      // PAYMENT
-      registrationFee: this.leadExample.registrationFee,
-      // STATUS
-      leadStatus: this.leadExample.leadStatus,
-      leadSource: this.leadExample.leadSource,
-      paymentPlan: this.leadExample.paymentPlan,
-      // NOT USED
-      desiredJob: this.leadExample.desiredJob,
-      paymentPlanStatus: this.leadExample.paymentPlanStatus,
-      // ADDRESS
-      mailingStreet: this.leadExample.mailingStreet,
-      mailingCity: this.leadExample.mailingCity,
-      mailingState: this.leadExample.mailingState,
-      mailingZip: this.leadExample.mailingZip,
-      mailingCountry: this.leadExample.mailingCountry,
-      createdTime: this.leadExample.createdTime,
-    });
 
+      // DATE
+      createdTime: this.leadExample.createdTime,
+      modifiedTime: this.leadExample.modifiedTime,
+
+    });
     this.welcomeString = this.leadExample.firstName + '@' +
                          this.leadExample.course.name + '@' +
-                         this.leadExample.course.description + '@' +
-                         this.leadExample.course.location + '@' +
-                         this.leadExample.course.time + '@' +
-                         this.leadExample.course.trainer + '@' +
-                         this.leadExample.course.startDate + '@' +
-                         this.leadExample.course.endDate;
+                         this.leadExample.course.description;
 
     console.log('Message Strings - ' + this.welcomeString);
+  }
+
+
+  updateForm() {
+    this.editCLientForm = this.fb.group({
+      // USER
+      id: '',
+      email: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phone: ['', Validators.required],
+      emergencyPhone: '',
+
+      // LEAD
+      clientStatus: '',
+      leadSource: '',
+      comments: '',
+      currentlyEmployed: '',
+      currentlyITEmployed: '',
+      desiredJob: '',
+
+       // ADDRESS
+       mailingStreet: '',
+       mailingCity: '',
+       mailingState: '',
+       mailingZip: '',
+       mailingCountry: '',
+
+      // BOOLEANS
+      isRegistrationFeePaid: '',
+      isPlanAgreementSigned: '',
+      isDiscountGiven: '',
+
+      // ACADEMICS
+      course: this.fb.group({
+        id: [0]
+      })
+
+    });
+
   }
 
   onUpdate() {

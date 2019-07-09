@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddCourseComponent implements OnInit {
   validMessage = '';
   message: string;
+  index1 = 1;
 
   // nestedForm: FormGroup;
   createCourseForm: FormGroup;

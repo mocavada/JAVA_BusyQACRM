@@ -1,3 +1,4 @@
+import { CourseListComponent } from './busyqacrm/_sales/course-list/course-list.component';
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
@@ -33,10 +34,11 @@ export const router: Routes = [
       { path: 'audit', component: AuditComponent },
       { path: 'audit/studentslist', component: StudentsListComponent },
       { path: 'sales', component: SalesComponent },
-      { path: 'sales/leadslist/Lead', component: LeadsListComponent },
+      { path: 'sales/leadslist', component: LeadsListComponent },
       { path: 'sales/lead/:email', component: LeadDetailsComponent },
       { path: 'sales/addlead', component: AddLeadComponent },
-      { path: 'sales/searchlead', component: SearchLeadsComponent }
+      { path: 'sales/searchlead', component: SearchLeadsComponent },
+      { path: 'sales/courselist', component: CourseListComponent }
 
     ]}
 
