@@ -40,14 +40,9 @@ public class SalesRestController {
 
     // LEAD SERVICE
     ///////////////////
-    @GetMapping("/usersList/{type}")
-    public List<DTOClient> getLeadListByDType(@PathVariable("type") String type) {
-        return this.leadService.getAllLeadsByDtype(type);
-    }
-
-    @GetMapping("/usersList/{type}/{group}")
-    public List<DTOClient> getLeadListByDTypeAndGroup(@PathVariable("type") String type , @PathVariable("group") String group) {
-        return this.leadService.getAllLeadsByDtypeAndClientStatus(type,group);
+    @GetMapping("/usersList/{type}/{status}")
+    public List<DTOClient> getAllLeadsByDtypeAndClientStatus(@PathVariable("type") String type , @PathVariable("status") String status) {
+        return this.leadService.getAllLeadsByDtypeAndClientStatus(type,status);
     }
 
 

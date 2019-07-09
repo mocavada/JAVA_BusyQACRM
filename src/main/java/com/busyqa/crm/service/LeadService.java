@@ -4,6 +4,7 @@ package com.busyqa.crm.service;
 import com.busyqa.crm.model.clients.DTOClient;
 import com.busyqa.crm.model.clients.Lead;
 import com.busyqa.crm.model.clients.Student;
+import com.busyqa.crm.model.util.EnumList;
 import com.busyqa.crm.repo.LeadRepository;
 import com.busyqa.crm.repo.StudentRepository;
 import org.springframework.beans.BeanUtils;
@@ -45,31 +46,11 @@ public class LeadService {
         return leadResponses;
     }
 
-    public List<DTOClient> getAllLeadsByDtype(String type) {
-
-        List<Lead> leads = leadRepository.findAllByDtype(type);
-
-        if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
-
-        List<DTOClient> leadResponses = new ArrayList<>();
-
-        System.out.println(leads.size());
-
-        for (Lead l: leads) {
-            leadResponses.add(getLead(l));
-        }
-
-        return leadResponses;
-    }
 
     public List<DTOClient> getAllLeadsByDtypeAndClientStatus(String type, String group) {
-
         List<Lead> leads = leadRepository.findAllByDtypeAndClientStatus(type,group);
-
         if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
-
         List<DTOClient> leadResponses = new ArrayList<>();
-
         System.out.println(leads.size());
 
         for (Lead l: leads) {
@@ -178,7 +159,6 @@ public class LeadService {
 
 
         Student student = new Student();
-
         BeanUtils.copyProperties(lead,student);
 
 //        student.setCourse(course);
@@ -192,6 +172,29 @@ public class LeadService {
         return saveStudent;
 
     }
+
+    // FOR ADMIN
+    /**
+     * @param email
+     * @return
+     */
+    public Lead changeLeadToEmployee(String email) {
+
+        Lead lead = leadRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("Fail! -> Lead Not Found"));
+
+
+//        List<UserGroup> usergroups = userGroupRepository.findAll();
+
+        lead.setClientStatus(EnumList.EMPLOYEE.toString());
+
+        Lead saveEmployee = leadRepository.save(lead);
+        return saveEmployee;
+
+    }
+
+
 
     /**
      * @param l

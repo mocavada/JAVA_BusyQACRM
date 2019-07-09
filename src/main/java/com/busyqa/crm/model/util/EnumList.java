@@ -2,7 +2,7 @@ package com.busyqa.crm.model.util;
 
 public enum EnumList {
     /** CLIENT STATUS*/
-    EMPLOYEE, STUDENT, LEAD,
+    EMPLOYEE, CLIENT,
 
 
     /** PAYMENT STATUS*/

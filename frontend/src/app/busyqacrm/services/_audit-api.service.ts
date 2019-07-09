@@ -12,6 +12,7 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs';
 })
 export class AuditApiService {
   auditApiUrl = environment.serverAddress + '/audit';
+  getStudentsListUrl = this.auditApiUrl + '/usersList/Student';
   studentResult$ = new BehaviorSubject <[Student]>(null);
 
   info: any;
@@ -19,7 +20,7 @@ export class AuditApiService {
   constructor(private http: HttpClient) { }
 
   getStudentsList() {
-    this.http.get<[Student]>(this.auditApiUrl + '/studentslist').subscribe(data => {
+    this.http.get<[Student]>(this.getStudentsListUrl).subscribe(data => {
       this.studentResult$.next(data);
     }, err => {
       console.log('Something Wrong Getting Students List! ' + err);

@@ -7,6 +7,7 @@ import com.busyqa.crm.model.auth.DTOUserLoginForm;
 import com.busyqa.crm.model.auth.DTOUserSignupForm;
 import com.busyqa.crm.model.auth.UserGroup;
 import com.busyqa.crm.model.clients.Lead;
+import com.busyqa.crm.model.util.EnumList;
 import com.busyqa.crm.repo.LeadRepository;
 import com.busyqa.crm.repo.UserGroupRepository;
 import com.busyqa.crm.service.LeadService;
@@ -92,6 +93,8 @@ public class AuthRestController {
                 signUpRequest.getFirstName(),
                 userGroupSet
         );
+
+        lead.setClientStatus(EnumList.CLIENT.toString());
 
         leadRepository.save(lead);
 

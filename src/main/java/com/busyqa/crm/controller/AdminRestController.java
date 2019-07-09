@@ -1,12 +1,14 @@
 package com.busyqa.crm.controller;
 
 
-import com.busyqa.crm.model.auth.DTOEmployee;
 import com.busyqa.crm.model.auth.DTOUserGroup;
 import com.busyqa.crm.model.auth.UserGroup;
 import com.busyqa.crm.model.clients.DTOClient;
 import com.busyqa.crm.model.clients.Lead;
-import com.busyqa.crm.service.*;
+import com.busyqa.crm.service.AcademicsService;
+import com.busyqa.crm.service.LeadService;
+import com.busyqa.crm.service.MailService;
+import com.busyqa.crm.service.UserGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +28,6 @@ public class AdminRestController {
     @Autowired
     private LeadService leadService;
 
-    @Autowired
-    private EmployeeService employeeService;
 
     @Autowired
     private UserGroupService userGroupService;
@@ -54,23 +54,22 @@ public class AdminRestController {
 
 
     // EMPLOYEE SERVICE
-    @GetMapping("/usersList/{type}")
-    public List<DTOEmployee> getEmployeeListByDType(@PathVariable("type") String type) {
-        return this.employeeService.getAllEmployeesByDtype(type);
+    @GetMapping("/usersList/{type}/{status}")
+    public List<DTOClient> getAllLeadsByDtypeAndClientStatus(@PathVariable("type") String type , @PathVariable("status") String status) {
+        return this.leadService.getAllLeadsByDtypeAndClientStatus(type,status);
     }
 
 
     @GetMapping("/employee/{email}")
-    public DTOEmployee getEmployeeByEmail(@PathVariable("email") String email) {
-        return this.employeeService.getEmployeeByEmail(email);
+    public DTOClient getEmployeeByEmail(@PathVariable("email") String email)  {
+        return this.leadService.getLeadByEmail(email);
     }
-
 
 
     @PutMapping("/changeLeadToEmployee/{email}")
     public Lead employeeToStudent(@PathVariable("email") String email) {
 
-        return employeeService.changeLeadToEmployee(email);
+        return leadService.changeLeadToEmployee(email);
     }
 
 

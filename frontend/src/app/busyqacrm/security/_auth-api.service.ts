@@ -31,7 +31,7 @@ export class AuthService {
               public jwtHelper: JwtHelperService) {
   }
 
-  
+
   public isAuthenticated(): boolean {
     // const token = localStorage.getItem('token');
     const token = this.token.getToken();
