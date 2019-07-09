@@ -1,7 +1,7 @@
 import { UserRequest } from '../model/user-request';
-import { TokenStorageService } from '../auth/token-storage.service';
-import { User } from '../model/user';
-import { ApiResponse } from '../model/api-response';
+import { TokenStorageService } from '../security/token-storage.service';
+import { User } from '../model/auth-user';
+import { ApiResponse } from '../model/util-apiresponse';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';

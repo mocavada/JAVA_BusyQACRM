@@ -3,9 +3,9 @@ package com.busyqa.crm.service;
 import com.busyqa.crm.model.auth.DTOEmployee;
 import com.busyqa.crm.model.auth.Employee;
 import com.busyqa.crm.model.clients.Lead;
+import com.busyqa.crm.model.util.EnumList;
 import com.busyqa.crm.repo.EmployeeRepository;
 import com.busyqa.crm.repo.LeadRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +57,7 @@ public class EmployeeService {
      * @param email
      * @return
      */
-    public Employee changeLeadToEmployee(String email) {
+    public Lead changeLeadToEmployee(String email) {
 
         Lead lead = leadRepository.findByEmail(email)
                 .orElseThrow(() ->
@@ -81,19 +81,17 @@ public class EmployeeService {
 //
 //        newUserGroupSet.add(userGroup);
 
+        lead.setClientStatus(EnumList.EMPLOYEE.toString());
 
-        Employee employee = new Employee();
-
-        BeanUtils.copyProperties(lead,employee);
 
 //        student.setCourse(course);
 
 
 //        student.setRegistrationFeePaid(true);
 
-        leadRepository.deleteByEmail(email);
+//        leadRepository.deleteByEmail(email);
 
-        Employee saveEmployee = employeeRepository.save(employee);
+        Lead saveEmployee = leadRepository.save(lead);
         return saveEmployee;
 
     }

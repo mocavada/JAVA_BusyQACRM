@@ -1,4 +1,4 @@
-import { TokenStorageService } from './auth/token-storage.service';
+import { TokenStorageService } from './security/token-storage.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Component, OnInit } from '@angular/core';

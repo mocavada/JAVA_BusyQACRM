@@ -19,7 +19,10 @@ VALUES ('GROUP_EMPLOYEE','ROLE_ADMIN');
 
 
 INSERT INTO USER_USERGROUP (user_id, usergroup_id)
-VALUES (2,2);
+VALUES (2,2)
+
+INSERT INTO USER_USERGROUP (user_id, usergroup_id)
+VALUES (19,2);
 
 
 

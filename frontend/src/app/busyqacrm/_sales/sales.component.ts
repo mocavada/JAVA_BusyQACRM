@@ -1,10 +1,8 @@
-import { Client } from './../model/client';
 import { SalesApiService } from '../services/_sales-api.service';
-import { UserService } from '../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 import { UserResponse } from '../model/user-response';
-import { TokenStorageService } from '../auth/token-storage.service';
+import { TokenStorageService } from '../security/token-storage.service';
 import {Router} from '@angular/router';
 
 

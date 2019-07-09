@@ -4,9 +4,9 @@ import { BusyQaCrmComponent } from './busyqacrm/busyqacrm.component';
 import { FooterComponent } from './footer/footer.component';
 
 // AUTH
-import { RegisterComponent } from './busyqacrm/auth/register/register.component';
-import { LoginComponent } from './busyqacrm/auth/login/login.component';
-import { ResetPasswordComponent } from './busyqacrm/auth/reset-password/reset-password.component';
+import { RegisterComponent } from './busyqacrm/security/register/register.component';
+import { LoginComponent } from './busyqacrm/security/login/login.component';
+import { ResetPasswordComponent } from './busyqacrm/security/reset-password/reset-password.component';
 
 // ADMIN
 import { AdminComponent } from './busyqacrm/_admin/admin.component';
@@ -36,7 +36,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AutoSizeInputModule } from 'ngx-autosize-input';
 
-import { httpInterceptorProviders } from './busyqacrm/auth/auth-interceptor';
+import { httpInterceptorProviders } from './busyqacrm/security/auth-interceptor';
 import { routes } from './app-routing.module';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 

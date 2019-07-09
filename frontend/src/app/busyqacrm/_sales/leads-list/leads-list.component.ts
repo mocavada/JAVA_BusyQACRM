@@ -1,7 +1,8 @@
-import { Client } from './../../model/client';
+import { Lead } from './../../model/client-lead';
 import { SalesApiService } from '../../services/_sales-api.service';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-leads-list',
@@ -10,14 +11,14 @@ import {Router} from '@angular/router';
 })
 export class LeadsListComponent implements OnInit {
 
-  leadList: Client[];
+  leadList: Lead[];
 
   constructor(private salesService: SalesApiService,
               private router: Router) {
   }
 
   ngOnInit() {
-    this.salesService.clientResult$.subscribe(data => {
+    this.salesService.leadResult$.subscribe(data => {
       if (data != null) {
         this.leadList = data;
         console.log('Successful Loading Lead List!');

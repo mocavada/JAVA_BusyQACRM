@@ -1,5 +1,5 @@
-import { AuthService } from '../auth/auth-service';
-import { TokenStorageService } from '../auth/token-storage.service';
+import { AuthService } from '../security/_auth-api.service';
+import { TokenStorageService } from '../security/token-storage.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, CanActivate } from '@angular/router';

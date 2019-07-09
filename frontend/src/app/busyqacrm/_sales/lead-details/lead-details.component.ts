@@ -1,14 +1,12 @@
+import { Course } from './../../model/academics-course';
 import { Mail } from './../../model/mail';
-import { Course } from './../../model/course';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
-import { Client } from './../../model/client';
 import { SalesApiService } from './../../services/_sales-api.service';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
 
 import 'rxjs/add/operator/map';
 import { stringify } from '@angular/core/src/render3/util';
@@ -87,7 +85,7 @@ constructor(private salesService: SalesApiService,
       }
     });
 
-    this.salesService.getCourseList();
+    this.salesService.getAllCourses();
 
     this.sub = this.route.paramMap.subscribe(
       params => {
@@ -218,7 +216,7 @@ constructor(private salesService: SalesApiService,
     if (this.editCLientForm.valid) {
       this.validMessage = 'Your information has been updated!';
       this.salesService
-      .updateLeadLead(this.route.snapshot.params.email, this.editCLientForm.value)
+      .updateLeadByEmail(this.route.snapshot.params.email, this.editCLientForm.value)
       .subscribe(
         data => {
           this.message = 'The lead has been updated!';
@@ -240,8 +238,6 @@ constructor(private salesService: SalesApiService,
       );
     }
   }
-
-
 
 
   onSendTemplate() {

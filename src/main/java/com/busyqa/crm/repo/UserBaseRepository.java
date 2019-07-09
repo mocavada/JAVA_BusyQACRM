@@ -19,6 +19,7 @@ public interface UserBaseRepository<T extends User> extends JpaRepository<T, Lon
     Boolean existsByEmail(String email);
     List<T> findAll();
     List<T> findAllByDtype(String type);
+    List<T> findAllByDtypeAndUsergroups_Groups(String type,String group);
 
     Optional<T> findByEmail(String email);
     Optional<T> findById(Long id);

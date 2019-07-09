@@ -55,7 +55,7 @@ export class AddCourseComponent implements OnInit {
     if (f.valid) {
       this.validMessage = 'Your information has been saved. Thank you!';
       console.log('This form is good to go.');
-      this.salesService.postCourse(f.value);
+      this.salesService.addCourse(f.value);
       this.createCourseForm.reset();
     } else {
       console.log(f.value);
