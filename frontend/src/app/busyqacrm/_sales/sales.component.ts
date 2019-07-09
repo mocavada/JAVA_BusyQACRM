@@ -1,7 +1,5 @@
 import { SalesApiService } from '../services/_sales-api.service';
 import { Component, OnInit } from '@angular/core';
-
-import { UserResponse } from '../model/user-response';
 import { TokenStorageService } from '../security/token-storage.service';
 import {Router} from '@angular/router';
 

@@ -1,7 +1,6 @@
 import { Course } from './../model/academics-course';
 import { Lead } from './../model/client-lead';
-import { Mail } from './../model/mail';
-
+import { Mail } from '../model/util-mail';
 
 import { TokenStorageService } from '../security/token-storage.service';
 import { User } from '../model/auth-user';
@@ -17,7 +16,7 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs';
 })
 export class SalesApiService {
   salesApiUrl = environment.serverAddress + '/sales';
-  getLeadListUrl = this.salesApiUrl + '/usersList/Lead';
+  getLeadListUrl = this.salesApiUrl + '/usersList/Lead/CLIENT';
   getLeadByEmailUrl = this.salesApiUrl + '/lead/';
   updateLeadByEmailUrl = this.salesApiUrl + '/updateLead/';
   leadToStudentUrl = this.salesApiUrl + '/leadToStudent/';
@@ -80,7 +79,7 @@ export class SalesApiService {
     });
   }
 
-
+  //
 
   // SEND WELCOME PACKAGE, INSTRUCTORS INFO and COURSE INFO
   sendTemplateEmail(mail: Mail) {

@@ -1,5 +1,4 @@
 import { User } from '../model/auth-user';
-import { Role } from '../model/role';
 import { HttpClient } from '@angular/common/http';
 
 import { Component, OnInit } from '@angular/core';

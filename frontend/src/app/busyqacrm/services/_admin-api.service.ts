@@ -1,6 +1,5 @@
-import { UserRequest } from '../model/user-request';
+import { User } from './../model/auth-user';
 import { TokenStorageService } from '../security/token-storage.service';
-import { User } from '../model/auth-user';
 import { ApiResponse } from '../model/util-apiresponse';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -47,7 +46,7 @@ export class AdminApiService {
     return this.http.get<ApiResponse>(this.adminUrl + '/user/' + username);
   }
 
-  updateUser(username: string, user: UserRequest): Observable<ApiResponse> {
+  updateUser(username: string, user: User): Observable<ApiResponse> {
     return this.http.put<ApiResponse>(this.adminUrl + '/user/' + username, user);
   }
 

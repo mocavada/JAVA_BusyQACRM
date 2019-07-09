@@ -1,5 +1,5 @@
 import { Course } from './../../model/academics-course';
-import { Mail } from './../../model/mail';
+import { Mail } from '../../model/util-mail';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { SalesApiService } from './../../services/_sales-api.service';
 import { Component, OnInit } from '@angular/core';
