@@ -1,6 +1,6 @@
 package com.busyqa.crm;
 
-import com.busyqa.crm.model.FileStorageProperties;
+import com.busyqa.crm.model.util.FileStorageProperties;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

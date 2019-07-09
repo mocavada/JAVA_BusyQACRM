@@ -62,6 +62,23 @@ public class LeadService {
         return leadResponses;
     }
 
+    public List<DTOClient> getAllLeadsByDtypeAndClientStatus(String type, String group) {
+
+        List<Lead> leads = leadRepository.findAllByDtypeAndClientStatus(type,group);
+
+        if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
+
+        List<DTOClient> leadResponses = new ArrayList<>();
+
+        System.out.println(leads.size());
+
+        for (Lead l: leads) {
+            leadResponses.add(getLead(l));
+        }
+
+        return leadResponses;
+    }
+
     /**
      * @param email
      * @return

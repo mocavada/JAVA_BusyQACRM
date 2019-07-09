@@ -4,7 +4,7 @@
     <div class="col-sm-1 col-md-2">
     </div>
     <div class="col col-centered">
-            <form [formGroup]="createClientForm" (ngSubmit)="onSubmit(createClientForm)">
+            <form [formGroup]="createClientForm">
               <div *ngIf="validMessage != ''">
                 <h3 class="has-info">{{validMessage}}</h3>
               </div>

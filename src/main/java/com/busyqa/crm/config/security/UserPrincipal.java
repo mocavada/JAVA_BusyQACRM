@@ -116,16 +116,5 @@ public class UserPrincipal implements UserDetails {
     }
 
 
-    @Override
-    public String toString() {
-        return "UserPrincipal{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", authorities=" + authorities +
-                '}';
-    }
 }
 

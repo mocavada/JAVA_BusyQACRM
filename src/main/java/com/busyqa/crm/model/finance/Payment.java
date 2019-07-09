@@ -1,10 +1,13 @@
 package com.busyqa.crm.model.finance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "PAYMENTS")
@@ -16,17 +19,27 @@ public class Payment implements Serializable {
     private double amount;
     private String remarks;
     // DATE
+    @Basic
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Calendar paymentDate;
+
+    // DATE
     @CreationTimestamp
-    private LocalDateTime paymentDate;
+    private LocalDateTime createdTime;
+    @UpdateTimestamp
+    private LocalDateTime modifiedTime;
 
 
     public Payment() {
     }
 
-    public Payment(double amount, String remarks, LocalDateTime paymentDate) {
+    public Payment(double amount, String remarks, Calendar paymentDate, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.amount = amount;
         this.remarks = remarks;
         this.paymentDate = paymentDate;
+        this.createdTime = createdTime;
+        this.modifiedTime = modifiedTime;
     }
 
     public double getAmount() {
@@ -45,14 +58,37 @@ public class Payment implements Serializable {
         this.remarks = remarks;
     }
 
-    public LocalDateTime getPaymentDate() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Calendar getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(LocalDateTime paymentDate) {
+    public void setPaymentDate(Calendar paymentDate) {
         this.paymentDate = paymentDate;
     }
 
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public LocalDateTime getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(LocalDateTime modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
 
     //    @JsonIgnore
 //    public double getPaidAmount() {

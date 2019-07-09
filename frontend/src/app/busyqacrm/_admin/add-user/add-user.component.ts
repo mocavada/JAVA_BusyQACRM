@@ -1,5 +1,5 @@
-import { AuthService } from '../../auth/auth-service';
-import { SignUpInfo } from '../../auth/signup-info';
+import { AuthService } from '../../security/_auth-api.service';
+import { SignUp } from '../../model/auth-signup';
 
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
@@ -23,7 +23,7 @@ export class AddUserComponent implements OnInit {
   editForm: FormGroup;
   positions: FormArray;
   validMessage = '';
-  signupInfo: SignUpInfo;
+  signupInfo: SignUp;
   private sub: Subscription;
   message: string;
   constructor(private fb: FormBuilder,

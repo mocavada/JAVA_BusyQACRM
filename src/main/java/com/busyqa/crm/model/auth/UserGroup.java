@@ -11,10 +11,6 @@ public class UserGroup {
     private String groups;
     private String role;
 
-//    @ManyToMany(mappedBy = "usergroups")
-//    private Set<User> user;
-
-
     public UserGroup() {
     }
 

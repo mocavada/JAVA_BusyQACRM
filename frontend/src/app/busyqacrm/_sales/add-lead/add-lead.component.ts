@@ -1,6 +1,7 @@
-import { Course } from '../../model/course';
+import { Course } from './../../model/academics-course';
+
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
-import { Client } from '../../model/client';
+
 import { SalesApiService } from '../../services/_sales-api.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Router} from '@angular/router';
@@ -73,7 +74,7 @@ export class AddLeadComponent implements OnInit {
         this.courseList = data;
       }
     });
-    this.salesService.getCourseList();
+    this.salesService.getAllCourses();
   }
 
   toggleCourseDisplay() {
@@ -124,15 +125,15 @@ export class AddLeadComponent implements OnInit {
 
   }
 
-  onSubmit(f: any) {
-    if (f.valid) {
-      this.validMessage = 'Your information has been saved. Thank you!';
-      console.log('This form is good to go.');
-      this.salesService.postClient(f.value);
-      this.createClientForm.reset();
-    } else {
-      console.log(f.value);
-    }
-  }
+  // onSubmit(f: any) {
+  //   if (f.valid) {
+  //     this.validMessage = 'Your information has been saved. Thank you!';
+  //     console.log('This form is good to go.');
+  //     this.salesService.postClient(f.value);
+  //     this.createClientForm.reset();
+  //   } else {
+  //     console.log(f.value);
+  //   }
+  // }
 
 }

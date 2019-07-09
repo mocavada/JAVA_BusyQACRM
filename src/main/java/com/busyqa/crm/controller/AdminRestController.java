@@ -3,9 +3,9 @@ package com.busyqa.crm.controller;
 
 import com.busyqa.crm.model.auth.DTOEmployee;
 import com.busyqa.crm.model.auth.DTOUserGroup;
-import com.busyqa.crm.model.auth.Employee;
 import com.busyqa.crm.model.auth.UserGroup;
 import com.busyqa.crm.model.clients.DTOClient;
+import com.busyqa.crm.model.clients.Lead;
 import com.busyqa.crm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,8 +67,8 @@ public class AdminRestController {
 
 
 
-    @DeleteMapping("/changeLeadToEmployee/{email}")
-    public Employee employeeToStudent(@PathVariable("email") String email) {
+    @PutMapping("/changeLeadToEmployee/{email}")
+    public Lead employeeToStudent(@PathVariable("email") String email) {
 
         return employeeService.changeLeadToEmployee(email);
     }

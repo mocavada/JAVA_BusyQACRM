@@ -14,9 +14,9 @@ import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 
 import { AuthGuardService } from './busyqacrm/services/auth-guard.service';
-import { RegisterComponent } from './busyqacrm/auth/register/register.component';
-import { LoginComponent } from './busyqacrm/auth/login/login.component';
-import { ResetPasswordComponent } from './busyqacrm/auth/reset-password/reset-password.component';
+import { RegisterComponent } from './busyqacrm/security/register/register.component';
+import { LoginComponent } from './busyqacrm/security/login/login.component';
+import { ResetPasswordComponent } from './busyqacrm/security/reset-password/reset-password.component';
 
 
 export const router: Routes = [

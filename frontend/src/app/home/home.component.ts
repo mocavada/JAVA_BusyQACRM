@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 
-import { TokenStorageService } from '../busyqacrm/auth/token-storage.service';
+import { TokenStorageService } from '../busyqacrm/security/token-storage.service';
 
 @Component({
   selector: 'app-home',

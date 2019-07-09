@@ -39,9 +39,9 @@
 			"response": []
 		},
 		{
-			"name": "GET /sales/courselist",
+			"name": "GET /sales/courseList",
 			"request": {
-				"url": "http://localhost:8080/sales/courselist",
+				"url": "http://localhost:8080/sales/courseList",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -50,9 +50,9 @@
 			"response": []
 		},
 		{
-			"name": "POST /sales/addcourse",
+			"name": "POST /sales/addCourse",
 			"request": {
-				"url": "http://localhost:8080/sales/addcourse",
+				"url": "http://localhost:8080/sales/addCourse",
 				"method": "POST",
 				"header": [
 					{
@@ -63,7 +63,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": " {\n    \"name\": \"Course 6\",\n    \"description\": \"This Certified Scrum Master course is a professional development program designed for anyone considering a career in Agile Project Management.\",\n    \"location\": \"123 Main St., Toronto, ON\",\n    \"trainer\": \"James Uy\",\n    \"startDate\": \"2019-09-14\",\n    \"endDate\": \"2019-09-14\",\n\t\"classes\": [\n\t\t{\"name\": \"Java\", \"description\": \"App added with release\", \"units\": 10},\n\t\t{\"name\": \"PHP\", \"description\": \"App added with release\", \"units\": 10},\n\t\t{\"name\": \"C++\", \"description\": \"App added with release\", \"units\": 10},\n\t\t{\"name\": \"Spring\", \"description\": \"App added with release\", \"units\": 10},\n\t\t{\"name\": \"Ruby\", \"description\": \"App added with release\", \"units\": 10}\n\t\t]\n      \n}\n"
+					"raw": " {\n    \"name\": \"Course Test\",\n    \"batch\" : \"2018 Summer\",\n    \"description\": \"This Certified Scrum Master course is a professional development program designed for anyone considering a career in Agile Project Management.\",\n    \"fee\": 3000.00\n      \n}\n"
 				},
 				"description": ""
 			},
@@ -170,9 +170,20 @@
 			"response": []
 		},
 		{
-			"name": "POST /sales/copyleadtostudent",
+			"name": "GET /sales/lead/3",
 			"request": {
-				"url": "http://localhost:8080/sales/copyleadtostudent",
+				"url": "http://localhost:8080/sales/lead/3",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "V2 POST /api/auth/signup",
+			"request": {
+				"url": "http://localhost:8080/api/auth/signup",
 				"method": "POST",
 				"header": [
 					{
@@ -183,16 +194,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": \"24\"\n}\n\n"
+					"raw": "{\n\t\"firstName\" : \"Marc\",\n\t\"username\" : \"testmarc\",\n\t\"email\" : \"testmarc@mail.ca\",\n\t\"password\" : \"password12345\"\n\n\t\n}"
 				},
 				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "PUT /sales/saveleadtostudent",
+			"name": "V2 PUT /sales/lead2/email",
 			"request": {
-				"url": "http://localhost:8080/sales/saveleadtostudent",
+				"url": "http://localhost:8080/sales/lead2/adminmarc@mail.ca",
 				"method": "PUT",
 				"header": [
 					{
@@ -203,16 +214,131 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\":\"2\"\n}"
+					"raw": "{\n    \"email\": \"adminmarc@mail.ca\",\n    \"firstName\": \"Test\",\n    \"lastName\": \"Change\",\n    \"phoneNumber\": null,\n    \"emergencyPhone\": null,\n    \"clientStatus\": null,\n    \"registrationFee\": 0,\n    \"discount\": 0,\n    \"leadStatus\": null,\n    \"leadSource\": null,\n    \"comments\": null,\n    \"currentlyEmployed\": null,\n    \"currentlyITEmployed\": null,\n    \"desiredJob\": null,\n    \"paymentPlan\": null,\n    \"paymentPlanStatus\": null,\n    \"registrationFeePaid\": null,\n    \"planAgreement\": null,\n    \"mailingStreet\": null,\n    \"mailingCity\": null,\n    \"mailingState\": null,\n    \"mailingZip\": null,\n    \"mailingCountry\": null,\n    \"course\": null,\n    \"courseSchedule\": null,\n    \"trainer\": null,\n    \"trainingLocation\": null\n}"
 				},
 				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "GET /sales/lead/3",
+			"name": "POST /audit/addDiscount",
 			"request": {
-				"url": "http://localhost:8080/sales/lead/3",
+				"url": "http://localhost:8080/audit/addDiscount",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"amount\": 50.00,\n    \"discountCode\": \"CRR45678\",\n    \"description\": \"This Certified Scrum Master course is a professional development program designed for anyone considering a career in Agile Project Management.\"\n    \n   \n      \n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /admin/addUserGroup",
+			"request": {
+				"url": "http://localhost:8080/admin/addUserGroup",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"role\": \"ROLE_SALES\",\n    \"groups\": \"GROUP_EMPLOYEE\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DEL /sales/changeLeadToStudent/Three@mail.ca",
+			"request": {
+				"url": "http://localhost:8080/sales/changeLeadToStudent/Three@mail.ca",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DEL /admin/changeLeadToEmployee/Marco@mail.ca",
+			"request": {
+				"url": "http://localhost:8080/admin/changeLeadToEmployee/Marco@mail.ca",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /admin/usersList/Employee",
+			"request": {
+				"url": "http://localhost:8080/admin/usersList/Employee",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /sales/usersList/Student",
+			"request": {
+				"url": "http://localhost:8080/sales/usersList/Student",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /admin/userGroupList/Employee",
+			"request": {
+				"url": "http://localhost:8080/admin/userGroupList/Employee",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /sales/addTrainer",
+			"request": {
+				"url": "http://localhost:8080/sales/addTrainer",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"name\": \"Course Test\",\n    \"batch\" : \"2018 Summer\",\n    \"description\": \"This Certified Scrum Master course is a professional development program designed for anyone considering a career in Agile Project Management.\",\n    \"fee\": 3000.00\n      \n}\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /sales/getAllTrainer",
+			"request": {
+				"url": "http://localhost:8080/sales/getAllTrainer",
 				"method": "GET",
 				"header": [],
 				"body": {},
