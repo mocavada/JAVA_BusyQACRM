@@ -1,0 +1,69 @@
+
+
+<div class="col col-centered">
+    <form [formGroup]="createCourseScheduleForm" (ngSubmit)="onSubmit(createCourseScheduleForm)">
+        <div class="row">
+            <div *ngIf="validMessage != ''">
+              <h3 class="has-info">{{validMessage}}</h3>
+            </div>
+        </div>
+
+      
+        
+                  <!-- HEADER BUTTONS -->
+        <div class="row mt-4">
+            <div class="col pb-5">
+                <button class="btn btn-outline-success text-center mr-3 my-auto" 
+                        style="width:240px" value="Post" type="submit">ADD COURSE SCHEDULE
+                </button>
+            </div>
+           
+        </div>
+       
+        <div class="row">  
+            <div class="col">
+                    <!-- BASIC INFO -->
+                    <!-- <label class="mt-2" for="name">Course Name</label>     -->
+              
+                    <div class="mt-3 pb-5 form-row">
+
+                        <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Course Schedule Name"
+                        required formControlName="name" value="">
+                      </div>
+
+                        <div class="col-12 mb-2">
+                        <label for="sd">Start Date</label>  
+                            <input id="sd" type="date" class="form-control"
+                                    formControlName="dateStart">
+                        </div>
+                     
+                        <div class="col-12 mb-4">
+                            <label for="ed">End Date</label>  
+                                <input id="ed" type="date" class="form-control"
+                                        formControlName="dateEnd">
+                        </div> 
+                       
+                        <div class="col-6">
+                               
+                                <input type="text" class="form-control" placeholder="Time Start"
+                        formControlName="timeStart" value="">
+                        </div>
+                        <div class="col-6">
+                            
+                            <input type="text" class="form-control" placeholder="Time End"
+                        formControlName="timeEnd" value="">
+                      </div>
+                            
+                    </div>
+                   
+                </div>
+            </div>
+            
+  
+          
+    
+            </form> 
+        
+          
+        </div>

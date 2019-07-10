@@ -53,12 +53,17 @@ public class AcademicsService {
 
 
     public CourseSchedule getCourseScheduleById(int id) {
+
         return academicsRepository.getCourseScheduleById(id);
     }
 
     public synchronized boolean addCourseSchedule(CourseSchedule courseSchedule) {
+        if( academicsRepository.courseScheduleExist(courseSchedule.getName())) {
+            return false;
+        } else {
             academicsRepository.addCourseSchedule(courseSchedule);
             return true;
+        }
 
     }
 
@@ -93,9 +98,13 @@ public class AcademicsService {
         return academicsRepository.getTrainingLocationById(id);
     }
 
-    public synchronized boolean addTrainingLocation(TrainingLocation trainingSchedule) {
-        academicsRepository.addTrainingLocation(trainingSchedule);
-        return true;
+    public synchronized boolean addTrainingLocation(TrainingLocation trainingLocation) {
+        if( academicsRepository.trainingLocationExist(trainingLocation.getName())) {
+            return false;
+        } else {
+            academicsRepository.addTrainingLocation(trainingLocation);
+            return true;
+        }
     }
 
 

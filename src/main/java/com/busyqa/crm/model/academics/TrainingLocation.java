@@ -15,6 +15,7 @@ public class TrainingLocation {
     private Integer id;
 
     private Boolean isOnLine;
+    private String name;
     private String trainingStreet;
     private String trainingCity;
     private String trainerState;
@@ -30,14 +31,23 @@ public class TrainingLocation {
     public TrainingLocation() {
     }
 
-    public TrainingLocation(Boolean isOnLine, String trainingStreet, String trainingCity, String trainerState, String trainerZip, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public TrainingLocation(Boolean isOnLine, String name, String trainingStreet, String trainingCity, String trainerState, String trainerZip, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.isOnLine = isOnLine;
+        this.name = name;
         this.trainingStreet = trainingStreet;
         this.trainingCity = trainingCity;
         this.trainerState = trainerState;
         this.trainerZip = trainerZip;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {

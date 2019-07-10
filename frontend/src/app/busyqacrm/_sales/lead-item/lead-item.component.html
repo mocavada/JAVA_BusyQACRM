@@ -1,0 +1,22 @@
+
+<a [routerLink]="['/dashboard/sales/lead',lead.email]" class="list-group-item list-group-item-action flex-column align-items-start">
+  <div class="media-body align-self-center">
+      <h5 class="h-100 d-inline-block">{{ lead.firstName }} {{ lead.lastName }}</h5>
+      <p class=""><b>Status:  </b><small>{{ lead.clientStatus }}</small></p>
+      <p class=""><b>Comments:  </b><small>{{ lead.comments }}</small></p>
+      <small>Last Updated: {{ lead.modifiedTime | date: 'short'}}</small>
+      <fa-icon class="text-success" icon="pen"></fa-icon>
+  </div> 
+</a>
+  
+
+
+
+
+
+<!-- <div class="media">
+<div class="media-body align-self-center">
+<h5 class="m-0">{{ leads.name }} {{leads.lastName}}</h5>
+{{ leads.email }}
+</div>
+</div> -->

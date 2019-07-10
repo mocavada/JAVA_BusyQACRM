@@ -1,17 +1,30 @@
-<h3 class="mt-0 mb-3 pl-3 pb-2 pt-2 text-white border-top border-dark w-100 bg-secondary">VIEW LEADS</h3>
 
-<div class="container">
-<div class="list-group mt-1 p-0" *ngFor="let item of leadList; let i = index">
-    <a [routerLink]="['/dashboard/sales/lead',item.email]" class="list-group-item list-group-item-action flex-column align-items-start">
-        <div style="height: 5%; background-color: rgba(187, 160, 160, 0.1);" class="p-1 my-auto d-flex justify-content-between">
-            <h5 class="h-100 d-inline-block">{{item.firstName}} {{item.lastName}}</h5>
-            <p class=""><b>Status:  </b><small>{{item.clientStatus}}</small></p>
-            <p class=""><b>Comments:  </b><small>{{item.comments}}</small></p>
-            <small>Last Updated: {{item.modifiedTime | date: 'short'}}</small>
-            <fa-icon class="text-success" icon="pen"></fa-icon>
-        </div> 
-       
-      </a>
+<h3 class="pl-3 pb-2 pt-2 text-white border border-dark w-100 bg-gray">
+    <a class="nav-link" routerLink="/dashboard/sales/searchlead">SEARCH LEADS</a>
+</h3>
+
+
+
+<div class="row p-3">  
+   
+                
+    <div class="col">  
+        <div class="list-group mt-1 p-0" *ngFor="let item of leadList; let i = index">
+            <a [routerLink]="['/dashboard/sales/lead',item.email]" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div style="height: 5%; background-color: rgba(187, 160, 160, 0.1);" class="p-1 my-auto d-flex justify-content-between">
+                    <h5 class="h-100 d-inline-block">{{item.firstName}} {{item.lastName}}</h5>
+                    <p class=""><b>Status:  </b><small>{{item.clientStatus}}</small></p>
+                    <p class=""><b>Comments:  </b><small>{{item.comments}}</small></p>
+                    <small>Last Updated: {{item.modifiedTime | date: 'short'}}</small>
+                    <fa-icon class="text-success" icon="pen"></fa-icon>
+                </div> 
+            
+            </a>
+        </div>
+    </div>
 </div>
-</div>
+
+
+
+
 

@@ -10,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
 export class AddCourseComponent implements OnInit {
   validMessage = '';
   message: string;
-  index1 = 1;
 
   // nestedForm: FormGroup;
   createCourseForm: FormGroup;
@@ -21,12 +20,9 @@ export class AddCourseComponent implements OnInit {
   ngOnInit() {
     this.createCourseForm = this.fb.group({
       name: [],
-      trainer: [],
-      location: [],
+      batch: [],
       description: [],
-      time: [],
-      startDate: [],
-      endDate: [],
+      fee: [],
       //
       classes: this.fb.array([this.addClassesGroup()])
     });

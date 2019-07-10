@@ -1,8 +1,12 @@
 
+
+
 import { HomeComponent } from './home/home.component';
 import { CrmHeaderComponent } from './header/crm-header.component';
 import { BusyQaCrmComponent } from './busyqacrm/busyqacrm.component';
 import { FooterComponent } from './footer/footer.component';
+// PIPE
+import { SearchItemPipe } from './busyqacrm/services/search-item.pipe';
 
 // AUTH
 import { RegisterComponent } from './busyqacrm/security/register/register.component';
@@ -23,10 +27,14 @@ import { StudentsListComponent } from './busyqacrm/_audit/students-list/students
 import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
 import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
+import { LeadItemComponent } from './busyqacrm/_sales/lead-item/lead-item.component';
 import { SalesComponent } from './busyqacrm/_sales/sales.component';
 import { LeadsListComponent } from './busyqacrm/_sales/leads-list/leads-list.component';
 import { AddCourseComponent } from './busyqacrm/_sales/add-course/add-course.component';
 import { CourseListComponent } from './busyqacrm/_sales/course-list/course-list.component';
+import { CoursescheduleListComponent } from './busyqacrm/_sales/courseschedule-list/courseschedule-list.component';
+import { AddCoursescheduleComponent } from './busyqacrm/_sales/add-courseschedule/add-courseschedule.component';
+
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
@@ -77,10 +85,14 @@ import { AppComponent } from './app.component';
       SalesComponent,
       LeadsListComponent,
       LeadDetailsComponent,
+      LeadItemComponent,
       AddLeadComponent,
       SearchLeadsComponent,
       AddCourseComponent,
-      CourseListComponent
+      CourseListComponent,
+      AddCoursescheduleComponent,
+      CoursescheduleListComponent,
+      SearchItemPipe
    ],
    imports: [
       BrowserModule,
