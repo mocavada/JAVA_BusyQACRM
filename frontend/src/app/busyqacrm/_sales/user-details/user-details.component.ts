@@ -7,15 +7,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
-import 'rxjs/add/operator/map';
 
 
 @Component({
-  selector: 'app-lead-details',
-  templateUrl: './lead-details.component.html',
+  selector: 'app-user-details',
+  templateUrl: './user-details.component.html',
   styleUrls: ['../.././busyqacrm.component.css']
 })
-export class LeadDetailsComponent implements OnInit {
+export class UserDetailsComponent implements OnInit {
 
   private sub: Subscription;
   editCLientForm: FormGroup;
@@ -34,20 +33,16 @@ export class LeadDetailsComponent implements OnInit {
   isPLSent: boolean;
   isWPSent1: boolean;
 
-
-
   courseList: Course[];
+
 
   constructor(private salesService: SalesApiService,
               private route: ActivatedRoute,
               private fb: FormBuilder) {
-      this.showCourse = true;
-      this.showAddress = true;
-      this.isWPSent = true;
-      // this.isTISent = false;
-      // this.isPLSent = false;
-
-  }
+          this.showCourse = true;
+          this.showAddress = true;
+          this.isWPSent = true;
+               }
 
   toggleCourseDisplay() {
     console.log(this.showCourse);
@@ -73,20 +68,17 @@ export class LeadDetailsComponent implements OnInit {
     this.salesService.getAllCourse();
     console.log(this.courseList);
 
-
     this.sub = this.route.paramMap.subscribe(
       params => {
-        const email = params.get('email');
-        this.getLead(email);
+        const username = params.get('username');
+        this.getLead(username);
       }
     );
 
-    // console.log('welcome -' + this.welcomeString);
   }
 
-
-  getLead(email: string): void {
-    this.salesService.getLeadByEmail(email)
+  getLead(username: string): void {
+    this.salesService.getLeadByUsername(username)
     .subscribe(
       data => {
         console.log(data);
@@ -95,7 +87,6 @@ export class LeadDetailsComponent implements OnInit {
       (error: any) => console.error(error)
     );
   }
-
 
   displayForm(data: any): void {
     if (this.editCLientForm) {
@@ -207,102 +198,5 @@ export class LeadDetailsComponent implements OnInit {
     }
   }
 
-  onSendPortalLink() {
-    if (confirm('Are you sure you want to send portal link to this lead?')) {
-      this.salesService.sendEmailWithAttachment(this.route.snapshot.params.email)
-      .subscribe(
-        () => this.confirmationMessage = 'The portal link has been sent.',
-        (error: any) => console.error(error)
-      );
-    }
-  }
-
-
-  onSendTemplate() {
-    console.log(this.leadExample);
-    this.mail = new Mail(this.leadExample.email,
-                        'BusyQA Welcome Package',
-                        this.welcomeString
-                        );
-    if (confirm('Are you sure you want to send the welcome package?')) {
-      this.salesService.sendTemplateEmail(this.mail)
-      .subscribe(
-        data => {
-          this.confirmationMessage = 'Welcome Package Was Sent Successfully!';
-          this.isWPSent = true;
-          return true;
-        },
-        (error: any) => console.error(error)
-      );
-    }
-  }
-
-
-
-  // onUpdate(editForm: any) {
-  //   if (this.editForm.valid) {
-  //     console.log('This form is good to go.');
-  //     this.salesService.updateLead(editForm.value);
-  //   } else {
-  //     console.log(editForm.value);
-  //   }
-  // }
-
-
-
-  // onUpdate(editForm: any) {
-  //   if (this.editForm.valid) {
-  //     this.validMessage = 'Your information has been updated!';
-  //     this.salesService
-  //     .updateLead(this.editForm.value)
-  //     .subscribe(
-  //       data => {
-  //         this.message = 'The lead has been updated!';
-  //         return true;
-  //       },
-  //       error => {
-  //         alert('Couldnt update this lead!'); });
-  //   } else {
-  //     this.validMessage = 'Please make sure the inputs are valid!';
-  //   }
-  // }
-
-
-
-  // displayLeadInfo(data: any): void {
-  //     if (this.editForm) {
-  //       this.editForm.reset();
-  //     }
-
-  //     this.leadInfo = data;
-  //     this.editForm.patchValue({
-  //       firstName: this.leadInfo.firstName,
-  //       lastName: this.leadInfo.lastName,
-  //       phone: this.leadInfo.phone,
-  //       email: this.leadInfo.email,
-  //       registrationFee: this.leadInfo.registrationFee,
-  //       paymentPlan: this.leadInfo.paymentPlan,
-  //       paymentPlanStatus: this.leadInfo.paymentPlanStatus,
-  //       leadSource: this.leadInfo.leadSource,
-  //       leadStatus: this.leadInfo.leadStatus,
-  //       comments: this.leadInfo.comments,
-  //       course: this.leadInfo.course
-  //   });
-  // }
-
-
-  // deleteLead() {
-  //   if (confirm('Are you sure you want to delete this lead?')) {
-  //     this.salesService.deleteClient(this.route.snapshot.params.id)
-  //     .subscribe(
-  //       () => this.editForm.reset(),
-  //       (error: any) => console.error(error)
-  //     );
-  //   }
-  // }
-
-
-  // }
 
 }
-

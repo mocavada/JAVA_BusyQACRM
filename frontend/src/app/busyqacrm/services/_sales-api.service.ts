@@ -21,6 +21,7 @@ export class SalesApiService {
   salesApiUrl = environment.serverAddress + '/sales';
   getAllLeadsUrl = this.salesApiUrl + '/usersList/Lead/CLIENT';
   getLeadByEmailUrl = this.salesApiUrl + '/lead/';
+  getLeadByUsernameUrl = this.salesApiUrl + '/leadbyuser/';
   updateLeadByEmailUrl = this.salesApiUrl + '/updateLead/';
   leadToStudentUrl = this.salesApiUrl + '/leadToStudent/';
   // COURSE
@@ -62,6 +63,10 @@ export class SalesApiService {
 
   getLeadByEmail(email: string) {
     return this.http.get(this.getLeadByEmailUrl + email);
+  }
+
+  getLeadByUsername(username: string) {
+    return this.http.get(this.getLeadByUsernameUrl + username);
   }
 
   updateLeadByEmail(email: string, client: Lead) {

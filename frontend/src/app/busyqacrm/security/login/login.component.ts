@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   // @Input() username: any;
   username: any;
   authority: any;
+  isClient: boolean;
 
   form: any = {};
   isLoggedIn = false;
@@ -34,6 +35,9 @@ export class LoginComponent implements OnInit {
     }
     console.log(this.tokenStorage.getToken());
     this.roleAccess();
+
+    this.tokenStorage.getUsername();
+    console.log(this.isClient);
   }
 
   onSubmit() {
@@ -71,18 +75,26 @@ export class LoginComponent implements OnInit {
 
     // Find the User ROLE
       this.roles.find(role => {
-        if (this.roles.includes('ROLE_ADMIN' || 'ADMIN')) {
+        if (this.roles.includes('ROLE_ADMIN')) {
           this.authority = 'admin';
+          this.isClient = false;
           return false;
-        } else if (this.roles.includes('ROLE_AUDIT' || 'AUDIT')) {
+
+        } else if (this.roles.includes('ROLE_AUDIT')) {
           this.authority = 'audit';
+          this.isClient = false;
           return false;
-        } else if (this.roles.includes('ROLE_SALES' || 'USER')) {
+
+        } else if (this.roles.includes('ROLE_SALES')) {
           this.authority = 'sales';
+          this.isClient = false;
           return false;
+
         } else {
-          this.authority = 'user';
+          this.authority = 'users';
+          this.isClient = true;
           return true;
+
         }
       });
 

@@ -1,6 +1,5 @@
 
 
-
 import { HomeComponent } from './home/home.component';
 import { CrmHeaderComponent } from './header/crm-header.component';
 import { BusyQaCrmComponent } from './busyqacrm/busyqacrm.component';
@@ -16,7 +15,8 @@ import { ResetPasswordComponent } from './busyqacrm/security/reset-password/rese
 // ADMIN
 import { AdminComponent } from './busyqacrm/_admin/admin.component';
 import { UsersListComponent } from './busyqacrm/_admin/users-list/users-list.component';
-import { AddUserComponent } from './busyqacrm/_admin/add-user/add-user.component';
+import { AddUsergroupComponent } from './busyqacrm/_admin/add-usergroup/add-usergroup.component';
+import { UsergroupListComponent } from './busyqacrm/_admin/usergroup-list/usergroup-list.component';
 
 
 // AUDIT
@@ -25,7 +25,6 @@ import { StudentsListComponent } from './busyqacrm/_audit/students-list/students
 
 // SALES
 import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
-import { AddLeadComponent } from './busyqacrm/_sales/add-lead/add-lead.component';
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 import { LeadItemComponent } from './busyqacrm/_sales/lead-item/lead-item.component';
 import { SalesComponent } from './busyqacrm/_sales/sales.component';
@@ -34,6 +33,9 @@ import { AddCourseComponent } from './busyqacrm/_sales/add-course/add-course.com
 import { CourseListComponent } from './busyqacrm/_sales/course-list/course-list.component';
 import { CoursescheduleListComponent } from './busyqacrm/_sales/courseschedule-list/courseschedule-list.component';
 import { AddCoursescheduleComponent } from './busyqacrm/_sales/add-courseschedule/add-courseschedule.component';
+import { AddTrainerComponent } from './busyqacrm/_sales/add-trainer/add-trainer.component';
+import { TrainerListComponent } from './busyqacrm/_sales/trainer-list/trainer-list.component';
+import { UserDetailsComponent } from './busyqacrm/_sales/user-details/user-details.component';
 
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -78,20 +80,23 @@ import { AppComponent } from './app.component';
       RegisterComponent,
       HomeComponent,
       AdminComponent,
+      UsergroupListComponent,
+      AddUsergroupComponent,
       UsersListComponent,
-      AddUserComponent,
       AuditComponent,
       StudentsListComponent,
       SalesComponent,
       LeadsListComponent,
       LeadDetailsComponent,
       LeadItemComponent,
-      AddLeadComponent,
       SearchLeadsComponent,
       AddCourseComponent,
       CourseListComponent,
       AddCoursescheduleComponent,
       CoursescheduleListComponent,
+      TrainerListComponent,
+      AddTrainerComponent,
+      UserDetailsComponent,
       SearchItemPipe
    ],
    imports: [

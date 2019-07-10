@@ -18,6 +18,7 @@ export class CrmHeaderComponent implements OnInit {
   roles: string[];
   authority: string;
   username: string;
+  isClient: boolean;
   private urlRoot = environment.serverAddress;
   path: any;
 
@@ -41,17 +42,21 @@ export class CrmHeaderComponent implements OnInit {
 
     // Find the User ROLE
       this.roles.find(role => {
-        if (this.roles.includes('ROLE_ADMIN' || 'ADMIN')) {
+        if (this.roles.includes('ROLE_ADMIN')) {
           this.authority = 'admin';
+          this.isClient = false;
           return false;
-        } else if (this.roles.includes('ROLE_AUDIT' || 'AUDIT')) {
+        } else if (this.roles.includes('ROLE_AUDIT')) {
           this.authority = 'audit';
+          this.isClient = false;
           return false;
-        } else if (this.roles.includes('ROLE_SALES' || 'SALES')) {
+        } else if (this.roles.includes('ROLE_SALES')) {
           this.authority = 'sales';
+          this.isClient = false;
           return false;
         } else {
           this.authority = 'user';
+          this.isClient = true;
           return true;
         }
       });
@@ -83,7 +88,7 @@ export class CrmHeaderComponent implements OnInit {
   }
 
   reloadPage() {
-    window.location.reload();
+    this.router.navigate(['auth/login']);
   }
 
 

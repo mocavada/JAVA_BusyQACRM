@@ -72,6 +72,18 @@ public class LeadService {
     }
 
     /**
+     * @param username
+     * @return
+     */
+    public DTOClient getLeadByUsername(String username) {
+
+        Lead l = leadRepository.findByUsername(username).orElseThrow(
+                () -> new RuntimeException("Error: Username not found!"));
+        return getLead(l);
+    }
+
+
+    /**
      * @param email
      * @param leadRequest
      * @return

@@ -8,6 +8,7 @@ import { Lead } from './../../model/client-lead';
 })
 export class LeadItemComponent implements OnInit {
 
+
   @Input() lead: Lead[];
 
   constructor() { }

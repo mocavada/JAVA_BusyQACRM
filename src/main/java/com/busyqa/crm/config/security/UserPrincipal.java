@@ -16,7 +16,7 @@ public class UserPrincipal implements UserDetails {
 
     private Long id;
 
-    private String fullName;
+    private String firstName;
 
     private String username;
 
@@ -31,9 +31,9 @@ public class UserPrincipal implements UserDetails {
     public UserPrincipal() {
     }
 
-    public UserPrincipal(Long id, String fullName, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String firstName, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.fullName = fullName;
+        this.firstName = firstName;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -49,8 +49,8 @@ public class UserPrincipal implements UserDetails {
 
         return new UserPrincipal(
                 user.getId(),
+                user.getFirstName(),
                 user.getUsername(),
-                user.getFullName(),
                 user.getEmail(),
                 user.getPassword(),
                 authorities
@@ -63,8 +63,9 @@ public class UserPrincipal implements UserDetails {
         return id;
     }
 
-    public String getName() {
-        return fullName;
+
+    public String getFirstName() {
+        return firstName;
     }
 
     public String getEmail() {
