@@ -47,8 +47,8 @@ public class LeadService {
     }
 
 
-    public List<DTOClient> getAllLeadsByDtypeAndClientStatus(String type, String group) {
-        List<Lead> leads = leadRepository.findAllByDtypeAndClientStatusOrderByIdDesc(type,group);
+    public List<DTOClient> getAllLeadsByDtypeAndUserState(String type, String group) {
+        List<Lead> leads = leadRepository.findAllByDtypeAndUserStateOrderByIdDesc(type,group);
         if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
         List<DTOClient> leadResponses = new ArrayList<>();
         System.out.println(leads.size());
@@ -199,8 +199,7 @@ public class LeadService {
 
 //        List<UserGroup> usergroups = userGroupRepository.findAll();
 
-        lead.setClientStatus(EnumList.EMPLOYEE.toString());
-
+        lead.setUserState(EnumList.EMPLOYEE.toString());
         Lead saveEmployee = leadRepository.save(lead);
         return saveEmployee;
 

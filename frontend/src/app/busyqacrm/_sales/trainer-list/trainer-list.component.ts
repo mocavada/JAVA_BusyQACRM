@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Trainer } from '../../model/academics-trainer';
+import { SalesApiService } from '../../services/_sales-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trainer-list',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrainerListComponent implements OnInit {
 
-  constructor() { }
+  trainerList: Trainer[];
 
-  ngOnInit() {
+  constructor(private salesService: SalesApiService,
+              private router: Router) {
   }
 
+  ngOnInit() {
+    this.salesService.trainerResult$.subscribe(data => {
+      if (data != null) {
+        this.trainerList = data;
+        console.log('Successful Loading Trainer List!');
+        console.log(this.trainerList);
+      }
+    });
+
+    this.salesService.getAllTrainer();
+    console.log(this.trainerList);
+
+  }
 }

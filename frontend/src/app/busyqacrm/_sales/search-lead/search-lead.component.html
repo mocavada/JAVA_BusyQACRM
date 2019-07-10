@@ -1,0 +1,58 @@
+<app-crm-header></app-crm-header>
+<div class="position-relative container">
+<div class="row justify-content-center pt-5">
+        <div class="card mt-sm-3 col-md-8">
+            <div class="card-body pl-5 pr-5">
+                <h3 class="mb-0">Search Lead</h3>
+                <div class="form-group">
+                <div class="form-label" 
+                *ngIf="query"><strong>For:</strong>
+                {{ query }}
+                </div>
+                <input class="form-control mt-2" type="text"
+                [(ngModel)]="query">
+                </div><!-- form-group -->
+            </div><!-- card-body -->
+        </div><!-- card -->
+        
+
+    </div>
+
+    <div class="position-absolute container" style="left: 0; z-index:10">
+            <div class="row justify-content-center">
+              <div class="col">
+                <div class="list-group" *ngIf="query">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start"
+                    *ngFor="let lead of (leadList | searchItem: query)"
+                    (click)="showLead(lead); query=''"
+                    [style.backgroundColor]="lead.highlight ? '#EEE' : '#FFF'">
+                  
+                    <app-lead-item [lead]="lead"></app-lead-item>
+                   
+                </div>
+                </div><!-- list-group -->
+              </div><!-- col -->
+            </div><!-- row -->
+          </div><!-- container -->
+
+</div>     
+<div class="position-relative container mt-5">
+<mat-tab-group>
+  
+    <mat-tab label="ALL"> 
+        <app-leads-list></app-leads-list>
+    </mat-tab>
+
+    <mat-tab label="INTERESETED"> 
+       
+    </mat-tab>
+
+    <mat-tab label="FOR PAYMENT"> 
+        
+     </mat-tab>
+     
+     <mat-tab label="FOR STUDENT"> 
+        
+      </mat-tab> 
+</mat-tab-group>
+</div>

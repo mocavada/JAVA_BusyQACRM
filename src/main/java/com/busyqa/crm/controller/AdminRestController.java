@@ -50,8 +50,8 @@ public class AdminRestController {
 
     // EMPLOYEE SERVICE
     @GetMapping("/usersList/{type}/{status}")
-    public List<DTOClient> getAllLeadsByDtypeAndClientStatus(@PathVariable("type") String type , @PathVariable("status") String status) {
-        return this.leadService.getAllLeadsByDtypeAndClientStatus(type,status);
+    public List<DTOClient> getAllLeadsByDtypeAndUserState(@PathVariable("type") String type , @PathVariable("status") String status) {
+        return this.leadService.getAllLeadsByDtypeAndUserState(type,status);
     }
 
 

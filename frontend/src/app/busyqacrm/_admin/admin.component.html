@@ -1,35 +1,24 @@
 <app-crm-header></app-crm-header>
  
-<h3 class="pt-2 text-left text-black">Welcome {{username}}</h3>
+<h3 class="pt-2 pl-3 mb-4 text-left text-black">Welcome {{username}}</h3>
 
   <mat-tab-group>
-    <mat-tab label="DASHBOARD">
-
+  
+    <mat-tab label="OVERVIEW"> 
+        <h4>ADMIN GRAPHIC REPORTS HERE</h4>
     </mat-tab>
-    <mat-tab label="ADD LEAD"> 
+
+    <mat-tab label="ADD USER"> 
        <app-register></app-register>
     </mat-tab>
+
+    <mat-tab label="VIEW USER"> 
+        <app-users-list></app-users-list>
+     </mat-tab>
 
     <mat-tab label="USER GROUP">
      <app-usergroup-list></app-usergroup-list>
     </mat-tab>
-
-    <mat-tab label="COURSE"> 
-      <app-course-list></app-course-list>
-    </mat-tab>
-
-    <mat-tab label="COURSE SCHEDULE">
-      <app-courseschedule-list></app-courseschedule-list>
-    </mat-tab>
-
-    <mat-tab label="TRAINER">
-      <app-trainer-list></app-trainer-list>
-    </mat-tab>
-
-      
-
-   
-
     
 </mat-tab-group>
           

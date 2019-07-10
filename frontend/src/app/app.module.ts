@@ -1,12 +1,11 @@
 
-
-
 import { HomeComponent } from './home/home.component';
 import { CrmHeaderComponent } from './header/crm-header.component';
 import { BusyQaCrmComponent } from './busyqacrm/busyqacrm.component';
 import { FooterComponent } from './footer/footer.component';
 // PIPE
 import { SearchItemPipe } from './busyqacrm/services/search-item.pipe';
+
 
 // AUTH
 import { RegisterComponent } from './busyqacrm/public/register/register.component';
@@ -20,12 +19,26 @@ import { AddUsergroupComponent } from './busyqacrm/_admin/add-usergroup/add-user
 import { UsergroupListComponent } from './busyqacrm/_admin/usergroup-list/usergroup-list.component';
 
 
+
 // AUDIT
 import { AuditComponent } from './busyqacrm/_audit/audit.component';
 import { StudentsListComponent } from './busyqacrm/_audit/students-list/students-list.component';
+import { TaxListComponent } from './busyqacrm/_audit/tax-list/tax-list.component';
+import { TaxAddComponent } from './busyqacrm/_audit/tax-add/tax-add.component';
+import { RegistrationfeeListComponent } from './busyqacrm/_audit/registrationfee-list/registrationfee-list.component';
+import { RegistrationfeeAddComponent } from './busyqacrm/_audit/registrationfee-add/registrationfee-add.component';
+import { PaymentplanListComponent } from './busyqacrm/_audit/paymentplan-list/paymentplan-list.component';
+import { PaymentplanAddComponent } from './busyqacrm/_audit/paymentplan-add/paymentplan-add.component';
+import { LatefeeListComponent } from './busyqacrm/_audit/latefee-list/latefee-list.component';
+import { LatefeeAddComponent } from './busyqacrm/_audit/latefee-add/latefee-add.component';
+import { DiscountListComponent } from './busyqacrm/_audit/discount-list/discount-list.component';
+import { DiscountAddComponent } from './busyqacrm/_audit/discount-add/discount-add.component';
+import { SearchStudentComponent } from './busyqacrm/_audit/search-student/search-student.component';
+import { StudentItemComponent } from './busyqacrm/_audit/student-item/student-item.component';
+
 
 // SALES
-import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
+import { SearchLeadComponent } from './busyqacrm/_sales/search-lead/search-lead.component';
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 import { LeadItemComponent } from './busyqacrm/_sales/lead-item/lead-item.component';
 import { SalesComponent } from './busyqacrm/_sales/sales.component';
@@ -37,6 +50,7 @@ import { AddCoursescheduleComponent } from './busyqacrm/_sales/add-courseschedul
 import { AddTrainerComponent } from './busyqacrm/_sales/add-trainer/add-trainer.component';
 import { TrainerListComponent } from './busyqacrm/_sales/trainer-list/trainer-list.component';
 import { UserDetailsComponent } from './busyqacrm/_sales/user-details/user-details.component';
+import { BuildAcademicsComponent } from './busyqacrm/_sales/build-academics.component';
 
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -86,11 +100,24 @@ import { AppComponent } from './app.component';
       UsersListComponent,
       AuditComponent,
       StudentsListComponent,
+      StudentItemComponent,
+      SearchStudentComponent,
+      TaxListComponent,
+      TaxAddComponent,
+      RegistrationfeeAddComponent,
+      RegistrationfeeListComponent,
+      PaymentplanAddComponent,
+      PaymentplanListComponent,
+      LatefeeAddComponent,
+      LatefeeListComponent,
+      DiscountAddComponent,
+      DiscountListComponent,
       SalesComponent,
+      BuildAcademicsComponent,
       LeadsListComponent,
       LeadDetailsComponent,
       LeadItemComponent,
-      SearchLeadsComponent,
+      SearchLeadComponent,
       AddCourseComponent,
       CourseListComponent,
       AddCoursescheduleComponent,

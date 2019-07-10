@@ -1,3 +1,6 @@
+import { SearchStudentComponent } from './busyqacrm/_audit/search-student/search-student.component';
+
+import { BuildAcademicsComponent } from './busyqacrm/_sales/build-academics.component';
 
 
 import { UsersListComponent } from './busyqacrm/_admin/users-list/users-list.component';
@@ -14,7 +17,7 @@ import { StudentsListComponent } from './busyqacrm/_audit/students-list/students
 // SALES
 import { SalesComponent } from './busyqacrm/_sales/sales.component';
 import { LeadsListComponent } from './busyqacrm/_sales/leads-list/leads-list.component';
-import { SearchLeadsComponent } from './busyqacrm/_sales/search-leads/search-leads.component';
+import { SearchLeadComponent } from './busyqacrm/_sales/search-lead/search-lead.component';
 import { LeadDetailsComponent } from './busyqacrm/_sales/lead-details/lead-details.component';
 import { UserDetailsComponent } from './busyqacrm/_sales/user-details/user-details.component';
 
@@ -22,6 +25,7 @@ import { AuthGuardService } from './busyqacrm/services/auth-guard.service';
 import { RegisterComponent } from './busyqacrm/public/register/register.component';
 import { LoginComponent } from './busyqacrm/public/login/login.component';
 import { ResetPasswordComponent } from './busyqacrm/public/reset-password/reset-password.component';
+
 
 
 
@@ -38,16 +42,19 @@ export const router: Routes = [
       { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService]},
       { path: 'admin/userlist', component: UsersListComponent},
       { path: 'audit', component: AuditComponent },
-      { path: 'audit/studentslist', component: StudentsListComponent },
+      { path: 'audit/studentslist', component: SearchStudentComponent },
       { path: 'sales', component: SalesComponent },
-      { path: 'sales/leadslist', component: LeadsListComponent },
+      { path: 'sales/academics', component: BuildAcademicsComponent },
+      { path: 'sales/leadslist', component: SearchLeadComponent },
       { path: 'sales/lead/:email', component: LeadDetailsComponent },
       { path: 'sales/leadbyuser/:username', component: UserDetailsComponent },
-      { path: 'sales/searchlead', component: SearchLeadsComponent },
+      { path: 'sales/searchlead', component: SearchLeadComponent },
       { path: 'sales/courselist', component: CourseListComponent },
       { path: 'sales/courseschedulelist', component: CoursescheduleListComponent }
 
     ]}
+
+
 
     // { path: 'dashboard', children: [
     //   { path: '', component: BusyQaCrmComponent, canActivate: [AuthGuardService] },
