@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     );
-    this.router.navigate(['home']);
+    // this.router.navigate(['home']);
 
   }
 }

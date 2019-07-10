@@ -24,6 +24,7 @@ public interface AcademicsRepositoryI {
     List<CourseSchedule> getAllCourseSchedule();
     void addCourseSchedule(CourseSchedule courseSchedule);
     CourseSchedule getCourseScheduleById(int id);
+    boolean courseScheduleExist(String name);
 
     // TRAINER
     List<Trainer> getAllTrainer();
@@ -35,6 +36,7 @@ public interface AcademicsRepositoryI {
     List<TrainingLocation> getAllTrainingLocation();
     void addTrainingLocation(TrainingLocation trainingLocation);
     TrainingLocation getTrainingLocationById(int id);
+    boolean trainingLocationExist(String name);
 
 
 }

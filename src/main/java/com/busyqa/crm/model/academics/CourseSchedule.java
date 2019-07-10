@@ -5,7 +5,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
@@ -17,6 +16,7 @@ public class CourseSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String name;
     // DATES
     @Basic
     @Temporal(TemporalType.DATE)
@@ -27,11 +27,11 @@ public class CourseSchedule {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Calendar dateEnd;
 
-    @Basic
-    private Time timeStart;
 
-    @Basic
-    private Time timeEnd;
+    private String timeStart;
+
+
+    private String timeEnd;
 
     // TEMPORAL
     @CreationTimestamp
@@ -42,13 +42,22 @@ public class CourseSchedule {
     public CourseSchedule() {
     }
 
-    public CourseSchedule(Calendar dateStart, Calendar dateEnd, Time timeStart, Time timeEnd, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public CourseSchedule(String name, Calendar dateStart, Calendar dateEnd, String timeStart, String timeEnd, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+        this.name = name;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {
@@ -71,19 +80,19 @@ public class CourseSchedule {
         this.dateEnd = dateEnd;
     }
 
-    public Time getTimeStart() {
+    public String getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(Time timeStart) {
+    public void setTimeStart(String timeStart) {
         this.timeStart = timeStart;
     }
 
-    public Time getTimeEnd() {
+    public String getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(Time timeEnd) {
+    public void setTimeEnd(String timeEnd) {
         this.timeEnd = timeEnd;
     }
 

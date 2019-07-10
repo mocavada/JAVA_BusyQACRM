@@ -115,6 +115,17 @@ public class AcademicsRepository implements AcademicsRepositoryI {
         return entityManager.find(CourseSchedule.class,id);
     }
 
+    @Override
+    public boolean courseScheduleExist(String name) {
+        String jpql = "from CourseSchedule as a WHERE a.name =: name";
+
+        int count = entityManager.createQuery(jpql)
+                .setParameter("name",name)
+                .getResultList().size();
+
+        return count > 0;
+    }
+
     //////////////
     // TRAINER
     //////////////
@@ -170,6 +181,17 @@ public class AcademicsRepository implements AcademicsRepositoryI {
     public TrainingLocation getTrainingLocationById(int id) {
 
         return entityManager.find(TrainingLocation.class,id);
+    }
+
+    @Override
+    public boolean trainingLocationExist(String name) {
+        String jpql = "from TrainingLocation as a WHERE a.name =: name";
+
+        int count = entityManager.createQuery(jpql)
+                .setParameter("name",name)
+                .getResultList().size();
+
+        return count > 0;
     }
 
 

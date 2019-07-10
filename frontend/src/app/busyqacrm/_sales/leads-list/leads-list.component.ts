@@ -1,6 +1,6 @@
 import { Lead } from './../../model/client-lead';
 import { SalesApiService } from '../../services/_sales-api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Router} from '@angular/router';
 
 
@@ -15,6 +15,7 @@ export class LeadsListComponent implements OnInit {
 
   constructor(private salesService: SalesApiService,
               private router: Router) {
+
   }
 
   ngOnInit() {
