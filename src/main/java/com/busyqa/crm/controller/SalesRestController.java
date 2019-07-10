@@ -51,6 +51,11 @@ public class SalesRestController {
         return this.leadService.getLeadByEmail(email);
     }
 
+    @GetMapping("/leadbyuser/{username}")
+    public DTOClient getLeadByUsername(@PathVariable("username") String username) {
+        return this.leadService.getLeadByUsername(username);
+    }
+
 
     @PutMapping("/updateLead/{email}")
     public ResponseEntity<DTOClient> updateLeadByEmail(@PathVariable("email") String email, @RequestBody DTOClient leadRequest) {

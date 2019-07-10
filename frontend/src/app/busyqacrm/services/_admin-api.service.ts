@@ -5,57 +5,44 @@ import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { Lead } from '../model/client-lead';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminApiService {
 
-  apiUrl = environment.serverAddress;
-  private userUrl = this.apiUrl + '/user';
-  private pmUrl = this.apiUrl + '/pm';
-  private adminUrl = this.apiUrl + '/admin';
-  info: any;
+  adminApiUrl = environment.serverAddress + '/admin';
+  getAllUserUrl = this.adminApiUrl + '/usersList/Lead/EMPLOYEE';
 
-  constructor(private http: HttpClient, private token: TokenStorageService) { }
+  leadResult$ = new BehaviorSubject <[Lead]>(null);
 
-  getUserBoard(): Observable<string> {
-    return this.http.get(this.userUrl, { responseType: 'text' });
+  constructor(private http: HttpClient,
+              private token: TokenStorageService) { }
+
+
+  // EMPLOYEE
+  getAllUsers() {
+    this.http.get<[Lead]>(this.getAllUserUrl)
+    .subscribe(data => {
+      this.leadResult$.next(data);
+    }, err => {
+      console.log('Something Wrong Getting User List! ' + err);
+    });
   }
 
-  getPMBoard(): Observable<string> {
-    return this.http.get(this.pmUrl, { responseType: 'text' });
-  }
+  
 
-  getAdminBoard(): Observable<string> {
-    return this.http.get(this.adminUrl, { responseType: 'text' });
-  }
+  // getLeadByEmail(email: string) {
+  //   return this.http.get(this.getLeadByEmailUrl + email);
+  // }
 
-  getUsersByTeam(): Observable<ApiResponse> {
-    this.info = {
-      token: this.token.getToken(),
-      username: this.token.getUsername(),
-      authorities: this.token.getAuthorities()
-    };
-    // this is to get information to test in postman
-    console.log(this.info.token);
-    return this.http.get<ApiResponse>(this.adminUrl + '/auth/' + this.info.username);
-  }
+  // updateLeadByEmail(email: string, client: Lead) {
+  //   const body = JSON.stringify(client);
+  //   return this.http.put(this.updateLeadByEmailUrl + email, client);
+  // }
 
-  getUserByUsername(username: string): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.adminUrl + '/user/' + username);
-  }
-
-  updateUser(username: string, user: User): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.adminUrl + '/user/' + username, user);
-  }
-
-  deleteUser(username: string): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(this.adminUrl + '/user/' + username);
-  }
-
-  getUserInfo(username: string): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.userUrl + '/' + username);
-  }
-
+  // changeLeadToStudent(email: string) {
+  //   return this.http.delete(this.leadToStudentUrl + email);
+  // }
 }

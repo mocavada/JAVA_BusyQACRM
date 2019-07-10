@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class LeadsListComponent implements OnInit {
 
-  leadList: Lead[];
+  userList: Lead[];
 
   constructor(private salesService: SalesApiService,
               private router: Router) {
@@ -21,14 +21,14 @@ export class LeadsListComponent implements OnInit {
   ngOnInit() {
     this.salesService.leadResult$.subscribe(data => {
       if (data != null) {
-        this.leadList = data;
+        this.userList = data;
         console.log('Successful Loading Lead List!');
-        console.log(this.leadList);
+        console.log(this.userList);
       }
     });
 
     this.salesService.getAllLeads();
-    console.log(this.leadList);
+    console.log(this.userList);
 
   }
 

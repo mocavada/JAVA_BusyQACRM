@@ -13,17 +13,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"> 
          
-          <li class="nav-item" *ngIf="authority === 'admin'">
+          <li class="nav-item" *ngIf="!isClient || authority === 'admin' || authority === 'audit' || authority === 'sales'">
               <a class="nav-link" routerLink="/dashboard/{{authority}}">DASHBOARD</a>
           </li>
-          <li class="nav-item" *ngIf="authority === 'admin' || authority === 'pm' || authority === 'user'">
+          <li class="nav-item" *ngIf="!isClient || authority === 'admin' || authority === 'sales'">
             <a class="nav-link" routerLink="/dashboard/sales/leadslist">LEADS</a>
           </li>
-          <li class="nav-item" *ngIf="authority === 'admin' || authority === 'pm'">
+          <li class="nav-item" *ngIf="!isClient || authority === 'admin' || authority === 'audit'">
               <a class="nav-link" routerLink="/dashboard/audit/studentslist">STUDENTS</a>
           </li>
-          <li class="nav-item" *ngIf="authority === 'admin' || authority === 'pm'">
-              <a class="nav-link" routerLink="/dashboard/admin">USERS</a>
+          <li class="nav-item" *ngIf="!isClient || authority === 'admin'">
+              <a class="nav-link" routerLink="/dashboard/admin/userlist">USERS</a>
           </li>
           <!-- TEST LINK HERE -->
           <!-- <li class="nav-item">
