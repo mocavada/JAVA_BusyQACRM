@@ -94,7 +94,7 @@ public class AuthRestController {
                 userGroupSet
         );
 
-        lead.setClientStatus(EnumList.CLIENT.toString());
+        lead.setUserState(EnumList.CLIENT.toString());
 
         leadRepository.save(lead);
 

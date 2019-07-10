@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchItemPipe } from './../../services/search-item.pipe';
+import { SearchItemPipe } from '../../services/search-item.pipe';
 import { HttpClient } from '@angular/common/http';
 import { SalesApiService } from '../../services/_sales-api.service';
 import { Lead } from '../../model/client-lead';
 
 
 @Component({
-  selector: 'app-search-leads',
-  templateUrl: './search-leads.component.html',
+  selector: 'app-search-lead',
+  templateUrl: './search-lead.component.html',
   styleUrls: ['../.././busyqacrm.component.css']
 })
-export class SearchLeadsComponent implements OnInit {
+export class SearchLeadComponent implements OnInit {
 
   leadList: Lead[];
   lead: any;

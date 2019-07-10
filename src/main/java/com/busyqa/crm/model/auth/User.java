@@ -37,6 +37,7 @@ public class User {
     @Column(insertable = false, updatable = false)
     private String dtype;
 
+    private String userState;
 
     // DATE
     @CreationTimestamp
@@ -102,8 +103,7 @@ public class User {
         this.usergroups = usergroups;
     }
 
-
-    public User(String username, String password, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, LocalDateTime createdTime, LocalDateTime modifiedTime, Set<UserGroup> usergroups) {
+    public User(String username, String password, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, LocalDateTime createdTime, LocalDateTime modifiedTime, Set<UserGroup> usergroups) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -112,6 +112,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.emergencyPhone = emergencyPhone;
         this.dtype = dtype;
+        this.userState = userState;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.usergroups = usergroups;
@@ -129,6 +130,13 @@ public class User {
         return this.firstName + " " + this.lastName;
     }
 
+    public String getUserState() {
+        return userState;
+    }
+
+    public void setUserState(String userState) {
+        this.userState = userState;
+    }
 
     public Long getId() {
         return id;

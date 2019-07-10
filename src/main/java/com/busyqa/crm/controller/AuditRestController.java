@@ -68,13 +68,11 @@ public class AuditRestController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
-
     @GetMapping("/lateFeeList")
     public ResponseEntity<List<LateFee>> getAllLateFee() {
         List<LateFee> list = financeService.getAllLateFee();
         return new ResponseEntity<List<LateFee>>(list, HttpStatus.OK);
     }
-
 
     // FINANCE --- PAYMENT
     ///////////////////

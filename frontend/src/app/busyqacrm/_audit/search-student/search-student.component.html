@@ -3,7 +3,7 @@
 <div class="row justify-content-center pt-5">
         <div class="card mt-sm-3 col-md-8">
             <div class="card-body pl-5 pr-5">
-                <h3 class="mb-0">Search Lead</h3>
+                <h3 class="mb-0">Search Student</h3>
                 <div class="form-group">
                 <div class="form-label" 
                 *ngIf="query"><strong>For:</strong>
@@ -23,11 +23,11 @@
               <div class="col">
                 <div class="list-group" *ngIf="query">
                     <div class="list-group-item list-group-item-action flex-column align-items-start"
-                    *ngFor="let lead of (leadList | searchItem: query)"
-                    (click)="showLead(lead); query=''"
-                    [style.backgroundColor]="lead.highlight ? '#EEE' : '#FFF'">
-
-                    <app-lead-item [lead]="lead"></app-lead-item>
+                    *ngFor="let student of (studentList | searchItem: query)"
+                    (click)="showStudent(student); query=''"
+                    [style.backgroundColor]="student.highlight ? '#EEE' : '#FFF'">
+                    <app-student-item [student]="student"></app-student-item>
+            
                    
                 </div>
                 </div><!-- list-group -->
@@ -35,4 +35,28 @@
             </div><!-- row -->
           </div><!-- container -->
 
-</div>          
+</div>     
+<div class="position-relative container mt-5">
+<mat-tab-group>
+  
+    <mat-tab label="ALL"> 
+        <app-students-list></app-students-list>
+    </mat-tab>
+
+    <mat-tab label="LATE PAYMENT"> 
+       
+      </mat-tab>
+
+    <mat-tab label="FULL STACK"> 
+       
+    </mat-tab>
+
+    <mat-tab label="FOR PAYMENT"> 
+        
+     </mat-tab>
+     
+     <mat-tab label="TESTING"> 
+        
+      </mat-tab> 
+</mat-tab-group>
+</div>

@@ -1,3 +1,24 @@
-<p>
-  trainer-list works!
-</p>
+
+<h3 class="mt-0 mb-3 pl-3 pb-2 pt-2 text-white border-top border-dark w-100 bg-secondary">
+    COURSE SCHEDULE</h3>
+    <div class="m-3 row">
+        <div class="col-5 border-right">
+            <app-add-trainer></app-add-trainer>
+         </div>
+         <div class="col border-left">
+            <div class="list-group mt-1 p-0" *ngFor="let item of trainerList; let i = index">
+               
+                    <div style="height: 5%; background-color: rgba(187, 160, 160, 0.1);" class="p-1 my-auto d-flex justify-content-between">
+                        <h5 class="h-100 d-inline-block">{{item.trainerName}}</h5>
+                        <p class=""><b>Status:  </b><small>{{item.trainerEmail}}</small></p>
+                      
+                  
+                    </div> 
+                  
+                  
+            </div>
+         </div>   
+    </div>     
+    
+    
+    

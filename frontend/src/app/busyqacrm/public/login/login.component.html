@@ -2,12 +2,23 @@
 <div class="row pt-5 mt-5">
   <div class="col"></div>
   <div class="col pt-5">
+    <div class="row">
+        <div class="col-12">
+            <img class="rounded align-self-center img-fluid" 
+            style="width:200px;" 
+            src="assets/icons/busyqafulllogo.png" alt="Busy QA Logo">
+        </div>
+    </div>
     <div class="row pt-5" *ngIf="isLoggedIn; else loggedOut">
-        <h3>Hello {{username}}</h3>
-        
-        <button *ngIf="!isClient" class="mt-5 pr-5" centered routerLink="/dashboard/{{authority}}">VIEW DASHBOARD</button>
-
-        <button *ngIf="isClient" class="mt-5 pr-5" centered routerLink="/dashboard/sales/leadbyuser/{{username}}">VIEW ACCOUNT</button>
+        <div class="col-12">
+          <h3>Hello {{username}}</h3>
+        </div>
+        <div *ngIf="!isClient" class="col-12">
+          <button class="mt-5 pr-5" centered routerLink="/dashboard/{{authority}}">VIEW DASHBOARD</button>
+        </div> 
+        <div *ngIf="isClient" class="col-12">
+          <button class="mt-5 pr-5" centered routerLink="/dashboard/sales/leadbyuser/{{username}}">VIEW ACCOUNT</button>
+      </div>  
     </div>
 
   <ng-template #loggedOut>
@@ -48,3 +59,4 @@
   <div class="col"></div>  
 </div>
 </div>
+

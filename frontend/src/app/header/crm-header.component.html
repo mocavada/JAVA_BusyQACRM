@@ -16,15 +16,20 @@
           <li class="nav-item" *ngIf="!isClient && authority === 'admin' || authority === 'audit' || authority === 'sales'">
               <a class="nav-link" routerLink="/dashboard/{{authority}}">DASHBOARD</a>
           </li>
+          
           <li class="nav-item" *ngIf="!isClient && authority === 'admin' || authority === 'sales'">
             <a class="nav-link" routerLink="/dashboard/sales/leadslist">LEADS</a>
           </li>
           <li class="nav-item" *ngIf="!isClient && authority === 'admin' || authority === 'audit'">
               <a class="nav-link" routerLink="/dashboard/audit/studentslist">STUDENTS</a>
           </li>
-          <li class="nav-item" *ngIf="!isClient && authority === 'admin'">
-              <a class="nav-link" routerLink="/dashboard/admin/userlist">USERS</a>
-          </li>
+          <li class="nav-item" *ngIf="!isClient && authority === 'admin' || authority === 'sales'">
+              <a class="nav-link" routerLink="/dashboard/sales/academics">ACADEMICS</a>
+            </li>
+
+          <li class="nav-item" *ngIf="!isClient && authority === 'admin' || authority === 'audit'">
+              <a class="nav-link" routerLink="/dashboard/sales/academics">FINANCE</a>
+            </li>
           <!-- TEST LINK HERE -->
           <!-- <li class="nav-item">
             <a class="nav-link" routerLink="/dashboard/sales/courseschedulelist">COURSE LIST</a>

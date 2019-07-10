@@ -21,7 +21,7 @@ export class UsersListComponent implements OnInit {
     this.adminService.leadResult$.subscribe(data => {
       if (data != null) {
         this.leadList = data;
-        console.log('Successful Loading Lead List!');
+        console.log('Successful Loading User List!');
         console.log(this.leadList);
       }
     });

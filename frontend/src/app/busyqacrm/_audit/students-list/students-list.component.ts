@@ -27,7 +27,7 @@ export class StudentsListComponent implements OnInit {
       }
     });
 
-    this.auditService.getStudentsList();
+    this.auditService.getAllStudent();
     console.log(this.studentList);
 }
 

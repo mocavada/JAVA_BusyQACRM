@@ -1,6 +1,3 @@
-<app-crm-header></app-crm-header>
-<h3 class="mt-0 mb-3 pl-3 pb-2 pt-2 text-white border-top border-dark w-100 bg-secondary">VIEW STUDENTS</h3>
-
 <div class="container">
 <div class="list-group mt-1 p-0" *ngFor="let item of studentList; let i = index">
     <a [routerLink]="['/dashboard/sales/lead',item.email]" class="list-group-item list-group-item-action flex-column align-items-start">
