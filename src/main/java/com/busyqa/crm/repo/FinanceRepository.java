@@ -20,8 +20,9 @@ public class FinanceRepository implements FinanceRepositoryI {
 
     @Override
     public List<Discount> getAllDiscount() {
-        String jpql = "SELECT j FROM Discount j ORDER BY j.id";
+        String jpql = "SELECT j FROM Discount j ORDER BY j.id DESC";
         return (List<Discount>) entityManager.createQuery(jpql)
+                .setMaxResults(12)
                 .getResultStream()
                 .collect(Collectors.toList());
     }
@@ -49,8 +50,9 @@ public class FinanceRepository implements FinanceRepositoryI {
 
     @Override
     public List<LateFee> getAllLateFee() {
-        String jpql = "SELECT j FROM LateFee j ORDER BY j.id";
+        String jpql = "SELECT j FROM LateFee j ORDER BY j.id DESC";
         return (List<LateFee>) entityManager.createQuery(jpql)
+                .setMaxResults(12)
                 .getResultStream()
                 .collect(Collectors.toList());
     }
@@ -79,8 +81,9 @@ public class FinanceRepository implements FinanceRepositoryI {
 
     @Override
     public List<Payment> getAllPayment() {
-        String jpql = "SELECT j FROM Payment j ORDER BY j.id";
+        String jpql = "SELECT j FROM Payment j ORDER BY j.id DESC";
         return (List<Payment>) entityManager.createQuery(jpql)
+                .setMaxResults(12)
                 .getResultStream()
                 .collect(Collectors.toList());
     }

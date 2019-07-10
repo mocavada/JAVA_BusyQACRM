@@ -1,17 +1,17 @@
 <div class="container">
-<div class="row mt-5">
-  <div class="col-sm"></div>
-  <div class="col-sm">
-  <div *ngIf="isLoggedIn; else loggedOut">
-      <h3>Hello {{username}}</h3>
-      <h5>Login As {{authority|uppercase}}</h5>
-      <button *ngIf="!isClient" class="mt-5" centered routerLink="/dashboard/{{authority}}">VIEW DASHBOARD</button>
+<div class="row pt-5 mt-5">
+  <div class="col"></div>
+  <div class="col pt-5">
+    <div class="row pt-5" *ngIf="isLoggedIn; else loggedOut">
+        <h3>Hello {{username}}</h3>
+        
+        <button *ngIf="!isClient" class="mt-5 pr-5" centered routerLink="/dashboard/{{authority}}">VIEW DASHBOARD</button>
 
-      <button *ngIf="isClient" class="mt-5" centered routerLink="/dashboard/sales/leadbyuser/{{username}}">VIEW ACCOUNT</button>
-  </div>
+        <button *ngIf="isClient" class="mt-5 pr-5" centered routerLink="/dashboard/sales/leadbyuser/{{username}}">VIEW ACCOUNT</button>
+    </div>
 
   <ng-template #loggedOut>
-    <div class="row col-sm-6" style="max-width:350px;">
+    <div class="row pl-2 pt-5" style="max-width:350px;">
       <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
         <div class="form-group">
           <label for="username">Username</label>
@@ -45,6 +45,6 @@
     </div>
   </ng-template>
   </div>
-  <div class="col-sm"></div>  
+  <div class="col"></div>  
 </div>
 </div>

@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.token.signOut();
-    this.router.navigate(['auth/login']);
+    this.router.navigate(['auth/api/auth/login']);
     window.location.reload();
   }
 }

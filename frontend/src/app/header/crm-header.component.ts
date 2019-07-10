@@ -1,5 +1,5 @@
 import { TokenStorageService } from '../busyqacrm/security/token-storage.service';
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -14,6 +14,8 @@ export class CrmHeaderComponent implements OnInit {
   // @Input() authority: any;
   // @Input() roles: any;
   // @Input() username: any;
+
+  @Input() hideHeader: any;
 
   roles: string[];
   authority: string;
@@ -76,19 +78,25 @@ export class CrmHeaderComponent implements OnInit {
   logout() {
     this.tokenStorage.signOut();
     console.log('click : ' + this.router.url);
-    if (this.router.url === '/dashboard' || '/dashboard/*') {
-      // this.toastMessagesService.show("Logged out"); // display a toast style message if you have one :)
-        // this.router.navigate(['/']);
-        this.reloadPage();
-    } else {
- // Stay here or do something
- // for the case 'However if he is on a safe page I don't want to redirected him.'
-    }
+//     if (this.router.url === '/dashboard' || '/dashboard/*') {
+//       // this.toastMessagesService.show("Logged out"); // display a toast style message if you have one :)
+//         // this.router.navigate(['/']);
+//         this.reloadPage();
+//     } else {
+//  // Stay here or do something
+//  // for the case 'However if he is on a safe page I don't want to redirected him.'
+//     }
+
+
+    this.reloadPage();
+
+
 
   }
 
   reloadPage() {
     this.router.navigate(['auth/login']);
+
   }
 
 

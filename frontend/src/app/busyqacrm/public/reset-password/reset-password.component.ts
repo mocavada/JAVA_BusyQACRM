@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription, Observable } from 'rxjs';
-import { AuthService } from '../_auth-api.service';
-import { TokenStorageService } from '../token-storage.service';
+import { AuthService } from '../../security/_auth-api.service';
+import { TokenStorageService } from '../../security/token-storage.service';
 
 @Component({
   selector: 'app-reset-password',

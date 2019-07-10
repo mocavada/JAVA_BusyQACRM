@@ -33,12 +33,6 @@ public class AdminRestController {
     private UserGroupService userGroupService;
 
 
-    @GetMapping("/usersList")
-    public List<DTOClient> getUsersList() {
-
-        return this.leadService.getAllUsers();
-    }
-
 
     // USER GROUP SERVICE
     @PostMapping("/addUserGroup")
@@ -49,6 +43,7 @@ public class AdminRestController {
 
     @GetMapping("/userGroupsList")
     public List<DTOUserGroup> getUserGroupsList() {
+
         return this.userGroupService.getAllUsersGroups();
     }
 
@@ -76,6 +71,12 @@ public class AdminRestController {
 
 
 
+
+//    @GetMapping("/usersList")
+//    public List<DTOClient> getUsersList() {
+//
+//        return this.leadService.getAllUsers();
+//    }
 
 
 

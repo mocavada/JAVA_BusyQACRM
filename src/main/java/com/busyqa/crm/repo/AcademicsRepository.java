@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +30,9 @@ public class AcademicsRepository implements AcademicsRepositoryI {
 
 
     public List<Course> getAllCourse() {
-        String jpql = "SELECT j FROM Course j ORDER BY j.id";
+        String jpql = "SELECT j FROM Course j ORDER BY j.id DESC";
         return (List<Course>) entityManager.createQuery(jpql)
+                .setMaxResults(12)
                 .getResultStream()
                 .collect(Collectors.toList());
     }
@@ -97,8 +99,9 @@ public class AcademicsRepository implements AcademicsRepositoryI {
     @Override
     public List<CourseSchedule> getAllCourseSchedule() {
 
-        String jpql = "SELECT j FROM CourseSchedule j ORDER BY j.id";
+        String jpql = "SELECT j FROM CourseSchedule j ORDER BY j.id DESC";
         return (List<CourseSchedule>) entityManager.createQuery(jpql)
+                .setMaxResults(12)
                 .getResultStream()
                 .collect(Collectors.toList());
     }
@@ -132,8 +135,12 @@ public class AcademicsRepository implements AcademicsRepositoryI {
     @Override
     public List<Trainer> getAllTrainer() {
 
-        String jpql = "SELECT j FROM Trainer j ORDER BY j.id";
+        String jpql = "SELECT j FROM Trainer j ORDER BY j.id DESC";
+        Query query = entityManager.createQuery(jpql);
+
+
         return (List<Trainer>) entityManager.createQuery(jpql)
+                .setMaxResults(12)
                 .getResultStream()
                 .collect(Collectors.toList());
     }
@@ -166,8 +173,9 @@ public class AcademicsRepository implements AcademicsRepositoryI {
     @Override
     public List<TrainingLocation> getAllTrainingLocation() {
 
-        String jpql = "SELECT j FROM TrainingLocation j ORDER BY j.id";
+        String jpql = "SELECT j FROM TrainingLocation j ORDER BY j.id DESC";
         return (List<TrainingLocation>) entityManager.createQuery(jpql)
+                .setMaxResults(12)
                 .getResultStream()
                 .collect(Collectors.toList());
     }

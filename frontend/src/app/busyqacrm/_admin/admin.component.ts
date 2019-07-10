@@ -42,13 +42,13 @@ export class AdminComponent implements OnInit {
 
     // Find the User ROLE
       this.roles.find(role => {
-        if (this.roles.includes('ROLE_ADMIN' || 'ADMIN')) {
+        if (this.roles.includes('ROLE_ADMIN')) {
           this.authority = 'admin';
           return false;
-        } else if (this.roles.includes('ROLE_AUDIT' || 'AUDIT')) {
+        } else if (this.roles.includes('ROLE_AUDIT')) {
           this.authority = 'audit';
           return false;
-        } else if (this.roles.includes('ROLE_SALES' || 'SALES')) {
+        } else if (this.roles.includes('ROLE_SALES')) {
           this.authority = 'sales';
           return false;
         } else {
