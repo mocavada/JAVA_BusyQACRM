@@ -1,8 +1,10 @@
-import { Component, OnInit, Output, Input } from '@angular/core';
-import { AuthService } from '../_auth-api.service';
-import { TokenStorageService } from '../token-storage.service';
-import { AuthLoginInfo } from '../../model/auth-login';
 import { environment } from '../../../../environments/environment';
+import { AuthLoginInfo } from '../../model/auth-login';
+import { TokenStorageService } from '../../security/token-storage.service';
+import { AuthService } from '../../security/_auth-api.service';
+import { Component, OnInit, Output, Input } from '@angular/core';
+
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,7 +28,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
-              private router: Router) { }
+              private router: Router) {
+
+              }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -38,6 +42,8 @@ export class LoginComponent implements OnInit {
 
     this.tokenStorage.getUsername();
     console.log(this.isClient);
+
+
   }
 
   onSubmit() {

@@ -9,6 +9,8 @@ import java.util.List;
 public interface LeadRepository extends UserBaseRepository<Lead> {
     List<Lead> findAllByDtypeAndClientStatus(String type, String status);
 
+    List<Lead> findAllByDtypeAndClientStatusOrderByIdDesc(String type, String status);
+
 
 }
 

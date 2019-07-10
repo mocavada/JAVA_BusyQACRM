@@ -48,7 +48,7 @@ public class LeadService {
 
 
     public List<DTOClient> getAllLeadsByDtypeAndClientStatus(String type, String group) {
-        List<Lead> leads = leadRepository.findAllByDtypeAndClientStatus(type,group);
+        List<Lead> leads = leadRepository.findAllByDtypeAndClientStatusOrderByIdDesc(type,group);
         if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
         List<DTOClient> leadResponses = new ArrayList<>();
         System.out.println(leads.size());

@@ -13,16 +13,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"> 
          
-          <li class="nav-item" *ngIf="!isClient || authority === 'admin' || authority === 'audit' || authority === 'sales'">
+          <li class="nav-item" *ngIf="!isClient && authority === 'admin' || authority === 'audit' || authority === 'sales'">
               <a class="nav-link" routerLink="/dashboard/{{authority}}">DASHBOARD</a>
           </li>
-          <li class="nav-item" *ngIf="!isClient || authority === 'admin' || authority === 'sales'">
+          <li class="nav-item" *ngIf="!isClient && authority === 'admin' || authority === 'sales'">
             <a class="nav-link" routerLink="/dashboard/sales/leadslist">LEADS</a>
           </li>
-          <li class="nav-item" *ngIf="!isClient || authority === 'admin' || authority === 'audit'">
+          <li class="nav-item" *ngIf="!isClient && authority === 'admin' || authority === 'audit'">
               <a class="nav-link" routerLink="/dashboard/audit/studentslist">STUDENTS</a>
           </li>
-          <li class="nav-item" *ngIf="!isClient || authority === 'admin'">
+          <li class="nav-item" *ngIf="!isClient && authority === 'admin'">
               <a class="nav-link" routerLink="/dashboard/admin/userlist">USERS</a>
           </li>
           <!-- TEST LINK HERE -->
@@ -35,7 +35,7 @@
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item" *ngIf="showHideitem" >
+            <li class="nav-item">
                 <a class="nav-link" role="button" (click)="logout()">LOGOUT</a>
             </li>
     

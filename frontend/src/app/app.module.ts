@@ -1,5 +1,6 @@
 
 
+
 import { HomeComponent } from './home/home.component';
 import { CrmHeaderComponent } from './header/crm-header.component';
 import { BusyQaCrmComponent } from './busyqacrm/busyqacrm.component';
@@ -8,9 +9,9 @@ import { FooterComponent } from './footer/footer.component';
 import { SearchItemPipe } from './busyqacrm/services/search-item.pipe';
 
 // AUTH
-import { RegisterComponent } from './busyqacrm/security/register/register.component';
-import { LoginComponent } from './busyqacrm/security/login/login.component';
-import { ResetPasswordComponent } from './busyqacrm/security/reset-password/reset-password.component';
+import { RegisterComponent } from './busyqacrm/public/register/register.component';
+import { LoginComponent } from './busyqacrm/public/login/login.component';
+import { ResetPasswordComponent } from './busyqacrm/public/reset-password/reset-password.component';
 
 // ADMIN
 import { AdminComponent } from './busyqacrm/_admin/admin.component';

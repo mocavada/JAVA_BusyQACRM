@@ -1,3 +1,4 @@
+import { Usergroup } from './../model/auth-usergroup';
 import { User } from './../model/auth-user';
 import { TokenStorageService } from '../security/token-storage.service';
 import { ApiResponse } from '../model/util-apiresponse';
@@ -13,15 +14,40 @@ import { Lead } from '../model/client-lead';
 export class AdminApiService {
 
   adminApiUrl = environment.serverAddress + '/admin';
+  addUserGroupUrl = this.adminApiUrl + '/addUserGroup';
+  getAllUserGroupsUrl = this.adminApiUrl + '/userGroupsList';
+
   getAllUserUrl = this.adminApiUrl + '/usersList/Lead/EMPLOYEE';
 
   leadResult$ = new BehaviorSubject <[Lead]>(null);
+  userGroupResult$ = new BehaviorSubject<[Usergroup]>(null);
 
   constructor(private http: HttpClient,
               private token: TokenStorageService) { }
 
 
-  // EMPLOYEE
+  // USER GROUP
+  addUserGroup(usergroup: Usergroup) {
+    this.http
+    .post<any>(this.addUserGroupUrl, usergroup)
+    .subscribe(data => {
+      console.log(data);
+      this.userGroupResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Adding User Group' + err);
+    });
+  }
+
+  getAllUserGroups() {
+    this.http.get<[Usergroup]>(this.getAllUserGroupsUrl)
+    .subscribe(data => {
+      this.userGroupResult$.next(data);
+    }, err => {
+      console.log('Something Wrong Getting User Groups List! ' + err);
+    });
+  }
+
+   // EMPLOYEE
   getAllUsers() {
     this.http.get<[Lead]>(this.getAllUserUrl)
     .subscribe(data => {
@@ -31,7 +57,10 @@ export class AdminApiService {
     });
   }
 
-  
+
+
+
+
 
   // getLeadByEmail(email: string) {
   //   return this.http.get(this.getLeadByEmailUrl + email);
