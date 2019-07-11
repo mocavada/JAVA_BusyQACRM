@@ -18,7 +18,7 @@ public class Student extends Lead {
     private double weeklyPayment;
     private Boolean isPaymentLate;
 
-    @OneToMany(cascade = PERSIST)
+    @OneToMany(cascade = PERSIST, mappedBy = "student")
     private List<Payment> payments = new ArrayList<>();
 
     @ManyToOne

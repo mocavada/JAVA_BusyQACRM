@@ -1,3 +1,4 @@
+
 import { Course } from './../../model/academics-course';
 import { Mail } from '../../model/util-mail';
 import { SalesApiService } from './../../services/_sales-api.service';
@@ -80,6 +81,8 @@ export class LeadDetailsComponent implements OnInit {
         this.getLead(email);
       }
     );
+
+
 
     // console.log('welcome -' + this.welcomeString);
   }

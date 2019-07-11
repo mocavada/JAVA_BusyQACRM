@@ -1,38 +1,38 @@
-<h3 class="mt-0 p-2 text-white border-top border-dark w-100 bg-secondary">UPDATE LEAD</h3>
+<h3 class="mt-0 p-2 text-white border-top border-dark w-100 bg-secondary">UPDATE STUDENT</h3>
 
 <div class="m-3 row">
   <div class="col-3">
     <!-- <p class="m-0"><b>{{leadExample.id}}</b> </p> -->
-    <p class="m-0">Client Status: <b>{{leadExample.clientStatus}}</b></p>
+    <p class="m-0">Client Status: <b>{{studentExample.clientStatus}}</b></p>
   
-    <li>Registration Paid ? <b>{{leadExample.isRegistrationFeePaid}}</b></li>
+    <li>Registration Paid ? <b>{{studentExample.isRegistrationFeePaid}}</b></li>
    
     <hr>
-    <p class="m-0 p-0 text-danger">{{leadExample.comments}}</p>
+    <p class="m-0 p-0 text-danger">{{studentExample.comments}}</p>
     <hr>
     <li class="m-0 p-0 text-success" *ngIf="isWPSent"><fa-icon icon="check"></fa-icon> Welcome Package Sent</li>
     <li class="m-0 p-0 text-success" *ngIf="isTISent"><fa-icon icon="check"></fa-icon> Trainer Info Sent</li>
     <li class="m-0 p-0 text-success" *ngIf="isPLSent"><fa-icon icon="check"></fa-icon> Portal Link Sent</li>
     <hr>
-    <h3 class="text-dark">{{leadExample.firstName}} {{leadExample.lastName}}</h3>
-    <small>Last Updated: {{leadExample.createdTime | date: 'short'}}</small>
-    <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample.email}}</p>
-    <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample.phone}}</p>
+    <h3 class="text-dark">{{studentExample.firstName}} {{studentExample.lastName}}</h3>
+    <small>Last Updated: {{studentExample.createdTime | date: 'short'}}</small>
+    <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{studentExample.email}}</p>
+    <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{studentExample.phone}}</p>
     <hr>
     <p class="m-0"><b>Course Interested</b></p>
-    <li class="text-info">{{leadExample.course.id}}</li>
-    <li class="text-info">{{leadExample.course.name}}</li>
-    <li class="text-info">Location: {{leadExample.course.location}}</li>
-    <li class="text-info">Start: {{leadExample.course.startDate}}</li>
-    <li class="text-info">End: {{leadExample.course.endDate}}</li>
-    <li class="text-info">Instructor: {{leadExample.course.trainer}}</li>
+    <li class="text-info">{{studentExample.course.id}}</li>
+    <li class="text-info">{{studentExample.course.name}}</li>
+    <li class="text-info">Location: {{studentExample.course.location}}</li>
+    <li class="text-info">Start: {{studentExample.course.startDate}}</li>
+    <li class="text-info">End: {{studentExample.course.endDate}}</li>
+    <li class="text-info">Instructor: {{studentExample.course.trainer}}</li>
     <hr>
     <p class="m-0"><b>Client Profile</b></p>
-    <li>Lead Source : <b>{{leadExample.leadSource}}</b></li>
+    <li>Lead Source : <b>{{studentExample.leadSource}}</b></li>
    
-    <li>Desired Job : <b>{{leadExample.desiredJob}}</b></li>
-    <li>Currently Employed ? <b>{{leadExample.currentlyEmployed}}</b></li>
-    <li>IT Related Job ? <b>{{leadExample.currentlyITEmployed}}</b></li>
+    <li>Desired Job : <b>{{studentExample.desiredJob}}</b></li>
+    <li>Currently Employed ? <b>{{studentExample.currentlyEmployed}}</b></li>
+    <li>IT Related Job ? <b>{{studentExample.currentlyITEmployed}}</b></li>
   </div>
 
 
@@ -58,22 +58,13 @@
                           [disabled]="!editCLientForm.valid"> UPDATE
                 </button>
 
-                <button class="btn btn-outline-success text-center mr-3 my-auto" 
-                    style="width:140px" type="button" title="Send Portal Link"
-                    (click)="onSendPortalLink()">SEND LINK
-                </button>
-
-                <button class="btn btn-outline-success text-center mr-3 my-auto" 
-                  style="width:180px" type="button" title="Send Welcome Package"
-                  (click)="onSendTemplate()">SEND PACKAGE
-                </button>
               </div>
 
             <!-- LEAD STATUS -->
           <div class="row pb-3"> 
               <div class="col">
 
-                <label>Lead Status</label>
+                <label>Student Status</label>
                 <!-- <div class="form-row mb-2">
                     <select class="form-control" formControlName="leadSource" required>
                         <option value="" disabled>Choose Lead Source</option>
@@ -160,7 +151,7 @@
                 <div class="form-group col">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="currentlyEmployed" id="ce1" 
-                        [checked]="leadExample.currentlyEmployed" value="true" formControlName="currentlyEmployed">
+                        [checked]="studentExample.currentlyEmployed" value="true" formControlName="currentlyEmployed">
                         <label class="form-check-label" for="ce1">Currently Working?</label>
                       </div>
                 </div>
@@ -168,7 +159,7 @@
                     
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="currentlyITEmployed" id="cit1" 
-                        [checked]="leadExample.currentlyITEmployed" value="true" formControlName="currentlyITEmployed">
+                        [checked]="studentExample.currentlyITEmployed" value="true" formControlName="currentlyITEmployed">
                         <label class="form-check-label" for="cit1">Experienced IT?</label>
                       </div> 
                 </div> 
@@ -209,19 +200,19 @@
   
             </div>
            
-            <!-- ADD COURSE LIST -->
+            <!-- ADD LATE FEE LIST -->
             <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
             
               <div class="courses-addheading card-header text-white"
-              (click)="toggleCourseDisplay()"><fa-icon icon="plus"></fa-icon> ADD COURSE
+              (click)="toggleCourseDisplay()"><fa-icon icon="plus"></fa-icon> ADD LATE FEE
               </div>
               <div class="coursebody card-body">
               <fieldset formGroupName="course">
                 <div class="form-group">
-                  <div class="form-check" *ngFor="let item of courseList; let i = index">
+                  <div class="form-check" *ngFor="let item of lateFeeList; let i = index">
                     <input class="form-check-input" type="radio" id="course{{i}}" 
                     formControlName="id" value="{{item.id}}">
-                    <label class="form-check-label" for="course{{i}}"><p>{{item.name}}</p></label>
+                    <label class="form-check-label" for="course{{i}}"><p>{{item.fee}}</p></label>
                   </div>
                 </div>
               </fieldset>

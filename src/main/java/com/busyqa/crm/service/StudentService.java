@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class StudentService {
      * @param email
      * @return
      */
-    public DTOClient getStudentByEmail(String email) throws ParseException {
+    public DTOClient getStudentByEmail(String email) {
 
         Student student = studentRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("Error: Email not found!"));

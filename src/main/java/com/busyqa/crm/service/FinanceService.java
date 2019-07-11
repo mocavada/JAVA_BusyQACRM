@@ -84,6 +84,10 @@ public class FinanceService {
         }
     }
 
+    public List<Payment> getAllPaymentsByStudent(long id) {
+        return financeRepository.getAllPaymentsByStudent(id);
+    }
+
 
     // REGISTRATION FEE
     //////////////

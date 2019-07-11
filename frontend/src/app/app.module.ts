@@ -35,6 +35,7 @@ import { DiscountListComponent } from './busyqacrm/_audit/discount-list/discount
 import { DiscountAddComponent } from './busyqacrm/_audit/discount-add/discount-add.component';
 import { SearchStudentComponent } from './busyqacrm/_audit/search-student/search-student.component';
 import { StudentItemComponent } from './busyqacrm/_audit/student-item/student-item.component';
+import { StudentDetailsComponent } from './busyqacrm/_audit/student-details/student-details.component';
 
 
 // SALES
@@ -100,6 +101,7 @@ import { AppComponent } from './app.component';
       UsersListComponent,
       AuditComponent,
       StudentsListComponent,
+      StudentDetailsComponent,
       StudentItemComponent,
       SearchStudentComponent,
       TaxListComponent,

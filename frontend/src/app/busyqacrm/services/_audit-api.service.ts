@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { Payment } from '../model/finance-payment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs';
 export class AuditApiService {
   auditApiUrl = environment.serverAddress + '/audit';
   getAllStudentUrl = this.auditApiUrl + '/usersList/Student';
+  getStudentByEmailUrl = this.auditApiUrl + '/student/';
+  updateLeadByEmailUrl = this.auditApiUrl + '/updateStudent/';
+  // PAYMENT
+  getPaymentsByStudentURL = this.auditApiUrl + '/studentPayments/';
   // DISCOUNT
   addDiscountUrl = this.auditApiUrl + '/addDiscount';
   getAllDiscountUrl = this.auditApiUrl + '/discountList';
@@ -34,6 +39,7 @@ export class AuditApiService {
    getAllTaxUrl = this.auditApiUrl + '/taxList';
 
   studentResult$ = new BehaviorSubject <[Student]>(null);
+  paymentResult$ = new BehaviorSubject <[Payment]>(null);
   discountResult$ = new BehaviorSubject <[Discount]>(null);
   lateFeeResult$ = new BehaviorSubject <[LateFee]>(null);
   paymentPlanResult$ = new BehaviorSubject <[Paymentplan]>(null);
@@ -43,12 +49,30 @@ export class AuditApiService {
   info: any;
 
   constructor(private http: HttpClient) { }
-
+  // STUDENT SERVICE
   getAllStudent() {
     this.http.get<[Student]>(this.getAllStudentUrl).subscribe(data => {
       this.studentResult$.next(data);
     }, err => {
       console.log('Something Wrong Getting Students List! ' + err);
+    });
+  }
+
+  getStudentByEmail(email: string) {
+    return this.http.get(this.getStudentByEmailUrl + email);
+  }
+
+  updateStudentByEmail(email: string, client: Student) {
+    const body = JSON.stringify(client);
+    return this.http.put(this.updateLeadByEmailUrl + email, client);
+  }
+
+  // PAYMENT
+  getPaymentsByStudent(id: number) {
+    this.http.get<[Payment]>(this.getPaymentsByStudentURL + id).subscribe(data => {
+      this.paymentResult$.next(data);
+    }, err => {
+      console.log('Something Wrong Getting Student Payments List! ' + err);
     });
   }
 
@@ -73,7 +97,7 @@ export class AuditApiService {
     });
   }
 
-   // LATE FEE SCHEDULE
+   // LATE FEE
    addLateFee(latefee: LateFee) {
     this.http
     .post<any>(this.addLateFeeUrl, latefee)
@@ -91,6 +115,48 @@ export class AuditApiService {
       this.lateFeeResult$.next(data);
     }, err => {
       console.log('Something Wrong With Getting Late Fee');
+    });
+  }
+
+  // REGISTRATION FEE
+  addRegistrationFee(registrationfee: RegistrationFee) {
+    this.http
+    .post<any>(this.addRegistrationFeeUrl, registrationfee)
+    .subscribe(data => {
+      console.log(data);
+      this.registrationFeeResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Adding Registration Fee' + err);
+    });
+  }
+
+  getAllRegistrationFee() {
+    this.http.get<[RegistrationFee]>(this.getAllRegistrationFeeUrl)
+    .subscribe(data => {
+      this.registrationFeeResult$.next(data);
+    }, err => {
+      console.log('Something Wrong With Getting Registration Fee');
+    });
+  }
+
+  // TAX
+  addTax(tax: Tax) {
+    this.http
+    .post<any>(this.addTaxUrl, tax)
+    .subscribe(data => {
+      console.log(data);
+      this.taxResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Adding Tax' + err);
+    });
+  }
+
+  getAllTax() {
+    this.http.get<[Tax]>(this.getAllTaxUrl)
+    .subscribe(data => {
+      this.taxResult$.next(data);
+    }, err => {
+      console.log('Something Wrong With Getting Tax');
     });
   }
 

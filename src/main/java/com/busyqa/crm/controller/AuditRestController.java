@@ -34,6 +34,16 @@ public class AuditRestController {
         return this.studentService.getAllByDtype(type);
     }
 
+    @GetMapping("/student/{email}")
+    public DTOClient getStudentByEmail(@PathVariable("email") String email) {
+        return this.studentService.getStudentByEmail(email);
+    }
+
+    @PutMapping("/updateStudent/{email}")
+    public ResponseEntity<DTOClient> updateStudentByEmail(@PathVariable("email") String email, @RequestBody DTOClient leadRequest) {
+        return studentService.updateStudent(email,leadRequest);
+    }
+
 
     // FINANCE --- DISCOUNT
     ///////////////////
@@ -79,6 +89,13 @@ public class AuditRestController {
     @GetMapping("/paymentList")
     public ResponseEntity<List<Payment>> getAllPayment() {
         List<Payment> list = financeService.getAllPayment();
+        return new ResponseEntity<List<Payment>>(list, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/studentPayments/{id}")
+    public ResponseEntity<List<Payment>> getAllStudentPayments(@PathVariable("id") long id) {
+        List<Payment> list = financeService.getAllPaymentsByStudent(id);
         return new ResponseEntity<List<Payment>>(list, HttpStatus.OK);
     }
 

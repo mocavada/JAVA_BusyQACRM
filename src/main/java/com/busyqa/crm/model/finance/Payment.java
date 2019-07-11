@@ -1,5 +1,6 @@
 package com.busyqa.crm.model.finance;
 
+import com.busyqa.crm.model.clients.Student;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -30,16 +31,28 @@ public class Payment implements Serializable {
     @UpdateTimestamp
     private LocalDateTime modifiedTime;
 
+    @ManyToOne(fetch=FetchType.EAGER)
+    private Student student;
+
 
     public Payment() {
     }
 
-    public Payment(double amount, String remarks, Calendar paymentDate, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public Payment(double amount, String remarks, Calendar paymentDate, LocalDateTime createdTime, LocalDateTime modifiedTime, Student student) {
         this.amount = amount;
         this.remarks = remarks;
         this.paymentDate = paymentDate;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
+        this.student = student;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public double getAmount() {

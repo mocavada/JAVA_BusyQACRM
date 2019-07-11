@@ -17,7 +17,7 @@
           <button class="mt-5 pr-5" centered routerLink="/dashboard/{{authority}}">VIEW DASHBOARD</button>
         </div> 
         <div *ngIf="isClient" class="col-12">
-          <button class="mt-5 pr-5" centered routerLink="/dashboard/sales/leadbyuser/{{username}}">VIEW ACCOUNT</button>
+          <button class="mt-5 pr-5" centered (click)="onClick()">VIEW ACCOUNT</button>
       </div>  
     </div>
 
@@ -60,3 +60,4 @@
 </div>
 </div>
 
+<!--  -->
