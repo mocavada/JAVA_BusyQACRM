@@ -118,6 +118,28 @@ export class AuditApiService {
     });
   }
 
+  // PAYMENT PLAN FEE
+  addPaymentPlan(paymentplan: Paymentplan) {
+    this.http
+    .post<any>(this.addPaymentPlanUrl, paymentplan)
+    .subscribe(data => {
+      console.log(data);
+      this.paymentPlanResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Adding PAYMENT PLAN' + err);
+    });
+  }
+
+  getAllPaymentPlan() {
+    this.http.get<[Paymentplan]>(this.getAllPaymentPlanUrl)
+    .subscribe(data => {
+      this.paymentPlanResult$.next(data);
+    }, err => {
+      console.log('Something Wrong With Getting PAYMENT PLAN');
+    });
+  }
+
+
   // REGISTRATION FEE
   addRegistrationFee(registrationfee: RegistrationFee) {
     this.http

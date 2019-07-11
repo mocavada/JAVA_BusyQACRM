@@ -15,6 +15,8 @@ public class LateFee {
     private double fee;
     private String description;
 
+
+
     // DATE
     @CreationTimestamp
     private LocalDateTime createdTime;

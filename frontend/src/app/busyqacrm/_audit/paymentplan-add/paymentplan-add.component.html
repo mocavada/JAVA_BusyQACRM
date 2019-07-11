@@ -1,3 +1,68 @@
-<p>
-  paymentplan-add works!
-</p>
+
+
+<div class="col col-centered">
+    <form [formGroup]="createTrainerForm" (ngSubmit)="onSubmit(createTrainerForm)">
+        <div class="row">
+            <div *ngIf="validMessage != ''">
+              <h3 class="has-info">{{validMessage}}</h3>
+            </div>
+        </div>
+
+                  <!-- HEADER BUTTONS -->
+        <div class="row mt-4">
+            <div class="col pb-5">
+                <button class="btn btn-outline-success text-center mr-3 my-auto" 
+                        style="width:240px" value="Post" type="submit">ADD TRAINER
+                </button>
+            </div>
+           
+        </div>
+       
+        <div class="row">  
+            <div class="col">
+                    <!-- BASIC INFO -->
+                    <!-- <label class="mt-2" for="name">Course Name</label>     -->
+              
+                    <div class="mt-3 pb-5 form-row">
+
+                      <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Trainer Name"
+                        required formControlName="trainerName" value="">
+                      </div>
+
+                      <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Trainer Email"
+                        required formControlName="trainerEmail" value="">
+                      </div>
+
+
+                      <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Trainer Phone"
+                        required formControlName="trainerPhone" value="">
+                      </div>
+
+                      <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Trainer Skype"
+                        required formControlName="trainerSkype" value="">
+                      </div>
+
+                      <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Trainer Image URL Link"
+                       formControlName="trainerImage" value="">
+                      </div>
+
+                        
+                    
+                            
+                    </div>
+                   
+                </div>
+            </div>
+            
+  
+          
+    
+            </form> 
+        
+          
+        </div>

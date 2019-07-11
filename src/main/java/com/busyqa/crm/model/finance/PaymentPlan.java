@@ -27,10 +27,13 @@ public class PaymentPlan {
     public PaymentPlan() {
     }
 
-    public PaymentPlan(String name, String paymentMethod, int weekFrequency) {
+
+    public PaymentPlan(String name, String paymentMethod, int weekFrequency, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.name = name;
         this.paymentMethod = paymentMethod;
         this.weekFrequency = weekFrequency;
+        this.createdTime = createdTime;
+        this.modifiedTime = modifiedTime;
     }
 
     public String getPaymentMethod() {
@@ -63,5 +66,22 @@ public class PaymentPlan {
 
     public void setWeekFrequency(int weekFrequency) {
         this.weekFrequency = weekFrequency;
+
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public LocalDateTime getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(LocalDateTime modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

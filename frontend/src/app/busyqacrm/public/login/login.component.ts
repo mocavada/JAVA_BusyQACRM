@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   username: any;
   authority: any;
   isClient: boolean;
+  randomUrl = '7o8ae0geOJhRKQ9s2S7o8ae0geOJhRKQ9s2S/';
 
   form: any = {};
   isLoggedIn = false;
@@ -110,8 +111,7 @@ export class LoginComponent implements OnInit {
   }
 
   onClick() {
-
-        this.router.navigate(['/dashboard/sales/leadbyuser/' + this.username], { skipLocationChange: true });
+        this.router.navigate(['/dashboard/sales/' + this.randomUrl + this.username], { skipLocationChange: true });
   }
 
   redirectToDashboard() {

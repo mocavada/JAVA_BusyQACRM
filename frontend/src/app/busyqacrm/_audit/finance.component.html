@@ -1,0 +1,27 @@
+<app-crm-header></app-crm-header>
+ 
+<h3 class="financeHeader pb-2 pt-2 pl-3 mb-4 text-left text-black">
+  Build Finance Properties</h3>
+
+  <mat-tab-group>
+   
+      <mat-tab label="PAYMENT PLAN"> 
+          <app-paymentplan-list></app-paymentplan-list>
+      </mat-tab>
+    
+        <mat-tab label="DISCOUNT">
+           <app-discount-list></app-discount-list>
+        </mat-tab>
+    
+        <mat-tab label="LATE FEE">
+          <app-latefee-list></app-latefee-list>
+        </mat-tab>
+    
+        <mat-tab label="REGISTRATION FEE">
+           <app-registrationfee-list></app-registrationfee-list>
+        </mat-tab>
+    
+        <mat-tab label="TAX">
+           <app-tax-list></app-tax-list>
+        </mat-tab>
+</mat-tab-group>
