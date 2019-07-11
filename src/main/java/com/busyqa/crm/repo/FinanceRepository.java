@@ -88,8 +88,21 @@ public class FinanceRepository implements FinanceRepositoryI {
                 .collect(Collectors.toList());
     }
 
+
+    @Override
+    public List<Payment> getAllPaymentsByStudent(long id) {
+    String jpql = "SELECT p FROM Payment p INNER JOIN p.student s ON s.id =: id";
+
+    return (List<Payment>) entityManager.createQuery(jpql)
+            .setParameter("id",id)
+            .getResultStream()
+            .collect(Collectors.toList());
+    }
+
+
     @Override
     public Payment getPaymentById(long id) {
+
         return entityManager.find(Payment.class,id);
     }
 

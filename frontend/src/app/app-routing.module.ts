@@ -1,3 +1,4 @@
+import { StudentDetailsComponent } from './busyqacrm/_audit/student-details/student-details.component';
 import { SearchStudentComponent } from './busyqacrm/_audit/search-student/search-student.component';
 
 import { BuildAcademicsComponent } from './busyqacrm/_sales/build-academics.component';
@@ -43,10 +44,11 @@ export const router: Routes = [
       { path: 'admin/userlist', component: UsersListComponent},
       { path: 'audit', component: AuditComponent },
       { path: 'audit/studentslist', component: SearchStudentComponent },
+      { path: 'audit/student/:email', component: StudentDetailsComponent, canActivate: [AuthGuardService] },
       { path: 'sales', component: SalesComponent },
       { path: 'sales/academics', component: BuildAcademicsComponent },
       { path: 'sales/leadslist', component: SearchLeadComponent },
-      { path: 'sales/lead/:email', component: LeadDetailsComponent },
+      { path: 'sales/lead/:email', component: LeadDetailsComponent, canActivate: [AuthGuardService] },
       { path: 'sales/leadbyuser/:username', component: UserDetailsComponent },
       { path: 'sales/searchlead', component: SearchLeadComponent },
       { path: 'sales/courselist', component: CourseListComponent },

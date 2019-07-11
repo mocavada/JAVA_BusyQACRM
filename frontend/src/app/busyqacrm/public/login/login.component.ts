@@ -109,6 +109,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  onClick() {
+
+        this.router.navigate(['/dashboard/sales/leadbyuser/' + this.username], { skipLocationChange: true });
+  }
+
   redirectToDashboard() {
     if (this.router.url === '/auth/login') {
       window.location.reload();

@@ -21,6 +21,7 @@ public interface FinanceRepositoryI {
     //PAYMENT
     List<Payment> getAllPayment();
     Payment getPaymentById(long id);
+    List<Payment> getAllPaymentsByStudent(long id);
 
 
     //PAYMENT PLAN
