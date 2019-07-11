@@ -1,3 +1,4 @@
+import { TestWeatherService } from './busyqacrm/services/test-weather.service';
 
 import { HomeComponent } from './home/home.component';
 import { CrmHeaderComponent } from './header/crm-header.component';
@@ -36,6 +37,7 @@ import { DiscountAddComponent } from './busyqacrm/_audit/discount-add/discount-a
 import { SearchStudentComponent } from './busyqacrm/_audit/search-student/search-student.component';
 import { StudentItemComponent } from './busyqacrm/_audit/student-item/student-item.component';
 import { StudentDetailsComponent } from './busyqacrm/_audit/student-details/student-details.component';
+import { FinanceComponent } from './busyqacrm/_audit/finance.component';
 
 
 // SALES
@@ -51,7 +53,8 @@ import { AddCoursescheduleComponent } from './busyqacrm/_sales/add-courseschedul
 import { AddTrainerComponent } from './busyqacrm/_sales/add-trainer/add-trainer.component';
 import { TrainerListComponent } from './busyqacrm/_sales/trainer-list/trainer-list.component';
 import { UserDetailsComponent } from './busyqacrm/_sales/user-details/user-details.component';
-import { BuildAcademicsComponent } from './busyqacrm/_sales/build-academics.component';
+import { AcademicsComponent } from './busyqacrm/_sales/academics.component';
+import { OverviewSalesComponent } from './busyqacrm/_sales/overview-sales/overview-sales.component';
 
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -102,6 +105,7 @@ import { AppComponent } from './app.component';
       AuditComponent,
       StudentsListComponent,
       StudentDetailsComponent,
+      FinanceComponent,
       StudentItemComponent,
       SearchStudentComponent,
       TaxListComponent,
@@ -115,7 +119,8 @@ import { AppComponent } from './app.component';
       DiscountAddComponent,
       DiscountListComponent,
       SalesComponent,
-      BuildAcademicsComponent,
+      OverviewSalesComponent,
+      AcademicsComponent,
       LeadsListComponent,
       LeadDetailsComponent,
       LeadItemComponent,
@@ -147,7 +152,7 @@ import { AppComponent } from './app.component';
    providers: [
       httpInterceptorProviders,
       { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-      JwtHelperService,
+      JwtHelperService, TestWeatherService
       // { provide: NG_VALUE_ACCESSOR,
       //    multi: true,
       //    useExisting: forwardRef(() => MyControlComponent),}

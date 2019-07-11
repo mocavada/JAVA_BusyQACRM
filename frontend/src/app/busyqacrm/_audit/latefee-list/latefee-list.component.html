@@ -1,3 +1,30 @@
-<p>
-  latefee-list works!
-</p>
+<div class="m-3 row">
+    <div class="col-5 border-right">
+        <app-latefee-add></app-latefee-add>
+     </div>
+     <div class="col border-left">
+       <h3>LATE FEE LIST</h3>
+        <table class="table">
+        
+            <thead class="thead" style="background-color: #cdcdcd">
+              <tr>
+                
+                <th scope="col"><h5>Fee</h5></th>
+                <th scope="col"><h5>Description</h5></th>
+                <th scope="col"><h5>Date Created</h5></th>
+              </tr>
+            </thead>
+          <ng-container *ngFor="let item of lateFeeList; let i = index">   
+            <tbody >
+                <tr>
+               
+                  <td>{{item.fee}}</td>
+                  <td>{{item.description}}</td>
+                  <td>{{item.modifiedTime | date}}</td>
+                </tr>          
+              </tbody>
+      
+          </ng-container>  
+          </table>
+     </div>   
+</div>     

@@ -1,5 +1,5 @@
 import { SalesApiService } from '../services/_sales-api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TokenStorageService } from '../security/token-storage.service';
 import {Router} from '@angular/router';
 
@@ -9,7 +9,8 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
-  styleUrls: ['.././busyqacrm.component.css']
+  styleUrls: ['.././busyqacrm.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class SalesComponent implements OnInit {

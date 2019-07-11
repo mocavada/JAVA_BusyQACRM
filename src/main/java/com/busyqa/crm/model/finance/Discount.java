@@ -1,6 +1,10 @@
 package com.busyqa.crm.model.finance;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "DISCOUNT")
@@ -12,10 +16,18 @@ public class Discount {
     private String discountCode;
     private String description;
 
-    public Discount(double amount, String discountCode, String description) {
+    // DATE
+    @CreationTimestamp
+    private LocalDateTime createdTime;
+    @UpdateTimestamp
+    private LocalDateTime modifiedTime;
+
+    public Discount(double amount, String discountCode, String description, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.amount = amount;
         this.discountCode = discountCode;
         this.description = description;
+        this.createdTime = createdTime;
+        this.modifiedTime = modifiedTime;
     }
 
     public Discount() {
@@ -51,5 +63,21 @@ public class Discount {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public LocalDateTime getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(LocalDateTime modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

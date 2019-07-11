@@ -1,3 +1,35 @@
-<p>
-  discount-list works!
-</p>
+
+
+    <div class="m-3 row">
+        <div class="col-5 border-right">
+            <app-discount-add></app-discount-add>
+         </div>
+         <div class="col border-left">
+           <h3>DISCOUNT LIST</h3>
+            <table class="table">
+              
+                <thead class="thead" style="background-color: #cdcdcd">
+                  <tr>
+                    <th scope="col"><h5>Code</h5></th>
+                    <th scope="col"><h5>Amount</h5></th>
+                    <th scope="col"><h5>Description</h5></th>
+                    <th scope="col"><h5>Date Created</h5></th>
+                  </tr>
+                </thead>
+                <ng-container *ngFor="let item of discountList; let i = index">   
+                <tbody >
+                    <tr>
+                      <td>{{item.discountCode}}</td>
+                      <td>{{item.amount}}</td>
+                      <td>{{item.description}}</td>
+                      <td>{{item.createdTime | date}}</td>
+                    </tr>          
+                  </tbody>
+          
+              </ng-container>  
+              </table>
+         </div>   
+    </div>     
+    
+    
+    
