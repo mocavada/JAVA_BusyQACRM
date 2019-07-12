@@ -4,11 +4,13 @@ import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.academics.CourseSchedule;
 import com.busyqa.crm.model.academics.Trainer;
 import com.busyqa.crm.model.academics.TrainingLocation;
+import com.busyqa.crm.model.auth.UserGroup;
 import com.busyqa.crm.model.finance.*;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 public class DTOClient {
 
@@ -22,12 +24,16 @@ public class DTOClient {
     private String phoneNumber;
     private String emergencyPhone;
 
+    private String dtype;
+    private String userState;
+    private Set<UserGroup> userGroup;
+
     // FOR LEADS
     private String clientStatus;
     private String leadSource;
     private String comments;
-    private Boolean currentlyEmployed;
-    private Boolean currentlyITEmployed;
+    private Boolean isCurrentlyEmployed;
+    private Boolean isCurrentlyITEmployed;
     private String desiredJob;
     // ADDRESS
     private String mailingStreet;
@@ -74,7 +80,7 @@ public class DTOClient {
 
     // CTOR FOR LEADS
 
-    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String clientStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
+    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.email = email;
@@ -82,11 +88,14 @@ public class DTOClient {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emergencyPhone = emergencyPhone;
+        this.dtype = dtype;
+        this.userState = userState;
+        this.userGroup = userGroup;
         this.clientStatus = clientStatus;
         this.leadSource = leadSource;
         this.comments = comments;
-        this.currentlyEmployed = currentlyEmployed;
-        this.currentlyITEmployed = currentlyITEmployed;
+        this.isCurrentlyEmployed = isCurrentlyEmployed;
+        this.isCurrentlyITEmployed = isCurrentlyITEmployed;
         this.desiredJob = desiredJob;
         this.mailingStreet = mailingStreet;
         this.mailingCity = mailingCity;
@@ -109,7 +118,7 @@ public class DTOClient {
 
     // CTOR FOR STUDENTS
 
-    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String clientStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee) {
+    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee) {
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.email = email;
@@ -117,11 +126,14 @@ public class DTOClient {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emergencyPhone = emergencyPhone;
+        this.dtype = dtype;
+        this.userState = userState;
+        this.userGroup = userGroup;
         this.clientStatus = clientStatus;
         this.leadSource = leadSource;
         this.comments = comments;
-        this.currentlyEmployed = currentlyEmployed;
-        this.currentlyITEmployed = currentlyITEmployed;
+        this.isCurrentlyEmployed = isCurrentlyEmployed;
+        this.isCurrentlyITEmployed = isCurrentlyITEmployed;
         this.desiredJob = desiredJob;
         this.mailingStreet = mailingStreet;
         this.mailingCity = mailingCity;
@@ -152,7 +164,7 @@ public class DTOClient {
     // CTOR FOR INTERNS
 
 
-    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String clientStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee, String coopStatus, String projectAssigned, String performance, Calendar coopStartDate, Calendar coopEndDate) {
+    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee, String coopStatus, String projectAssigned, String performance, Calendar coopStartDate, Calendar coopEndDate) {
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.email = email;
@@ -160,11 +172,14 @@ public class DTOClient {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emergencyPhone = emergencyPhone;
+        this.dtype = dtype;
+        this.userState = userState;
+        this.userGroup = userGroup;
         this.clientStatus = clientStatus;
         this.leadSource = leadSource;
         this.comments = comments;
-        this.currentlyEmployed = currentlyEmployed;
-        this.currentlyITEmployed = currentlyITEmployed;
+        this.isCurrentlyEmployed = isCurrentlyEmployed;
+        this.isCurrentlyITEmployed = isCurrentlyITEmployed;
         this.desiredJob = desiredJob;
         this.mailingStreet = mailingStreet;
         this.mailingCity = mailingCity;
@@ -194,6 +209,30 @@ public class DTOClient {
         this.performance = performance;
         this.coopStartDate = coopStartDate;
         this.coopEndDate = coopEndDate;
+    }
+
+    public Set<UserGroup> getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(Set<UserGroup> userGroup) {
+        this.userGroup = userGroup;
+    }
+
+    public String getDtype() {
+        return dtype;
+    }
+
+    public void setDtype(String dtype) {
+        this.dtype = dtype;
+    }
+
+    public String getUserState() {
+        return userState;
+    }
+
+    public void setUserState(String userState) {
+        this.userState = userState;
     }
 
     public LocalDateTime getCreatedTime() {
@@ -278,19 +317,19 @@ public class DTOClient {
     }
 
     public Boolean getCurrentlyEmployed() {
-        return currentlyEmployed;
+        return isCurrentlyEmployed;
     }
 
     public void setCurrentlyEmployed(Boolean currentlyEmployed) {
-        this.currentlyEmployed = currentlyEmployed;
+        isCurrentlyEmployed = currentlyEmployed;
     }
 
     public Boolean getCurrentlyITEmployed() {
-        return currentlyITEmployed;
+        return isCurrentlyITEmployed;
     }
 
     public void setCurrentlyITEmployed(Boolean currentlyITEmployed) {
-        this.currentlyITEmployed = currentlyITEmployed;
+        isCurrentlyITEmployed = currentlyITEmployed;
     }
 
     public String getDesiredJob() {

@@ -1,6 +1,6 @@
 
 
-<div class="col col-centered">
+<div class="col col-centered pl-4">
     <form [formGroup]="createCourseScheduleForm" (ngSubmit)="onSubmit(createCourseScheduleForm)">
         <div class="row">
             <div *ngIf="validMessage != ''">
@@ -11,7 +11,7 @@
       
         
                   <!-- HEADER BUTTONS -->
-        <div class="row mt-4">
+        <div class="row mt-3">
             <div class="col pb-5">
                 <button class="btn btn-outline-success text-center mr-3 my-auto" 
                         style="width:240px" value="Post" type="submit">ADD COURSE SCHEDULE

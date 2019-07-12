@@ -1,5 +1,5 @@
-
-import { Course } from './../../model/academics-course';
+import { AuditApiService } from './../../services/_audit-api.service';
+import { Traininglocation } from './../../model/academics-traininglocation';
 import { Mail } from '../../model/util-mail';
 import { SalesApiService } from './../../services/_sales-api.service';
 import { Component, OnInit } from '@angular/core';
@@ -9,6 +9,13 @@ import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import 'rxjs/add/operator/map';
+import { Paymentplan } from '../../model/finance-paymentplan';
+import { Course } from './../../model/academics-course';
+import { CourseSchedule } from '../../model/academics-courseschedule';
+import { Trainer } from './../../model/academics-trainer';
+import { Lead } from '../../model/client-lead';
+import { RegistrationFee } from '../../model/finance-registrationfee';
+import { Discount } from '../../model/finance-discount';
 
 
 @Component({
@@ -24,7 +31,6 @@ export class LeadDetailsComponent implements OnInit {
   confirmationMessage = '';
   message: string;
   mail: Mail;
-  leadExample: any;
 
   messageObject: any;
   welcomeString: any;
@@ -35,18 +41,23 @@ export class LeadDetailsComponent implements OnInit {
   isPLSent: boolean;
   isWPSent1: boolean;
 
-
-
+  leadExample: Lead;
+  registrationFeeList: RegistrationFee[];
+  discountList: Discount[];
+  paymentPlanList: Paymentplan[];
   courseList: Course[];
+  courseScheduleList: CourseSchedule[];
+  trainerList: Trainer[];
+  trainingLocationList: Traininglocation[];
+
 
   constructor(private salesService: SalesApiService,
+              private auditService: AuditApiService,
               private route: ActivatedRoute,
               private fb: FormBuilder) {
       this.showCourse = true;
       this.showAddress = true;
       this.isWPSent = true;
-      // this.isTISent = false;
-      // this.isPLSent = false;
 
   }
 
@@ -62,29 +73,79 @@ export class LeadDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.updateForm();
+    this.auditService.registrationFeeResult$.subscribe(data => {
+      if (data != null) {
+        this.registrationFeeList = data;
+        console.log('Successful Loading registrationFeeList!');
+        console.log(this.registrationFeeList);
+      }
+    });
+
+    this.auditService.discountResult$.subscribe(data => {
+      if (data != null) {
+        this.discountList = data;
+        console.log('Successful Loading discountList!');
+        console.log(this.discountList);
+      }
+    });
+
+    this.auditService.paymentPlanResult$.subscribe(data => {
+      if (data != null) {
+        this.paymentPlanList = data;
+        console.log('Successful Loading paymentPlanList!');
+        console.log(this.paymentPlanList);
+      }
+    });
 
     this.salesService.courseResult$.subscribe(data => {
       if (data != null) {
         this.courseList = data;
-        console.log('Successful Loading Lead List!');
+        console.log('Successful Loading courseList!');
         console.log(this.courseList);
       }
     });
 
+    this.salesService.courseScheduleResult$.subscribe(data => {
+      if (data != null) {
+        this.courseScheduleList = data;
+        console.log('Successful Loading courseScheduleList!');
+        console.log(this.courseScheduleList);
+      }
+    });
+
+    this.salesService.trainerResult$.subscribe(data => {
+      if (data != null) {
+        this.trainerList = data;
+        console.log('Successful Loading trainerList!');
+        console.log(this.trainerList);
+      }
+    });
+
+    this.salesService.trainingLocationResult$.subscribe(data => {
+      if (data != null) {
+        this.trainingLocationList = data;
+        console.log('Successful Loading trainingLocationList!');
+        console.log(this.trainingLocationList);
+      }
+    });
+
+    this.auditService.getAllRegistrationFee();
+    this.auditService.getAllDiscount();
+    this.auditService.getAllPaymentPlan();
     this.salesService.getAllCourse();
-    console.log(this.courseList);
+    this.salesService.getAllCourseSchedules();
+    this.salesService.getAllTrainer();
+    this.salesService.getAllTrainingLocation();
 
-
+    // ** Get Email from Url and Use it as Parameter to getLead Api Request
     this.sub = this.route.paramMap.subscribe(
       params => {
         const email = params.get('email');
         this.getLead(email);
       }
     );
+    console.log('welcome -' + this.welcomeString);
 
-
-
-    // console.log('welcome -' + this.welcomeString);
   }
 
 
@@ -107,20 +168,26 @@ export class LeadDetailsComponent implements OnInit {
     this.leadExample = data;
 
     this.editCLientForm.patchValue({
+
+      // DATE
+      createdTime: this.leadExample.createdTime,
+      modifiedTime: this.leadExample.modifiedTime,
+
       // USER
-      id: this.leadExample.id,
       firstName: this.leadExample.firstName,
       lastName: this.leadExample.lastName,
-      phone: this.leadExample.phone,
+      phone: this.leadExample.phoneNumber,
       email: this.leadExample.email,
       emergencyPhone: this.leadExample.emergencyPhone,
+      dtype: this.leadExample.dtype,
+      userState: this.leadExample.userState,
 
       // LEAD
       clientStatus: this.leadExample.clientStatus,
       leadSource: this.leadExample.leadSource,
       comments: this.leadExample.comments,
-      currentlyEmployed: this.leadExample.currentlyEmployed,
-      currentlyITEmployed: this.leadExample.currentlyITEmployed,
+      currentlyEmployed: this.leadExample.isCurrentlyEmployed,
+      currentlyITEmployed: this.leadExample.isCurrentlyITEmployed,
       desiredJob: this.leadExample.desiredJob,
 
        // ADDRESS
@@ -134,18 +201,18 @@ export class LeadDetailsComponent implements OnInit {
        isRegistrationFeePaid: this.leadExample.isRegistrationFeePaid,
        isPlanAgreementSigned: this.leadExample.isPlanAgreementSigned,
        isDiscountGiven: this.leadExample.isDiscountGiven,
-
-
-      // ACADEMICS
+      // FINANCE PROPERTIES
+      registrationFee: this.leadExample.registrationFee,
+      discount: this.leadExample.discount,
+      paymentPlan: this.leadExample.paymentPlan,
+      // ACADEMICS PROPERTIES
       course: this.leadExample.course,
-      courseid: this.leadExample.course.id,
-      coursename: this.leadExample.course.name,
+      totalCourseFee: this.leadExample.totalCourseFee,
 
-      // DATE
-      createdTime: this.leadExample.createdTime,
-      modifiedTime: this.leadExample.modifiedTime,
-
+      trainer: this.leadExample.trainer,
+      trainingLocation: this.leadExample.trainingLocation
     });
+
     this.welcomeString = this.leadExample.firstName + '@' +
                          this.leadExample.course.name + '@' +
                          this.leadExample.course.description;
@@ -153,62 +220,95 @@ export class LeadDetailsComponent implements OnInit {
     console.log('Message Strings - ' + this.welcomeString);
   }
 
+  // this.createTrainingLocationForm = this.fb.group({
+  //   isOnLine: [],
+  //   name: [],
+  //   street: [],
+  //   city: [],
+  //   state: [],
+  //   address: [],
+  // });
+
+  // console.log(this.isOnlineYes);
 
   updateForm() {
     this.editCLientForm = this.fb.group({
       // USER
-      id: '',
+      id: [],
       email: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phone: ['', Validators.required],
-      emergencyPhone: '',
+      emergencyPhone: [],
 
       // LEAD
-      clientStatus: '',
-      leadSource: '',
-      comments: '',
-      currentlyEmployed: '',
-      currentlyITEmployed: '',
-      desiredJob: '',
+      clientStatus: [],
+      leadSource: [],
+      comments: [],
+      currentlyEmployed: [],
+      currentlyITEmployed: [],
+      desiredJob: [],
 
        // ADDRESS
-       mailingStreet: '',
-       mailingCity: '',
-       mailingState: '',
-       mailingZip: '',
-       mailingCountry: '',
+       mailingStreet: [],
+       mailingCity: [],
+       mailingState: [],
+       mailingZip: [],
+       mailingCountry: [],
 
       // BOOLEANS
-      isRegistrationFeePaid: '',
-      isPlanAgreementSigned: '',
-      isDiscountGiven: '',
+      isRegistrationFeePaid: [],
+      isPlanAgreementSigned: [],
+      isDiscountGiven: [],
+
+      // FINANCE PROPERTIES
+      registrationFee: this.fb.group({
+        id: []
+      }),
+      discount: this.fb.group({
+        id: []
+      }),
+      paymentPlan: this.fb.group({
+        id: []
+      }),
 
       // ACADEMICS
       course: this.fb.group({
-        id: [0]
+        id: []
+      }),
+      totalCourseFee: [],
+      courseSchedule: this.fb.group({
+        id: []
+      }),
+      trainer: this.fb.group({
+        id: []
+      }),
+      trainingLocation: this.fb.group({
+        id: []
       })
-
     });
 
   }
 
-  onUpdate() {
-    if (this.editCLientForm.valid) {
-      this.validMessage = 'Your information has been updated!';
+  onUpdate(f: any) {
+    if (f.valid) {
+      this.validMessage = 'Your Information Has Been Updated!';
       this.salesService
-      .updateLeadByEmail(this.route.snapshot.params.email, this.editCLientForm.value)
+      .updateLeadByEmail(this.route.snapshot.params.email, f.value)
       .subscribe(
         data => {
-          this.message = 'The lead has been updated!';
+          this.message = 'The Lead has been updated!';
           return true;
         },
         error => {
-          alert('Couldnt update this lead!'); });
+          alert('Cannot Update lead!');
+        });
     } else {
       this.validMessage = 'Please make sure the inputs are valid!';
     }
   }
+
+
 
   onSendPortalLink() {
     if (confirm('Are you sure you want to send portal link to this lead?')) {

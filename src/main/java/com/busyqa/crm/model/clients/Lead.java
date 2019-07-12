@@ -22,8 +22,8 @@ public class Lead extends User {
     private String clientStatus;
     private String leadSource;
     private String comments;
-    private Boolean currentlyEmployed;
-    private Boolean currentlyITEmployed;
+    private Boolean isCurrentlyEmployed;
+    private Boolean isCurrentlyITEmployed;
     private String desiredJob;
 
     // ADDRESS
@@ -78,14 +78,64 @@ public class Lead extends User {
     }
 
 
-
-
-    public Lead(String clientStatus, String leadSource, String comments, Boolean currentlyEmployed, Boolean currentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
+    public Lead(String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
         this.clientStatus = clientStatus;
         this.leadSource = leadSource;
         this.comments = comments;
-        this.currentlyEmployed = currentlyEmployed;
-        this.currentlyITEmployed = currentlyITEmployed;
+        this.isCurrentlyEmployed = isCurrentlyEmployed;
+        this.isCurrentlyITEmployed = isCurrentlyITEmployed;
+        this.desiredJob = desiredJob;
+        this.mailingStreet = mailingStreet;
+        this.mailingCity = mailingCity;
+        this.mailingState = mailingState;
+        this.mailingZip = mailingZip;
+        this.mailingCountry = mailingCountry;
+        this.isRegistrationFeePaid = isRegistrationFeePaid;
+        this.isPlanAgreementSigned = isPlanAgreementSigned;
+        this.isDiscountGiven = isDiscountGiven;
+        this.registrationFee = registrationFee;
+        this.discount = discount;
+        this.paymentPlan = paymentPlan;
+        this.course = course;
+        this.totalCourseFee = totalCourseFee;
+        this.courseSchedule = courseSchedule;
+        this.trainer = trainer;
+        this.trainingLocation = trainingLocation;
+    }
+
+    public Lead(String username, String password, String email, String firstName, Set<UserGroup> usergroups, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
+        super(username, password, email, firstName, usergroups);
+        this.clientStatus = clientStatus;
+        this.leadSource = leadSource;
+        this.comments = comments;
+        this.isCurrentlyEmployed = isCurrentlyEmployed;
+        this.isCurrentlyITEmployed = isCurrentlyITEmployed;
+        this.desiredJob = desiredJob;
+        this.mailingStreet = mailingStreet;
+        this.mailingCity = mailingCity;
+        this.mailingState = mailingState;
+        this.mailingZip = mailingZip;
+        this.mailingCountry = mailingCountry;
+        this.isRegistrationFeePaid = isRegistrationFeePaid;
+        this.isPlanAgreementSigned = isPlanAgreementSigned;
+        this.isDiscountGiven = isDiscountGiven;
+        this.registrationFee = registrationFee;
+        this.discount = discount;
+        this.paymentPlan = paymentPlan;
+        this.course = course;
+        this.totalCourseFee = totalCourseFee;
+        this.courseSchedule = courseSchedule;
+        this.trainer = trainer;
+        this.trainingLocation = trainingLocation;
+    }
+
+    public Lead(String username, String password, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, LocalDateTime createdTime, LocalDateTime modifiedTime, Set<UserGroup> usergroups, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
+        super(username, password, email, firstName, lastName, phoneNumber, emergencyPhone, dtype, userState, createdTime, modifiedTime, usergroups);
+        this.clientStatus = clientStatus;
+        this.leadSource = leadSource;
+        this.comments = comments;
+        this.isCurrentlyEmployed = isCurrentlyEmployed;
+        this.isCurrentlyITEmployed = isCurrentlyITEmployed;
         this.desiredJob = desiredJob;
         this.mailingStreet = mailingStreet;
         this.mailingCity = mailingCity;
@@ -130,19 +180,19 @@ public class Lead extends User {
     }
 
     public Boolean getCurrentlyEmployed() {
-        return currentlyEmployed;
+        return isCurrentlyEmployed;
     }
 
     public void setCurrentlyEmployed(Boolean currentlyEmployed) {
-        this.currentlyEmployed = currentlyEmployed;
+        isCurrentlyEmployed = currentlyEmployed;
     }
 
     public Boolean getCurrentlyITEmployed() {
-        return currentlyITEmployed;
+        return isCurrentlyITEmployed;
     }
 
     public void setCurrentlyITEmployed(Boolean currentlyITEmployed) {
-        this.currentlyITEmployed = currentlyITEmployed;
+        isCurrentlyITEmployed = currentlyITEmployed;
     }
 
     public String getDesiredJob() {

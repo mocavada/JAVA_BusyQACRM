@@ -1,11 +1,19 @@
+import { Discount } from './finance-discount';
+import { RegistrationFee } from './finance-registrationfee';
+import { Traininglocation } from './academics-traininglocation';
+import { Trainer } from './academics-trainer';
+import { CourseSchedule } from './academics-courseschedule';
+import { Paymentplan } from './finance-paymentplan';
+import { Course } from './academics-course';
 import { User } from './auth-user';
+
 
 export class Lead extends User {
     clientStatus: string;
     leadSource: string;
     comments: string;
-    currentlyEmployed: string;
-    currentlyITEmployed: string;
+    isCurrentlyEmployed: boolean;
+    isCurrentlyITEmployed: boolean;
     desiredJob: string;
 
     mailingStreet: string;
@@ -17,4 +25,16 @@ export class Lead extends User {
     isRegistrationFeePaid: boolean;
     isPlanAgreementSigned: boolean;
     isDiscountGiven: boolean;
+
+    registrationFee: RegistrationFee;
+    discount: Discount;
+    paymentPlan: Paymentplan;
+
+    course: Course;
+    totalCourseFee: number;
+
+    courseSchedule: CourseSchedule;
+    trainer: Trainer;
+    trainingLocation: Traininglocation;
+
 }

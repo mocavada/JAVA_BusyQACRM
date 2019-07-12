@@ -1,10 +1,12 @@
 package com.busyqa.crm.service;
 
 
+import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.clients.DTOClient;
 import com.busyqa.crm.model.clients.Lead;
 import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.model.util.EnumList;
+import com.busyqa.crm.repo.AcademicsRepository;
 import com.busyqa.crm.repo.LeadRepository;
 import com.busyqa.crm.repo.StudentRepository;
 import org.springframework.beans.BeanUtils;
@@ -24,6 +26,9 @@ public class LeadService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private AcademicsRepository academicsRepository;
 
 
     /**
@@ -45,6 +50,8 @@ public class LeadService {
 
         return leadResponses;
     }
+
+
 
 
     public List<DTOClient> getAllLeadsByDtypeAndUserState(String type, String group) {
@@ -90,11 +97,9 @@ public class LeadService {
      */
     public ResponseEntity<DTOClient> updateLead(String email, DTOClient leadRequest) {
 
-        return leadRepository.findByEmail(email).map(l -> {
 
-            double totalFee = getTotalFee(l);
-            boolean discountGiven = isDiscountGiven(l);
-            boolean registrationPaid = isRegistrationPaid(l);
+
+        return leadRepository.findByEmail(email).map(l -> {
 
             l.setEmail(leadRequest.getEmail());
             l.setFirstName(leadRequest.getFirstName());
@@ -115,9 +120,9 @@ public class LeadService {
             l.setMailingZip(leadRequest.getMailingZip());
             l.setMailingCountry(leadRequest.getMailingCountry());
 
-            l.setRegistrationFeePaid(registrationPaid);
+            l.setRegistrationFeePaid(leadRequest.getRegistrationFeePaid());
             l.setPlanAgreementSigned(leadRequest.getPlanAgreementSigned());
-            l.setDiscountGiven(discountGiven);
+            l.setDiscountGiven(leadRequest.getDiscountGiven());
 
             l.setRegistrationFee(leadRequest.getRegistrationFee());
             l.setDiscount(leadRequest.getDiscount());
@@ -125,7 +130,7 @@ public class LeadService {
 
             l.setCourse(leadRequest.getCourse());
 
-            l.setTotalCourseFee(totalFee);
+            l.setTotalCourseFee(leadRequest.getTotalCourseFee());
 
             l.setCourseSchedule(leadRequest.getCourseSchedule());
             l.setTrainer(leadRequest.getTrainer());
@@ -151,32 +156,12 @@ public class LeadService {
                 .orElseThrow(() ->
                         new RuntimeException("Fail! -> Lead Not Found"));
 
-//        Course course = academicsRepository.findByCourseName(lead.getCourse()
-//                .getName()).orElseThrow(() -> new RuntimeException("Fail! -> No Course Found"));
-
-//        List<UserGroup> usergroups = userGroupRepository.findAll();
-//
-//        for(UserGroup ug: usergroups) {
-//            lead.removeUserGroup(ug);
-//            userGroupRepository.save(ug);
-//        }
-//
-//        UserGroup userGroup = userGroupRepository
-//                .findByRoleAndGroups("ROLE_USER", "GROUP_CLIENT")
-//                .orElseThrow(() -> new RuntimeException("Fail! -> UserGroup Not Found"));
-//
-//        Set<UserGroup> newUserGroupSet = new HashSet<>();
-//
-//        newUserGroupSet.add(userGroup);
-
+        Course course = academicsRepository.findByCourseName(lead.getCourse()
+                .getName()).orElseThrow(() -> new RuntimeException("Fail! -> No Course Found"));
 
         Student student = new Student();
         BeanUtils.copyProperties(lead,student);
 
-//        student.setCourse(course);
-
-
-//        student.setRegistrationFeePaid(true);
 
         leadRepository.deleteByEmail(email);
 
@@ -223,6 +208,11 @@ public class LeadService {
                 l.getPhoneNumber(),
                 l.getEmergencyPhone(),
 
+                l.getDtype(),
+                l.getUserState(),
+                l.getUsergroups(),
+
+
                 l.getClientStatus(),
                 l.getLeadSource(),
                 l.getComments(),
@@ -235,17 +225,18 @@ public class LeadService {
                 l.getMailingState(),
                 l.getMailingZip(),
                 l.getMailingCountry(),
-
+                // !* create logic
                 l.getRegistrationFeePaid(),
                 l.getPlanAgreementSigned(),
+                // !* create logic
                 l.getDiscountGiven(),
 
                 l.getRegistrationFee(),
                 l.getDiscount(),
                 l.getPaymentPlan(),
-
                 l.getCourse(),
 
+                // !* create logic
                 l.getTotalCourseFee(),
 
 

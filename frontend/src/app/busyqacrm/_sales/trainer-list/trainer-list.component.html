@@ -1,24 +1,25 @@
 
-<h3 class="mt-0 mb-3 pl-3 pb-2 pt-2 text-white border-top border-dark w-100 bg-secondary">
-    TRAINER</h3>
-    <div class="m-3 row">
+<div class="m-3 row">
         <div class="col-5 border-right">
             <app-add-trainer></app-add-trainer>
-         </div>
-         <div class="col border-left">
-            <div class="list-group mt-1 p-0" *ngFor="let item of trainerList; let i = index">
-               
-                    <div style="height: 5%; background-color: rgba(187, 160, 160, 0.1);" class="p-1 my-auto d-flex justify-content-between">
-                        <h5 class="h-100 d-inline-block">{{item.trainerName}}</h5>
-                        <p class=""><b>Status:  </b><small>{{item.trainerEmail}}</small></p>
-                      
-                  
-                    </div> 
-                  
-                  
+        </div>
+    
+        <div class="col border-left">
+            <div class="card"  *ngFor="let item of trainerList; let i = index">
+                <div class="card-body border-bottom">
+                <div class="row">    
+                    <div class="col-2">
+                        <img src="{{item.trainerImage}}" alt="{{item.trainerName}}" style="width: 100%;">  
+                    </div>
+                    <div class="col">    
+                        <h4 class="card-title">{{item.trainerName}}</h4>
+                        <h5 class="card-subtitle text-muted mb-2">Email : {{item.trainerEmail}}</h5>
+                        <h5 class="card-subtitle text-muted mb-2">Phone : {{item.trainerPhone}}</h5>
+                        <h5 class="card-subtitle text-muted mb-2">Skype : {{item.trainerSkype}}</h5>
+                    </div>  
+                </div>  
+                
+                </div>
             </div>
-         </div>   
+        </div>   
     </div>     
-    
-    
-    

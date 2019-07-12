@@ -14,12 +14,13 @@ public class TrainingLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Boolean isOnLine;
+    private Boolean isOnline;
+
     private String name;
-    private String trainingStreet;
-    private String trainingCity;
-    private String trainerState;
-    private String trainerZip;
+    private String street;
+    private String city;
+    private String state;
+    private String zip;
 
 
     // TEMPORAL
@@ -31,23 +32,23 @@ public class TrainingLocation {
     public TrainingLocation() {
     }
 
-    public TrainingLocation(Boolean isOnLine, String name, String trainingStreet, String trainingCity, String trainerState, String trainerZip, LocalDateTime createdTime, LocalDateTime modifiedTime) {
-        this.isOnLine = isOnLine;
+    public TrainingLocation(Boolean isOnline, String name, String street, String city, String state, String zip, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+        this.isOnline = isOnline;
         this.name = name;
-        this.trainingStreet = trainingStreet;
-        this.trainingCity = trainingCity;
-        this.trainerState = trainerState;
-        this.trainerZip = trainerZip;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
     }
 
-    public String getName() {
-        return name;
+    public Boolean getOnline() {
+        return isOnline;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOnline(Boolean online) {
+        isOnline = online;
     }
 
     public Integer getId() {
@@ -58,44 +59,46 @@ public class TrainingLocation {
         this.id = id;
     }
 
-    public Boolean getOnLine() {
-        return isOnLine;
+
+
+    public String getName() {
+        return name;
     }
 
-    public void setOnLine(Boolean onLine) {
-        isOnLine = onLine;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTrainingStreet() {
-        return trainingStreet;
+    public String getStreet() {
+        return street;
     }
 
-    public void setTrainingStreet(String trainingStreet) {
-        this.trainingStreet = trainingStreet;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public String getTrainingCity() {
-        return trainingCity;
+    public String getCity() {
+        return city;
     }
 
-    public void setTrainingCity(String trainingCity) {
-        this.trainingCity = trainingCity;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getTrainerState() {
-        return trainerState;
+    public String getState() {
+        return state;
     }
 
-    public void setTrainerState(String trainerState) {
-        this.trainerState = trainerState;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public String getTrainerZip() {
-        return trainerZip;
+    public String getZip() {
+        return zip;
     }
 
-    public void setTrainerZip(String trainerZip) {
-        this.trainerZip = trainerZip;
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
     public LocalDateTime getCreatedTime() {
