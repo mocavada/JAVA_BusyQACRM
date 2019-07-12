@@ -15,6 +15,12 @@ import java.util.stream.Collectors;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
+    // DATE
+    @CreationTimestamp
+    private LocalDateTime createdTime;
+    @UpdateTimestamp
+    private LocalDateTime modifiedTime;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,14 +42,9 @@ public class User {
     // DTYPE
     @Column(insertable = false, updatable = false)
     private String dtype;
-
     private String userState;
 
-    // DATE
-    @CreationTimestamp
-    private LocalDateTime createdTime;
-    @UpdateTimestamp
-    private LocalDateTime modifiedTime;
+
 
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

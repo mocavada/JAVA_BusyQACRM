@@ -99,12 +99,10 @@ public class AcademicsService {
     }
 
     public synchronized boolean addTrainingLocation(TrainingLocation trainingLocation) {
-        if( academicsRepository.trainingLocationExist(trainingLocation.getName())) {
-            return false;
-        } else {
+
             academicsRepository.addTrainingLocation(trainingLocation);
             return true;
-        }
+
     }
 
 

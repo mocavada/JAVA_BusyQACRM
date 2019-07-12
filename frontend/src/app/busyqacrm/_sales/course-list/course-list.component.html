@@ -1,23 +1,27 @@
 
-<h3 class="mt-0 mb-3 pl-3 pb-2 pt-2 text-white border-top border-dark w-100 bg-secondary">COURSE</h3>
-    <div class="row">
-        <div class="col-5 border-right">
-            <app-add-course></app-add-course>
-         </div>
-         <div class="col border-left">
-            <div class="list-group mt-1 p-0" *ngFor="let item of courseList; let i = index">
-                <a class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div style="height: 5%; background-color: rgba(187, 160, 160, 0.1);" class="p-1 my-auto d-flex justify-content-between">
-                        <h5 class="h-100 d-inline-block">{{item.name}}</h5>
-                        <p class=""><b>Status:  </b><small>{{item.batch}}</small></p>
-                        <p class=""><b>Comments:  </b><small>{{item.description}}</small></p>
-                        <p class=""><b>Classes:  </b><small>{{item.classes}}</small></p>
-                    
-                    </div> 
-                  
-                  </a>
+<div class="m-3 row">
+    <div class="col-5 border-right">
+        <app-add-course></app-add-course>
+    </div>
+
+    <div class="col border-left">
+        <div class="card"  *ngFor="let item of courseList; let i = index">
+            <div class="card-body border-bottom">
+            <div class="row">  
+                <div class="col">
+                    <h5 class="card-title">{{item.name}}</h5>
+                </div>
+                <div class="col">
+                        <h5 class="card-subtitle text-muted">Fee : {{item.fee}}</h5>
+                </div>
+                <div class="col">
+                        <h5 class="card-subtitle text-muted">Batch : {{item.batch}}</h5>
+                </div>
             </div>
-         </div>   
-  </div>     
-
-
+            <p class="card-text">{{item.description}}</p>
+            <a href="#" class="card-link">View Classes</a>
+            
+            </div>
+        </div>
+    </div>   
+</div>     

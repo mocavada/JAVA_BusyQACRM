@@ -22,7 +22,7 @@ public class Trainer {
 
     private String trainerSkype;
 
-    private byte[] trainerImage;
+    private String trainerImage;
 
     // TEMPORAL
     @CreationTimestamp
@@ -33,7 +33,7 @@ public class Trainer {
     public Trainer() {
     }
 
-    public Trainer(String trainerName, String trainerEmail, String trainerPhone, String trainerSkype, byte[] trainerImage, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public Trainer(String trainerName, String trainerEmail, String trainerPhone, String trainerSkype, String trainerImage, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.trainerName = trainerName;
         this.trainerEmail = trainerEmail;
         this.trainerPhone = trainerPhone;
@@ -99,13 +99,11 @@ public class Trainer {
         this.trainerSkype = trainerSkype;
     }
 
-    public byte[] getTrainerImage() {
+    public String getTrainerImage() {
         return trainerImage;
     }
 
-    public void setTrainerImage(byte[] trainerImage) {
+    public void setTrainerImage(String trainerImage) {
         this.trainerImage = trainerImage;
     }
-
-
 }

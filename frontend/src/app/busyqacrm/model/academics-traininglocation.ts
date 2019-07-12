@@ -1,10 +1,11 @@
 export class Traininglocation {
     id: number;
-    isOnLine: string;
-    trainingStreet: string;
-    trainingCity: string;
-    trainerState: string;
-    trainerZip: string;
+    isOnline: boolean;
+    name: string;
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
 
     createdTime: Date;
     modifiedTime: Date;

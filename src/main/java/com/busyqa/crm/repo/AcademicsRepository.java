@@ -182,6 +182,7 @@ public class AcademicsRepository implements AcademicsRepositoryI {
 
     @Override
     public void addTrainingLocation(TrainingLocation trainingLocation) {
+
         entityManager.persist(trainingLocation);
     }
 

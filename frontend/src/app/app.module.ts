@@ -1,3 +1,4 @@
+
 import { TestWeatherService } from './busyqacrm/services/test-weather.service';
 
 import { HomeComponent } from './home/home.component';
@@ -52,6 +53,9 @@ import { CoursescheduleListComponent } from './busyqacrm/_sales/courseschedule-l
 import { AddCoursescheduleComponent } from './busyqacrm/_sales/add-courseschedule/add-courseschedule.component';
 import { AddTrainerComponent } from './busyqacrm/_sales/add-trainer/add-trainer.component';
 import { TrainerListComponent } from './busyqacrm/_sales/trainer-list/trainer-list.component';
+import { AddTraininglocationComponent } from './busyqacrm/_sales/add-traininglocation/add-traininglocation.component';
+import { TraininglocationListComponent } from './busyqacrm/_sales/traininglocation-list/traininglocation-list.component';
+
 import { UserDetailsComponent } from './busyqacrm/_sales/user-details/user-details.component';
 import { AcademicsComponent } from './busyqacrm/_sales/academics.component';
 import { OverviewSalesComponent } from './busyqacrm/_sales/overview-sales/overview-sales.component';
@@ -131,6 +135,8 @@ import { AppComponent } from './app.component';
       CoursescheduleListComponent,
       TrainerListComponent,
       AddTrainerComponent,
+      AddTraininglocationComponent,
+      TraininglocationListComponent,
       UserDetailsComponent,
       SearchItemPipe
    ],

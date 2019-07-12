@@ -74,47 +74,16 @@ public class StudentService {
             Course course = academicsRepository.findByCourseName(studentRequest
                     .getCourse().getName()).orElseThrow(() -> new RuntimeException("Fail! -> No Course Found"));
 
-            l.setEmail(studentRequest.getEmail());
-            l.setFirstName(studentRequest.getFirstName());
-            l.setLastName(studentRequest.getLastName());
-            l.setPhoneNumber(studentRequest.getPhoneNumber());
-            l.setEmergencyPhone(studentRequest.getEmergencyPhone());
-
-            l.setClientStatus(studentRequest.getClientStatus());
-            l.setLeadSource(studentRequest.getLeadSource());
-            l.setComments(studentRequest.getComments());
-            l.setCurrentlyEmployed(studentRequest.getCurrentlyEmployed());
-            l.setCurrentlyITEmployed(studentRequest.getCurrentlyITEmployed());
-            l.setDesiredJob(studentRequest.getDesiredJob());
-
-            l.setMailingStreet(studentRequest.getMailingStreet());
-            l.setMailingCity(studentRequest.getMailingCity());
-            l.setMailingState(studentRequest.getMailingState());
-            l.setMailingZip(studentRequest.getMailingZip());
-            l.setMailingCountry(studentRequest.getMailingCountry());
-
-            l.setRegistrationFeePaid(studentRequest.getRegistrationFeePaid());
-            l.setPlanAgreementSigned(studentRequest.getPlanAgreementSigned());
-            l.setDiscountGiven(studentRequest.getDiscountGiven());
-
-            l.setRegistrationFee(studentRequest.getRegistrationFee());
-            l.setDiscount(studentRequest.getDiscount());
-            l.setPaymentPlan(studentRequest.getPaymentPlan());
-
-            l.setCourse(studentRequest.getCourse());
-            l.setTotalCourseFee(studentRequest.getTotalCourseFee());
-            l.setCourseSchedule(studentRequest.getCourseSchedule());
-            l.setTrainer(studentRequest.getTrainer());
-            l.setTrainingLocation(studentRequest.getTrainingLocation());
-
+            // !* create logic
             l.getAmountPaid();
+            // !* create logic
             l.getBalance();
+            // !* create logic
             l.getWeeklyPayment();
-
             l.setPaymentLate(studentRequest.getPaymentLate());
 
-
             l.setPayments(studentRequest.getPayments());
+
             l.setTaxRate(studentRequest.getTaxRate());
             l.setLateFee(studentRequest.getLateFee());
 
@@ -143,6 +112,9 @@ public class StudentService {
                 l.getLastName(),
                 l.getPhoneNumber(),
                 l.getEmergencyPhone(),
+                l.getDtype(),
+                l.getUserState(),
+                l.getUsergroups(),
 
                 l.getClientStatus(),
                 l.getLeadSource(),
