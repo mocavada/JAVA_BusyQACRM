@@ -98,7 +98,6 @@ public class LeadService {
     public ResponseEntity<DTOClient> updateLead(String email, DTOClient leadRequest) {
 
 
-
         return leadRepository.findByEmail(email).map(l -> {
 
             l.setEmail(leadRequest.getEmail());

@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.CascadeType.PERSIST;
-
 @Entity
 @Table(name = "COURSES")
 public class Course {
@@ -21,7 +19,7 @@ public class Course {
     private String description;
     private Double fee;
 
-    @OneToMany(cascade = PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Class> classes = new ArrayList<>();
 
     // TEMPORAL
