@@ -119,6 +119,7 @@ public class User {
         this.usergroups = usergroups;
     }
 
+
     public String getDtype() {
         return dtype;
     }

@@ -73,6 +73,7 @@ export class LeadDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.updateForm();
+
     this.auditService.registrationFeeResult$.subscribe(data => {
       if (data != null) {
         this.registrationFeeList = data;
@@ -80,6 +81,8 @@ export class LeadDetailsComponent implements OnInit {
         console.log(this.registrationFeeList);
       }
     });
+
+    this.auditService.getAllRegistrationFee();
 
     this.auditService.discountResult$.subscribe(data => {
       if (data != null) {
@@ -89,6 +92,8 @@ export class LeadDetailsComponent implements OnInit {
       }
     });
 
+    this.auditService.getAllDiscount();
+
     this.auditService.paymentPlanResult$.subscribe(data => {
       if (data != null) {
         this.paymentPlanList = data;
@@ -96,6 +101,8 @@ export class LeadDetailsComponent implements OnInit {
         console.log(this.paymentPlanList);
       }
     });
+
+    this.auditService.getAllPaymentPlan();
 
     this.salesService.courseResult$.subscribe(data => {
       if (data != null) {
@@ -105,6 +112,8 @@ export class LeadDetailsComponent implements OnInit {
       }
     });
 
+    this.salesService.getAllCourse();
+
     this.salesService.courseScheduleResult$.subscribe(data => {
       if (data != null) {
         this.courseScheduleList = data;
@@ -112,6 +121,8 @@ export class LeadDetailsComponent implements OnInit {
         console.log(this.courseScheduleList);
       }
     });
+
+    this.salesService.getAllCourseSchedules();
 
     this.salesService.trainerResult$.subscribe(data => {
       if (data != null) {
@@ -121,6 +132,8 @@ export class LeadDetailsComponent implements OnInit {
       }
     });
 
+    this.salesService.getAllTrainer();
+
     this.salesService.trainingLocationResult$.subscribe(data => {
       if (data != null) {
         this.trainingLocationList = data;
@@ -129,12 +142,6 @@ export class LeadDetailsComponent implements OnInit {
       }
     });
 
-    this.auditService.getAllRegistrationFee();
-    this.auditService.getAllDiscount();
-    this.auditService.getAllPaymentPlan();
-    this.salesService.getAllCourse();
-    this.salesService.getAllCourseSchedules();
-    this.salesService.getAllTrainer();
     this.salesService.getAllTrainingLocation();
 
     // ** Get Email from Url and Use it as Parameter to getLead Api Request
@@ -144,7 +151,8 @@ export class LeadDetailsComponent implements OnInit {
         this.getLead(email);
       }
     );
-    console.log('welcome -' + this.welcomeString);
+
+    // console.log('welcome -' + this.welcomeString);
 
   }
 
@@ -166,7 +174,6 @@ export class LeadDetailsComponent implements OnInit {
       this.editCLientForm.reset();
     }
     this.leadExample = data;
-
     this.editCLientForm.patchValue({
 
       // DATE
@@ -235,10 +242,10 @@ export class LeadDetailsComponent implements OnInit {
     this.editCLientForm = this.fb.group({
       // USER
       id: [],
-      email: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      phone: ['', Validators.required],
+      email: [],
+      firstName: [],
+      lastName: [],
+      phoneNumber: [],
       emergencyPhone: [],
 
       // LEAD
@@ -263,28 +270,27 @@ export class LeadDetailsComponent implements OnInit {
 
       // FINANCE PROPERTIES
       registrationFee: this.fb.group({
-        id: []
+        id: [],
       }),
       discount: this.fb.group({
-        id: []
+        id: [],
       }),
       paymentPlan: this.fb.group({
-        id: []
+        id: [],
       }),
-
-      // ACADEMICS
+      // ACADEMICS PROPERTIES
       course: this.fb.group({
-        id: []
+        id: [],
       }),
       totalCourseFee: [],
       courseSchedule: this.fb.group({
-        id: []
+        id: [],
       }),
       trainer: this.fb.group({
-        id: []
+        id: [],
       }),
       trainingLocation: this.fb.group({
-        id: []
+        id: [],
       })
     });
 

@@ -38,33 +38,33 @@ public class Lead extends User {
     private Boolean isDiscountGiven;
 
     // FINANCE
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "registrationFee_id")
     private RegistrationFee registrationFee;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "discount_id")
     private Discount discount;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "paymentPlan_id")
     private PaymentPlan paymentPlan;
 
     // ACADEMICS
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "course_id")
     private Course course;
     private double totalCourseFee;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "course_schedule_id")
     private CourseSchedule courseSchedule;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "training_location_id")
     private TrainingLocation trainingLocation;
 
@@ -154,6 +154,7 @@ public class Lead extends User {
         this.trainer = trainer;
         this.trainingLocation = trainingLocation;
     }
+
 
     public String getClientStatus() {
         return clientStatus;

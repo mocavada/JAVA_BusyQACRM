@@ -2,37 +2,42 @@
 
 <div class="m-3 row">
   <div class="col-3">
-    <!-- <p class="m-0"><b>{{leadExample.id}}</b> </p> -->
-    <!-- <p class="m-0">Client Status: <b>{{leadExample.clientStatus}}</b></p>
+   
+    <p class="m-0">Client Status: <b>{{leadExample.clientStatus}}</b></p>
   
     <li>Registration Paid ? <b>{{leadExample.isRegistrationFeePaid}}</b></li>
    
     <hr>
     <p class="m-0 p-0 text-danger">{{leadExample.comments}}</p>
     <hr>
-    <li class="m-0 p-0 text-success" *ngIf="isWPSent"><fa-icon icon="check"></fa-icon> Welcome Package Sent</li>
+
+    <!-- <li class="m-0 p-0 text-success" *ngIf="isWPSent"><fa-icon icon="check"></fa-icon> Welcome Package Sent</li>
     <li class="m-0 p-0 text-success" *ngIf="isTISent"><fa-icon icon="check"></fa-icon> Trainer Info Sent</li>
-    <li class="m-0 p-0 text-success" *ngIf="isPLSent"><fa-icon icon="check"></fa-icon> Portal Link Sent</li>
-    <hr>
+    <li class="m-0 p-0 text-success" *ngIf="isPLSent"><fa-icon icon="check"></fa-icon> Portal Link Sent</li> -->
+    
+  <hr>
     <h3 class="text-dark">{{leadExample.firstName}} {{leadExample.lastName}}</h3>
-    <small>Last Updated: {{leadExample.createdTime | date: 'short'}}</small>
+    
     <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample.email}}</p>
-    <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample.phone}}</p>
-    <hr>
-    <p class="m-0"><b>Course Interested</b></p>
-    <li class="text-info">{{leadExample.course.id}}</li>
-    <li class="text-info">{{leadExample.course.name}}</li>
-    <li class="text-info">Location: {{leadExample.course.location}}</li>
-    <li class="text-info">Start: {{leadExample.course.startDate}}</li>
-    <li class="text-info">End: {{leadExample.course.endDate}}</li>
-    <li class="text-info">Instructor: {{leadExample.course.trainer}}</li>
-    <hr>
+    <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample.phoneNumber}} {{leadExample.emergencyPhone}}</p>
+
+  <hr>
     <p class="m-0"><b>Client Profile</b></p>
     <li>Lead Source : <b>{{leadExample.leadSource}}</b></li>
-   
     <li>Desired Job : <b>{{leadExample.desiredJob}}</b></li>
-    <li>Currently Employed ? <b>{{leadExample.currentlyEmployed}}</b></li>
-    <li>IT Related Job ? <b>{{leadExample.currentlyITEmployed}}</b></li> -->
+    <li>Is Currently Employed? <b>{{leadExample.isCurrentlyEmployed}}</b></li>
+    <li>Is IT Employed? <b>{{leadExample.isCurrentlyITEmployed}}</b></li>
+
+  <hr>
+    <p class="m-0"><b>Course</b></p>
+    <li class="text-info">{{leadExample.course.id}}</li>
+    <li class="text-info">{{leadExample.course.name}}</li>
+    <li class="text-info">{{leadExample.course.name}}</li>
+  
+  <hr>  
+    <p class="m-0"><b>Time Stamp</b></p>  
+    <li>Date Created: {{leadExample.createdTime | date}}</li>
+    <li>Date Modified: {{leadExample.modifiedTime | date}}</li> 
   </div>
 
 
@@ -138,12 +143,12 @@
           <label class="mt-2" for="firstName">Contacts</label>    
           <div class="row">
               <div class="col">
-                <input type="text" class="form-control" placeholder="Email Address" 
-                formControlName="email">
+                <input type="text" class="form-control" placeholder="Phone Number" 
+                formControlName="phoneNumber">
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="Phone Number"
-                formControlName="phone">
+                <input type="text" class="form-control" placeholder="Emergency Phone Number"
+                formControlName="emergencyPhone">
               </div>
            </div>
          
@@ -215,25 +220,137 @@
               </div>
   
             </div>
+           <!-- jjjjj -->
+
+           <h4 class="mt-4 border-top pt-4">Add Course</h4>
+           <div class="row" *ngFor="let item of courseList; let i = index">
+               <div class="form-check">
+                   <input class="form-check-input" type="radio" name="course.id"
+                   id="Course-{{i}}" 
+                   value="{{item.id}}"
+                   formControlName="course.id">
+                   <label class="form-check-label" for="Course-{{i}}">
+                       {{item.id}} - {{item.name}} - {{i}}
+                   </label>
+                 </div>
+           </div>
+          
+
+           <h4 class="mt-4 border-top pt-4">Add Course Schedule</h4>
+           <div class="row" *ngFor="let item of courseScheduleList; let i = index">
+               <div class="form-check">
+                   <input class="form-check-input" type="radio" name="courseSchedule.id"
+                   id="CourseSchedule-{{i}}" 
+                   value="{{item.id}}"
+                   formControlName="courseSchedule.id">
+                   <label class="form-check-label" for="CourseSchedule-{{i}}">
+                       {{item.id}} - {{item.name}} - {{i}}
+                   </label>
+                 </div>
+           </div>
+
+
+           <h4 class="mt-4">Add Registration Fee</h4>
+           <div class="row"  *ngFor="let item of registrationFeeList; let i = index">
+               <div class="form-check">
+                   <input class="form-check-input" type="radio" name="registrationFee.id" 
+                   id="Registration-{{i}}" 
+                   value="{{item.id}}"
+                   formControlName="registrationFee.id">
+                   <label class="form-check-label" for="Registration-{{i}}">
+                       {{item.id}} - {{item.fee}} - {{i}}
+                   </label>
+                 </div>
+           </div>
+          
+
+
+            <h4 class="mt-4 border-top pt-4">Add Discount</h4>
+            <div class="row" *ngFor="let item of discountList; let i = index">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="discount.id"
+                    id="Discount{{i}}" 
+                    value="{{item.id}}"
+                    formControlName="discount.id">
+                    <label class="form-check-label" for="Discount{{i}}">
+                        {{item.id}} - {{item.amount}} - {{i}}
+                    </label>
+                  </div>
+            </div>
+          
+
+
+            <h4 class="mt-4 border-top pt-4">Add Payment Plan</h4>
+            <div class="row" *ngFor="let item of paymentPlanList; let i = index">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentPlan.id"
+                    id="PaymentPlan{{i}}" 
+                    value="{{item.id}}"
+                    formControlName="paymentPlan.id">
+                    <label class="form-check-label" for="PaymentPlan{{i}}">
+                        {{item.id}} - {{item.name}} - {{i}}
+                    </label>
+                  </div>
+            </div>
+    
+          
+            <h4 class="mt-4 border-top pt-4">Add Trainer</h4>
+            <div class="row" *ngFor="let item of trainerList; let i = index">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="trainer.id"
+                    id="Trainer{{i}}" 
+                    value="{{item.id}}"
+                    formControlName="trainer.id">
+                    <label class="form-check-label" for="Trainer{{i}}">
+                        {{item.id}} - {{item.trainerName}} - {{i}}
+                    </label>
+                  </div>
+            </div>
+
+            <h4 class="mt-4 border-top pt-4">Add Training Location</h4>
+            <div class="row" *ngFor="let item of trainingLocationList; let i = index">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="trainingLocation.id"
+                    id="TrainingLocation-{{i}}" 
+                    value="{{item.id}}"
+                    formControlName="trainingLocation.id">
+                    <label class="form-check-label" for="TrainingLocation-{{i}}">
+                        {{item.id}} - {{item.name}} - {{i}}
+                    </label>
+                  </div>
+            </div>
            
+    
+            <hr><p>Trainer</p>
+            <div class="row" *ngFor="let item of trainerList; let i = index">
+                <li>{{item.id}} - {{item.trainerName}}</li>
+            </div>
+
+            <hr><p>Training Location</p>
+            <div class="row" *ngFor="let item of trainingLocationList; let i = index">
+                <li>{{item.id}} - {{item.name}}</li>
+            </div>
+
+
             <!-- ADD COURSE LIST -->
-            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
+            <!-- <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}"> -->
             
-              <div class="courses-addheading card-header text-white"
+              <!-- <div class="courses-addheading card-header text-white"
               (click)="toggleCourseDisplay()"><fa-icon icon="plus"></fa-icon> ADD COURSE
               </div>
               <div class="coursebody card-body">
-              <fieldset formGroupName="course">
-                <div class="form-group">
-                  <div class="form-check" *ngFor="let item of courseList; let i = index">
-                    <input class="form-check-input" type="radio" id="course{{i}}" 
-                    formControlName="id" value="{{item.id}}">
-                    <label class="form-check-label" for="course{{i}}"><p>{{item.name}}</p></label>
+                  <div class="form-group">
+                    <fieldset formGroupName="course">
+                    <div class="form-check" *ngFor="let item of courseList; let i = index">
+                      <input class="form-check-input" type="radio" name="id" id="c{{i}}"
+                      [formControlName="id" value={{item.id}}>
+                      <label class="form-check-label" for="c{{i}}"><p>{{item.name}}</p></label>
+                    </div>
+                  </fieldset>
                   </div>
                 </div>
-              </fieldset>
-              </div>
-            </div>
+              </div> -->
+            
             
         
         
