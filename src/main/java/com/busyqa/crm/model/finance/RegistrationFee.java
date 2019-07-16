@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class RegistrationFee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long registrationFeeId;
     private double fee;
     private String description;
 
@@ -31,12 +31,12 @@ public class RegistrationFee {
         this.modifiedTime = modifiedTime;
     }
 
-    public Long getId() {
-        return id;
+    public Long getRegistrationFeeId() {
+        return registrationFeeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRegistrationFeeId(Long registrationFeeId) {
+        this.registrationFeeId = registrationFeeId;
     }
 
     public double getFee() {

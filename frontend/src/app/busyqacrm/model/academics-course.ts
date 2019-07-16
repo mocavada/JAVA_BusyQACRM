@@ -1,7 +1,7 @@
 import { Class } from './academics-class';
 
 export class Course {
-    id: number;
+    courseId: number;
     name: string;
     batch: string;
     description: string;

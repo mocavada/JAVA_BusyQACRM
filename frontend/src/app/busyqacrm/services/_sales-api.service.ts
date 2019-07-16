@@ -1,3 +1,4 @@
+import { findIndex } from 'lodash';
 import { Traininglocation } from './../model/academics-traininglocation';
 import { Trainer } from './../model/academics-trainer';
 import { CourseSchedule } from './../model/academics-courseschedule';
@@ -23,6 +24,7 @@ export class SalesApiService {
   getLeadByEmailUrl = this.salesApiUrl + '/lead/';
   getLeadByUsernameUrl = this.salesApiUrl + '/leadbyuser/';
   updateLeadByEmailUrl = this.salesApiUrl + '/updateLead/';
+  updateLeadlUrl = this.salesApiUrl + '/updateLead';
   leadToStudentUrl = this.salesApiUrl + '/leadToStudent/';
   // COURSE
   addCourseUrl = this.salesApiUrl + '/addCourse';
@@ -73,6 +75,12 @@ export class SalesApiService {
     const body = JSON.stringify(client);
     return this.http.put(this.updateLeadByEmailUrl + email, client);
   }
+
+  updateLead(client: Lead) {
+    const body = JSON.stringify(client);
+    return this.http.put(this.updateLeadlUrl, client);
+  }
+
 
   changeLeadToStudent(email: string) {
     return this.http.delete(this.leadToStudentUrl + email);

@@ -54,7 +54,7 @@ public class AuditRestController {
 
         if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/addDiscount").buildAndExpand(discount.getId()).toUri());
+        headers.setLocation(builder.path("/addDiscount").buildAndExpand(discount.getDiscountId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
@@ -74,7 +74,7 @@ public class AuditRestController {
 
         if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/addLateFee").buildAndExpand(lateFee.getId()).toUri());
+        headers.setLocation(builder.path("/addLateFee").buildAndExpand(lateFee.getLateFeeId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
@@ -108,7 +108,7 @@ public class AuditRestController {
 
         if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/addPaymentPlan").buildAndExpand(paymentPlan.getId()).toUri());
+        headers.setLocation(builder.path("/addPaymentPlan").buildAndExpand(paymentPlan.getPaymentPlanId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
@@ -128,7 +128,7 @@ public class AuditRestController {
 
         if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/addRegistrationFee").buildAndExpand(registrationFee.getId()).toUri());
+        headers.setLocation(builder.path("/addRegistrationFee").buildAndExpand(registrationFee.getRegistrationFeeId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
@@ -149,7 +149,7 @@ public class AuditRestController {
 
         if (!flag) return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/addTax").buildAndExpand(tax.getId()).toUri());
+        headers.setLocation(builder.path("/addTax").buildAndExpand(tax.getTaxId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 

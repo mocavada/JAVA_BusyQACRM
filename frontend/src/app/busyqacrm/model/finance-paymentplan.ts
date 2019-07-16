@@ -1,5 +1,5 @@
 export class Paymentplan {
-    id: number;
+    paymentPlanId: number;
     name: string;
     paymentMethod: string;
     weekFrequency: number;

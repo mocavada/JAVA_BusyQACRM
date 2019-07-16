@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class LateFee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long lateFeeId;
     private double fee;
     private String description;
 
@@ -33,12 +33,12 @@ public class LateFee {
         this.modifiedTime = modifiedTime;
     }
 
-    public Long getId() {
-        return id;
+    public Long getLateFeeId() {
+        return lateFeeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLateFeeId(Long lateFeeId) {
+        this.lateFeeId = lateFeeId;
     }
 
     public double getFee() {

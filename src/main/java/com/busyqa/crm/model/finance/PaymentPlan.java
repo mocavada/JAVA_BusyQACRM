@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class PaymentPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long paymentPlanId;
 
     private String name;
     private String paymentMethod;
@@ -44,12 +44,12 @@ public class PaymentPlan {
         this.paymentMethod = paymentMethod;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPaymentPlanId() {
+        return paymentPlanId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPaymentPlanId(Long paymentPlanId) {
+        this.paymentPlanId = paymentPlanId;
     }
 
     public String getName() {

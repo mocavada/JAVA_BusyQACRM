@@ -7,6 +7,7 @@ import java.util.List;
 
 @Transactional
 public interface LeadRepository extends UserBaseRepository<Lead> {
+
     List<Lead> findAllByDtypeAndClientStatus(String type, String status);
 
     List<Lead> findAllByDtypeAndClientStatusOrderByIdDesc(String type, String status);

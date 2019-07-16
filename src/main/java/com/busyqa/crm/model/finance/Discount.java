@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long discountId;
     private double amount;
     private String discountCode;
     private String description;
@@ -33,12 +33,14 @@ public class Discount {
     public Discount() {
     }
 
-    public Long getId() {
-        return id;
+
+
+    public Long getDiscountId() {
+        return discountId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDiscountId(Long discountId) {
+        this.discountId = discountId;
     }
 
     public double getAmount() {

@@ -3,10 +3,12 @@ package com.busyqa.crm.service;
 
 import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.clients.DTOClient;
+import com.busyqa.crm.model.clients.DTOLeadRequest;
 import com.busyqa.crm.model.clients.Lead;
 import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.model.util.EnumList;
 import com.busyqa.crm.repo.AcademicsRepository;
+import com.busyqa.crm.repo.FinanceRepository;
 import com.busyqa.crm.repo.LeadRepository;
 import com.busyqa.crm.repo.StudentRepository;
 import org.springframework.beans.BeanUtils;
@@ -29,6 +31,9 @@ public class LeadService {
 
     @Autowired
     private AcademicsRepository academicsRepository;
+
+    @Autowired
+    private FinanceRepository financeRepository;
 
 
     /**
@@ -67,6 +72,8 @@ public class LeadService {
         return leadResponses;
     }
 
+
+
     /**
      * @param email
      * @return
@@ -77,6 +84,8 @@ public class LeadService {
                 () -> new RuntimeException("Error: Email not found!"));
         return getLead(l);
     }
+
+
 
     /**
      * @param username
@@ -90,12 +99,14 @@ public class LeadService {
     }
 
 
+
+
     /**
      * @param email
      * @param leadRequest
      * @return
      */
-    public ResponseEntity<DTOClient> updateLead(String email, DTOClient leadRequest) {
+    public ResponseEntity<DTOClient> updateLead(String email, DTOLeadRequest leadRequest) {
 
 
         return leadRepository.findByEmail(email).map(l -> {
@@ -119,21 +130,32 @@ public class LeadService {
             l.setMailingZip(leadRequest.getMailingZip());
             l.setMailingCountry(leadRequest.getMailingCountry());
 
+
             l.setRegistrationFeePaid(leadRequest.getRegistrationFeePaid());
             l.setPlanAgreementSigned(leadRequest.getPlanAgreementSigned());
             l.setDiscountGiven(leadRequest.getDiscountGiven());
 
-            l.setRegistrationFee(leadRequest.getRegistrationFee());
-            l.setDiscount(leadRequest.getDiscount());
-            l.setPaymentPlan(leadRequest.getPaymentPlan());
+            l.setRegistrationFee(financeRepository
+                    .getRegistrationFeeById(leadRequest.getRegistrationFee()));
 
-            l.setCourse(leadRequest.getCourse());
+            l.setDiscount(financeRepository
+                    .getDiscountById(leadRequest.getDiscount()));
+
+            l.setPaymentPlan(financeRepository
+                    .getPaymentPlanById(leadRequest.getPaymentPlan()));
+
+            l.setCourse(academicsRepository
+                    .getCourseById(leadRequest.getCourse()));
 
             l.setTotalCourseFee(leadRequest.getTotalCourseFee());
 
-            l.setCourseSchedule(leadRequest.getCourseSchedule());
-            l.setTrainer(leadRequest.getTrainer());
-            l.setTrainingLocation(leadRequest.getTrainingLocation());
+            l.setCourseSchedule(academicsRepository
+                    .getCourseScheduleById(leadRequest.getCourseSchedule()));
+
+            l.setTrainer( academicsRepository.getTrainerById(leadRequest.getTrainer()));
+
+            l.setTrainingLocation(academicsRepository
+                    .getTrainingLocationById(leadRequest.getTrainingLocation()));
 
 
             this.leadRepository.save(l);
@@ -224,24 +246,21 @@ public class LeadService {
                 l.getMailingState(),
                 l.getMailingZip(),
                 l.getMailingCountry(),
-                // !* create logic
                 l.getRegistrationFeePaid(),
                 l.getPlanAgreementSigned(),
-                // !* create logic
                 l.getDiscountGiven(),
 
                 l.getRegistrationFee(),
                 l.getDiscount(),
                 l.getPaymentPlan(),
                 l.getCourse(),
-
-                // !* create logic
                 l.getTotalCourseFee(),
-
-
                 l.getCourseSchedule(),
                 l.getTrainer(),
                 l.getTrainingLocation()
+                // !* create logic
+
+                // !* create logic
 
         );
 
@@ -278,10 +297,6 @@ public class LeadService {
         }
 
     }
-
-
-
-
 
 
 
