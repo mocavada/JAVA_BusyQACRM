@@ -1,5 +1,5 @@
 export class LateFee {
-    id: number;
+    lateFeeId: number;
     fee: number;
     description: string;
 

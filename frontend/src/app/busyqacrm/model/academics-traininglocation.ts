@@ -1,5 +1,5 @@
 export class Traininglocation {
-    id: number;
+    trainingLocationId: number;
     isOnline: boolean;
     name: string;
     street: string;

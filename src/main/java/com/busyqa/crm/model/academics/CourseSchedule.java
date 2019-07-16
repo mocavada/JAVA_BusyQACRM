@@ -14,7 +14,7 @@ public class CourseSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int courseScheduleId;
 
     private String name;
     // DATES
@@ -60,8 +60,12 @@ public class CourseSchedule {
         this.name = name;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getCourseScheduleId() {
+        return courseScheduleId;
+    }
+
+    public void setCourseScheduleId(Integer courseScheduleId) {
+        this.courseScheduleId = courseScheduleId;
     }
 
     public Calendar getDateStart() {

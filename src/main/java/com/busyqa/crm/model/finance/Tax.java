@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class Tax {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long taxId;
     private double taxRate;
     private String taxCode;
 
@@ -31,12 +31,12 @@ public class Tax {
         this.modifiedTime = modifiedTime;
     }
 
-    public Long getId() {
-        return id;
+    public Long getTaxId() {
+        return taxId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTaxId(Long taxId) {
+        this.taxId = taxId;
     }
 
     public double getTaxRate() {

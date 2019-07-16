@@ -1,5 +1,5 @@
 export class RegistrationFee {
-    id: number;
+    registrationFeeId: number;
     fee: number;
     description: string;
 

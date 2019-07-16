@@ -30,9 +30,10 @@
 
   <hr>
     <p class="m-0"><b>Course</b></p>
-    <li class="text-info">{{leadExample.course.id}}</li>
+    <li class="text-info">{{leadExample.course.courseId}}</li>
     <li class="text-info">{{leadExample.course.name}}</li>
-    <li class="text-info">{{leadExample.course.name}}</li>
+    <li class="text-info">{{leadExample.course.batch}}</li>
+   
   
   <hr>  
     <p class="m-0"><b>Time Stamp</b></p>  
@@ -217,111 +218,131 @@
                         <input type="text" class="form-control" id="inputZip" formControlName="mailingCountry">
                     </div>
                 </div>
-              </div>
+            </div>
   
             </div>
            <!-- jjjjj -->
 
-           <h4 class="mt-4 border-top pt-4">Add Course</h4>
+    
+
+           <h4 class="mt-4">Add Course</h4>
+           <!-- <fieldset formGroupName="course"> -->
            <div class="row" *ngFor="let item of courseList; let i = index">
                <div class="form-check">
-                   <input class="form-check-input" type="radio" name="course.id"
+                   <input class="form-check-input" type="radio" name="course"
                    id="Course-{{i}}" 
-                   value="{{item.id}}"
-                   formControlName="course.id">
+                   [value]="item.courseId"
+                   formControlName="course">
                    <label class="form-check-label" for="Course-{{i}}">
-                       {{item.id}} - {{item.name}} - {{i}}
+                       {{item.courseId}} - {{item.name}} - {{i}}
                    </label>
                  </div>
            </div>
-          
+           <!-- </fieldset> -->
 
            <h4 class="mt-4 border-top pt-4">Add Course Schedule</h4>
+           <!-- <fieldset formGroupName="courseSchedule"> -->
            <div class="row" *ngFor="let item of courseScheduleList; let i = index">
                <div class="form-check">
-                   <input class="form-check-input" type="radio" name="courseSchedule.id"
+                   <input class="form-check-input" type="radio" name="courseSchedule"
                    id="CourseSchedule-{{i}}" 
-                   value="{{item.id}}"
-                   formControlName="courseSchedule.id">
+                   [value]="item.courseScheduleId"
+                   formControlName="courseSchedule">
                    <label class="form-check-label" for="CourseSchedule-{{i}}">
-                       {{item.id}} - {{item.name}} - {{i}}
+                       {{item.courseScheduleId}} - {{item.name}} - {{i}}
                    </label>
                  </div>
            </div>
+           <!-- </fieldset> -->
+
+           <h4 class="mt-4 border-top pt-4">Add Trainer</h4>
+           <!-- <fieldset formGroupName="trainer"> -->
+           <div class="row" *ngFor="let item of trainerList; let i = index">
+               <div class="form-check">
+                   <input class="form-check-input" type="radio" name="trainer"
+                   id="Trainer{{i}}" 
+                   [value]="item.trainerId"
+                   formControlName="trainer"
+                   [checked]=null>
+                   <label class="form-check-label" for="Trainer{{i}}">
+                       {{item.trainerId}} - {{item.trainerName}} - {{i}}
+                   </label>
+                 </div>
+           </div>
+           <!-- </fieldset> -->
+
+           <h4 class="mt-4 border-top pt-4">Add Training Location</h4>
+           <!-- <fieldset formGroupName="trainingLocation"> -->
+           <div class="row" *ngFor="let item of trainingLocationList; let i = index">
+               <div class="form-check">
+                   <input class="form-check-input" type="radio" name="trainingLocation"
+                   id="TrainingLocation-{{i}}" 
+                   [value]="item.trainingLocationId"
+                   formControlName="trainingLocation">
+                   <label class="form-check-label" for="TrainingLocation-{{i}}">
+                       {{item.trainingLocationId}} - {{item.name}} - {{i}}
+                   </label>
+                 </div>
+           </div>
+           <!-- </fieldset> -->
 
 
-           <h4 class="mt-4">Add Registration Fee</h4>
+           <h4 class="mt-4 border-top pt-4">Add Registration Fee</h4>
+           <!-- <fieldset formGroupName="registrationFee"> -->
            <div class="row"  *ngFor="let item of registrationFeeList; let i = index">
                <div class="form-check">
-                   <input class="form-check-input" type="radio" name="registrationFee.id" 
+                   <input class="form-check-input" type="radio" name="registrationFee" 
                    id="Registration-{{i}}" 
-                   value="{{item.id}}"
-                   formControlName="registrationFee.id">
+                   [value]="item.registrationFeeId"
+                   formControlName="registrationFee"
+                   [checked]=null>
                    <label class="form-check-label" for="Registration-{{i}}">
-                       {{item.id}} - {{item.fee}} - {{i}}
+                       {{item.registrationFeeId}} - {{item.fee}} - {{i}}
                    </label>
                  </div>
            </div>
+           <!-- </fieldset> -->
           
 
 
             <h4 class="mt-4 border-top pt-4">Add Discount</h4>
+            <!-- <fieldset formGroupName="discount"> -->
             <div class="row" *ngFor="let item of discountList; let i = index">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="discount.id"
+                    <input class="form-check-input" type="radio" name="discount"
                     id="Discount{{i}}" 
-                    value="{{item.id}}"
-                    formControlName="discount.id">
+                    [value]="item.discountId"
+                    formControlName="discount">
                     <label class="form-check-label" for="Discount{{i}}">
-                        {{item.id}} - {{item.amount}} - {{i}}
+                        {{item.discountId}} - {{item.amount}} - {{i}}
                     </label>
                   </div>
             </div>
+            <!-- </fieldset> -->
           
 
 
             <h4 class="mt-4 border-top pt-4">Add Payment Plan</h4>
+            <!-- <fieldset formGroupName="paymentPlan"> -->
             <div class="row" *ngFor="let item of paymentPlanList; let i = index">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="paymentPlan.id"
+                    <input class="form-check-input" type="radio" name="paymentPlan"
                     id="PaymentPlan{{i}}" 
-                    value="{{item.id}}"
-                    formControlName="paymentPlan.id">
+                    [value]="item.paymentPlanId"
+                    formControlName="paymentPlan"
+                    [checked]=null>
                     <label class="form-check-label" for="PaymentPlan{{i}}">
-                        {{item.id}} - {{item.name}} - {{i}}
+                        {{item.paymentPlanId}} - {{item.name}} - {{i}}
                     </label>
                   </div>
             </div>
+            <!-- </fieldset> -->
     
           
-            <h4 class="mt-4 border-top pt-4">Add Trainer</h4>
-            <div class="row" *ngFor="let item of trainerList; let i = index">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="trainer.id"
-                    id="Trainer{{i}}" 
-                    value="{{item.id}}"
-                    formControlName="trainer.id">
-                    <label class="form-check-label" for="Trainer{{i}}">
-                        {{item.id}} - {{item.trainerName}} - {{i}}
-                    </label>
-                  </div>
-            </div>
-
-            <h4 class="mt-4 border-top pt-4">Add Training Location</h4>
-            <div class="row" *ngFor="let item of trainingLocationList; let i = index">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="trainingLocation.id"
-                    id="TrainingLocation-{{i}}" 
-                    value="{{item.id}}"
-                    formControlName="trainingLocation.id">
-                    <label class="form-check-label" for="TrainingLocation-{{i}}">
-                        {{item.id}} - {{item.name}} - {{i}}
-                    </label>
-                  </div>
-            </div>
+         
            
     
-            <hr><p>Trainer</p>
+            <!-- <hr><p>Trainer</p>
             <div class="row" *ngFor="let item of trainerList; let i = index">
                 <li>{{item.id}} - {{item.trainerName}}</li>
             </div>
@@ -329,7 +350,7 @@
             <hr><p>Training Location</p>
             <div class="row" *ngFor="let item of trainingLocationList; let i = index">
                 <li>{{item.id}} - {{item.name}}</li>
-            </div>
+            </div> -->
 
 
             <!-- ADD COURSE LIST -->

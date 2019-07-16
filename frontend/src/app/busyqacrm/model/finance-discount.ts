@@ -1,5 +1,5 @@
 export class Discount {
-    id: number;
+    discountId: number;
     amount: number;
     discountCode: string;
     description: string;

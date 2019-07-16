@@ -15,7 +15,7 @@ import java.util.Calendar;
 public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long paymentId;
 
     private double amount;
     private String remarks;
@@ -71,12 +71,12 @@ public class Payment implements Serializable {
         this.remarks = remarks;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPaymentId() {
+        return paymentId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
     }
 
     public Calendar getPaymentDate() {

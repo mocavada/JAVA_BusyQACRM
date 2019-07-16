@@ -1,5 +1,5 @@
 export class Tax {
-    id: number;
+    taxId: number;
     taxRate: number;
     taxCode: string;
 

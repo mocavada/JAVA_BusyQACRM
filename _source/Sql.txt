@@ -17,22 +17,23 @@ VALUES ('GROUP_CLIENT','ROLE_USER');
 INSERT INTO USERGROUPS (groups,role)
 VALUES ('GROUP_EMPLOYEE','ROLE_ADMIN');
 
-// Admin
-INSERT INTO USER_USERGROUP (user_id, usergroup_id)
-VALUES (4,2)
-
-// Audit
-INSERT INTO USER_USERGROUP (user_id, usergroup_id)
-VALUES (4,3)
-
-// Sales
-INSERT INTO USER_USERGROUP (user_id, usergroup_id)
-VALUES (4,4)
-
+// Marc.Cora,Carlos,Marco
 
 INSERT INTO USER_USERGROUP (user_id, usergroup_id)
-VALUES (19,2);
+VALUES (1,2);
 
+INSERT INTO USER_USERGROUP (user_id, usergroup_id)
+VALUES (2,3);
+
+INSERT INTO USER_USERGROUP (user_id, usergroup_id)
+VALUES (3,4);
+
+INSERT INTO USER_USERGROUP (user_id, usergroup_id)
+VALUES (4,4);
+INSERT INTO USER_USERGROUP (user_id, usergroup_id)
+VALUES (4,3);
+INSERT INTO USER_USERGROUP (user_id, usergroup_id)
+VALUES (4,2);
 
 
 INSERT INTO USERS_GROUPS (groups,role,user_id)

@@ -1,3 +1,4 @@
+import { findIndex } from 'lodash';
 import { AuditApiService } from './../../services/_audit-api.service';
 import { Traininglocation } from './../../model/academics-traininglocation';
 import { Mail } from '../../model/util-mail';
@@ -181,6 +182,7 @@ export class LeadDetailsComponent implements OnInit {
       modifiedTime: this.leadExample.modifiedTime,
 
       // USER
+      id: this.leadExample.id,
       firstName: this.leadExample.firstName,
       lastName: this.leadExample.lastName,
       phone: this.leadExample.phoneNumber,
@@ -208,16 +210,18 @@ export class LeadDetailsComponent implements OnInit {
        isRegistrationFeePaid: this.leadExample.isRegistrationFeePaid,
        isPlanAgreementSigned: this.leadExample.isPlanAgreementSigned,
        isDiscountGiven: this.leadExample.isDiscountGiven,
+         // ACADEMICS PROPERTIES
+      course: this.leadExample.course,
+      totalCourseFee: this.leadExample.totalCourseFee,
+      courseSchedule: this.leadExample.totalCourseFee,
+
+      trainer: this.leadExample.trainer,
+      trainingLocation: this.leadExample.trainingLocation,
       // FINANCE PROPERTIES
       registrationFee: this.leadExample.registrationFee,
       discount: this.leadExample.discount,
       paymentPlan: this.leadExample.paymentPlan,
-      // ACADEMICS PROPERTIES
-      course: this.leadExample.course,
-      totalCourseFee: this.leadExample.totalCourseFee,
 
-      trainer: this.leadExample.trainer,
-      trainingLocation: this.leadExample.trainingLocation
     });
 
     this.welcomeString = this.leadExample.firstName + '@' +
@@ -226,17 +230,6 @@ export class LeadDetailsComponent implements OnInit {
 
     console.log('Message Strings - ' + this.welcomeString);
   }
-
-  // this.createTrainingLocationForm = this.fb.group({
-  //   isOnLine: [],
-  //   name: [],
-  //   street: [],
-  //   city: [],
-  //   state: [],
-  //   address: [],
-  // });
-
-  // console.log(this.isOnlineYes);
 
   updateForm() {
     this.editCLientForm = this.fb.group({
@@ -268,30 +261,40 @@ export class LeadDetailsComponent implements OnInit {
       isPlanAgreementSigned: [],
       isDiscountGiven: [],
 
-      // FINANCE PROPERTIES
-      registrationFee: this.fb.group({
-        id: [],
-      }),
-      discount: this.fb.group({
-        id: [],
-      }),
-      paymentPlan: this.fb.group({
-        id: [],
-      }),
-      // ACADEMICS PROPERTIES
-      course: this.fb.group({
-        id: [],
-      }),
+      course: [],
       totalCourseFee: [],
-      courseSchedule: this.fb.group({
-        id: [],
-      }),
-      trainer: this.fb.group({
-        id: [],
-      }),
-      trainingLocation: this.fb.group({
-        id: [],
-      })
+      courseSchedule: [],
+      trainer: [],
+      trainingLocation: [],
+      // FINANCE PROPERTIES
+      discount: [],
+      registrationFee: [],
+      paymentPlan: []
+
+      // ACADEMICS PROPERTIES
+      // course: this.fb.group({
+      //   courseId: [],
+      // }),
+      // totalCourseFee: [],
+      // courseSchedule: this.fb.group({
+      //   courseScheduleId: [],
+      // }),
+      // trainer: this.fb.group({
+      //   trainerId: [],
+      // }),
+      // trainingLocation: this.fb.group({
+      //   trainingLocationId: [],
+      // }),
+      // // FINANCE PROPERTIES
+      // discount: this.fb.group({
+      //   discountId: [],
+      // }),
+      // registrationFee: this.fb.group({
+      //   registrationFeeId: [],
+      // }),
+      // paymentPlan: this.fb.group({
+      //   paymentPlanId: [],
+      // })
     });
 
   }
@@ -414,4 +417,3 @@ export class LeadDetailsComponent implements OnInit {
   // }
 
 }
-

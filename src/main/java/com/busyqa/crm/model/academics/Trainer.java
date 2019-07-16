@@ -12,7 +12,7 @@ public class Trainer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int trainerId;
 
     private String trainerName;
 
@@ -83,12 +83,12 @@ public class Trainer {
         this.modifiedTime = modifiedTime;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getTrainerId() {
+        return trainerId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTrainerId(Integer trainerId) {
+        this.trainerId = trainerId;
     }
 
     public String getTrainerSkype() {

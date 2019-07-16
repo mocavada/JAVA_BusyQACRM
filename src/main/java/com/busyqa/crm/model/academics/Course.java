@@ -13,7 +13,7 @@ import java.util.List;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int courseId;
     private String name;
     private String batch;
     private String description;
@@ -42,12 +42,12 @@ public class Course {
         this.modifiedTime = modifiedTime;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
     public Double getFee() {

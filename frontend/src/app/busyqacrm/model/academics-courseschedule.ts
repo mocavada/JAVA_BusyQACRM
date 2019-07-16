@@ -1,5 +1,5 @@
 export class CourseSchedule {
-    id: number;
+    courseScheduleId: number;
     name: string;
     dateStart: Date;
     dateEnd: Date;
