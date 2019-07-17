@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { findIndex } from 'lodash';
 import { Traininglocation } from './../model/academics-traininglocation';
 import { Trainer } from './../model/academics-trainer';
@@ -15,12 +16,16 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class SalesApiService {
   salesApiUrl = environment.serverAddress + '/sales';
   getAllLeadsUrl = this.salesApiUrl + '/usersList/Lead/CLIENT';
+
+  getLeadsByClientStatusUrl = this.salesApiUrl + '/usersList/Lead/CLIENT/';
+
   getLeadByEmailUrl = this.salesApiUrl + '/lead/';
   getLeadByUsernameUrl = this.salesApiUrl + '/leadbyuser/';
   updateLeadByEmailUrl = this.salesApiUrl + '/updateLead/';
@@ -51,9 +56,12 @@ export class SalesApiService {
   info: any;
 
   constructor(private http: HttpClient,
-              private token: TokenStorageService) { }
+              private token: TokenStorageService,
+              private router: Router) { }
 
   // LEAD
+
+
   getAllLeads() {
     this.http.get<[Lead]>(this.getAllLeadsUrl)
     .subscribe(data => {
@@ -62,6 +70,21 @@ export class SalesApiService {
       console.log('Something Wrong Getting Leads List! ' + err);
     });
   }
+
+
+  getLeadsByClientStatus(status: string) {
+    this.http.get<[Lead]>(this.getLeadsByClientStatusUrl + status)
+    .subscribe(data => {
+      this.leadResult$.next(data);
+    }, err => {
+      console.log('Something Wrong Getting Leads by Clent Status List! ' + err);
+      this.router.navigate(['/dashboard/sales/leadslist']);
+    });
+  }
+
+
+
+
 
   getLeadByEmail(email: string) {
     return this.http.get(this.getLeadByEmailUrl + email);

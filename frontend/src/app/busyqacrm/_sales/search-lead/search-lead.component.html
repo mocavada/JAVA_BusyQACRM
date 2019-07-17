@@ -38,21 +38,43 @@
 </div>     
 <div class="position-relative container mt-5">
 <mat-tab-group>
-  
+
     <mat-tab label="ALL"> 
         <app-leads-list></app-leads-list>
     </mat-tab>
+  
+    
 
-    <mat-tab label="INTERESETED"> 
-       
+    <mat-tab label="FILTER BY STATUS"> 
+        <div class="row pl-5 pr-5 mt-2">
+        <a class="list-group-item list-group-item-action flex-column align-items-start"
+            [routerLink]="['/dashboard/sales/leadslist','Course_Interested']">
+        <h4>COURSE INTERESTED</h4></a>
+        </div>
+        <div class="row pl-5 pr-5 mt-1">
+            <a class="list-group-item list-group-item-action flex-column align-items-start"
+                [routerLink]="['/dashboard/sales/leadslist','Send_Details']">
+            <h4>SEND COURSE DETAILS</h4></a>
+        </div>
+        <div class="row pl-5 pr-5 mt-1">
+            <a class="list-group-item list-group-item-action flex-column align-items-start"
+                [routerLink]="['/dashboard/sales/leadslist','For_Payment']">
+            <h4>SIGNED AGREEEMENT AND PAY REGISTRATION</h4></a>
+        </div>
+        <div class="row pl-5 pr-5 mt-1">
+            <a  class="list-group-item list-group-item-action flex-column align-items-start"
+                [routerLink]="['/dashboard/sales/leadslist','To_Student']">
+            <h4>SAVE TO STUDENT</h4></a>
+        </div>
     </mat-tab>
 
-    <mat-tab label="FOR PAYMENT"> 
-        
+    <mat-tab label="FILTER BY COURSE"> 
+       
      </mat-tab>
      
-     <mat-tab label="FOR STUDENT"> 
+     <mat-tab label="FILTER 4"> 
         
       </mat-tab> 
+     
 </mat-tab-group>
 </div>

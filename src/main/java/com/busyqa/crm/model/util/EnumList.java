@@ -4,6 +4,8 @@ public enum EnumList {
     /** USER STATE*/
     EMPLOYEE, CLIENT,
 
+    /** CLIENT STATUS*/
+    Course_Interested, Send_Details, For_Payment, To_Student,
 
     /** PAYMENT STATUS*/
     UNPAID,PAID,PAID_WITH_LATE_FEE,

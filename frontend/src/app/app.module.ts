@@ -1,4 +1,6 @@
 
+import { LeadsListClientstatusComponent } from './busyqacrm/_sales/leads-list-clientstatus/leads-list-clientstatus.component';
+
 import { TestWeatherService } from './busyqacrm/services/test-weather.service';
 
 import { HomeComponent } from './home/home.component';
@@ -7,7 +9,7 @@ import { BusyQaCrmComponent } from './busyqacrm/busyqacrm.component';
 import { FooterComponent } from './footer/footer.component';
 // PIPE
 import { SearchItemPipe } from './busyqacrm/services/search-item.pipe';
-
+import { TextBoldPipe } from './busyqacrm/services/text-bold.pipe';
 
 // AUTH
 import { RegisterComponent } from './busyqacrm/public/register/register.component';
@@ -59,6 +61,7 @@ import { TraininglocationListComponent } from './busyqacrm/_sales/traininglocati
 import { UserDetailsComponent } from './busyqacrm/_sales/user-details/user-details.component';
 import { AcademicsComponent } from './busyqacrm/_sales/academics.component';
 import { OverviewSalesComponent } from './busyqacrm/_sales/overview-sales/overview-sales.component';
+
 
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -126,6 +129,7 @@ import { AppComponent } from './app.component';
       OverviewSalesComponent,
       AcademicsComponent,
       LeadsListComponent,
+      LeadsListClientstatusComponent,
       LeadDetailsComponent,
       LeadItemComponent,
       SearchLeadComponent,
@@ -138,7 +142,8 @@ import { AppComponent } from './app.component';
       AddTraininglocationComponent,
       TraininglocationListComponent,
       UserDetailsComponent,
-      SearchItemPipe
+      SearchItemPipe,
+      TextBoldPipe
    ],
    imports: [
       BrowserModule,

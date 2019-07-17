@@ -1,48 +1,71 @@
 <h3 class="mt-0 p-2 text-white border-top border-dark w-100 bg-secondary">UPDATE LEAD</h3>
 
-<div class="m-3 row">
+<div class="m-2 row">
   <div class="col-3">
-   
-    <p class="m-0">Client Status: <b>{{leadExample.clientStatus}}</b></p>
-  
-    <li>Registration Paid ? <b>{{leadExample.isRegistrationFeePaid}}</b></li>
-   
-    <hr>
-    <p class="m-0 p-0 text-danger">{{leadExample.comments}}</p>
-    <hr>
-
-    <!-- <li class="m-0 p-0 text-success" *ngIf="isWPSent"><fa-icon icon="check"></fa-icon> Welcome Package Sent</li>
-    <li class="m-0 p-0 text-success" *ngIf="isTISent"><fa-icon icon="check"></fa-icon> Trainer Info Sent</li>
-    <li class="m-0 p-0 text-success" *ngIf="isPLSent"><fa-icon icon="check"></fa-icon> Portal Link Sent</li> -->
+    <div class="row">
+      <div class="col-12">
+        <h3 class="text-dark pt-3">{{leadExample?.firstName}} {{leadExample?.lastName}}</h3>
+        <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample?.email}}</p>
+        <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample?.phoneNumber}} {{leadExample?.emergencyPhone}}</p>
+      </div>
+      <div class="col-12 mt-2 pt-2 border-top">
+        <p class="m-0 text-info"><b>Client Profile</b></p>
+        <li>Lead Source : <b>{{leadExample?.leadSource}}</b></li>
+        <li>Desired Job : <b>{{leadExample?.desiredJob}}</b></li>
+        <li *ngIf="leadExample?.isCurrentlyEmployed">Currently Employed?</li>
+        <li *ngIf="leadExample?.isCurrentlyITEmployed">IT Experienced?</li>
+      </div>  
+      <div class="col-12 mt-2 pt-2 border-top">
+        <p class="m-0 text-success"><b>{{leadExample?.course?.name}}</b></p>
+        <li class="text-dark">&ndash;&nbsp;{{leadExample?.course?.batch}}</li>
+        <li class="text-dark">&ndash;&nbsp;{{leadExample?.course?.fee|currency:'CAD'}}</li>
     
-  <hr>
-    <h3 class="text-dark">{{leadExample.firstName}} {{leadExample.lastName}}</h3>
-    
-    <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample.email}}</p>
-    <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample.phoneNumber}} {{leadExample.emergencyPhone}}</p>
+      </div>  
+      <div class="col-12 mt-1">
+          <li class="text-dark"><b>Schedule</b></li>
+          <li>&ndash;&nbsp;{{leadExample?.courseSchedule?.dateStart}} to {{leadExample?.courseSchedule?.dateEnd}}</li>
+          <li class="text-dark">&ndash;&nbsp;{{leadExample?.courseSchedule?.timeStart}} - {{leadExample?.courseSchedule?.timeEnd}}</li>
+      </div>  
+      <div class="col-12 mt-2">
+          <li class="text-dark"><b>Trainer</b></li>
+          <li class="text-dark">&ndash;&nbsp;<b>{{leadExample?.trainer?.trainerName}}</b> {{leadExample?.trainer?.trainerEmail}}</li>
+         
+      </div>
+      <div class="col-12 mt-2">
+          <li class="text-dark"><b>Location</b></li>
+          <li class="text-dark">&ndash;&nbsp;{{leadExample?.trainingLocation?.name}}</li>
+          <li class="text-dark">&ndash;&nbsp;{{leadExample?.trainingLocation?.street}},{{leadExample?.trainingLocation?.city}}</li>
+      </div> 
+      <div class="col-12 mt-2 pt-2 border-top">
+          <p class="m-0 text-info"><b>Plan Details</b></p>
+          <li class="text-dark"><b>Name : </b>{{leadExample?.paymentPlan?.name}}</li>
+          <li class="text-dark"><b>Method : </b>{{leadExample?.paymentPlan?.paymentMethod}}</li>
+          <li class="text-dark"><b>No. Weeks : </b>{{leadExample?.paymentPlan?.weekFrequency}}</li>
+      </div>
 
-  <hr>
-    <p class="m-0"><b>Client Profile</b></p>
-    <li>Lead Source : <b>{{leadExample.leadSource}}</b></li>
-    <li>Desired Job : <b>{{leadExample.desiredJob}}</b></li>
-    <li>Is Currently Employed? <b>{{leadExample.isCurrentlyEmployed}}</b></li>
-    <li>Is IT Employed? <b>{{leadExample.isCurrentlyITEmployed}}</b></li>
+      <div class="col-12 mt-3 pt-3 border-top">
+        <li class="m-0"><b>Registration Fee</b>&nbsp;{{leadExample?.registrationFee?.fee | currency:'CAD'}}</li>
+        <li class="m-0"><b>Discount</b>&nbsp;{{leadExample?.discount?.amount | currency:'CAD'}}</li>
+        <li class="mb-1"><b>Tax</b>&nbsp;{{leadExample?.tax?.taxRate}}</li>
+        <p class="m-0"><b>Total Fee</b><span class="text-danger">&nbsp;{{leadExample?.totalCourseFee|currency:'CAD'}}</span></p>
+      </div>  
 
-  <hr>
-    <p class="m-0"><b>Course</b></p>
-    <li class="text-info">{{leadExample.course.courseId}}</li>
-    <li class="text-info">{{leadExample.course.name}}</li>
-    <li class="text-info">{{leadExample.course.batch}}</li>
-   
+      
+       
+      
   
-  <hr>  
-    <p class="m-0"><b>Time Stamp</b></p>  
-    <li>Date Created: {{leadExample.createdTime | date}}</li>
-    <li>Date Modified: {{leadExample.modifiedTime | date}}</li> 
+     
+  
+      <div class="col-12 mt-5 pt-2 border-top">
+        <p class="m-0"><b>Time Stamp</b></p>  
+        <li>Date Created: {{leadExample?.createdTime | date}}</li>
+        <li>Date Modified: {{leadExample?.modifiedTime | date}}</li> 
+      </div>
+    </div>
   </div>
 
 
-  <div class="pl-4 col border-left border-secondary col-centered">
+  <div class="pl-4 pb-5 mb-5 col border-left border-secondary col-centered">
 
      
           <div class="row pb-2 pt-2">
@@ -59,7 +82,12 @@
                 style="width:100px;" type="button"
                 [routerLink]="['/dashboard/sales/leadslist']">CANCEL
                 </button>
-  
+
+                <button class="btn btn-outline-success text-center mr-3 my-auto"
+                style="width:100px" type="button" title="Edit Properties"
+                (click)="onClickEditProperties()">EDIT
+                </button>
+
                 <button class="btn btn-outline-primary text-center mr-3 my-auto"
                           style="width:100px;" type="submit"
                           [disabled]="!editCLientForm.valid"> UPDATE
@@ -70,65 +98,38 @@
                     (click)="onSendPortalLink()">SEND LINK
                 </button>
 
-                <button class="btn btn-outline-success text-center mr-3 my-auto" 
+            
+
+                <button class="btn btn-outline-primary text-center mr-3 my-auto" 
                   style="width:180px" type="button" title="Send Welcome Package"
                   (click)="onSendTemplate()">SEND PACKAGE
                 </button>
               </div>
 
-            <!-- LEAD STATUS -->
+            <!-- CLIENT STATUS -->
           <div class="row pb-3"> 
-              <div class="col">
-
-                <label>Lead Status</label>
-                <!-- <div class="form-row mb-2">
-                    <select class="form-control" formControlName="leadSource" required>
-                        <option value="" disabled>Choose Lead Source</option>
-                        <option *ngFor="let item of leadSourceList"
-                        [selected]="leadExample.leadSource" [value]="item">{{item}}
-                        </option>
-                    </select>
-                </div> -->
-                <!-- <div class="form-check" *ngFor="let item of leadStatus; let i = index">
-                    <input class="form-check-input" type="radio" name="leadStatus" id="ls{{i}}" 
-                    value="{{item}}" formControlName="leadStatus">
+            <h4 class="pl-3">{{leadExample?.clientStatus}}</h4>
+                <!-- <div class="col-12"><h4>Client Status</h4></div>
+                <div class="form-check" *ngFor="let item of clientStatusList; let i = index">
+                    <div class="col">
+                    <input class="form-check-input" type="radio" name="clientStatus" id="ls{{i}}" 
+                    value="{{item}}" formControlName="clientStatus">
                     <label class="form-check-label" for="ls{{i}}">{{item}}</label>
-                </div> -->
-              </div>
-
-              <!-- <div class="col">
-                  <label>Payment Status</label>
-                  <div class="form-row mb-2">
-                      <select class="form-control" formControlName="paymentPlan">
-                          <option value="" disabled>Choose Payment Plan</option>
-                          <option *ngFor="let item of paymentPlanList"
-                          [selected]="leadExample.paymentPlan" [value]="item">{{item}}
-                          </option>
-                      </select>
-                  </div>
-                  <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="pas1"
-                      [checked]="leadExample.planAgreement" value="true" formControlName="planAgreement">
-                      <label class="form-check-label" for="pas1">
-                        Plan Agreement Signed ?
-                      </label>
-                  </div>
-                  <div class="form-check mb-2">
-                      <input class="form-check-input" type="checkbox" id="rfp1"
-                      [checked]="leadExample.isRegistrationFeePaid" value="true" formControlName="isRegistrationFeePaid">
-                      <label class="form-check-label" for="rfp1">
-                        Registration Fee Payed ?
-                      </label>
-                  </div>
-                  <div class="form-row">
-                      <input type="text" class="form-control" placeholder="Amount Paid"
-                      formControlName="registrationFee" value="">
-                  </div>                  
+                    </div>
               </div> -->
-          </div> 
+
+              <div class="col-12 mt-2">
+                  <label>Comments:</label>
+                  <textarea placeholder="" class="form-control" formControlName="comments"></textarea>
+              </div>
+          </div>
+
+            
           
            <!-- BASIC INFO -->
-
+           <div class="row">
+              <div class="col-12"><h4>Basic Info</h4></div>  
+           </div>
           <label class="mt-2" for="firstName">Full Name</label>    
           <div class="row mb-2">
               <div class="col">
@@ -140,7 +141,6 @@
                 formControlName="lastName">
               </div>
           </div>
-  
           <label class="mt-2" for="firstName">Contacts</label>    
           <div class="row">
               <div class="col">
@@ -152,44 +152,11 @@
                 formControlName="emergencyPhone">
               </div>
            </div>
-         
-          <div class="mt-3 form-group">
-              <label>Comments:</label>
-              <textarea placeholder="" class="form-control" formControlName="comments"></textarea>
-          </div>
 
-             <!-- EMPLOYMENT PROFILE -->
-             <div class="row">
-                <div class="form-group col-5">
-                    <input type="text" class="form-control" placeholder="Desired Job"
-                    formControlName="desiredJob" value="">
-                </div> 
-
-                <div class="form-group col">
-
-                    <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="currentlyEmployed" id="ce1" 
-                        [checked]="leadExample.currentlyEmployed" value="true" formControlName="currentlyEmployed">
-                        <label class="form-check-label" for="ce1">Currently Working?</label>
-                      </div> -->
-
-                </div>
-
-                <div class="form-group col">
-                    
-                      <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="currentlyITEmployed" id="cit1" 
-                        [checked]="leadExample.currentlyITEmployed" value="true" formControlName="currentlyITEmployed">
-                        <label class="form-check-label" for="cit1">Experienced IT?</label>
-                      </div>  -->
-
-                </div> 
-
-            </div>
-              <!-- ADDRESS -->
+                   <!-- ADDRESS -->
           <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-address': showAddress}">
-              <div class="address-addheading card-header text-white"
-              (click)="toggleAddressDisplay()"><fa-icon icon="plus"></fa-icon> ADD MAILING ADDRESS
+              <div class="pl-4 address-addheading card-header text-white"
+              (click)="toggleAddressDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;MAILING ADDRESS
               </div><!-- card-header -->
               <div class="addressbody card-body">
                 <div class="form-group">
@@ -219,124 +186,225 @@
                     </div>
                 </div>
             </div>
-  
             </div>
-           <!-- jjjjj -->
+        
+      
+             <!-- EMPLOYMENT PROFILE -->
+             <div class="row pb-3 mt-3">
+                <div class="col-12">
+                    <h4>Employment Profile</h4>
+                </div>
+                <div class="form-group col-5 pt-2">
+                    <input type="text" class="form-control" placeholder="Desired Job"
+                    formControlName="desiredJob" value="">
+                </div> 
+                <div class="form-check col-3 pt-2">
+                    <input class="form-check-input" type="checkbox" value="true" id="defaultCheck1"
+                    name="isCurrentlyEmployed" formControlName="isCurrentlyEmployed">
+                    <label class="form-check-label" for="defaultCheck1">
+                      IT Experienced?
+                    </label>
+                </div>
+                <div class="form-check col-3 pt-2">
+                    <input class="form-check-input" type="checkbox" value="true" id="defaultCheck2"
+                    name="isCurrentlyITEmployed" formControlName="isCurrentlyITEmployed">
+                    <label class="form-check-label" for="defaultCheck2">
+                      Currently Employed?
+                    </label>
+                </div>  
+            </div>
 
-    
+        
 
-           <h4 class="mt-4">Add Course</h4>
-           <!-- <fieldset formGroupName="course"> -->
-           <div class="row" *ngFor="let item of courseList; let i = index">
-               <div class="form-check">
-                   <input class="form-check-input" type="radio" name="course"
-                   id="Course-{{i}}" 
-                   [value]="item.courseId"
-                   formControlName="course">
-                   <label class="form-check-label" for="Course-{{i}}">
-                       {{item.courseId}} - {{item.name}} - {{i}}
-                   </label>
-                 </div>
-           </div>
-           <!-- </fieldset> -->
-
-           <h4 class="mt-4 border-top pt-4">Add Course Schedule</h4>
-           <!-- <fieldset formGroupName="courseSchedule"> -->
-           <div class="row" *ngFor="let item of courseScheduleList; let i = index">
-               <div class="form-check">
-                   <input class="form-check-input" type="radio" name="courseSchedule"
-                   id="CourseSchedule-{{i}}" 
-                   [value]="item.courseScheduleId"
-                   formControlName="courseSchedule">
-                   <label class="form-check-label" for="CourseSchedule-{{i}}">
-                       {{item.courseScheduleId}} - {{item.name}} - {{i}}
-                   </label>
-                 </div>
-           </div>
-           <!-- </fieldset> -->
-
-           <h4 class="mt-4 border-top pt-4">Add Trainer</h4>
-           <!-- <fieldset formGroupName="trainer"> -->
-           <div class="row" *ngFor="let item of trainerList; let i = index">
-               <div class="form-check">
-                   <input class="form-check-input" type="radio" name="trainer"
-                   id="Trainer{{i}}" 
-                   [value]="item.trainerId"
-                   formControlName="trainer"
-                   [checked]=null>
-                   <label class="form-check-label" for="Trainer{{i}}">
-                       {{item.trainerId}} - {{item.trainerName}} - {{i}}
-                   </label>
-                 </div>
-           </div>
-           <!-- </fieldset> -->
-
-           <h4 class="mt-4 border-top pt-4">Add Training Location</h4>
-           <!-- <fieldset formGroupName="trainingLocation"> -->
-           <div class="row" *ngFor="let item of trainingLocationList; let i = index">
-               <div class="form-check">
-                   <input class="form-check-input" type="radio" name="trainingLocation"
-                   id="TrainingLocation-{{i}}" 
-                   [value]="item.trainingLocationId"
-                   formControlName="trainingLocation">
-                   <label class="form-check-label" for="TrainingLocation-{{i}}">
-                       {{item.trainingLocationId}} - {{item.name}} - {{i}}
-                   </label>
-                 </div>
-           </div>
-           <!-- </fieldset> -->
-
-
-           <h4 class="mt-4 border-top pt-4">Add Registration Fee</h4>
-           <!-- <fieldset formGroupName="registrationFee"> -->
+          <div *ngIf="showEditProperties">
+           <!-- START ADD PROPERTIES -->
+           <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-registrationFee': showRegistrationFee}">
+              <div class="pl-4 registrationFee-addheading card-header text-white"
+              (click)="toggleRegistrationFeeDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
+              ADD REGISTRATION FEE
+              </div><!-- card-header -->
+  
+              <div class="registrationFeebody card-body">
+        
            <div class="row"  *ngFor="let item of registrationFeeList; let i = index">
                <div class="form-check">
                    <input class="form-check-input" type="radio" name="registrationFee" 
                    id="Registration-{{i}}" 
                    [value]="item.registrationFeeId"
                    formControlName="registrationFee"
-                   [checked]=null>
+                  >
                    <label class="form-check-label" for="Registration-{{i}}">
-                       {{item.registrationFeeId}} - {{item.fee}} - {{i}}
+                       {{item.fee | currency:'CAD'}} - {{item.description}}
                    </label>
                  </div>
            </div>
-           <!-- </fieldset> -->
+           </div>
+           </div>
+        
           
-
-
-            <h4 class="mt-4 border-top pt-4">Add Discount</h4>
-            <!-- <fieldset formGroupName="discount"> -->
+           <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-discount': showDiscount}">
+              <div class="pl-4 discount-addheading card-header text-white"
+              (click)="toggleDiscountDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
+              ADD DISCOUNT
+              </div><!-- card-header -->
+  
+              <div class="discountbody card-body">
+       
             <div class="row" *ngFor="let item of discountList; let i = index">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="discount"
                     id="Discount{{i}}" 
                     [value]="item.discountId"
-                    formControlName="discount">
+                    formControlName="discount"
+                    >
                     <label class="form-check-label" for="Discount{{i}}">
-                        {{item.discountId}} - {{item.amount}} - {{i}}
+                       {{item.amount | currency:'CAD'}} - {{item.description}} - {{item.discountCode}}
                     </label>
                   </div>
             </div>
-            <!-- </fieldset> -->
+            </div>
+            </div>
+
+            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-tax': showTax}">
+                <div class="pl-4 tax-addheading card-header text-white"
+                (click)="toggleTaxDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
+                ADD TAX
+                </div><!-- card-header -->
+    
+                <div class="taxbody card-body">
+         
+              <div class="row" *ngFor="let item of taxList; let i = index">
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="tax"
+                      id="Tax{{i}}" 
+                      [value]="item.taxId"
+                      formControlName="tax"
+                      >
+                      <label class="form-check-label" for="Tax{{i}}">
+                         {{item.taxRate}} - {{item.taxCode}}
+                      </label>
+                    </div>
+              </div>
+              </div>
+              </div>
+        
           
-
-
-            <h4 class="mt-4 border-top pt-4">Add Payment Plan</h4>
-            <!-- <fieldset formGroupName="paymentPlan"> -->
+            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-paymentPlan': showPaymentPlan}">
+                <div class="pl-4 paymentPlan-addheading card-header text-white"
+                (click)="togglePaymentPlanDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
+                ADD PAYMENT PLAN
+                </div><!-- card-header -->
+                <div class="paymentPlanbody card-body">
+          
             <div class="row" *ngFor="let item of paymentPlanList; let i = index">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="paymentPlan"
                     id="PaymentPlan{{i}}" 
                     [value]="item.paymentPlanId"
                     formControlName="paymentPlan"
-                    [checked]=null>
+                    >
                     <label class="form-check-label" for="PaymentPlan{{i}}">
-                        {{item.paymentPlanId}} - {{item.name}} - {{i}}
+                        {{item.name}} - {{item.weekFrequency}}
                     </label>
                   </div>
             </div>
-            <!-- </fieldset> -->
+            </div>
+          </div>
+          
+
+            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
+                <div class="pl-4 courses-addheading card-header text-white"
+                (click)="toggleCourseDisplay()"><fa-icon icon="plus">plus</fa-icon>
+                &nbsp;ADD COURSE
+                </div><!-- card-header -->
+    
+                <div class="coursebody card-body">
+                  <div class="row" *ngFor="let item of courseList; let i = index">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="course"
+                          id="Course-{{i}}" 
+                          [value]="item.courseId"
+                          formControlName="course"
+                          >
+                          <label class="form-check-label" for="Course-{{i}}">
+                              {{item.name}} - {{item.batch}} - {{item.fee | currency:'CAD'}}
+                          </label>
+                        </div>
+                  </div>
+                </div>
+               </div>
+             
+    
+               <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courseSchedule': showCourseSchedule}">
+                  <div class="pl-4 courseSchedule-addheading card-header text-white"
+                  (click)="toggleCourseScheduleDisplay()"><fa-icon icon="plus">plus</fa-icon>
+                  &nbsp;ADD COURSE SCHEDULE
+                  </div><!-- card-header -->
+                    <div class="courseSchedulebody card-body">
+                  <div class="row" *ngFor="let item of courseScheduleList; let i = index">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="courseSchedule"
+                          id="CourseSchedule-{{i}}" 
+                          [value]="item.courseScheduleId"
+                          formControlName="courseSchedule"
+                          >
+                          <label class="form-check-label" for="CourseSchedule-{{i}}">
+                              {{item.name}}, 
+                              {{item.dateStart|date}} to {{item.dateEnd|date}}
+                              ( {{item.timeStart}} to {{item.timeEnd}} )
+                          </label>
+                        </div>
+                  </div>
+                </div>
+               </div>
+              
+               <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-trainer': showTrainer}">
+                  <div class="pl-4 trainer-addheading card-header text-white"
+                  (click)="toggleTrainerDisplay()"><fa-icon icon="plus">plus</fa-icon>
+                  &nbsp;ADD TRAINER
+                  </div><!-- card-header -->
+                    <div class="trainerbody card-body">
+            
+               <div class="row" *ngFor="let item of trainerList; let i = index">
+                   <div class="form-check">
+                       <input class="form-check-input" type="radio" name="trainer"
+                       id="Trainer{{i}}" 
+                       [value]="item.trainerId"
+                       formControlName="trainer"
+                       >
+                       <label class="form-check-label" for="Trainer{{i}}">
+                          {{item.trainerName}} - {{item.trainerEmail}}
+                       </label>
+                     </div>
+               </div>
+               </div>
+               </div>
+               
+    
+               <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-trainingLocation': showTrainingLocation}">
+                  <div class="pl-4 trainingLocation-addheading card-header text-white"
+                  (click)="toggleTrainingLocationDisplay()"><fa-icon icon="plus">plus</fa-icon>
+                  &nbsp;ADD TRAINING LOCATION
+                  </div><!-- card-header -->
+                    <div class="trainingLocationbody card-body">
+               
+               <div class="row" *ngFor="let item of trainingLocationList; let i = index">
+                   <div class="form-check">
+                       <input class="form-check-input" type="radio" name="trainingLocation"
+                       id="TrainingLocation-{{i}}" 
+                       [value]="item.trainingLocationId"
+                       formControlName="trainingLocation"
+                       >
+                       <label class="form-check-label" for="TrainingLocation-{{i}}">
+                           {{item.name}} - {{item.street}}, {{item.city}}
+                       </label>
+                     </div>
+               </div>
+               </div>
+               </div>
+              </div>   <!-- END ADD PROPERTIES -->
+             
+              
     
           
          

@@ -1,3 +1,5 @@
+import { LeadsListClientstatusComponent } from './busyqacrm/_sales/leads-list-clientstatus/leads-list-clientstatus.component';
+
 import { OverviewSalesComponent } from './busyqacrm/_sales/overview-sales/overview-sales.component';
 import { FinanceComponent } from './busyqacrm/_audit/finance.component';
 import { StudentDetailsComponent } from './busyqacrm/_audit/student-details/student-details.component';
@@ -31,6 +33,7 @@ import { ResetPasswordComponent } from './busyqacrm/public/reset-password/reset-
 
 
 
+
 export const router: Routes = [
     { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
@@ -52,6 +55,7 @@ export const router: Routes = [
 
       { path: 'sales/academics', component: AcademicsComponent },
       { path: 'sales/leadslist', component: SearchLeadComponent },
+      { path: 'sales/leadslist/:status', component: LeadsListClientstatusComponent },
       { path: 'sales/lead/:email', component: LeadDetailsComponent, canActivate: [AuthGuardService] },
       { path: 'sales/7o8ae0geOJhRKQ9s2S7o8ae0geOJhRKQ9s2S/:username', component: UserDetailsComponent },
       { path: 'sales/searchlead', component: SearchLeadComponent },

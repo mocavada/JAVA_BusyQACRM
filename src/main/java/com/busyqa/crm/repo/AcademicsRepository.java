@@ -38,8 +38,8 @@ public class AcademicsRepository implements AcademicsRepositoryI {
     }
 
     @Override
-    public Course getCourseById(int id) {
-        return entityManager.find(Course.class,id);
+    public Course getCourseById(long id) {
+        return entityManager.find(Course.class, id);
 
     }
 
@@ -89,7 +89,7 @@ public class AcademicsRepository implements AcademicsRepositoryI {
 
 
     @Override
-    public Class getClassById(int id) {
+    public Class getClassById(long id) {
         return entityManager.find(Class.class,id);
     }
 
@@ -113,7 +113,7 @@ public class AcademicsRepository implements AcademicsRepositoryI {
     }
 
     @Override
-    public CourseSchedule getCourseScheduleById(int id) {
+    public CourseSchedule getCourseScheduleById(long id) {
 
         return entityManager.find(CourseSchedule.class,id);
     }
@@ -151,9 +151,9 @@ public class AcademicsRepository implements AcademicsRepositoryI {
     }
 
     @Override
-    public Trainer getTrainerById(int id) {
+    public Trainer getTrainerById(long id) {
 
-        return entityManager.find(Trainer.class,id);
+        return entityManager.find(Trainer.class, id);
     }
 
     @Override
@@ -187,7 +187,7 @@ public class AcademicsRepository implements AcademicsRepositoryI {
     }
 
     @Override
-    public TrainingLocation getTrainingLocationById(int id) {
+    public TrainingLocation getTrainingLocationById(long id) {
 
         return entityManager.find(TrainingLocation.class,id);
     }

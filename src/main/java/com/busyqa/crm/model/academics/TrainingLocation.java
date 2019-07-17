@@ -12,7 +12,7 @@ public class TrainingLocation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int trainingLocationId;
+    private long trainingLocationId;
 
     private Boolean isOnline;
 
@@ -51,8 +51,12 @@ public class TrainingLocation {
         isOnline = online;
     }
 
-    public Integer getTrainingLocationId() {
+    public long getTrainingLocationId() {
         return trainingLocationId;
+    }
+
+    public void setTrainingLocationId(long trainingLocationId) {
+        this.trainingLocationId = trainingLocationId;
     }
 
     public void setTrainingLocationId(Integer trainingLocationId) {

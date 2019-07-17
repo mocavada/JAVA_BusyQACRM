@@ -95,6 +95,7 @@ public class AuthRestController {
         );
 
         lead.setUserState(EnumList.CLIENT.toString());
+        lead.setClientStatus(EnumList.Course_Interested.toString());
 
         leadRepository.save(lead);
 

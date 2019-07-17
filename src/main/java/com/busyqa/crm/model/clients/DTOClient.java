@@ -48,6 +48,7 @@ public class DTOClient {
     // FINANCE
     private RegistrationFee registrationFee;
     private Discount discount;
+    private Tax tax;
     private PaymentPlan paymentPlan;
     // ACADEMICS
     private Course course;
@@ -63,9 +64,7 @@ public class DTOClient {
     private double weeklyPayment;
     private Boolean isPaymentLate;
 
-
     private List<Payment> payments;
-    private Tax taxRate;
     private LateFee lateFee;
 
     //FOR INTERNS
@@ -80,7 +79,7 @@ public class DTOClient {
 
     // CTOR FOR LEADS
 
-    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
+    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, Tax tax, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.email = email;
@@ -107,6 +106,7 @@ public class DTOClient {
         this.isDiscountGiven = isDiscountGiven;
         this.registrationFee = registrationFee;
         this.discount = discount;
+        this.tax = tax;
         this.paymentPlan = paymentPlan;
         this.course = course;
         this.totalCourseFee = totalCourseFee;
@@ -118,7 +118,7 @@ public class DTOClient {
 
     // CTOR FOR STUDENTS
 
-    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee) {
+    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, Tax tax, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, LateFee lateFee) {
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.email = email;
@@ -145,6 +145,7 @@ public class DTOClient {
         this.isDiscountGiven = isDiscountGiven;
         this.registrationFee = registrationFee;
         this.discount = discount;
+        this.tax = tax;
         this.paymentPlan = paymentPlan;
         this.course = course;
         this.totalCourseFee = totalCourseFee;
@@ -156,15 +157,16 @@ public class DTOClient {
         this.weeklyPayment = weeklyPayment;
         this.isPaymentLate = isPaymentLate;
         this.payments = payments;
-        this.taxRate = taxRate;
         this.lateFee = lateFee;
     }
+
+
 
 
     // CTOR FOR INTERNS
 
 
-    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee, String coopStatus, String projectAssigned, String performance, Calendar coopStartDate, Calendar coopEndDate) {
+    public DTOClient(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, Tax tax, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, LateFee lateFee, String coopStatus, String projectAssigned, String performance, Calendar coopStartDate, Calendar coopEndDate) {
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.email = email;
@@ -191,6 +193,7 @@ public class DTOClient {
         this.isDiscountGiven = isDiscountGiven;
         this.registrationFee = registrationFee;
         this.discount = discount;
+        this.tax = tax;
         this.paymentPlan = paymentPlan;
         this.course = course;
         this.totalCourseFee = totalCourseFee;
@@ -202,13 +205,21 @@ public class DTOClient {
         this.weeklyPayment = weeklyPayment;
         this.isPaymentLate = isPaymentLate;
         this.payments = payments;
-        this.taxRate = taxRate;
         this.lateFee = lateFee;
         this.coopStatus = coopStatus;
         this.projectAssigned = projectAssigned;
         this.performance = performance;
         this.coopStartDate = coopStartDate;
         this.coopEndDate = coopEndDate;
+    }
+
+
+    public Tax getTax() {
+        return tax;
+    }
+
+    public void setTax(Tax tax) {
+        this.tax = tax;
     }
 
     public Set<UserGroup> getUserGroup() {
@@ -508,13 +519,6 @@ public class DTOClient {
         this.payments = payments;
     }
 
-    public Tax getTaxRate() {
-        return taxRate;
-    }
-
-    public void setTaxRate(Tax taxRate) {
-        this.taxRate = taxRate;
-    }
 
     public LateFee getLateFee() {
         return lateFee;

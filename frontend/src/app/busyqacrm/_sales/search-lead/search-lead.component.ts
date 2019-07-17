@@ -3,6 +3,7 @@ import { SearchItemPipe } from '../../services/search-item.pipe';
 import { HttpClient } from '@angular/common/http';
 import { SalesApiService } from '../../services/_sales-api.service';
 import { Lead } from '../../model/client-lead';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,8 +21,9 @@ export class SearchLeadComponent implements OnInit {
 
 
   constructor(private http: HttpClient,
-              private salesService: SalesApiService) {
-                this.query = '';
+              private salesService: SalesApiService,
+              private router: Router) {
+              this.query = '';
               }
 
   ngOnInit() {
@@ -42,5 +44,6 @@ export class SearchLeadComponent implements OnInit {
     item.highlight = !item.highlight;
     this.currentLead = item;
   }
+
 
 }

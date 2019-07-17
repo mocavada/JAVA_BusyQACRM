@@ -32,7 +32,8 @@ export class AddTraininglocationComponent implements OnInit {
       street: [],
       city: [],
       state: [],
-      address: [],
+      zip: []
+
     });
 
     console.log(this.isOnlineYes);

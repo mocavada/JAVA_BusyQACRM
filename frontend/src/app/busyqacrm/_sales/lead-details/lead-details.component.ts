@@ -1,3 +1,4 @@
+import { CourseSchedule } from './../../model/academics-courseschedule';
 import { findIndex } from 'lodash';
 import { AuditApiService } from './../../services/_audit-api.service';
 import { Traininglocation } from './../../model/academics-traininglocation';
@@ -12,11 +13,11 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import 'rxjs/add/operator/map';
 import { Paymentplan } from '../../model/finance-paymentplan';
 import { Course } from './../../model/academics-course';
-import { CourseSchedule } from '../../model/academics-courseschedule';
 import { Trainer } from './../../model/academics-trainer';
 import { Lead } from '../../model/client-lead';
 import { RegistrationFee } from '../../model/finance-registrationfee';
 import { Discount } from '../../model/finance-discount';
+import { Tax } from '../../model/finance-tax';
 
 
 @Component({
@@ -35,8 +36,20 @@ export class LeadDetailsComponent implements OnInit {
 
   messageObject: any;
   welcomeString: any;
-  showCourse: boolean;
+
   showAddress: boolean;
+  showCourse: boolean;
+  showCourseSchedule: boolean;
+  showTrainer: boolean;
+  showTrainingLocation: boolean;
+  showRegistrationFee: boolean;
+  showDiscount: boolean;
+  showPaymentPlan: boolean;
+  showLateFee: boolean;
+  showTax: boolean;
+  showEditProperties: boolean;
+  resetProperties: boolean;
+
   isWPSent: boolean;
   isTISent: boolean;
   isPLSent: boolean;
@@ -45,6 +58,7 @@ export class LeadDetailsComponent implements OnInit {
   leadExample: Lead;
   registrationFeeList: RegistrationFee[];
   discountList: Discount[];
+  taxList: Tax[];
   paymentPlanList: Paymentplan[];
   courseList: Course[];
   courseScheduleList: CourseSchedule[];
@@ -52,25 +66,32 @@ export class LeadDetailsComponent implements OnInit {
   trainingLocationList: Traininglocation[];
 
 
+  clientStatusList = ['Course_Interested', 'Send_Details', 'For_Payment', 'To_Student'];
+
+
   constructor(private salesService: SalesApiService,
               private auditService: AuditApiService,
               private route: ActivatedRoute,
+              private router: Router,
               private fb: FormBuilder) {
-      this.showCourse = true;
       this.showAddress = true;
-      this.isWPSent = true;
+      this.showCourse = true;
+      this.showCourseSchedule = true;
+      this.showTrainer = true;
+      this.showTrainingLocation = true;
+      this.showRegistrationFee = true;
+      this.showDiscount = true;
+      this.showTax = true;
+      this.showPaymentPlan = true;
+      this.showLateFee = true;
+
+
+
+
 
   }
 
-  toggleCourseDisplay() {
-    console.log(this.showCourse);
-    this.showCourse = !this.showCourse;
-  }
 
-  toggleAddressDisplay() {
-    console.log(this.showAddress);
-    this.showAddress = !this.showAddress;
-  }
 
   ngOnInit() {
     this.updateForm();
@@ -104,6 +125,16 @@ export class LeadDetailsComponent implements OnInit {
     });
 
     this.auditService.getAllPaymentPlan();
+
+    this.auditService.taxResult$.subscribe(data => {
+      if (data != null) {
+        this.taxList = data;
+        console.log('Successful Loading taxList!');
+        console.log(this.taxList);
+      }
+    });
+
+    this.auditService.getAllTax();
 
     this.salesService.courseResult$.subscribe(data => {
       if (data != null) {
@@ -157,6 +188,61 @@ export class LeadDetailsComponent implements OnInit {
 
   }
 
+  toggleAddressDisplay() {
+    console.log(this.showAddress);
+    this.showAddress = !this.showAddress;
+  }
+
+  toggleCourseDisplay() {
+    console.log(this.showCourse);
+    this.showCourse = !this.showCourse;
+  }
+
+  toggleCourseScheduleDisplay() {
+    console.log(this.showCourseSchedule);
+    this.showCourseSchedule = !this.showCourseSchedule;
+  }
+
+  toggleTrainerDisplay() {
+    console.log(this.showTrainer);
+    this.showTrainer = !this.showTrainer;
+  }
+
+  toggleTrainingLocationDisplay() {
+    console.log(this.showTrainingLocation);
+    this.showTrainingLocation = !this.showTrainingLocation;
+  }
+
+  toggleRegistrationFeeDisplay() {
+    console.log(this.showRegistrationFee);
+    this.showRegistrationFee = !this.showRegistrationFee;
+  }
+
+  toggleDiscountDisplay() {
+    console.log(this.showDiscount);
+    this.showDiscount = !this.showDiscount;
+  }
+
+   toggleTaxDisplay() {
+    console.log(this.showTax);
+    this.showTax = !this.showTax;
+  }
+
+  togglePaymentPlanDisplay() {
+    console.log(this.showPaymentPlan);
+    this.showPaymentPlan = !this.showPaymentPlan;
+  }
+
+  onClickEditProperties() {
+    console.log('CLICK');
+    this.showEditProperties = !this.showEditProperties;
+
+    console.log('RP ' + this.showEditProperties);
+  }
+
+
+
+
 
   getLead(email: string): void {
     this.salesService.getLeadByEmail(email)
@@ -176,7 +262,6 @@ export class LeadDetailsComponent implements OnInit {
     }
     this.leadExample = data;
     this.editCLientForm.patchValue({
-
       // DATE
       createdTime: this.leadExample.createdTime,
       modifiedTime: this.leadExample.modifiedTime,
@@ -195,8 +280,8 @@ export class LeadDetailsComponent implements OnInit {
       clientStatus: this.leadExample.clientStatus,
       leadSource: this.leadExample.leadSource,
       comments: this.leadExample.comments,
-      currentlyEmployed: this.leadExample.isCurrentlyEmployed,
-      currentlyITEmployed: this.leadExample.isCurrentlyITEmployed,
+      isCurrentlyEmployed: this.leadExample.isCurrentlyEmployed,
+      isCurrentlyITEmployed: this.leadExample.isCurrentlyITEmployed,
       desiredJob: this.leadExample.desiredJob,
 
        // ADDRESS
@@ -210,25 +295,25 @@ export class LeadDetailsComponent implements OnInit {
        isRegistrationFeePaid: this.leadExample.isRegistrationFeePaid,
        isPlanAgreementSigned: this.leadExample.isPlanAgreementSigned,
        isDiscountGiven: this.leadExample.isDiscountGiven,
+         // FINANCE PROPERTIES
+      registrationFee: this.leadExample.registrationFee,
+      discount: this.leadExample.discount,
+      tax: this.leadExample.tax,
+      paymentPlan: this.leadExample.paymentPlan,
          // ACADEMICS PROPERTIES
       course: this.leadExample.course,
       totalCourseFee: this.leadExample.totalCourseFee,
-      courseSchedule: this.leadExample.totalCourseFee,
+      courseSchedule: this.leadExample.courseSchedule,
 
       trainer: this.leadExample.trainer,
       trainingLocation: this.leadExample.trainingLocation,
-      // FINANCE PROPERTIES
-      registrationFee: this.leadExample.registrationFee,
-      discount: this.leadExample.discount,
-      paymentPlan: this.leadExample.paymentPlan,
-
     });
 
-    this.welcomeString = this.leadExample.firstName + '@' +
-                         this.leadExample.course.name + '@' +
-                         this.leadExample.course.description;
+    // this.welcomeString = this.leadExample.firstName + '@' +
+    //                      this.leadExample.course.name + '@' +
+    //                      this.leadExample.course.description;
 
-    console.log('Message Strings - ' + this.welcomeString);
+    // console.log('Message Strings - ' + this.welcomeString);
   }
 
   updateForm() {
@@ -245,8 +330,8 @@ export class LeadDetailsComponent implements OnInit {
       clientStatus: [],
       leadSource: [],
       comments: [],
-      currentlyEmployed: [],
-      currentlyITEmployed: [],
+      isCurrentlyEmployed: [],
+      isCurrentlyITEmployed: [],
       desiredJob: [],
 
        // ADDRESS
@@ -261,16 +346,18 @@ export class LeadDetailsComponent implements OnInit {
       isPlanAgreementSigned: [],
       isDiscountGiven: [],
 
+      registrationFee: [],
+      discount: [],
+      tax: [],
+      paymentPlan: [],
+
       course: [],
       totalCourseFee: [],
       courseSchedule: [],
       trainer: [],
-      trainingLocation: [],
-      // FINANCE PROPERTIES
-      discount: [],
-      registrationFee: [],
-      paymentPlan: []
+      trainingLocation: []
 
+      // FINANCE PROPERTIES
       // ACADEMICS PROPERTIES
       // course: this.fb.group({
       //   courseId: [],
@@ -301,16 +388,53 @@ export class LeadDetailsComponent implements OnInit {
 
   onUpdate(f: any) {
     if (f.valid) {
+
+      if (f.value.clientStatus === 'Send_Details' && !this.showEditProperties) {
+        console.log('Send Details Indeed');
+        f.value.course = this.leadExample.course.courseId;
+        f.value.courseSchedule = this.leadExample.courseSchedule.courseScheduleId;
+        f.value.trainer = this.leadExample.trainer.trainerId;
+        f.value.trainingLocation = this.leadExample.trainingLocation.trainingLocationId;
+
+        f.value.registrationFee = this.leadExample.registrationFee.registrationFeeId;
+        f.value.discount = this.leadExample.discount.discountId;
+        f.value.tax = this.leadExample.tax.taxId;
+        f.value.paymentPlan = this.leadExample.paymentPlan.paymentPlanId;
+      }
+
+      if (!f.value.course &&
+          !f.value.courseSchedule &&
+          !f.value.trainer &&
+          !f.value.trainingLocation &&
+          !f.value.registrationFee &&
+          !f.value.discount &&
+          !f.value.tax &&
+          !f.value.paymentPlan) {
+
+          console.log('All Null');
+
+      } else {
+        f.value.clientStatus = 'Send_Details';
+        console.log('Success Input');
+      }
+
       this.validMessage = 'Your Information Has Been Updated!';
+
+      console.log(f.value.course);
+
+
       this.salesService
       .updateLeadByEmail(this.route.snapshot.params.email, f.value)
       .subscribe(
         data => {
           this.message = 'The Lead has been updated!';
+          // this.router.navigate(['/dashboard/sales/lead']);
+          window.location.reload();
           return true;
+
         },
         error => {
-          alert('Cannot Update lead!');
+          alert('Cannot Update Lead! Complete Lead Properties');
         });
     } else {
       this.validMessage = 'Please make sure the inputs are valid!';

@@ -1,11 +1,16 @@
 package com.busyqa.crm.model.clients;
 
-import com.busyqa.crm.model.finance.LateFee;
-import com.busyqa.crm.model.finance.Payment;
-import com.busyqa.crm.model.finance.Tax;
+import com.busyqa.crm.model.academics.Course;
+import com.busyqa.crm.model.academics.CourseSchedule;
+import com.busyqa.crm.model.academics.Trainer;
+import com.busyqa.crm.model.academics.TrainingLocation;
+import com.busyqa.crm.model.auth.UserGroup;
+import com.busyqa.crm.model.finance.*;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.CascadeType.PERSIST;
 
@@ -21,9 +26,6 @@ public class Student extends Lead {
     @OneToMany(cascade = PERSIST, mappedBy = "student")
     private List<Payment> payments = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name="tax_id")
-    private Tax taxRate;
 
     @ManyToOne
     @JoinColumn(name="lateFee_id")
@@ -33,14 +35,13 @@ public class Student extends Lead {
     public Student() {
     }
 
-
-    public Student(double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, Tax taxRate, LateFee lateFee) {
+    public Student(String username, String password, String email, String firstName, Set<UserGroup> usergroups, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, Tax taxRate, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, LateFee lateFee) {
+        super(username, password, email, firstName, usergroups, clientStatus, leadSource, comments, isCurrentlyEmployed, isCurrentlyITEmployed, desiredJob, mailingStreet, mailingCity, mailingState, mailingZip, mailingCountry, isRegistrationFeePaid, isPlanAgreementSigned, isDiscountGiven, registrationFee, discount, taxRate, paymentPlan, course, totalCourseFee, courseSchedule, trainer, trainingLocation);
         this.amountPaid = amountPaid;
         this.balance = balance;
         this.weeklyPayment = weeklyPayment;
         this.isPaymentLate = isPaymentLate;
         this.payments = payments;
-        this.taxRate = taxRate;
         this.lateFee = lateFee;
     }
 
@@ -82,13 +83,6 @@ public class Student extends Lead {
         this.payments = payments;
     }
 
-    public Tax getTaxRate() {
-        return taxRate;
-    }
-
-    public void setTaxRate(Tax taxRate) {
-        this.taxRate = taxRate;
-    }
 
     public LateFee getLateFee() {
         return lateFee;

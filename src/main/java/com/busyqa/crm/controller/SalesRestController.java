@@ -10,7 +10,6 @@ import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.model.util.Mail;
 import com.busyqa.crm.service.AcademicsService;
 import com.busyqa.crm.service.LeadService;
-import com.busyqa.crm.service.LeadUpdateService;
 import com.busyqa.crm.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -39,16 +38,24 @@ public class SalesRestController {
     @Autowired
     private LeadService leadService;
 
-    @Autowired
-    private LeadUpdateService leadUpdateService;
 
 
     // LEAD SERVICE
     ///////////////////
-    @GetMapping("/usersList/{type}/{status}")
-    public List<DTOClient> getAllLeadsByDtypeAndUserState(@PathVariable("type") String type , @PathVariable("status") String status) {
-        return this.leadService.getAllLeadsByDtypeAndUserState(type,status);
+    @GetMapping("/usersList/{type}/{state}")
+    public List<DTOClient> getAllLeadsByDtypeAndUserState(@PathVariable("type") String type , @PathVariable("state") String state) {
+        return this.leadService.getAllLeadsByDtypeAndUserState(type,state);
     }
+
+
+    @GetMapping("/usersList/{type}/{state}/{status}")
+    public List<DTOClient> getAllLeadsByDtypeAndUserStateAndClientStatus(@PathVariable("type") String type ,
+                                                                         @PathVariable("state") String state,
+                                                                         @PathVariable("status") String status) {
+
+        return this.leadService.getAllLeadsByDtypeAndUserStateAndClientStatus(type,state,status);
+    }
+
 
 
     @GetMapping("/lead/{email}")
@@ -62,17 +69,11 @@ public class SalesRestController {
     }
 
 
-    @PutMapping("/updateLead/{email}")
+    @PutMapping(value = "/updateLead/{email}", produces = "application/json")
     public ResponseEntity<DTOClient> updateLeadByEmail(@PathVariable("email") String email, @RequestBody DTOLeadRequest leadRequest) {
         return leadService.updateLead(email,leadRequest);
     }
 
-
-//    @PutMapping("/updateLead")
-//    public ResponseEntity<Lead> updateLeadByEmail(@RequestBody Lead lead) {
-//        leadUpdateService.updateLeadMo(lead);
-//        return new ResponseEntity<Lead>(lead, HttpStatus.OK);
-//    }
 
 
     @DeleteMapping("/leadToStudent/{email}")

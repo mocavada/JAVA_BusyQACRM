@@ -6,6 +6,7 @@ import { CourseSchedule } from './academics-courseschedule';
 import { Paymentplan } from './finance-paymentplan';
 import { Course } from './academics-course';
 import { User } from './auth-user';
+import { Tax } from './finance-tax';
 
 
 export class Lead extends User {
@@ -28,6 +29,7 @@ export class Lead extends User {
 
     registrationFee: RegistrationFee;
     discount: Discount;
+    tax: Tax;
     paymentPlan: Paymentplan;
 
     course: Course;
