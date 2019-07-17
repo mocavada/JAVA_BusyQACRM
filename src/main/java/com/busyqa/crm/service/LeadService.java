@@ -1,7 +1,6 @@
 package com.busyqa.crm.service;
 
 
-import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.clients.DTOClient;
 import com.busyqa.crm.model.clients.DTOLeadRequest;
 import com.busyqa.crm.model.clients.Lead;
@@ -28,6 +27,9 @@ public class LeadService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private AcademicsService academicsService;
 
     @Autowired
     private AcademicsRepository academicsRepository;
@@ -59,8 +61,8 @@ public class LeadService {
 
 
 
-    public List<DTOClient> getAllLeadsByDtypeAndUserState(String type, String group) {
-        List<Lead> leads = leadRepository.findAllByDtypeAndUserStateOrderByIdDesc(type,group);
+    public List<DTOClient> getAllLeadsByDtypeAndUserState(String type, String state) {
+        List<Lead> leads = leadRepository.findAllByDtypeAndUserStateOrderByIdDesc(type,state);
         if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
         List<DTOClient> leadResponses = new ArrayList<>();
         System.out.println(leads.size());
@@ -70,6 +72,21 @@ public class LeadService {
         }
 
         return leadResponses;
+    }
+
+    public List<DTOClient> getAllLeadsByDtypeAndUserStateAndClientStatus(String type, String state, String status) {
+
+        List<Lead> leads = leadRepository.findAllByDtypeAndUserStateAndClientStatusOrderByIdDesc(type,state,status);
+        if (leads.isEmpty()) throw new RuntimeException("Empty Lead list!");
+        List<DTOClient> leadResponses = new ArrayList<>();
+        System.out.println(leads.size());
+
+        for (Lead l: leads) {
+            leadResponses.add(getLead(l));
+        }
+
+        return leadResponses;
+
     }
 
 
@@ -141,18 +158,30 @@ public class LeadService {
             l.setDiscount(financeRepository
                     .getDiscountById(leadRequest.getDiscount()));
 
+            l.setTax(financeRepository.getTaxById(leadRequest.getTax()));
+
             l.setPaymentPlan(financeRepository
                     .getPaymentPlanById(leadRequest.getPaymentPlan()));
+
 
             l.setCourse(academicsRepository
                     .getCourseById(leadRequest.getCourse()));
 
-            l.setTotalCourseFee(leadRequest.getTotalCourseFee());
+            l.setTotalCourseFee(
+
+                    (academicsRepository.getCourseById(leadRequest.getCourse()).getFee()
+                   + financeRepository.getRegistrationFeeById(leadRequest.getRegistrationFee()).getFee()
+                   - financeRepository.getDiscountById(leadRequest.getDiscount()).getAmount())
+                    * (1 + financeRepository.getTaxById(leadRequest.getTax()).getTaxRate())
+
+            );
+
 
             l.setCourseSchedule(academicsRepository
                     .getCourseScheduleById(leadRequest.getCourseSchedule()));
 
-            l.setTrainer( academicsRepository.getTrainerById(leadRequest.getTrainer()));
+            l.setTrainer( academicsRepository
+                    .getTrainerById(leadRequest.getTrainer()));
 
             l.setTrainingLocation(academicsRepository
                     .getTrainingLocationById(leadRequest.getTrainingLocation()));
@@ -177,10 +206,20 @@ public class LeadService {
                 .orElseThrow(() ->
                         new RuntimeException("Fail! -> Lead Not Found"));
 
-        Course course = academicsRepository.findByCourseName(lead.getCourse()
-                .getName()).orElseThrow(() -> new RuntimeException("Fail! -> No Course Found"));
+//        Course course = academicsRepository.findByCourseName(lead.getCourse()
+//                .getName()).orElseThrow(() -> new RuntimeException("Fail! -> No Course Found"));
 
         Student student = new Student();
+
+        student.setRegistrationFee(lead.getRegistrationFee());
+        student.setDiscount(lead.getDiscount());
+        student.setPaymentPlan(lead.getPaymentPlan());
+        student.setCourse(lead.getCourse());
+        student.setTotalCourseFee(lead.getTotalCourseFee());
+        student.setCourseSchedule(lead.getCourseSchedule());
+        student.setTrainer(lead.getTrainer());
+        student.setTrainingLocation(lead.getTrainingLocation());
+
         BeanUtils.copyProperties(lead,student);
 
 
@@ -252,6 +291,7 @@ public class LeadService {
 
                 l.getRegistrationFee(),
                 l.getDiscount(),
+                l.getTax(),
                 l.getPaymentPlan(),
                 l.getCourse(),
                 l.getTotalCourseFee(),

@@ -152,7 +152,9 @@ public class FinanceRepository implements FinanceRepositoryI {
 
     @Override
     public RegistrationFee getRegistrationFeeById(long id) {
-        return entityManager.find(RegistrationFee.class,id);
+
+        return entityManager.find(RegistrationFee.class, id);
+
     }
 
     @Override

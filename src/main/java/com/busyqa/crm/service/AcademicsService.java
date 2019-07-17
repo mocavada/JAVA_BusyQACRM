@@ -31,7 +31,7 @@ public class AcademicsService {
         return academicsRepository.getAllCourse(); }
 
 
-    public Course getCourseById(int id) {
+    public Course getCourseById(long id) {
         return academicsRepository.getCourseById(id);
     }
 
@@ -52,7 +52,7 @@ public class AcademicsService {
         return academicsRepository.getAllCourseSchedule(); }
 
 
-    public CourseSchedule getCourseScheduleById(int id) {
+    public CourseSchedule getCourseScheduleById(long id) {
 
         return academicsRepository.getCourseScheduleById(id);
     }
@@ -74,7 +74,8 @@ public class AcademicsService {
         return academicsRepository.getAllTrainer(); }
 
 
-    public Trainer getTrainerById(int id) {
+    public Trainer getTrainerById(long id) {
+
         return academicsRepository.getTrainerById(id);
     }
 
@@ -94,7 +95,8 @@ public class AcademicsService {
         return academicsRepository.getAllTrainingLocation(); }
 
 
-    public TrainingLocation getTrainingLocationById(int id) {
+    public TrainingLocation getTrainingLocationById(long id) {
+
         return academicsRepository.getTrainingLocationById(id);
     }
 

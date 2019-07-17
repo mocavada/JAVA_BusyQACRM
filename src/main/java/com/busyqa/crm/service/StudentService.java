@@ -81,10 +81,8 @@ public class StudentService {
             // !* create logic
             l.getWeeklyPayment();
             l.setPaymentLate(studentRequest.getPaymentLate());
-
             l.setPayments(studentRequest.getPayments());
-
-            l.setTaxRate(studentRequest.getTaxRate());
+            l.setTax(studentRequest.getTax());
             l.setLateFee(studentRequest.getLateFee());
 
 
@@ -135,6 +133,7 @@ public class StudentService {
 
                 l.getRegistrationFee(),
                 l.getDiscount(),
+                l.getTax(),
                 l.getPaymentPlan(),
 
                 l.getCourse(),
@@ -149,7 +148,6 @@ public class StudentService {
                 l.getWeeklyPayment(),
                 l.getPaymentLate(),
                 l.getPayments(),
-                l.getTaxRate(),
                 l.getLateFee()
         );
 

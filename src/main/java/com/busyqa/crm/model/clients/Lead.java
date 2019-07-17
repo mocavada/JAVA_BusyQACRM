@@ -9,9 +9,12 @@ import com.busyqa.crm.model.auth.UserGroup;
 import com.busyqa.crm.model.finance.Discount;
 import com.busyqa.crm.model.finance.PaymentPlan;
 import com.busyqa.crm.model.finance.RegistrationFee;
+import com.busyqa.crm.model.finance.Tax;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
@@ -47,6 +50,10 @@ public class Lead extends User {
     private Discount discount;
 
     @ManyToOne
+    @JoinColumn(name="tax_id")
+    private Tax tax;
+
+    @ManyToOne
     @JoinColumn(name = "paymentPlan_id")
     private PaymentPlan paymentPlan;
 
@@ -77,33 +84,7 @@ public class Lead extends User {
         super(username, password, email, firstName, usergroups);
     }
 
-
-    public Lead(String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
-        this.clientStatus = clientStatus;
-        this.leadSource = leadSource;
-        this.comments = comments;
-        this.isCurrentlyEmployed = isCurrentlyEmployed;
-        this.isCurrentlyITEmployed = isCurrentlyITEmployed;
-        this.desiredJob = desiredJob;
-        this.mailingStreet = mailingStreet;
-        this.mailingCity = mailingCity;
-        this.mailingState = mailingState;
-        this.mailingZip = mailingZip;
-        this.mailingCountry = mailingCountry;
-        this.isRegistrationFeePaid = isRegistrationFeePaid;
-        this.isPlanAgreementSigned = isPlanAgreementSigned;
-        this.isDiscountGiven = isDiscountGiven;
-        this.registrationFee = registrationFee;
-        this.discount = discount;
-        this.paymentPlan = paymentPlan;
-        this.course = course;
-        this.totalCourseFee = totalCourseFee;
-        this.courseSchedule = courseSchedule;
-        this.trainer = trainer;
-        this.trainingLocation = trainingLocation;
-    }
-
-    public Lead(String username, String password, String email, String firstName, Set<UserGroup> usergroups, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
+    public Lead(String username, String password, String email, String firstName, Set<UserGroup> usergroups, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, Tax tax, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
         super(username, password, email, firstName, usergroups);
         this.clientStatus = clientStatus;
         this.leadSource = leadSource;
@@ -121,6 +102,7 @@ public class Lead extends User {
         this.isDiscountGiven = isDiscountGiven;
         this.registrationFee = registrationFee;
         this.discount = discount;
+        this.tax = tax;
         this.paymentPlan = paymentPlan;
         this.course = course;
         this.totalCourseFee = totalCourseFee;
@@ -129,32 +111,13 @@ public class Lead extends User {
         this.trainingLocation = trainingLocation;
     }
 
-    public Lead(String username, String password, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, LocalDateTime createdTime, LocalDateTime modifiedTime, Set<UserGroup> usergroups, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation) {
-        super(username, password, email, firstName, lastName, phoneNumber, emergencyPhone, dtype, userState, createdTime, modifiedTime, usergroups);
-        this.clientStatus = clientStatus;
-        this.leadSource = leadSource;
-        this.comments = comments;
-        this.isCurrentlyEmployed = isCurrentlyEmployed;
-        this.isCurrentlyITEmployed = isCurrentlyITEmployed;
-        this.desiredJob = desiredJob;
-        this.mailingStreet = mailingStreet;
-        this.mailingCity = mailingCity;
-        this.mailingState = mailingState;
-        this.mailingZip = mailingZip;
-        this.mailingCountry = mailingCountry;
-        this.isRegistrationFeePaid = isRegistrationFeePaid;
-        this.isPlanAgreementSigned = isPlanAgreementSigned;
-        this.isDiscountGiven = isDiscountGiven;
-        this.registrationFee = registrationFee;
-        this.discount = discount;
-        this.paymentPlan = paymentPlan;
-        this.course = course;
-        this.totalCourseFee = totalCourseFee;
-        this.courseSchedule = courseSchedule;
-        this.trainer = trainer;
-        this.trainingLocation = trainingLocation;
+    public Tax getTax() {
+        return tax;
     }
 
+    public void setTax(Tax tax) {
+        this.tax = tax;
+    }
 
     public String getClientStatus() {
         return clientStatus;

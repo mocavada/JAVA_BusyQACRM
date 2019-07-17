@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class DTOLeadRequest {
 
-    private LocalDateTime createdTime;
+
     private LocalDateTime modifiedTime;
 
     //USER FIELDS
@@ -39,19 +39,19 @@ public class DTOLeadRequest {
     private Boolean isPlanAgreementSigned;
     private Boolean isDiscountGiven;
     // FINANCE
-    private long registrationFee;
-    private long discount;
-    private long paymentPlan;
+    private Long registrationFee;
+    private Long discount;
+    private Long tax;
+    private Long paymentPlan;
     // ACADEMICS
-    private int course;
+    private long course;
     private double totalCourseFee;
-    private int courseSchedule;
-    private int trainer;
-    private int trainingLocation;
+    private long courseSchedule;
+    private long trainer;
+    private long trainingLocation;
 
 
-    public DTOLeadRequest(LocalDateTime createdTime, LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, long registrationFee, long discount, long paymentPlan, int course, double totalCourseFee, int courseSchedule, int trainer, int trainingLocation) {
-        this.createdTime = createdTime;
+    public DTOLeadRequest(LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, Long registrationFee, Long discount, Long tax, Long paymentPlan, long course, double totalCourseFee, long courseSchedule, long trainer, long trainingLocation) {
         this.modifiedTime = modifiedTime;
         this.email = email;
         this.firstName = firstName;
@@ -77,6 +77,7 @@ public class DTOLeadRequest {
         this.isDiscountGiven = isDiscountGiven;
         this.registrationFee = registrationFee;
         this.discount = discount;
+        this.tax = tax;
         this.paymentPlan = paymentPlan;
         this.course = course;
         this.totalCourseFee = totalCourseFee;
@@ -85,12 +86,12 @@ public class DTOLeadRequest {
         this.trainingLocation = trainingLocation;
     }
 
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
+    public Long getTax() {
+        return tax;
     }
 
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
+    public void setTax(Long tax) {
+        this.tax = tax;
     }
 
     public LocalDateTime getModifiedTime() {
@@ -301,11 +302,20 @@ public class DTOLeadRequest {
         this.paymentPlan = paymentPlan;
     }
 
-    public int getCourse() {
-        return course;
+
+    public void setRegistrationFee(Long registrationFee) {
+        this.registrationFee = registrationFee;
     }
 
-    public void setCourse(int course) {
+    public void setDiscount(Long discount) {
+        this.discount = discount;
+    }
+
+    public void setPaymentPlan(Long paymentPlan) {
+        this.paymentPlan = paymentPlan;
+    }
+
+    public void setCourse(long course) {
         this.course = course;
     }
 
@@ -317,27 +327,32 @@ public class DTOLeadRequest {
         this.totalCourseFee = totalCourseFee;
     }
 
-    public int getCourseSchedule() {
+    public long getCourseSchedule() {
         return courseSchedule;
     }
 
-    public void setCourseSchedule(int courseSchedule) {
+    public void setCourseSchedule(long courseSchedule) {
         this.courseSchedule = courseSchedule;
     }
 
-    public int getTrainer() {
+    public long getTrainer() {
         return trainer;
     }
 
-    public void setTrainer(int trainer) {
+    public void setTrainer(long trainer) {
         this.trainer = trainer;
     }
 
-    public int getTrainingLocation() {
+    public long getTrainingLocation() {
         return trainingLocation;
     }
 
-    public void setTrainingLocation(int trainingLocation) {
+    public void setTrainingLocation(long trainingLocation) {
         this.trainingLocation = trainingLocation;
     }
+
+    public long getCourse() {
+        return course;
+    }
+
 }

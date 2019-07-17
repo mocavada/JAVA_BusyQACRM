@@ -14,7 +14,7 @@ public class CourseSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int courseScheduleId;
+    private long courseScheduleId;
 
     private String name;
     // DATES
@@ -60,8 +60,12 @@ public class CourseSchedule {
         this.name = name;
     }
 
-    public Integer getCourseScheduleId() {
+    public long getCourseScheduleId() {
         return courseScheduleId;
+    }
+
+    public void setCourseScheduleId(long courseScheduleId) {
+        this.courseScheduleId = courseScheduleId;
     }
 
     public void setCourseScheduleId(Integer courseScheduleId) {

@@ -6,33 +6,82 @@ h3 {font-weight: 200;}
 
 li { list-style: none; font-size: 0.8em;}
 
-
 /*  */
 .card-header {
   width: 100%;
   padding: 2% 4%;
 }
 
-.add-courses .card-body {
+.add-address .card-body, 
+.add-trainingLocation .card-body, 
+.add-trainer .card-body, 
+.add-courseSchedule .card-body, 
+.add-courses .card-body,
+.add-registrationFee .card-body, 
+.add-discount .card-body, 
+.add-paymentPlan .card-body, 
+.add-lateFee .card-body,
+.add-tax .card-body
+{
   display: none;
 }
 
-.add-address .card-body {
-  display: none;
-}
 
-.courses-addheading, .address-addheading {
+.address-addheading 
+{
   cursor: pointer;
   user-select: none;
   height: 50px;
   line-height: 50px;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 15px;
+}
+.addressbody { background-color: rgba(234,160,167,0.1); }
+.address-addheading { background-color: rgba(234,160,167,0.7); }
+
+.trainingLocationbody, 
+.trainerbody, 
+.courseSchedulebody, 
+.coursebody 
+{ 
+  background-color: rgba(244,187,85,0.1); 
 }
 
-.coursebody { background-color: rgba(127,195,191,0.1)}
-.addressbody { background-color: rgba(234,160,167,0.1)}
-.courses-addheading { background-color: #7fc3bf; }
-.address-addheading { background-color: #db848c; }
+.taxbody, 
+.lateFeebody, 
+.paymentPlanbody, 
+.discountbody, 
+.registrationFeebody 
+{ 
+  background-color:rgba(111,197,198,0.1);
+}
+
+.trainingLocation-addheading, 
+.trainer-addheading, 
+.courseSchedule-addheading, 
+.courses-addheading
+{ 
+  background-color: rgba(244,187,85,0.7); 
+  cursor: pointer;
+  user-select: none;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 0 0 15px;
+}
+
+.tax-addheading, 
+.lateFee-addheading, 
+.paymentPlan-addheading, 
+.discount-addheading, 
+.registrationFee-addheading
+{ 
+  background-color:rgba(111,197,198,0.7);
+  cursor: pointer;
+  user-select: none;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 0 0 15px;
+}
+
 
 
 .financeHeader { background-color:rgba(111,197,198,0.7); }
