@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+import { FileUploader } from 'ng2-file-upload';
+
 import 'rxjs/add/operator/map';
 import { Paymentplan } from '../../model/finance-paymentplan';
 import { Course } from './../../model/academics-course';
@@ -36,6 +38,7 @@ export class LeadDetailsComponent implements OnInit {
 
   messageObject: any;
   welcomeString: any;
+  portalLinkString: any;
 
   showAddress: boolean;
   showCourse: boolean;
@@ -309,11 +312,22 @@ export class LeadDetailsComponent implements OnInit {
       trainingLocation: this.leadExample.trainingLocation,
     });
 
-    // this.welcomeString = this.leadExample.firstName + '@' +
-    //                      this.leadExample.course.name + '@' +
-    //                      this.leadExample.course.description;
+    this.welcomeString = this.leadExample.firstName + '#' +
+                         this.leadExample.course.name + '#' +
+                         this.leadExample.course.description + '#' +
+                         this.leadExample.trainingLocation.name + '#' +
+                         this.leadExample.courseSchedule.timeStart + ' to ' +
+                         this.leadExample.courseSchedule.timeEnd  + '#' +
+                         this.leadExample.trainer.trainerName + '#' +
+                         this.leadExample.courseSchedule.dateStart + '#' +
+                         this.leadExample.courseSchedule.dateEnd;
 
-    // console.log('Message Strings - ' + this.welcomeString);
+
+    this.portalLinkString = this.leadExample.firstName + '#' +
+    'http://localhost:4200' + this.router.url;
+
+    console.log('Message Strings - ' + this.welcomeString);
+    console.log('This URL - ' + this.router.url);
   }
 
   updateForm() {
@@ -330,8 +344,8 @@ export class LeadDetailsComponent implements OnInit {
       clientStatus: [],
       leadSource: [],
       comments: [],
-      isCurrentlyEmployed: [],
-      isCurrentlyITEmployed: [],
+      isCurrentlyEmployed: '',
+      isCurrentlyITEmployed: '',
       desiredJob: [],
 
        // ADDRESS
@@ -357,31 +371,6 @@ export class LeadDetailsComponent implements OnInit {
       trainer: [],
       trainingLocation: []
 
-      // FINANCE PROPERTIES
-      // ACADEMICS PROPERTIES
-      // course: this.fb.group({
-      //   courseId: [],
-      // }),
-      // totalCourseFee: [],
-      // courseSchedule: this.fb.group({
-      //   courseScheduleId: [],
-      // }),
-      // trainer: this.fb.group({
-      //   trainerId: [],
-      // }),
-      // trainingLocation: this.fb.group({
-      //   trainingLocationId: [],
-      // }),
-      // // FINANCE PROPERTIES
-      // discount: this.fb.group({
-      //   discountId: [],
-      // }),
-      // registrationFee: this.fb.group({
-      //   registrationFeeId: [],
-      // }),
-      // paymentPlan: this.fb.group({
-      //   paymentPlanId: [],
-      // })
     });
 
   }
@@ -443,25 +432,45 @@ export class LeadDetailsComponent implements OnInit {
 
 
 
+  // onSendPortalLink() {
+  //   if (confirm('Are you sure you want to send portal link to this lead?')) {
+  //     this.salesService.sendEmailWithAttachment(this.route.snapshot.params.email)
+  //     .subscribe(
+  //       () => this.confirmationMessage = 'The portal link has been sent.',
+  //       (error: any) => console.error(error)
+  //     );
+  //   }
+  // }
+
+
   onSendPortalLink() {
-    if (confirm('Are you sure you want to send portal link to this lead?')) {
-      this.salesService.sendEmailWithAttachment(this.route.snapshot.params.email)
+    console.log(this.leadExample);
+    this.mail = new Mail(this.leadExample.email,
+                        'BusyQA Portal Link',
+                        this.portalLinkString
+                        );
+    if (confirm('Are you sure you want to send Portal Link?')) {
+      this.salesService.sendPortalLinkMail(this.mail)
       .subscribe(
-        () => this.confirmationMessage = 'The portal link has been sent.',
+        data => {
+          this.confirmationMessage = 'Portal Link Was Sent Successfully!';
+          this.isWPSent = true;
+          return true;
+        },
         (error: any) => console.error(error)
       );
     }
   }
 
 
-  onSendTemplate() {
+  onSendWelcomePackage() {
     console.log(this.leadExample);
     this.mail = new Mail(this.leadExample.email,
                         'BusyQA Welcome Package',
                         this.welcomeString
                         );
     if (confirm('Are you sure you want to send the welcome package?')) {
-      this.salesService.sendTemplateEmail(this.mail)
+      this.salesService.sendWelcomePackageMail(this.mail)
       .subscribe(
         data => {
           this.confirmationMessage = 'Welcome Package Was Sent Successfully!';

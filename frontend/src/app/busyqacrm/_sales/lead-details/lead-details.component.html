@@ -4,7 +4,7 @@
   <div class="col-3">
     <div class="row">
       <div class="col-12">
-        <h3 class="text-dark pt-3">{{leadExample?.firstName}} {{leadExample?.lastName}}</h3>
+        <h3 class="text-dark pt-3">{{leadExample?.id}} {{leadExample?.firstName}} {{leadExample?.lastName}}</h3>
         <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample?.email}}</p>
         <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample?.phoneNumber}} {{leadExample?.emergencyPhone}}</p>
       </div>
@@ -13,7 +13,8 @@
         <li>Lead Source : <b>{{leadExample?.leadSource}}</b></li>
         <li>Desired Job : <b>{{leadExample?.desiredJob}}</b></li>
         <li *ngIf="leadExample?.isCurrentlyEmployed">Currently Employed?</li>
-        <li *ngIf="leadExample?.isCurrentlyITEmployed">IT Experienced?</li>
+        <li *ngIf="leadExample?.isCurrentlyITEmployed">IT Experienced</li>
+     
       </div>  
       <div class="col-12 mt-2 pt-2 border-top">
         <p class="m-0 text-success"><b>{{leadExample?.course?.name}}</b></p>
@@ -77,15 +78,15 @@
               <h3 class="has-info">{{validMessage}}</h3>
             </div>
            
-            <div class="form-row mb-3">
+            <div class="form-row mb-1">
                 <button class="btn btn-outline-secondary text-center mr-3 my-auto"
                 style="width:100px;" type="button"
                 [routerLink]="['/dashboard/sales/leadslist']">CANCEL
                 </button>
 
                 <button class="btn btn-outline-success text-center mr-3 my-auto"
-                style="width:100px" type="button" title="Edit Properties"
-                (click)="onClickEditProperties()">EDIT
+                style="width:200px" type="button" title="Edit Properties"
+                (click)="onClickEditProperties()">ADD PROPERTIES
                 </button>
 
                 <button class="btn btn-outline-primary text-center mr-3 my-auto"
@@ -93,17 +94,18 @@
                           [disabled]="!editCLientForm.valid"> UPDATE
                 </button>
 
-                <button class="btn btn-outline-success text-center mr-3 my-auto" 
-                    style="width:140px" type="button" title="Send Portal Link"
-                    (click)="onSendPortalLink()">SEND LINK
-                </button>
+              </div>
+              <div class="form-row mb-3">
 
-            
-
-                <button class="btn btn-outline-primary text-center mr-3 my-auto" 
-                  style="width:180px" type="button" title="Send Welcome Package"
-                  (click)="onSendTemplate()">SEND PACKAGE
+                  <button class="btn btn-outline-primary text-center mr-3 my-auto" 
+                  style="width:190px" type="button" title="Send Portal Link"
+                  (click)="onSendPortalLink()">SEND PORTAL LINK
                 </button>
+                  <button class="btn btn-outline-primary text-center mr-3 my-auto" 
+                    style="width:250px" type="button" title="Send Welcome Package"
+                    (click)="onSendWelcomePackage()">SEND WELCOME PACKAGE
+                  </button>
+
               </div>
 
             <!-- CLIENT STATUS -->
@@ -199,14 +201,14 @@
                     formControlName="desiredJob" value="">
                 </div> 
                 <div class="form-check col-3 pt-2">
-                    <input class="form-check-input" type="checkbox" value="true" id="defaultCheck1"
+                    <input class="form-check-input" type="checkbox" [value]=true id="defaultCheck1"
                     name="isCurrentlyEmployed" formControlName="isCurrentlyEmployed">
                     <label class="form-check-label" for="defaultCheck1">
                       IT Experienced?
                     </label>
                 </div>
                 <div class="form-check col-3 pt-2">
-                    <input class="form-check-input" type="checkbox" value="true" id="defaultCheck2"
+                    <input class="form-check-input" type="checkbox" [value]=true id="defaultCheck2"
                     name="isCurrentlyITEmployed" formControlName="isCurrentlyITEmployed">
                     <label class="form-check-label" for="defaultCheck2">
                       Currently Employed?

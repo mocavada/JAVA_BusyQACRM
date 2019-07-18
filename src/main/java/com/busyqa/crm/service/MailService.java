@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
@@ -17,6 +18,7 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 @Service
 public class MailService {
@@ -83,18 +85,42 @@ public class MailService {
 
 
     // SEND EMAIL
-    public ResponseEntity<?> sendPreparedMail(Mail mail){
-        sendTemplatedMail(mail);
+    public ResponseEntity<?> sendWelcomePackageMail(Mail mail){
+        sendWelcomePackage(mail);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
-    // SEND EMAIL with TEMPLATE
-    public void sendTemplatedMail(Mail mail) {
+    public ResponseEntity<?> sendPortalLinkMail(Mail mail){
+        sendPortalLink(mail);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    public void sendPortalLink(Mail mail) {
 
         String messages = mail.getMessage();
-        String[] messagesArray = messages.split("@");
 
+        final Context context = new Context();
+
+
+        context.setVariable("message", mail.getMessage());
+
+        String[] messagesArray = messages.split("#");
+        context.setVariable("firstname", messagesArray[0]);
+        context.setVariable("accountLink", messagesArray[1]);
+
+        String body = templateEngine.process("portal-link-template", context);
+        sendPreparedMail(mail.getEmail(), mail.getSubject(), body, true);
+
+    }
+
+
+    // SEND EMAIL with TEMPLATE
+    public void sendWelcomePackage(Mail mail) {
+
+        String messages = mail.getMessage();
+        String[] messagesArray = messages.split("#");
 
         //get and fill the template
         final Context context = new Context();
@@ -129,6 +155,25 @@ public class MailService {
         } catch (Exception e) {
             LOGGER.error("Problem with sending email to: {}, error message: {}", to, e.getMessage());
         }
+    }
+
+    public void sendTemplatedEmailWithAttachment(String email, String fileNameComp) throws MailException, MessagingException {
+        // the portal link
+        String portalUrl = "http://localhost:4200/client/resetPassword/" + email;
+        //get and fill the template
+        final Context context = new Context();
+        context.setVariable("portalUrl", portalUrl);
+        String body = templateEngine.process("send-portal-link-email-template", context);
+        //send the html template
+        MimeMessage mail = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mail, true);
+        helper.setTo(email);
+        helper.setSubject("BusyQA Portal Registration And Payment Plan Agreement");
+        helper.setText(body, true);
+        String filePath = "/Users/mocavada/Documents/Learnings/Coop_BusyQA/uploads/planAgreement" + fileNameComp + ".pdf";
+        FileSystemResource file = new FileSystemResource(new File(filePath));
+        helper.addAttachment(file.getFilename(), file);
+        javaMailSender.send(mail);
     }
 
 }

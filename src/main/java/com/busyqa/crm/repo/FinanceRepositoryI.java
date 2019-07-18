@@ -22,6 +22,8 @@ public interface FinanceRepositoryI {
     List<Payment> getAllPayment();
     Payment getPaymentById(long id);
     List<Payment> getAllPaymentsByStudent(long id);
+    void addPayment(Payment payment);
+    boolean studentExist(Long id);
 
 
     //PAYMENT PLAN

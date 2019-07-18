@@ -1,8 +1,9 @@
 package com.busyqa.crm.service;
 
-import com.busyqa.crm.model.academics.Course;
 import com.busyqa.crm.model.clients.DTOClient;
+import com.busyqa.crm.model.clients.DTOStudentRequest;
 import com.busyqa.crm.model.clients.Student;
+import com.busyqa.crm.model.finance.Payment;
 import com.busyqa.crm.repo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +15,19 @@ import java.util.List;
 
 @Service
 public class StudentService {
-    @Autowired
-    private UserGroupRepository userGroupRepository;
-
-    @Autowired
-    private AcademicsRepositoryI academicsRepository;
 
     @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    private LeadRepository leadRepository;
 
     @Autowired
-    private InternRepository internRepository;
+    private FinanceRepository financeRepository;
+
+    @Autowired
+    private FinanceService financeService;
+
+    @Autowired
+    private PaymentRepositoryI paymentRepository;
 
     /**
      * @return
@@ -50,6 +50,10 @@ public class StudentService {
 
     }
 
+
+
+
+
     /**
      * @param email
      * @return
@@ -67,24 +71,28 @@ public class StudentService {
      * @param studentRequest
      * @return
      */
-    public ResponseEntity<DTOClient> updateStudent(String email, DTOClient studentRequest) {
+    public ResponseEntity<DTOClient> updateStudent(String email, DTOStudentRequest studentRequest) {
+
 
         return studentRepository.findByEmail(email).map(l -> {
 
-            Course course = academicsRepository.findByCourseName(studentRequest
-                    .getCourse().getName()).orElseThrow(() -> new RuntimeException("Fail! -> No Course Found"));
+            List<Payment> paymentList = new ArrayList<>();
+            paymentList.add(studentRequest.getPayments());
 
             // !* create logic
-            l.getAmountPaid();
+            l.setAmountPaid(getTotalPayments(email));
+
             // !* create logic
-            l.getBalance();
+            l.setBalance((l.getTotalCourseFee() - l.getAmountPaid()) + l.getLateFee().getFee());
             // !* create logic
-            l.getWeeklyPayment();
+            l.setWeeklyPayment(l.getTotalCourseFee() / (l.getPaymentPlan().getWeekFrequency()));
+
             l.setPaymentLate(studentRequest.getPaymentLate());
-            l.setPayments(studentRequest.getPayments());
-            l.setTax(studentRequest.getTax());
-            l.setLateFee(studentRequest.getLateFee());
 
+            l.setLateFee(financeRepository
+                    .getLateFeeById(studentRequest.getLateFee()));
+
+            l.setPayments(paymentList);
 
             this.studentRepository.save(l);
 
@@ -105,6 +113,7 @@ public class StudentService {
         return new DTOClient(
                 l.getCreatedTime(),
                 l.getModifiedTime(),
+                l.getId(),
                 l.getEmail(),
                 l.getFirstName(),
                 l.getLastName(),
@@ -152,6 +161,18 @@ public class StudentService {
         );
 
     }
+
+
+    public double getTotalPayments(String email) {
+        List<Payment> payments = paymentRepository.findAllByStudent_Email(email);
+
+        double sum = payments.stream()
+                .filter(o -> o.getAmount() > 10)
+                .mapToDouble(o -> o.getAmount()).sum();
+        return sum;
+    }
+
+
 
 
 

@@ -1,3 +1,5 @@
+import { FileUploadModule } from 'ng2-file-upload';
+
 
 import { LeadsListClientstatusComponent } from './busyqacrm/_sales/leads-list-clientstatus/leads-list-clientstatus.component';
 
@@ -95,6 +97,8 @@ library.add(fas, far, fab);
 import { AppComponent } from './app.component';
 
 
+
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -158,7 +162,8 @@ import { AppComponent } from './app.component';
       MatButtonModule,
       MatCheckboxModule,
       MatTabsModule,
-      MatGridListModule
+      MatGridListModule,
+      FileUploadModule,
    ],
    providers: [
       httpInterceptorProviders,

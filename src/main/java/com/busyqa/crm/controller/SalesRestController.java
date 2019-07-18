@@ -184,15 +184,15 @@ public class SalesRestController {
     }
 
 
-    @RequestMapping("/sendEmailWithAttachment/{email}")
-    public String sendWithAttachment(@PathVariable("email") String email) throws MessagingException {
+    @RequestMapping("/sendEmailWithAttachment/{email}/fileNameComp/{fileNameComp}")
+    public String sendWithAttachment(@PathVariable("email") String email, @PathVariable("fileNameComp") String fileNameComp) throws MessagingException {
 
         /*
          * Here we will call sendEmailWithAttachment() for Sending mail to the sender
          * that contains a attachment.
          */
         try {
-            mailService.sendEmailWithAttachment(email);
+            mailService.sendTemplatedEmailWithAttachment(email,fileNameComp);
         } catch (MailException mailException) {
             System.out.println(mailException);
         }
@@ -200,14 +200,28 @@ public class SalesRestController {
     }
 
 
+
     // SEND WELCOME PACKAGE EMAIL
-    @PostMapping("/sendEmailWithTemplate/")
-    public ResponseEntity<?> sendMailWithTemplate(@Valid @RequestBody Mail mail, Errors errors){
+    @PostMapping("/sendWelcomePackage/")
+    public ResponseEntity<?> sendClientPackage(@Valid @RequestBody Mail mail, Errors errors){
         if(errors.hasErrors()){
             return new ResponseEntity<>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        return mailService.sendPreparedMail(mail);
+        return mailService.sendWelcomePackageMail(mail);
     }
+
+
+    // SEND PORTAL LINK EMAIL
+    @PostMapping("/sendPortalLink/")
+    public ResponseEntity<?> sendPortalLink(@Valid @RequestBody Mail mail, Errors errors){
+        if(errors.hasErrors()){
+            return new ResponseEntity<>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        return mailService.sendPortalLinkMail(mail);
+    }
+
+
+
 
 
 

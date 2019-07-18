@@ -11,6 +11,7 @@ public class DTOLeadRequest {
     private LocalDateTime modifiedTime;
 
     //USER FIELDS
+    private Long id;
     private String email;
     private String firstName;
     private String lastName;
@@ -51,8 +52,9 @@ public class DTOLeadRequest {
     private long trainingLocation;
 
 
-    public DTOLeadRequest(LocalDateTime modifiedTime, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, Long registrationFee, Long discount, Long tax, Long paymentPlan, long course, double totalCourseFee, long courseSchedule, long trainer, long trainingLocation) {
+    public DTOLeadRequest(LocalDateTime modifiedTime, Long id, String email, String firstName, String lastName, String phoneNumber, String emergencyPhone, String dtype, String userState, Set<UserGroup> userGroup, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, Long registrationFee, Long discount, Long tax, Long paymentPlan, long course, double totalCourseFee, long courseSchedule, long trainer, long trainingLocation) {
         this.modifiedTime = modifiedTime;
+        this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -88,6 +90,14 @@ public class DTOLeadRequest {
 
     public Long getTax() {
         return tax;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setTax(Long tax) {
