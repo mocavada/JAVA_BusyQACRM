@@ -22,8 +22,10 @@ export class AuditApiService {
   updateLeadByEmailUrl = this.auditApiUrl + '/updateStudent/';
   // PAYMENT
   getPaymentsByStudentURL = this.auditApiUrl + '/studentPayments/';
+  getPaymentsByStudentEmailUrl = this.auditApiUrl + '/paymentsByStudentEmail/';
+  addPaymentByEmailUrl = this.auditApiUrl + '/createPayment/';
   // DISCOUNT
-  addDiscountUrl = this.auditApiUrl + '/addDiscount';
+  addDiscountUrl = this.auditApiUrl + '/addDiscount/';
   getAllDiscountUrl = this.auditApiUrl + '/discountList';
    // LATE FEE
   addLateFeeUrl = this.auditApiUrl + '/addLateFee';
@@ -71,6 +73,21 @@ export class AuditApiService {
   getPaymentsByStudent(id: number) {
     this.http.get<[Payment]>(this.getPaymentsByStudentURL + id).subscribe(data => {
       this.paymentResult$.next(data);
+    }, err => {
+      console.log('Something Wrong Getting Student Payments List! ' + err);
+    });
+  }
+
+  addPaymentByEmail(email: string, payment: Payment) {
+    return this.http.post(this.addPaymentByEmailUrl + email, payment);
+  }
+
+
+  getPaymentsByStudentEmail(email: string) {
+    this.http.get<[Payment]>(this.getPaymentsByStudentEmailUrl + email)
+    .subscribe(data => {
+      this.paymentResult$.next(data);
+      console.log('Success Payments List! ');
     }, err => {
       console.log('Something Wrong Getting Student Payments List! ' + err);
     });

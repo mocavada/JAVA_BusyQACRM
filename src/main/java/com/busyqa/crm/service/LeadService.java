@@ -28,8 +28,6 @@ public class LeadService {
     @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    private AcademicsService academicsService;
 
     @Autowired
     private AcademicsRepository academicsRepository;
@@ -96,7 +94,6 @@ public class LeadService {
      * @return
      */
     public DTOClient getLeadByEmail(String email) {
-
         Lead l = leadRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("Error: Email not found!"));
         return getLead(l);
@@ -128,6 +125,7 @@ public class LeadService {
 
         return leadRepository.findByEmail(email).map(l -> {
 
+            l.setId(leadRequest.getId());
             l.setEmail(leadRequest.getEmail());
             l.setFirstName(leadRequest.getFirstName());
             l.setLastName(leadRequest.getLastName());
@@ -167,6 +165,7 @@ public class LeadService {
             l.setCourse(academicsRepository
                     .getCourseById(leadRequest.getCourse()));
 
+            // Tax Calculation - Will Do Interface
             l.setTotalCourseFee(
 
                     (academicsRepository.getCourseById(leadRequest.getCourse()).getFee()
@@ -211,6 +210,7 @@ public class LeadService {
 
         Student student = new Student();
 
+
         student.setRegistrationFee(lead.getRegistrationFee());
         student.setDiscount(lead.getDiscount());
         student.setPaymentPlan(lead.getPaymentPlan());
@@ -245,7 +245,9 @@ public class LeadService {
 //        List<UserGroup> usergroups = userGroupRepository.findAll();
 
         lead.setUserState(EnumList.EMPLOYEE.toString());
+
         Lead saveEmployee = leadRepository.save(lead);
+
         return saveEmployee;
 
     }
@@ -262,6 +264,7 @@ public class LeadService {
         return new DTOClient(
                 l.getCreatedTime(),
                 l.getModifiedTime(),
+                l.getId(),
                 l.getEmail(),
                 l.getFirstName(),
                 l.getLastName(),
@@ -337,6 +340,9 @@ public class LeadService {
         }
 
     }
+
+
+
 
 
 

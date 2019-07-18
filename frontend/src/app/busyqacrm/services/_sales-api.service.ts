@@ -1,3 +1,5 @@
+import { MailPortallink } from './../model/util-mail-portallink';
+import { MailWelcomepackage } from './../model/util-mail-welcomepackage';
 import { Router } from '@angular/router';
 import { findIndex } from 'lodash';
 import { Traininglocation } from './../model/academics-traininglocation';
@@ -196,10 +198,17 @@ export class SalesApiService {
 
 
   // SEND WELCOME PACKAGE, INSTRUCTORS INFO and COURSE INFO
-  sendTemplateEmail(mail: Mail) {
+  sendWelcomePackageMail(mail: MailWelcomepackage) {
     return this.http
-    .post(this.salesApiUrl + '/sendEmailWithTemplate/', mail);
+    .post(this.salesApiUrl + '/sendWelcomePackage/', mail);
   }
+
+  sendPortalLinkMail(mail: MailPortallink) {
+    return this.http
+    .post(this.salesApiUrl + '/sendPortalLink/', mail);
+  }
+
+
 
   // SEND EMAIL WITH ATTACHMENT
   sendEmailWithAttachment(email: string) {

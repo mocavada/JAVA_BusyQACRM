@@ -3,9 +3,11 @@ import { AuditApiService } from './../../services/_audit-api.service';
 import { Payment } from './../../model/finance-payment';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Tax } from '../../model/finance-tax';
+import { Student } from '../../model/client-student';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-student-details',
@@ -15,85 +17,75 @@ import { Tax } from '../../model/finance-tax';
 export class StudentDetailsComponent implements OnInit {
 
   private sub: Subscription;
-  editCLientForm: FormGroup;
+  updateStudentForm: FormGroup;
+  addPaymentForm: FormGroup;
+
   validMessage = '';
   confirmationMessage = '';
   message: string;
+
+  showLateFee: boolean;
+  showEditProperties: boolean;
+
   studentExample: any;
-
-  messageObject: any;
-  welcomeString: any;
-
-  showCourse: boolean;
-  showAddress: boolean;
-  isWPSent: boolean;
-  isTISent: boolean;
-  isPLSent: boolean;
-  isWPSent1: boolean;
-
-  paymentList: Payment[];
-  taxList: Tax[];
+  paymentExample: any;
   lateFeeList: LateFee[];
+  paymentList: Payment[];
+
 
   constructor(private auditService: AuditApiService,
               private route: ActivatedRoute,
-              private fb: FormBuilder) {
-      this.showCourse = true;
-      this.showAddress = true;
-      this.isWPSent = true;
-      // this.isTISent = false;
-      // this.isPLSent = false;
+              private router: Router,
+              private fb: FormBuilder,
+              private location: Location) {
 
-  }
-
-  toggleCourseDisplay() {
-    console.log(this.showCourse);
-    this.showCourse = !this.showCourse;
-  }
-
-  toggleAddressDisplay() {
-    console.log(this.showAddress);
-    this.showAddress = !this.showAddress;
+              this.showLateFee = true;
   }
 
   ngOnInit() {
-    this.updateForm();
+    this.studentForm();
+    this.paymentForm();
 
     this.auditService.lateFeeResult$.subscribe(data => {
       if (data != null) {
         this.lateFeeList = data;
-        console.log('Successful Loading Late Fee List!');
+        console.log('Successful Loading LateFee List!');
         console.log(this.lateFeeList);
-      }
-    });
-
-    this.auditService.taxResult$.subscribe(data => {
-      if (data != null) {
-        this.taxList = data;
-        console.log('Successful Loading Tax List!');
-        console.log(this.taxList);
       }
     });
 
     this.auditService.getAllLateFee();
     console.log(this.lateFeeList);
 
-    this.auditService.getAllTax();
-    console.log(this.taxList);
 
+    this.auditService.paymentResult$.subscribe(data => {
+      if (data != null) {
+        this.paymentList = data;
+        console.log('Success Payment List!');
+        console.log(this.paymentList);
+      }
+    });
 
     this.sub = this.route.paramMap.subscribe(
       params => {
         const email = params.get('email');
         this.getStudent(email);
+        this.auditService.getPaymentsByStudentEmail(email);
       }
     );
+
+
+    console.log(this.paymentList);
 
 
 
     // console.log('welcome -' + this.welcomeString);
   }
 
+  toggleLateFeeeeDisplay() {
+    console.log(this.showLateFee);
+    this.showLateFee = !this.showLateFee;
+  }
 
   getStudent(email: string): void {
     this.auditService.getStudentByEmail(email)
@@ -108,26 +100,28 @@ export class StudentDetailsComponent implements OnInit {
 
 
   displayForm(data: any): void {
-    if (this.editCLientForm) {
-      this.editCLientForm.reset();
+    if (this.updateStudentForm) {
+      this.updateStudentForm.reset();
     }
     this.studentExample = data;
 
-    this.editCLientForm.patchValue({
+    this.updateStudentForm.patchValue({
       // USER
       id: this.studentExample.id,
       firstName: this.studentExample.firstName,
       lastName: this.studentExample.lastName,
-      phone: this.studentExample.phone,
+      phone: this.studentExample.phoneNumber,
       email: this.studentExample.email,
       emergencyPhone: this.studentExample.emergencyPhone,
+      dtype: this.studentExample.dtype,
+      userState: this.studentExample.userState,
 
       // LEAD
       clientStatus: this.studentExample.clientStatus,
       leadSource: this.studentExample.leadSource,
       comments: this.studentExample.comments,
-      currentlyEmployed: this.studentExample.currentlyEmployed,
-      currentlyITEmployed: this.studentExample.currentlyITEmployed,
+      isCurrentlyEmployed: this.studentExample.isCurrentlyEmployed,
+      currentlyITEmployed: this.studentExample.isCurrentlyITEmployed,
       desiredJob: this.studentExample.desiredJob,
 
        // ADDRESS
@@ -137,80 +131,101 @@ export class StudentDetailsComponent implements OnInit {
        mailingZip: this.studentExample.mailingZip,
        mailingCountry: this.studentExample.mailingCountry,
 
-       // BOOLEANS STATUS
-       isRegistrationFeePaid: this.studentExample.isRegistrationFeePaid,
-       isPlanAgreementSigned: this.studentExample.isPlanAgreementSigned,
-       isDiscountGiven: this.studentExample.isDiscountGiven,
-
-
-      // ACADEMICS
+      // BOOLEANS STATUS
+      isRegistrationFeePaid: this.studentExample.isRegistrationFeePaid,
+      isPlanAgreementSigned: this.studentExample.isPlanAgreementSigned,
+      isDiscountGiven: this.studentExample.isDiscountGiven,
+        // FINANCE PROPERTIES
+      registrationFee: this.studentExample.registrationFee,
+      discount: this.studentExample.discount,
+      tax: this.studentExample.tax,
+      paymentPlan: this.studentExample.paymentPlan,
+      // ACADEMICS PROPERTIES
       course: this.studentExample.course,
-      courseid: this.studentExample.course.id,
-      coursename: this.studentExample.course.name,
+      totalCourseFee: this.studentExample.totalCourseFee,
+      courseSchedule: this.studentExample.courseSchedule,
 
-      // DATE
-      createdTime: this.studentExample.createdTime,
-      modifiedTime: this.studentExample.modifiedTime,
+      trainer: this.studentExample.trainer,
+      trainingLocation: this.studentExample.trainingLocation,
 
+      // STUDENT HERE
+      amountPaid: this.studentExample.amountPaid,
+      balance: this.studentExample.balance,
+      weeklyPayment: this.studentExample.weeklyPayment,
+      isPaymentLate: this.studentExample.isPaymentLate,
+      payments: this.studentExample.payments,
+      lateFee: this.studentExample.lateFee,
     });
 
   }
 
+  paymentForm() {
+    this.addPaymentForm = this.fb.group({
+      amount: [],
+      remarks: [],
+      paymentDate: []
+    });
+  }
 
-  updateForm() {
-    this.editCLientForm = this.fb.group({
+  studentForm() {
+    this.updateStudentForm = this.fb.group({
       // USER
-      id: '',
-      email: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      phone: ['', Validators.required],
-      emergencyPhone: '',
-
-      // LEAD
-      clientStatus: '',
-      leadSource: '',
-      comments: '',
-      currentlyEmployed: '',
-      currentlyITEmployed: '',
-      desiredJob: '',
-
-       // ADDRESS
-       mailingStreet: '',
-       mailingCity: '',
-       mailingState: '',
-       mailingZip: '',
-       mailingCountry: '',
-
-      // BOOLEANS
-      isRegistrationFeePaid: '',
-      isPlanAgreementSigned: '',
-      isDiscountGiven: '',
-
-      // ACADEMICS
-      course: this.fb.group({
-        id: [0]
-      })
-
+      isPaymentLate: [],
+      lateFee: [],
     });
-
   }
 
-  onUpdate() {
-    if (this.editCLientForm.valid) {
+  onAddPayment(f: any) {
+    if (f.valid) {
       this.validMessage = 'Your information has been updated!';
+
       this.auditService
-      .updateStudentByEmail(this.route.snapshot.params.email, this.editCLientForm.value)
+      .addPaymentByEmail(this.route.snapshot.params.email, f.value)
       .subscribe(
         data => {
-          this.message = 'The student has been updated!';
+          this.message = 'This Student Payment is Postedd!';
+          this.paymentExample = data;
+          this.addPaymentForm.reset();
+          window.location.reload();
           return true;
         },
         error => {
-          alert('Couldnt update this student!'); });
+          alert('Couldnt Post Student Payment!'); });
     } else {
       this.validMessage = 'Please make sure the inputs are valid!';
     }
   }
+
+
+  onUpdateStudent(f: any) {
+    if (f.valid) {
+      this.validMessage = 'Your information has been updated!';
+
+      if (!f.value.lateFee) {
+        f.value.lateFee = this.studentExample.LateFee.lateFeeId;
+      }
+
+      // f.value.payments.studentId = this.studentExample.id;
+      this.auditService
+      .updateStudentByEmail(this.route.snapshot.params.email, f.value)
+      .subscribe(
+        data => {
+          this.message = 'This Student Info has been Updated!';
+          this.addPaymentForm.reset();
+          window.location.reload();
+          return true;
+        },
+        error => {
+          alert('Couldnt Update this Student Info! Please Select Late Fee'); });
+    } else {
+      this.validMessage = 'Please make sure the inputs are valid!';
+    }
+  }
+
+
+  cancel() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
+
 
 }

@@ -17,6 +17,8 @@ public interface UserBaseRepository<T extends User> extends JpaRepository<T, Lon
     Optional<T> findByUsername(String username);
     Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
+
+
     List<T> findAll();
     List<T> findAllByDtype(String type);
     List<T> findAllByDtypeAndUserStateAndClientStatusOrderByIdDesc(String type, String state, String status);
@@ -36,6 +38,9 @@ public interface UserBaseRepository<T extends User> extends JpaRepository<T, Lon
     @Transactional
     @Query("delete from #{#entityName} as u where u.username = :username")
     void deleteByUsername(@Param("username") String username);
+
+
+
 
     @Modifying
     @Transactional

@@ -1,6 +1,9 @@
 package com.busyqa.crm.repo;
 
+import com.busyqa.crm.model.clients.Student;
 import com.busyqa.crm.model.finance.*;
+import com.busyqa.crm.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -29,6 +32,7 @@ public class FinanceRepository implements FinanceRepositoryI {
 
     @Override
     public void addDiscount(Discount discount) {
+
         entityManager.persist(discount);
     }
 
@@ -91,12 +95,31 @@ public class FinanceRepository implements FinanceRepositoryI {
 
     @Override
     public List<Payment> getAllPaymentsByStudent(long id) {
-    String jpql = "SELECT p FROM Payment p INNER JOIN p.student s ON s.id =: id";
+    String jpql = "SELECT * FROM Payments p " +
+                  "JOIN p.student s " +
+                  "WHERE s.id =: id";
 
     return (List<Payment>) entityManager.createQuery(jpql)
             .setParameter("id",id)
             .getResultStream()
             .collect(Collectors.toList());
+    }
+
+    // Add Payment
+    @Override
+    public void addPayment(Payment payment) {
+        entityManager.persist(payment);
+    }
+
+    @Override
+    public boolean studentExist(Long id) {
+        String jpql = "from Student as a WHERE a.id =: id";
+
+        int count = entityManager.createQuery(jpql)
+                .setParameter("id",id)
+                .getResultList().size();
+
+        return count > 0;
     }
 
 
@@ -118,6 +141,7 @@ public class FinanceRepository implements FinanceRepositoryI {
 
     @Override
     public void addPaymentPlan(PaymentPlan paymentPlan) {
+
         entityManager.persist(paymentPlan);
     }
 

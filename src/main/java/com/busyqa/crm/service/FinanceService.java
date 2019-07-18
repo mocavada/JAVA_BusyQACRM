@@ -2,6 +2,8 @@ package com.busyqa.crm.service;
 
 import com.busyqa.crm.model.finance.*;
 import com.busyqa.crm.repo.FinanceRepositoryI;
+import com.busyqa.crm.repo.PaymentRepositoryI;
+import com.busyqa.crm.repo.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,13 @@ public class FinanceService {
 
     @Autowired
     private FinanceRepositoryI financeRepository;
+
+    @Autowired
+    private PaymentRepositoryI paymentRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
 
     // DISCOUNT
     //////////////
@@ -42,6 +51,7 @@ public class FinanceService {
 
 
     public LateFee getLateFeeById(long id) {
+
         return financeRepository.getLateFeeById(id);
     }
 
@@ -87,6 +97,47 @@ public class FinanceService {
     public List<Payment> getAllPaymentsByStudent(long id) {
         return financeRepository.getAllPaymentsByStudent(id);
     }
+
+    public List<Payment> getPaymentsByStudentId(long id) {
+        return (List<Payment>) paymentRepository.getPaymentByStudentId(id);
+    }
+
+    public List<Payment> getPaymentsByStudenEmail(String email) {
+        return (List<Payment>) paymentRepository.getPaymentByStudentEmail(email);
+    }
+
+
+    /**
+     * @return
+     */
+    public List<Payment> getAllPaymentsByEmail(String email) {
+
+        List<Payment> payments = paymentRepository.findAllByStudent_Email(email);
+
+        if (payments.isEmpty()) throw new RuntimeException("No Payments for this Student!");
+
+        return payments;
+
+    }
+
+    public synchronized boolean addPayment(Payment payment) {
+
+        if( financeRepository.studentExist(payment.getStudent().getId())) {
+            return false;
+        } else {
+            financeRepository.addPayment(payment);
+            return true;
+        }
+
+    }
+
+
+
+
+
+
+
+
 
 
     // REGISTRATION FEE

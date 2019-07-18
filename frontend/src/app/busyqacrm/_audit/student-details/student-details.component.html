@@ -1,449 +1,192 @@
 <h3 class="mt-0 p-2 text-white border-top border-dark w-100 bg-secondary">UPDATE LEAD</h3>
 
 <div class="m-2 row">
-  <div class="col-3">
-    <div class="row">
-      <div class="col-12">
-        <h3 class="text-dark pt-3">{{leadExample?.firstName}} {{leadExample?.lastName}}</h3>
-        <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample?.email}}</p>
-        <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample?.phoneNumber}} {{leadExample?.emergencyPhone}}</p>
-      </div>
-      <div class="col-12 mt-2 pt-2 border-top">
-        <p class="m-0 text-info"><b>Client Profile</b></p>
-        <li>Lead Source : <b>{{leadExample?.leadSource}}</b></li>
-        <li>Desired Job : <b>{{leadExample?.desiredJob}}</b></li>
-        <li *ngIf="leadExample?.isCurrentlyEmployed">Currently Employed?</li>
-        <li *ngIf="leadExample?.isCurrentlyITEmployed">IT Experienced?</li>
-      </div>  
-      <div class="col-12 mt-2 pt-2 border-top">
-        <p class="m-0 text-success"><b>{{leadExample?.course?.name}}</b></p>
-        <li class="text-dark">&ndash;&nbsp;{{leadExample?.course?.batch}}</li>
-        <li class="text-dark">&ndash;&nbsp;{{leadExample?.course?.fee|currency:'CAD'}}</li>
-    
-      </div>  
-      <div class="col-12 mt-1">
-          <li class="text-dark"><b>Schedule</b></li>
-          <li>&ndash;&nbsp;{{leadExample?.courseSchedule?.dateStart}} to {{leadExample?.courseSchedule?.dateEnd}}</li>
-          <li class="text-dark">&ndash;&nbsp;{{leadExample?.courseSchedule?.timeStart}} - {{leadExample?.courseSchedule?.timeEnd}}</li>
-      </div>  
-      <div class="col-12 mt-2">
-          <li class="text-dark"><b>Trainer</b></li>
-          <li class="text-dark">&ndash;&nbsp;<b>{{leadExample?.trainer?.trainerName}}</b> {{leadExample?.trainer?.trainerEmail}}</li>
-         
-      </div>
-      <div class="col-12 mt-2">
-          <li class="text-dark"><b>Location</b></li>
-          <li class="text-dark">&ndash;&nbsp;{{leadExample?.trainingLocation?.name}}</li>
-          <li class="text-dark">&ndash;&nbsp;{{leadExample?.trainingLocation?.street}},{{leadExample?.trainingLocation?.city}}</li>
-      </div> 
-      <div class="col-12 mt-2 pt-2 border-top">
-          <p class="m-0 text-info"><b>Plan Details</b></p>
-          <li class="text-dark"><b>Name : </b>{{leadExample?.paymentPlan?.name}}</li>
-          <li class="text-dark"><b>Method : </b>{{leadExample?.paymentPlan?.paymentMethod}}</li>
-          <li class="text-dark"><b>No. Weeks : </b>{{leadExample?.paymentPlan?.weekFrequency}}</li>
-      </div>
-
-      <div class="col-12 mt-3 pt-3 border-top">
-        <li class="m-0"><b>Registration Fee</b>&nbsp;{{leadExample?.registrationFee?.fee | currency:'CAD'}}</li>
-        <li class="m-0"><b>Discount</b>&nbsp;{{leadExample?.discount?.amount | currency:'CAD'}}</li>
-        <li class="mb-1"><b>Tax</b>&nbsp;{{leadExample?.tax?.taxRate}}</li>
-        <p class="m-0"><b>Total Fee</b><span class="text-danger">&nbsp;{{leadExample?.totalCourseFee|currency:'CAD'}}</span></p>
-      </div>  
-
-      
-       
-      
-  
-     
-  
-      <div class="col-12 mt-5 pt-2 border-top">
-        <p class="m-0"><b>Time Stamp</b></p>  
-        <li>Date Created: {{leadExample?.createdTime | date}}</li>
-        <li>Date Modified: {{leadExample?.modifiedTime | date}}</li> 
-      </div>
-    </div>
-  </div>
+ 
 
 
-  <div class="pl-4 pb-5 mb-5 col border-left border-secondary col-centered">
+  <div class="col col-centered pl-4 pb-5 mb-5 border-right border-secondary ">
 
      
           <div class="row pb-2 pt-2">
               <div class="col text-danger">{{confirmationMessage}}</div>
           </div>
 
-          <form [formGroup]="editCLientForm" (ngSubmit)="onUpdate(editCLientForm)" novalidate>
-            <div *ngIf="validMessage != ''">
-              <h3 class="has-info">{{validMessage}}</h3>
+          <div class="form-row mb-3">
+            <button class="btn btn-outline-secondary text-center mr-3 my-auto"
+            style="width:100px;" type="button"
+            (click)="cancel()">CANCEL
+            </button>
+
+        </div>
+            
+         
+            <!-- STUDENT STATUS -->
+  
+
+          <div class="row mb-3">
+
+            <div class="col-12 pb-2">
+              <h3 class="text-dark">{{studentExample?.id}} {{studentExample?.firstName}} {{studentExample?.lastName}}</h3>
+              <p class="m-0">
+                <small><fa-icon icon="envelope"></fa-icon></small> {{studentExample?.email}} &nbsp;
+                <small><fa-icon icon="phone"></fa-icon></small> {{studentExample?.phoneNumber}} {{studentExample?.emergencyPhone}}
+              </p>
             </div>
-           
-            <div class="form-row mb-3">
-                <button class="btn btn-outline-secondary text-center mr-3 my-auto"
-                style="width:100px;" type="button"
-                [routerLink]="['/dashboard/sales/leadslist']">CANCEL
-                </button>
 
-                <button class="btn btn-outline-success text-center mr-3 my-auto"
-                style="width:100px" type="button" title="Edit Properties"
-                (click)="onClickEditProperties()">EDIT
-                </button>
 
-                <button class="btn btn-outline-primary text-center mr-3 my-auto"
-                          style="width:100px;" type="submit"
-                          [disabled]="!editCLientForm.valid"> UPDATE
-                </button>
-
-                <button class="btn btn-outline-success text-center mr-3 my-auto" 
-                    style="width:140px" type="button" title="Send Portal Link"
-                    (click)="onSendPortalLink()">SEND LINK
-                </button>
-
-            
-
-                <button class="btn btn-outline-primary text-center mr-3 my-auto" 
-                  style="width:180px" type="button" title="Send Welcome Package"
-                  (click)="onSendTemplate()">SEND PACKAGE
-                </button>
-              </div>
-
-            <!-- CLIENT STATUS -->
-          <div class="row pb-3"> 
-            <h4 class="pl-3">{{leadExample?.clientStatus}}</h4>
-                <!-- <div class="col-12"><h4>Client Status</h4></div>
-                <div class="form-check" *ngFor="let item of clientStatusList; let i = index">
-                    <div class="col">
-                    <input class="form-check-input" type="radio" name="clientStatus" id="ls{{i}}" 
-                    value="{{item}}" formControlName="clientStatus">
-                    <label class="form-check-label" for="ls{{i}}">{{item}}</label>
-                    </div>
-              </div> -->
-
-              <div class="col-12 mt-2">
-                  <label>Comments:</label>
-                  <textarea placeholder="" class="form-control" formControlName="comments"></textarea>
-              </div>
-          </div>
-
-            
           
-           <!-- BASIC INFO -->
-           <div class="row">
-              <div class="col-12"><h4>Basic Info</h4></div>  
-           </div>
-          <label class="mt-2" for="firstName">Full Name</label>    
-          <div class="row mb-2">
-              <div class="col">
-                <input type="text" class="form-control" placeholder="First name" value=""
-                formControlName="firstName">
-              </div>
-              <div class="col">
-                <input type="text" class="form-control" placeholder="Last name"
-                formControlName="lastName">
-              </div>
-          </div>
-          <label class="mt-2" for="firstName">Contacts</label>    
-          <div class="row">
-              <div class="col">
-                <input type="text" class="form-control" placeholder="Phone Number" 
-                formControlName="phoneNumber">
-              </div>
-              <div class="col">
-                <input type="text" class="form-control" placeholder="Emergency Phone Number"
-                formControlName="emergencyPhone">
-              </div>
-           </div>
-
-                   <!-- ADDRESS -->
-          <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-address': showAddress}">
-              <div class="pl-4 address-addheading card-header text-white"
-              (click)="toggleAddressDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;MAILING ADDRESS
-              </div><!-- card-header -->
-              <div class="addressbody card-body">
-                <div class="form-group">
-                  <label for="inputAddress">Address</label>
-                  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"
-                  formControlName="mailingStreet">
+            <!-- COURSE -->
+            <div class="col-12 pt-2 border-top">
+                <div class="row">
+                  <div class="col-12">
+                      <p class="m-0 text-info"><b>Course Enrolled</b></p>
+                  </div>
                 </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity" formControlName="mailingCity">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputCity">State</label>
-                    <input type="text" class="form-control" id="inputCity" formControlName="mailingState">
-                  </div>
+                <div class="row">
+                    <div class="col-6">
+                      <li class="text-dark"><b>{{studentExample?.course?.name}}</b></li>
+                      <li class="text-dark">&ndash;&nbsp;{{studentExample?.course?.batch}}</li>
+                      <li class="text-dark">&ndash;&nbsp;{{studentExample?.course?.fee|currency:'CAD'}}</li>
                   
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip" formControlName="mailingZip">
+                    </div>  
+                    <div class="col-6">
+                        <li class="text-dark"><b>Schedule</b></li>
+                        <li>&ndash;&nbsp;{{studentExample?.courseSchedule?.dateStart|date}} to {{studentExample?.courseSchedule?.dateEnd|date}}</li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.courseSchedule?.timeStart}} to {{studentExample?.courseSchedule?.timeEnd}}</li>
+                    </div>  
+                    <div class="col-6 mt-2">
+                        <li class="text-dark"><b>Trainer</b></li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.trainer?.trainerName}}</li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.trainer?.trainerEmail}}</li>
+                      
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputZip">Country</label>
-                        <input type="text" class="form-control" id="inputZip" formControlName="mailingCountry">
+                    <div class="col-6 mt-2">
+                        <li class="text-dark"><b>Location</b></li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.trainingLocation?.name}}</li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.trainingLocation?.street}},{{studentExample?.trainingLocation?.city}}</li>
+                    </div> 
+               </div>
+           </div>
+          
+          </div>            
+            <!-- ADD PAYMENTS -->
+            <form [formGroup]="addPaymentForm" (ngSubmit)="onAddPayment(addPaymentForm)" novalidate>
+              <div *ngIf="validMessage != ''">
+                <h3 class="has-info">{{validMessage}}</h3>
+            </div> 
+            <div class="coursebody card-body">
+                <div class="form-group">
+                
+                      <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Payment"
+                          formControlName="amount" value="">
+                      </div>
+
+                      <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Remarks"
+                          formControlName="remarks" value="">
+                      </div>
+
+                      <div class="col-12 mb-2">
+                      <label for="sd">Start Date</label>  
+                          <input id="sd" type="date" class="form-control"
+                          formControlName="paymentDate">
+                      </div>
+
+                      <div class="form-row pl-3 mt-1">
+                      
+                        <button class="btn btn-outline-primary text-center mr-3 my-auto"
+                                style="width:140px;" type="submit" value="Post"
+                                [disabled]="!addPaymentForm.valid">ADD PAYMENT
+                        </button>
                     </div>
+                    
                 </div>
-            </div>
-            </div>
-        
-      
-             <!-- EMPLOYMENT PROFILE -->
-             <div class="row pb-3 mt-3">
-                <div class="col-12">
-                    <h4>Employment Profile</h4>
-                </div>
-                <div class="form-group col-5 pt-2">
-                    <input type="text" class="form-control" placeholder="Desired Job"
-                    formControlName="desiredJob" value="">
-                </div> 
-                <div class="form-check col-3 pt-2">
-                    <input class="form-check-input" type="checkbox" value="true" id="defaultCheck1"
-                    name="isCurrentlyEmployed" formControlName="isCurrentlyEmployed">
-                    <label class="form-check-label" for="defaultCheck1">
-                      IT Experienced?
-                    </label>
-                </div>
-                <div class="form-check col-3 pt-2">
-                    <input class="form-check-input" type="checkbox" value="true" id="defaultCheck2"
-                    name="isCurrentlyITEmployed" formControlName="isCurrentlyITEmployed">
-                    <label class="form-check-label" for="defaultCheck2">
-                      Currently Employed?
-                    </label>
-                </div>  
-            </div>
-
-        
-
-          <div *ngIf="showEditProperties">
-           <!-- START ADD PROPERTIES -->
-           <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-registrationFee': showRegistrationFee}">
-              <div class="pl-4 registrationFee-addheading card-header text-white"
-              (click)="toggleRegistrationFeeDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
-              ADD REGISTRATION FEE
-              </div><!-- card-header -->
-  
-              <div class="registrationFeebody card-body">
-        
-           <div class="row"  *ngFor="let item of registrationFeeList; let i = index">
-               <div class="form-check">
-                   <input class="form-check-input" type="radio" name="registrationFee" 
-                   id="Registration-{{i}}" 
-                   [value]="item.registrationFeeId"
-                   formControlName="registrationFee"
-                  >
-                   <label class="form-check-label" for="Registration-{{i}}">
-                       {{item.fee | currency:'CAD'}} - {{item.description}}
-                   </label>
-                 </div>
-           </div>
-           </div>
-           </div>
-        
-          
-           <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-discount': showDiscount}">
-              <div class="pl-4 discount-addheading card-header text-white"
-              (click)="toggleDiscountDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
-              ADD DISCOUNT
-              </div><!-- card-header -->
-  
-              <div class="discountbody card-body">
-       
-            <div class="row" *ngFor="let item of discountList; let i = index">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="discount"
-                    id="Discount{{i}}" 
-                    [value]="item.discountId"
-                    formControlName="discount"
-                    >
-                    <label class="form-check-label" for="Discount{{i}}">
-                       {{item.amount | currency:'CAD'}} - {{item.description}} - {{item.discountCode}}
-                    </label>
-                  </div>
-            </div>
-            </div>
-            </div>
-
-            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-tax': showTax}">
-                <div class="pl-4 tax-addheading card-header text-white"
-                (click)="toggleTaxDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
-                ADD TAX
-                </div><!-- card-header -->
-    
-                <div class="taxbody card-body">
-         
-              <div class="row" *ngFor="let item of taxList; let i = index">
-                  <div class="form-check">
-                      <input class="form-check-input" type="radio" name="tax"
-                      id="Tax{{i}}" 
-                      [value]="item.taxId"
-                      formControlName="tax"
-                      >
-                      <label class="form-check-label" for="Tax{{i}}">
-                         {{item.taxRate}} - {{item.taxCode}}
-                      </label>
-                    </div>
               </div>
-              </div>
-              </div>
-        
-          
-            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-paymentPlan': showPaymentPlan}">
-                <div class="pl-4 paymentPlan-addheading card-header text-white"
-                (click)="togglePaymentPlanDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
-                ADD PAYMENT PLAN
-                </div><!-- card-header -->
-                <div class="paymentPlanbody card-body">
-          
-            <div class="row" *ngFor="let item of paymentPlanList; let i = index">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="paymentPlan"
-                    id="PaymentPlan{{i}}" 
-                    [value]="item.paymentPlanId"
-                    formControlName="paymentPlan"
-                    >
-                    <label class="form-check-label" for="PaymentPlan{{i}}">
-                        {{item.name}} - {{item.weekFrequency}}
-                    </label>
-                  </div>
-            </div>
-            </div>
-          </div>
-          
+            </form>   
 
-            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
-                <div class="pl-4 courses-addheading card-header text-white"
-                (click)="toggleCourseDisplay()"><fa-icon icon="plus">plus</fa-icon>
-                &nbsp;ADD COURSE
+          <form [formGroup]="updateStudentForm" (ngSubmit)="onUpdateStudent(updateStudentForm)" novalidate>
+            
+            <!-- LATE FEE -->
+            <div class="card textcenter mt-5" [ngClass]="{'add-lateFee': showLateFee}">
+                <div class="pl-4 lateFee-addheading card-header text-white"
+                (click)="toggleLateFeeeeDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
+                ADD LATE FEE
                 </div><!-- card-header -->
-    
-                <div class="coursebody card-body">
-                  <div class="row" *ngFor="let item of courseList; let i = index">
+                <div class="lateFeebody card-body">
+                  <div class="row" *ngFor="let item of lateFeeList; let i = index">
                       <div class="form-check">
-                          <input class="form-check-input" type="radio" name="course"
-                          id="Course-{{i}}" 
-                          [value]="item.courseId"
-                          formControlName="course"
+                          <input class="form-check-input" type="radio" name="lateFee"
+                          id="LateFee{{i}}" 
+                          [value]="item.lateFeeId"
+                          formControlName="lateFee"
                           >
-                          <label class="form-check-label" for="Course-{{i}}">
-                              {{item.name}} - {{item.batch}} - {{item.fee | currency:'CAD'}}
+                          <label class="form-check-label" for="LateFee{{i}}">
+                            {{item.fee}} - {{item.description}}
                           </label>
                         </div>
                   </div>
                 </div>
-               </div>
-             
-    
-               <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courseSchedule': showCourseSchedule}">
-                  <div class="pl-4 courseSchedule-addheading card-header text-white"
-                  (click)="toggleCourseScheduleDisplay()"><fa-icon icon="plus">plus</fa-icon>
-                  &nbsp;ADD COURSE SCHEDULE
-                  </div><!-- card-header -->
-                    <div class="courseSchedulebody card-body">
-                  <div class="row" *ngFor="let item of courseScheduleList; let i = index">
-                      <div class="form-check">
-                          <input class="form-check-input" type="radio" name="courseSchedule"
-                          id="CourseSchedule-{{i}}" 
-                          [value]="item.courseScheduleId"
-                          formControlName="courseSchedule"
-                          >
-                          <label class="form-check-label" for="CourseSchedule-{{i}}">
-                              {{item.name}}, 
-                              {{item.dateStart|date}} to {{item.dateEnd|date}}
-                              ( {{item.timeStart}} to {{item.timeEnd}} )
-                          </label>
-                        </div>
-                  </div>
-                </div>
-               </div>
-              
-               <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-trainer': showTrainer}">
-                  <div class="pl-4 trainer-addheading card-header text-white"
-                  (click)="toggleTrainerDisplay()"><fa-icon icon="plus">plus</fa-icon>
-                  &nbsp;ADD TRAINER
-                  </div><!-- card-header -->
-                    <div class="trainerbody card-body">
-            
-               <div class="row" *ngFor="let item of trainerList; let i = index">
-                   <div class="form-check">
-                       <input class="form-check-input" type="radio" name="trainer"
-                       id="Trainer{{i}}" 
-                       [value]="item.trainerId"
-                       formControlName="trainer"
-                       >
-                       <label class="form-check-label" for="Trainer{{i}}">
-                          {{item.trainerName}} - {{item.trainerEmail}}
-                       </label>
-                     </div>
-               </div>
-               </div>
-               </div>
-               
-    
-               <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-trainingLocation': showTrainingLocation}">
-                  <div class="pl-4 trainingLocation-addheading card-header text-white"
-                  (click)="toggleTrainingLocationDisplay()"><fa-icon icon="plus">plus</fa-icon>
-                  &nbsp;ADD TRAINING LOCATION
-                  </div><!-- card-header -->
-                    <div class="trainingLocationbody card-body">
-               
-               <div class="row" *ngFor="let item of trainingLocationList; let i = index">
-                   <div class="form-check">
-                       <input class="form-check-input" type="radio" name="trainingLocation"
-                       id="TrainingLocation-{{i}}" 
-                       [value]="item.trainingLocationId"
-                       formControlName="trainingLocation"
-                       >
-                       <label class="form-check-label" for="TrainingLocation-{{i}}">
-                           {{item.name}} - {{item.street}}, {{item.city}}
-                       </label>
-                     </div>
-               </div>
-               </div>
-               </div>
-              </div>   <!-- END ADD PROPERTIES -->
-             
-              
-    
-          
-         
-           
-    
-            <!-- <hr><p>Trainer</p>
-            <div class="row" *ngFor="let item of trainerList; let i = index">
-                <li>{{item.id}} - {{item.trainerName}}</li>
+              </div>
+
+              <div class="form-row mb-5 mt-5 pl-2">
+                <button class="btn btn-outline-primary text-center mr-3 my-auto"
+                        style="width:300px;" type="submit" value="Post"
+                      [disabled]="!updateStudentForm.valid">UPDATE STUDENT RECORD
+                </button>
             </div>
 
-            <hr><p>Training Location</p>
-            <div class="row" *ngFor="let item of trainingLocationList; let i = index">
-                <li>{{item.id}} - {{item.name}}</li>
-            </div> -->
-
-
-            <!-- ADD COURSE LIST -->
-            <!-- <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}"> -->
-            
-              <!-- <div class="courses-addheading card-header text-white"
-              (click)="toggleCourseDisplay()"><fa-icon icon="plus"></fa-icon> ADD COURSE
-              </div>
-              <div class="coursebody card-body">
-                  <div class="form-group">
-                    <fieldset formGroupName="course">
-                    <div class="form-check" *ngFor="let item of courseList; let i = index">
-                      <input class="form-check-input" type="radio" name="id" id="c{{i}}"
-                      [formControlName="id" value={{item.id}}>
-                      <label class="form-check-label" for="c{{i}}"><p>{{item.name}}</p></label>
-                    </div>
-                  </fieldset>
-                  </div>
-                </div>
-              </div> -->
-            
-            
-        
-        
           </form> 
   
-        </div>    
+        </div> 
+        <div class="col-5">
+            <div class="row">
+          
+              <div class="col-12">
+                <h4 class="text-dark">Statement</h4>
+              </div>
+              <div class="col-12 mt-1 pt-2 border-top">
+                  <li class="m-0"><b>Registration Fee</b>&nbsp;{{studentExample?.registrationFee?.fee | currency:'CAD'}}</li>
+                  <li class="m-0"><b>Discount</b>&nbsp;{{studentExample?.discount?.amount|currency:'CAD'}}</li>
+                  <li class="m-0"><b>Tax</b>&nbsp;{{studentExample?.tax?.taxRate}}</li>
+                  <li class="mb-1"><b>Late Fee</b>&nbsp;{{studentExample?.lateFee?.fee|currency:'CAD'}}</li>
+                  <p class="m-0"><b>Total Fee</b><span class="text-info">&nbsp;{{studentExample?.totalCourseFee|currency:'CAD'}}</span></p>
+                  <p class="m-0"><b>Total Paid</b><span class="text-info">&nbsp;{{studentExample?.amountPaid|currency:'CAD'}}</span></p>
+                  <p class="m-0"><b>Balance</b><span class="text-info">&nbsp;{{studentExample?.balance|currency:'CAD'}}</span></p>
+                </div>   
+
+              <div class="col-12 mt-2 pt-2 border-top">
+                  <p class="m-0 text-success"><b>Plan Details</b></p>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>Name : </b>{{studentExample?.paymentPlan?.name}}
+                  </li>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>Method : </b>{{studentExample?.paymentPlan?.paymentMethod}}
+                  </li>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>No. Weeks : </b>{{studentExample?.paymentPlan?.weekFrequency}}
+                  </li>
+              
+              </div>
+              <div class="col-12 mt-2 pt-2 border-top">
+                  <p class="m-0 text-success"><b>Payment Schedule</b></p>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>Weekly Payment : </b>{{studentExample?.weeklyPayment|currency:'CAD'}}
+                  </li>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>Next Due Date : </b>{{studentExample?.paymentDate}}
+                  </li>
+                </div>  
+               
+              <div class="col-12 mt-2 pt-2 border-top">
+                  <p class="mb-2 text-success"><b>Payments</b></p>
+                  <ul *ngFor="let item of paymentList">
+                    <li class="text-dark m-0 p-0">&ndash;&nbsp;{{item.paymentDate|date}} <b>{{item?.amount|currency:'CAD'}}</b></li>
+                 </ul>
+              
+                </div>  
+              
+             
+            </div>
+          </div>   
   </div>

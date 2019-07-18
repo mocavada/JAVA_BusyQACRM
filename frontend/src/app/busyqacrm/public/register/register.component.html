@@ -2,9 +2,13 @@
   <div class="row mt-5">
     <div class="col"></div>
     <div class="col">
+
     <div *ngIf="isSignedUp; else signupForm">
-      Your registration is successful. Please login!
+      <h4>Your registration is successful. Please login!</h4>
+      <a routerLink="/auth/login" class="btn btn-success">Log In</a>
     </div>
+
+   
 
     <ng-template #signupForm>
      
@@ -47,6 +51,7 @@
               Signup failed!<br/>{{errorMessage}}
             </div>
           </div>
+         
         </form>
     
     </ng-template>

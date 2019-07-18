@@ -41,8 +41,12 @@ export class RegisterComponent implements OnInit {
         this.errorMessage = error.error.message;
         this.isSignUpFailed = true;
       }
+
+
     );
-    // this.router.navigate(['home']);
+
+
+
 
   }
 }

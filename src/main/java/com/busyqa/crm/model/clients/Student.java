@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static javax.persistence.CascadeType.PERSIST;
-
 @Entity
 @Table(name = "STUDENTS")
 public class Student extends Lead {
@@ -23,8 +21,12 @@ public class Student extends Lead {
     private double weeklyPayment;
     private Boolean isPaymentLate;
 
-    @OneToMany(cascade = PERSIST, mappedBy = "student")
+    @OneToMany(
+            mappedBy = "student",
+            cascade = CascadeType.ALL
+    )
     private List<Payment> payments = new ArrayList<>();
+
 
 
     @ManyToOne
@@ -35,19 +37,14 @@ public class Student extends Lead {
     public Student() {
     }
 
-    public Student(String username, String password, String email, String firstName, Set<UserGroup> usergroups, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, Tax taxRate, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, LateFee lateFee) {
-        super(username, password, email, firstName, usergroups, clientStatus, leadSource, comments, isCurrentlyEmployed, isCurrentlyITEmployed, desiredJob, mailingStreet, mailingCity, mailingState, mailingZip, mailingCountry, isRegistrationFeePaid, isPlanAgreementSigned, isDiscountGiven, registrationFee, discount, taxRate, paymentPlan, course, totalCourseFee, courseSchedule, trainer, trainingLocation);
+    public Student(String username, String password, String email, String firstName, Set<UserGroup> usergroups, String clientStatus, String leadSource, String comments, Boolean isCurrentlyEmployed, Boolean isCurrentlyITEmployed, String desiredJob, String mailingStreet, String mailingCity, String mailingState, String mailingZip, String mailingCountry, Boolean isRegistrationFeePaid, Boolean isPlanAgreementSigned, Boolean isDiscountGiven, RegistrationFee registrationFee, Discount discount, Tax tax, PaymentPlan paymentPlan, Course course, double totalCourseFee, CourseSchedule courseSchedule, Trainer trainer, TrainingLocation trainingLocation, double amountPaid, double balance, double weeklyPayment, Boolean isPaymentLate, List<Payment> payments, LateFee lateFee) {
+        super(username, password, email, firstName, usergroups, clientStatus, leadSource, comments, isCurrentlyEmployed, isCurrentlyITEmployed, desiredJob, mailingStreet, mailingCity, mailingState, mailingZip, mailingCountry, isRegistrationFeePaid, isPlanAgreementSigned, isDiscountGiven, registrationFee, discount, tax, paymentPlan, course, totalCourseFee, courseSchedule, trainer, trainingLocation);
         this.amountPaid = amountPaid;
         this.balance = balance;
         this.weeklyPayment = weeklyPayment;
         this.isPaymentLate = isPaymentLate;
         this.payments = payments;
         this.lateFee = lateFee;
-    }
-
-    public void setWeeklyPayment(double weeklyPayment) {
-
-        this.weeklyPayment = weeklyPayment;
     }
 
     public double getAmountPaid() {
@@ -66,6 +63,13 @@ public class Student extends Lead {
         this.balance = balance;
     }
 
+    public double getWeeklyPayment() {
+        return weeklyPayment;
+    }
+
+    public void setWeeklyPayment(double weeklyPayment) {
+        this.weeklyPayment = weeklyPayment;
+    }
 
     public Boolean getPaymentLate() {
         return isPaymentLate;
@@ -83,7 +87,6 @@ public class Student extends Lead {
         this.payments = payments;
     }
 
-
     public LateFee getLateFee() {
         return lateFee;
     }
@@ -92,11 +95,11 @@ public class Student extends Lead {
         this.lateFee = lateFee;
     }
 
-    public double getWeeklyPayment() {
-        return weeklyPayment;
+
+    public void addPayment(Payment payment) {
+        payments.add(payment);
+        payment.setPaymentId(this.getId());
     }
-
-
 
     // CUSTOM METHODS
 
