@@ -482,6 +482,17 @@ export class LeadDetailsComponent implements OnInit {
     }
   }
 
+  onConvertToStudent() {
+        this.salesService.changeLeadToStudent(this.route.snapshot.params.email)
+        .subscribe(
+          () => {this.editCLientForm.reset();
+                 window.location.reload();
+          },
+          (error: any) => console.error(error)
+        );
+    }
+  }
+
 
 
   // onUpdate(editForm: any) {
@@ -549,4 +560,4 @@ export class LeadDetailsComponent implements OnInit {
 
   // }
 
-}
+

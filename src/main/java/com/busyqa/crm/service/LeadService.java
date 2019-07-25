@@ -1,10 +1,7 @@
 package com.busyqa.crm.service;
 
 
-import com.busyqa.crm.model.clients.DTOClient;
-import com.busyqa.crm.model.clients.DTOLeadRequest;
-import com.busyqa.crm.model.clients.Lead;
-import com.busyqa.crm.model.clients.Student;
+import com.busyqa.crm.model.clients.*;
 import com.busyqa.crm.model.util.EnumList;
 import com.busyqa.crm.repo.AcademicsRepository;
 import com.busyqa.crm.repo.FinanceRepository;
@@ -112,6 +109,54 @@ public class LeadService {
         return getLead(l);
     }
 
+//    public ResponseEntity<DTOClient> updateLeadByUser(String email, DTOClient leadRequest) {
+//
+//
+//        return leadRepository.findByEmail(email).map(l -> {
+//
+//            l.setId(leadRequest.getId());
+//            l.setEmail(leadRequest.getEmail());
+//            l.setFirstName(leadRequest.getFirstName());
+//            l.setLastName(leadRequest.getLastName());
+//            l.setPhoneNumber(leadRequest.getPhoneNumber());
+//            l.setEmergencyPhone(leadRequest.getEmergencyPhone());
+//
+//            l.setClientStatus(leadRequest.getClientStatus());
+//            l.setLeadSource(leadRequest.getLeadSource());
+//            l.setComments(leadRequest.getComments());
+//            l.setCurrentlyEmployed(leadRequest.getCurrentlyEmployed());
+//            l.setCurrentlyITEmployed(leadRequest.getCurrentlyITEmployed());
+//            l.setDesiredJob(leadRequest.getDesiredJob());
+//
+//            l.setMailingStreet(leadRequest.getMailingStreet());
+//            l.setMailingCity(leadRequest.getMailingCity());
+//            l.setMailingState(leadRequest.getMailingState());
+//            l.setMailingZip(leadRequest.getMailingZip());
+//            l.setMailingCountry(leadRequest.getMailingCountry());
+//
+//
+//            l.setRegistrationFeePaid(leadRequest.getRegistrationFeePaid());
+//            l.setPlanAgreementSigned(leadRequest.getPlanAgreementSigned());
+//            l.setDiscountGiven(leadRequest.getDiscountGiven());
+//
+//
+//            l.setPaymentPlan(financeRepository
+//                    .getPaymentPlanById(leadRequest.getPaymentPlan()));
+//
+//            l.setCourse(academicsRepository
+//                    .getCourseById(leadRequest.getCourse()));
+//
+//            // Tax Calculation - Will Do Interface
+//
+//
+//            this.leadRepository.save(l);
+//            DTOClient leadResonse = new DTOClient();
+//            BeanUtils.copyProperties(leadRequest, leadResonse);
+//
+//            return ResponseEntity.ok().body(leadResonse);
+//        }).orElse(ResponseEntity.notFound().build());
+//
+//    }
 
 
 

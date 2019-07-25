@@ -74,6 +74,11 @@ public class SalesRestController {
         return leadService.updateLead(email,leadRequest);
     }
 
+//    @PutMapping(value = "/updateLeadByUser/{email}", produces = "application/json")
+//    public ResponseEntity<DTOUser> updateLeadByUser(@PathVariable("email") String email, @RequestBody DTOLeadRequest leadRequest) {
+//        return leadService.updateLeadByUser(email,leadRequest);
+//    }
+//
 
 
     @DeleteMapping("/leadToStudent/{email}")
