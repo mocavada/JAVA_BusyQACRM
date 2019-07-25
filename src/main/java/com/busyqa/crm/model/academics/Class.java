@@ -1,7 +1,5 @@
 package com.busyqa.crm.model.academics;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +7,7 @@ import javax.persistence.*;
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(unique=true)
     private String name;
@@ -26,7 +24,7 @@ public class Class {
         this.units = units;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -1,0 +1,27 @@
+
+<div class="m-3 row">
+    <div class="col-5 border-right">
+        <app-add-course></app-add-course>
+    </div>
+
+    <div class="col border-left">
+        <div class="card"  *ngFor="let item of courseList; let i = index">
+            <div class="card-body border-bottom">
+            <div class="row">  
+                <div class="col">
+                    <h5 class="card-title">{{item.name}}</h5>
+                </div>
+                <div class="col">
+                        <h5 class="card-subtitle text-muted">Fee : {{item.fee}}</h5>
+                </div>
+                <div class="col">
+                        <h5 class="card-subtitle text-muted">Batch : {{item.batch}}</h5>
+                </div>
+            </div>
+            <p class="card-text">{{item.description}}</p>
+            <a href="#" class="card-link">View Classes</a>
+            
+            </div>
+        </div>
+    </div>   
+</div>     

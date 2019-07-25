@@ -1,25 +1,35 @@
 package com.busyqa.crm.model.finance;
 
-import com.busyqa.crm.model.clients.Client;
+import com.busyqa.crm.model.clients.Student;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "PAYMENTS")
-public class Payment implements Serializable {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long paymentId;
     private double amount;
-    private String transactionCode;
+    private String remarks;
+    // DATE
+    @Basic
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    private Calendar paymentDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Student student;
+
 
     // DATE
     @CreationTimestamp
@@ -27,20 +37,35 @@ public class Payment implements Serializable {
     @UpdateTimestamp
     private LocalDateTime modifiedTime;
 
-    //
+
+
+
     public Payment() {
     }
 
-    public Payment(double amount, String transactionCode, Client client, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public Payment(double amount, String remarks, Calendar paymentDate, Student student, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.amount = amount;
-        this.transactionCode = transactionCode;
-        this.client = client;
+        this.remarks = remarks;
+        this.paymentDate = paymentDate;
+        this.student = student;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
     }
 
-    public Long getId() {
-        return id;
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Long getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
     }
 
     public double getAmount() {
@@ -51,24 +76,20 @@ public class Payment implements Serializable {
         this.amount = amount;
     }
 
-    public String getTransactionCode() {
-        return transactionCode;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setTransactionCode(String transactionCode) {
-        this.transactionCode = transactionCode;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Calendar getPaymentDate() {
+        return paymentDate;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
+    public void setPaymentDate(Calendar paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public LocalDateTime getCreatedTime() {
@@ -86,4 +107,14 @@ public class Payment implements Serializable {
     public void setModifiedTime(LocalDateTime modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
+
+    //    @JsonIgnore
+//    public double getPaidAmount() {
+//        if( paymentStatus.equals(EnumList.PAID.toString())) {
+//            return (regularFee + taxFee);
+//        } else if (paymentStatus.equals(EnumList.PAID_WITH_LATE_FEE.toString())) {
+//            return amount;
+//        } else {
+//            return 0;}
+//    }
 }

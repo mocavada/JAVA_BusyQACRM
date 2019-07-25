@@ -1,5 +1,5 @@
 import { AuditApiService } from './../services/_audit-api.service';
-import { Client } from './../model/client';
+
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 
@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class AuditComponent implements OnInit {
 
   errorMessage: string;
-  studentList: Client[];
+
 
   constructor(private auditService: AuditApiService,
               private router: Router) { }

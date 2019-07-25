@@ -1,0 +1,192 @@
+<h3 class="mt-0 p-2 text-white border-top border-dark w-100 bg-secondary">UPDATE LEAD</h3>
+
+<div class="m-2 row">
+ 
+
+
+  <div class="col col-centered pl-4 pb-5 mb-5 border-right border-secondary ">
+
+     
+          <div class="row pb-2 pt-2">
+              <div class="col text-danger">{{confirmationMessage}}</div>
+          </div>
+
+          <div class="form-row mb-3">
+            <button class="btn btn-outline-secondary text-center mr-3 my-auto"
+            style="width:100px;" type="button"
+            (click)="cancel()">CANCEL
+            </button>
+
+        </div>
+            
+         
+            <!-- STUDENT STATUS -->
+  
+
+          <div class="row mb-3">
+
+            <div class="col-12 pb-2">
+              <h3 class="text-dark">{{studentExample?.id}} {{studentExample?.firstName}} {{studentExample?.lastName}}</h3>
+              <p class="m-0">
+                <small><fa-icon icon="envelope"></fa-icon></small> {{studentExample?.email}} &nbsp;
+                <small><fa-icon icon="phone"></fa-icon></small> {{studentExample?.phoneNumber}} {{studentExample?.emergencyPhone}}
+              </p>
+            </div>
+
+
+          
+            <!-- COURSE -->
+            <div class="col-12 pt-2 border-top">
+                <div class="row">
+                  <div class="col-12">
+                      <p class="m-0 text-info"><b>Course Enrolled</b></p>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                      <li class="text-dark"><b>{{studentExample?.course?.name}}</b></li>
+                      <li class="text-dark">&ndash;&nbsp;{{studentExample?.course?.batch}}</li>
+                      <li class="text-dark">&ndash;&nbsp;{{studentExample?.course?.fee|currency:'CAD'}}</li>
+                  
+                    </div>  
+                    <div class="col-6">
+                        <li class="text-dark"><b>Schedule</b></li>
+                        <li>&ndash;&nbsp;{{studentExample?.courseSchedule?.dateStart|date}} to {{studentExample?.courseSchedule?.dateEnd|date}}</li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.courseSchedule?.timeStart}} to {{studentExample?.courseSchedule?.timeEnd}}</li>
+                    </div>  
+                    <div class="col-6 mt-2">
+                        <li class="text-dark"><b>Trainer</b></li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.trainer?.trainerName}}</li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.trainer?.trainerEmail}}</li>
+                      
+                    </div>
+                    <div class="col-6 mt-2">
+                        <li class="text-dark"><b>Location</b></li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.trainingLocation?.name}}</li>
+                        <li class="text-dark">&ndash;&nbsp;{{studentExample?.trainingLocation?.street}},{{studentExample?.trainingLocation?.city}}</li>
+                    </div> 
+               </div>
+           </div>
+          
+          </div>            
+            <!-- ADD PAYMENTS -->
+            <form [formGroup]="addPaymentForm" (ngSubmit)="onAddPayment(addPaymentForm)" novalidate>
+              <div *ngIf="validMessage != ''">
+                <h3 class="has-info">{{validMessage}}</h3>
+            </div> 
+            <div class="coursebody card-body">
+                <div class="form-group">
+                
+                      <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Payment"
+                          formControlName="amount" value="">
+                      </div>
+
+                      <div class="col-12 mb-2">
+                          <input type="text" class="form-control" placeholder="Remarks"
+                          formControlName="remarks" value="">
+                      </div>
+
+                      <div class="col-12 mb-2">
+                      <label for="sd">Start Date</label>  
+                          <input id="sd" type="date" class="form-control"
+                          formControlName="paymentDate">
+                      </div>
+
+                      <div class="form-row pl-3 mt-1">
+                      
+                        <button class="btn btn-outline-primary text-center mr-3 my-auto"
+                                style="width:140px;" type="submit" value="Post"
+                                [disabled]="!addPaymentForm.valid">ADD PAYMENT
+                        </button>
+                    </div>
+                    
+                </div>
+              </div>
+            </form>   
+
+          <form [formGroup]="updateStudentForm" (ngSubmit)="onUpdateStudent(updateStudentForm)" novalidate>
+            
+            <!-- LATE FEE -->
+            <div class="card textcenter mt-5" [ngClass]="{'add-lateFee': showLateFee}">
+                <div class="pl-4 lateFee-addheading card-header text-white"
+                (click)="toggleLateFeeeeDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
+                ADD LATE FEE
+                </div><!-- card-header -->
+                <div class="lateFeebody card-body">
+                  <div class="row" *ngFor="let item of lateFeeList; let i = index">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="lateFee"
+                          id="LateFee{{i}}" 
+                          [value]="item.lateFeeId"
+                          formControlName="lateFee"
+                          >
+                          <label class="form-check-label" for="LateFee{{i}}">
+                            {{item.fee}} - {{item.description}}
+                          </label>
+                        </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row mb-5 mt-5 pl-2">
+                <button class="btn btn-outline-primary text-center mr-3 my-auto"
+                        style="width:300px;" type="submit" value="Post"
+                      [disabled]="!updateStudentForm.valid">UPDATE STUDENT RECORD
+                </button>
+            </div>
+
+          </form> 
+  
+        </div> 
+        <div class="col-5">
+            <div class="row">
+          
+              <div class="col-12">
+                <h4 class="text-dark">Statement</h4>
+              </div>
+              <div class="col-12 mt-1 pt-2 border-top">
+                  <li class="m-0"><b>Registration Fee</b>&nbsp;{{studentExample?.registrationFee?.fee | currency:'CAD'}}</li>
+                  <li class="m-0"><b>Discount</b>&nbsp;{{studentExample?.discount?.amount|currency:'CAD'}}</li>
+                  <li class="m-0"><b>Tax</b>&nbsp;{{studentExample?.tax?.taxRate}}</li>
+                  <li class="mb-1"><b>Late Fee</b>&nbsp;{{studentExample?.lateFee?.fee|currency:'CAD'}}</li>
+                  <p class="m-0"><b>Total Fee</b><span class="text-info">&nbsp;{{studentExample?.totalCourseFee|currency:'CAD'}}</span></p>
+                  <p class="m-0"><b>Total Paid</b><span class="text-info">&nbsp;{{studentExample?.amountPaid|currency:'CAD'}}</span></p>
+                  <p class="m-0"><b>Balance</b><span class="text-info">&nbsp;{{studentExample?.balance|currency:'CAD'}}</span></p>
+                </div>   
+
+              <div class="col-12 mt-2 pt-2 border-top">
+                  <p class="m-0 text-success"><b>Plan Details</b></p>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>Name : </b>{{studentExample?.paymentPlan?.name}}
+                  </li>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>Method : </b>{{studentExample?.paymentPlan?.paymentMethod}}
+                  </li>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>No. Weeks : </b>{{studentExample?.paymentPlan?.weekFrequency}}
+                  </li>
+              
+              </div>
+              <div class="col-12 mt-2 pt-2 border-top">
+                  <p class="m-0 text-success"><b>Payment Schedule</b></p>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>Weekly Payment : </b>{{studentExample?.weeklyPayment|currency:'CAD'}}
+                  </li>
+                  <li class="text-dark">&ndash;&nbsp;
+                    <b>Next Due Date : </b>{{studentExample?.paymentDate}}
+                  </li>
+                </div>  
+               
+              <div class="col-12 mt-2 pt-2 border-top">
+                  <p class="mb-2 text-success"><b>Payments</b></p>
+                  <ul *ngFor="let item of paymentList">
+                    <li class="text-dark m-0 p-0">&ndash;&nbsp;{{item.paymentDate|date}} <b>{{item?.amount|currency:'CAD'}}</b></li>
+                 </ul>
+              
+                </div>  
+              
+             
+            </div>
+          </div>   
+  </div>

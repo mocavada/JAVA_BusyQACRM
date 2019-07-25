@@ -1,7 +1,7 @@
-import { TokenStorageService } from './auth/token-storage.service';
+import { TokenStorageService } from './security/token-storage.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/finally';
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';

@@ -1,0 +1,63 @@
+<div class="container">
+<div class="row pt-5 mt-5">
+  <div class="col"></div>
+  <div class="col pt-5">
+    <div class="row">
+        <div class="col-12">
+            <img class="rounded align-self-center img-fluid" 
+            style="width:200px;" 
+            src="assets/icons/busyqafulllogo.png" alt="Busy QA Logo">
+        </div>
+    </div>
+    <div class="row pt-5" *ngIf="isLoggedIn; else loggedOut">
+        <div class="col-12">
+          <h3>Hello {{username}}</h3>
+        </div>
+        <div *ngIf="!isClient" class="col-12">
+          <button class="mt-5 pr-5" centered routerLink="/dashboard/{{authority}}">VIEW DASHBOARD</button>
+        </div> 
+        <div *ngIf="isClient" class="col-12">
+          <button class="mt-5 pr-5" centered (click)="onClick()">VIEW ACCOUNT</button>
+      </div>  
+    </div>
+
+  <ng-template #loggedOut>
+    <div class="row pl-2 pt-5" style="max-width:350px;">
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" name="username" [(ngModel)]="form.username" #username="ngModel"
+            required />
+          <div *ngIf="f.submitted && username.invalid">
+            <div *ngIf="username?.errors?.required">Username is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"
+            required minlength="8" />
+          <div *ngIf="f.submitted && password.invalid">
+            <div *ngIf="password?.errors.required">Password is required</div>
+            <div *ngIf="password?.errors.minlength">Password must be at least 8 characters</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary">Login</button>
+          <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
+            Login failed: {{errorMessage}}
+          </div>
+        </div>
+      </form>
+      <hr />
+      <div class="form-group">
+          <p>Don't have an account?</p>
+          <a routerLink="/auth/signup" class="btn btn-success">Register</a>
+      </div>
+    </div>
+  </ng-template>
+  </div>
+  <div class="col"></div>  
+</div>
+</div>
+
+<!--  -->

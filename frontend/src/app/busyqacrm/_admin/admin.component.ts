@@ -1,14 +1,10 @@
-import { UserService } from './../services/user.service';
-import { UserRequest } from './../model/user-request';
-import { UserResponse } from './../model/user-response';
-import { User } from '../model/user';
-import { Role } from '../model/role';
+import { User } from '../model/auth-user';
 import { HttpClient } from '@angular/common/http';
 
 import { Component, OnInit } from '@angular/core';
 
 
-import { TokenStorageService } from '../auth/token-storage.service';
+import { TokenStorageService } from '../security/token-storage.service';
 import {Router} from '@angular/router';
 
 
@@ -46,13 +42,13 @@ export class AdminComponent implements OnInit {
 
     // Find the User ROLE
       this.roles.find(role => {
-        if (this.roles.includes('ROLE_ADMIN' || 'ADMIN')) {
+        if (this.roles.includes('ROLE_ADMIN')) {
           this.authority = 'admin';
           return false;
-        } else if (this.roles.includes('ROLE_AUDIT' || 'AUDIT')) {
+        } else if (this.roles.includes('ROLE_AUDIT')) {
           this.authority = 'audit';
           return false;
-        } else if (this.roles.includes('ROLE_SALES' || 'SALES')) {
+        } else if (this.roles.includes('ROLE_SALES')) {
           this.authority = 'sales';
           return false;
         } else {

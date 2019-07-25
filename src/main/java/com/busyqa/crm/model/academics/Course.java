@@ -1,64 +1,81 @@
 package com.busyqa.crm.model.academics;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
-import java.util.*;
-import static javax.persistence.CascadeType.PERSIST;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "COURSES")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private long courseId;
     private String name;
+    private String batch;
     private String description;
-    private String location;
-    private String trainer;
-    private String time;
+    private Double fee;
 
-    @OneToMany(cascade = PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Class> classes = new ArrayList<>();
 
-    // DATES
-    @Basic
-    @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Calendar startDate;
-    @Basic
-    @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Calendar endDate;
+    // TEMPORAL
+    @CreationTimestamp
+    private LocalDateTime createdTime;
+    @UpdateTimestamp
+    private LocalDateTime modifiedTime;
 
     //
     public Course() {
     }
 
-    public Course(String name, String description, String location, String trainer, String time, List<Class> classes, Calendar startDate, Calendar endDate) {
+    public Course(String name, String batch, String description, Double fee, List<Class> classes, LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.name = name;
+        this.batch = batch;
         this.description = description;
-        this.location = location;
-        this.trainer = trainer;
-        this.time = time;
+        this.fee = fee;
         this.classes = classes;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.createdTime = createdTime;
+        this.modifiedTime = modifiedTime;
     }
 
-    public Integer getId() {
-        return id;
+    public long getCourseId() {
+        return courseId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCourseId(long courseId) {
+        this.courseId = courseId;
     }
 
-    public String getTime() {
-        return time;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public Double getFee() {
+        return fee;
+    }
+
+    public void setFee(Double fee) {
+        this.fee = fee;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public LocalDateTime getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(LocalDateTime modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 
     public String getName() {
@@ -77,29 +94,13 @@ public class Course {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
+
+    public String getBatch() {
+        return batch;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-
-    public Calendar getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Calendar startDate) {
-        this.startDate = startDate;
-    }
-
-    public Calendar getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Calendar endDate) {
-        this.endDate = endDate;
+    public void setBatch(String batch) {
+        this.batch = batch;
     }
 
     public List<Class> getClasses() {
@@ -110,40 +111,18 @@ public class Course {
         this.classes = classes;
     }
 
-    public String getTrainer() {
-        return trainer;
-    }
 
-    public void setTrainer(String trainer) {
-        this.trainer = trainer;
-    }
-
-
-
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", location='" + location + '\'' +
-                ", trainer='" + trainer + '\'' +
-                ", classes=" + classes +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
-    }
 
     // CUSTOM METHODS
     public void addClass(Class newClass) {
         this.classes.add(newClass);
-
     }
 
     public void removeClass(Class classEntry) {
+
         this.classes.remove(classEntry);
     }
+
 
 }
 

@@ -1,12 +1,29 @@
-
-
-
+<app-crm-header></app-crm-header>
  
-<h3 class="pt-2 text-left text-black">Welcome {{username}}</h3>
+<h3 class="pt-2 pl-3 mb-4 text-left text-black">Welcome {{username}}</h3>
+
   <mat-tab-group>
-    <mat-tab label="DASHBOARD">
-     
-        <div class="row p-4">
+  
+    <mat-tab label="OVERVIEW"> 
+      <app-overview-sales></app-overview-sales>
+    </mat-tab>
+
+    <mat-tab label="ADD USER"> 
+       <app-register></app-register>
+    </mat-tab>
+
+    <mat-tab label="VIEW USER"> 
+        <app-users-list></app-users-list>
+     </mat-tab>
+
+    <mat-tab label="USER GROUP">
+     <app-usergroup-list></app-usergroup-list>
+    </mat-tab>
+    
+</mat-tab-group>
+          
+
+ <!-- <div class="row p-4">
           <div class="col">
             <h3 classs="p-4">PAYMENTS COLLECTED FROM STUDENTS Q1</h3>
               <img class="align-self-center img-fluid" 
@@ -30,39 +47,15 @@
                 src="assets/chartbar.png" alt="Busy QA Logo">
             </div>
         </div>
-        <hr>
-        <div class="row p-4"> 
+        <hr> -->
+        <!-- <div class="row p-4"> 
               <div class="col">
                 <h3 classs="p-4">SALES ANALYTICS OF Q1</h3>
                   <img class="align-self-center img-fluid" 
                   style="width:80%; height: auto;" 
                   src="assets/chartline.png" alt="Busy QA Logo">
               </div>
-            </div>
-   
-    
-    </mat-tab>
-
-    <mat-tab label="CREATE LEAD">
-      <app-add-lead
-      [authority]="authority"></app-add-lead>
-    </mat-tab>
-
-    <mat-tab label="CREATE COURSE"> 
-      <app-add-course></app-add-course>
-    </mat-tab>
-
-    <mat-tab label="CREATE USER">
-
-    </mat-tab>
-
-    <mat-tab label="CREATE ROLE">
-
-    </mat-tab>
-
-    
-</mat-tab-group>
-          
+            </div> -->
 
   
    

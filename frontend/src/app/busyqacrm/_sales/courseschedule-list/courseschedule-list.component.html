@@ -1,0 +1,16 @@
+
+<div class="m-3 row">
+        <div class="col-5 border-right">
+            <app-add-courseschedule></app-add-courseschedule>
+        </div>
+    
+        <div class="col border-left">
+            <div class="card"  *ngFor="let item of courseScheduleList; let i = index">
+                <div class="card-body border-bottom">
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text">Date : {{item.dateStart | date}} To {{item.dateEnd | date}}</p>
+                <p class="card-text">Time : {{item.timeStart}} To {{item.timeEnd}}</p>
+                
+            </div>
+        </div>   
+    </div>     

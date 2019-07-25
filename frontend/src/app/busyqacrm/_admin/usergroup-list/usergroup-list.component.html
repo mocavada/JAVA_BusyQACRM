@@ -1,0 +1,22 @@
+
+<h3 class="mt-0 mb-3 pl-3 pb-2 pt-2 text-white border-top border-dark w-100 bg-secondary">USER GROUP</h3>
+<div class="row">
+    <div class="col-5 border-right">
+        <app-add-usergroup></app-add-usergroup>
+     </div>
+     <div class="col border-left">
+        <div class="list-group mt-1 p-0" *ngFor="let item of userGroupList; let i = index">
+            <a class="list-group-item list-group-item-action flex-column align-items-start">
+                <div style="height: 5%; background-color: rgba(187, 160, 160, 0.1);" class="p-1 my-auto d-flex justify-content-between">
+                    <h5 class="h-100 d-inline-block">{{item.role}}</h5>
+                    <h5 class="h-100 d-inline-block">{{item.groups}}</h5>
+                   
+                
+                </div> 
+              
+              </a>
+        </div>
+     </div>   
+</div>     
+
+

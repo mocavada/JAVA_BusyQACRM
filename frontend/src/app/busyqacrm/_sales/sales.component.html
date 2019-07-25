@@ -1,37 +1,16 @@
+<app-crm-header></app-crm-header>
+ 
+<h3 class="pt-2 pl-3 mb-4 text-left text-black">Welcome {{username}}</h3>
 
-<main>
+  <mat-tab-group>
+  
+    <mat-tab label="OVERVIEW"> 
+        <app-overview-sales></app-overview-sales>
+    </mat-tab>
 
-        <div class="dashboard row mt-4 ml-4 mr-4">
-
-        <div class="col">
-        <h3 class="pt-2 text-left text-black">Welcome {{username}}</h3>
-        <mat-tab-group>
-                <mat-tab label="Dashboard">
-                
-                
-                </mat-tab>
-                
-                <mat-tab label="Add Users"> Content 2 </mat-tab>
-                <mat-tab label="Reset Password"> Content 3 </mat-tab>
-                </mat-tab-group>
-
-                <!-- <app-admin></app-admin>
-
-                <app-client-list></app-client-list>
-
-                <app-user></app-user>
-                -->
-                
-
-        <!-- <div *ngIf="authority === 'admin' || authority === 'audit' || authority === 'sales'"> 
-        <app-sales></app-sales>
-        </div> -->
-
-        </div>     
-
-        </div>  
-</main>    
-                    
-                    
-        <a [routerLink]="['/dashboard/sales/addlead']">ADD LEADS</a>
-
+    <mat-tab label="ADD LEAD"> 
+       <app-register></app-register>
+    </mat-tab>
+    
+</mat-tab-group>
+          

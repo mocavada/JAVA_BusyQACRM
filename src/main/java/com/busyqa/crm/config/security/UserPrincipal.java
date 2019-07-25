@@ -1,50 +1,90 @@
 package com.busyqa.crm.config.security;
 
-import com.busyqa.crm.model.auth.User;
-import com.busyqa.crm.model.auth.UserGroup;
+import com.busyqa.crm.model.clients.Lead;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
-    private User user;
-    private List<UserGroup> userGroups;
+    private static final long serialVersionUID = 1L;
 
-    public UserPrincipal(User user, List<UserGroup> userGroups) {
-        this.user = user;
-        this.userGroups = userGroups;
+    private Long id;
+
+    private String firstName;
+
+    private String username;
+
+    private String email;
+
+    @JsonIgnore
+    private String password;
+
+    private Collection<? extends GrantedAuthority> authorities;
+
+
+    public UserPrincipal() {
     }
 
-    /**
-     * @return Set of Authorized UserGroup
-     */
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public UserPrincipal(Long id, String firstName, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.firstName = firstName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+    }
 
-        if(null == userGroups) {
-            return Collections.emptySet();
-        }
+    public static UserPrincipal build(Lead user) {
+        List<String> strRoles = user.getUsergroups().stream()
+                .map(ug -> ug.getRole()).collect(Collectors.toList());
 
-        Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<>();
+        List<GrantedAuthority> authorities = strRoles.stream().map(role -> new SimpleGrantedAuthority(role))
+                .collect(Collectors.toList());
 
-        userGroups.forEach(group -> {
-            grantedAuthorities.add(new SimpleGrantedAuthority(group.getRole()));
-        });
+        return new UserPrincipal(
+                user.getId(),
+                user.getFirstName(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                authorities
+        );
 
-        return grantedAuthorities;
     }
 
 
-    @Override
-    public String getPassword() {
-        return this.user.getPassword();
+    public Long getId() {
+        return id;
+    }
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     @Override
     public String getUsername() {
-        return this.user.getUsername();
+        return username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
     @Override
@@ -66,5 +106,16 @@ public class UserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserPrincipal user = (UserPrincipal) o;
+        return Objects.equals(id, user.id);
+    }
+
+
 }
 

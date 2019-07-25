@@ -1,0 +1,243 @@
+<app-crm-header></app-crm-header>
+<h3 class="mt-0 p-2 text-white border-top border-dark w-100 bg-secondary">UPDATE LEAD</h3>
+
+<div class="m-2 row">
+  <div class="col-3">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="text-dark pt-3">{{leadExample?.id}} {{leadExample?.firstName}} {{leadExample?.lastName}}</h3>
+        <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample?.email}}</p>
+        <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample?.phoneNumber}} {{leadExample?.emergencyPhone}}</p>
+      </div>
+      <div class="col-12 mt-2 pt-2 border-top">
+        <p class="m-0 text-info"><b>Client Profile</b></p>
+        <li>Lead Source : <b>{{leadExample?.leadSource}}</b></li>
+        <li>Desired Job : <b>{{leadExample?.desiredJob}}</b></li>
+        <li *ngIf="leadExample?.isCurrentlyEmployed">Currently Employed?</li>
+        <li *ngIf="leadExample?.isCurrentlyITEmployed">IT Experienced</li>
+     
+      </div>  
+      <div class="col-12 mt-2 pt-2 border-top">
+        <p class="m-0 text-success"><b>{{leadExample?.course?.name}}</b></p>
+        <li class="text-dark">&ndash;&nbsp;{{leadExample?.course?.batch}}</li>
+        <li class="text-dark">&ndash;&nbsp;{{leadExample?.course?.fee|currency:'CAD'}}</li>
+    
+      </div>  
+     
+      <div class="col-12 mt-2 pt-2 border-top">
+          <p class="m-0 text-info"><b>Plan Details</b></p>
+          <li class="text-dark"><b>Name : </b>{{leadExample?.paymentPlan?.name}}</li>
+          <li class="text-dark"><b>Method : </b>{{leadExample?.paymentPlan?.paymentMethod}}</li>
+          <li class="text-dark"><b>No. Weeks : </b>{{leadExample?.paymentPlan?.weekFrequency}}</li>
+      </div>
+
+     
+  
+      <div class="col-12 mt-5 pt-2 border-top">
+        <p class="m-0"><b>Time Stamp</b></p>  
+        <li>Date Created: {{leadExample?.createdTime | date}}</li>
+        <li>Date Modified: {{leadExample?.modifiedTime | date}}</li> 
+      </div>
+    </div>
+  </div>
+
+
+  <div class="pl-4 pb-5 mb-5 col border-left border-secondary col-centered">
+
+     
+          <div class="row pb-2 pt-2">
+              <div class="col text-danger">{{confirmationMessage}}</div>
+          </div>
+
+          <form [formGroup]="editCLientForm" (ngSubmit)="onUpdate(editCLientForm)" novalidate>
+            <div *ngIf="validMessage != ''">
+              <h3 class="has-info">{{validMessage}}</h3>
+            </div>
+           
+            <div class="form-row mb-1">
+                
+                <button class="btn btn-outline-success text-center mr-3 my-auto"
+                style="width:200px" type="button" title="Edit Properties"
+                (click)="onClickEditProperties()">ADD COURSE & PLAN
+                </button>
+
+                <button class="btn btn-outline-primary text-center mr-3 my-auto"
+                          style="width:100px;" type="submit"
+                          [disabled]="!editCLientForm.valid"> SAVE
+                </button>
+
+              </div>
+            
+
+            <!-- CLIENT STATUS -->
+          <div class="row pb-3"> 
+            
+
+              <div class="col-12 mt-2">
+                  <label>Comments:</label>
+                  <textarea placeholder="" class="form-control" formControlName="comments"></textarea>
+              </div>
+          </div>
+
+            
+          
+           <!-- BASIC INFO -->
+           <div class="row">
+              <div class="col-12"><h4>Basic Info</h4></div>  
+           </div>
+          <label class="mt-2" for="firstName">Full Name</label>    
+          <div class="row mb-2">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="First name" value=""
+                formControlName="firstName">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Last name"
+                formControlName="lastName">
+              </div>
+          </div>
+          <label class="mt-2" for="firstName">Contacts</label>    
+          <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Phone Number" 
+                formControlName="phoneNumber">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Emergency Phone Number"
+                formControlName="emergencyPhone">
+              </div>
+           </div>
+
+                   <!-- ADDRESS -->
+          <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-address': showAddress}">
+              <div class="pl-4 address-addheading card-header text-white"
+              (click)="toggleAddressDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;MAILING ADDRESS
+              </div><!-- card-header -->
+              <div class="addressbody card-body">
+                <div class="form-group">
+                  <label for="inputAddress">Address</label>
+                  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"
+                  formControlName="mailingStreet">
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity" formControlName="mailingCity">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">State</label>
+                    <input type="text" class="form-control" id="inputCity" formControlName="mailingState">
+                  </div>
+                  
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip" formControlName="mailingZip">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputZip">Country</label>
+                        <input type="text" class="form-control" id="inputZip" formControlName="mailingCountry">
+                    </div>
+                </div>
+            </div>
+            </div>
+        
+      
+             <!-- EMPLOYMENT PROFILE -->
+             <div class="row pb-3 mt-3">
+                <div class="col-12">
+                    <h4>Employment Profile</h4>
+                </div>
+                <div class="form-group col-5 pt-2">
+                    <input type="text" class="form-control" placeholder="Desired Job"
+                    formControlName="desiredJob" value="">
+                </div> 
+                <div class="form-check col-3 pt-2">
+                    <input class="form-check-input" type="checkbox" [value]=true id="defaultCheck1"
+                    name="isCurrentlyEmployed" formControlName="isCurrentlyEmployed">
+                    <label class="form-check-label" for="defaultCheck1">
+                      IT Experienced?
+                    </label>
+                </div>
+                <div class="form-check col-3 pt-2">
+                    <input class="form-check-input" type="checkbox" [value]=true id="defaultCheck2"
+                    name="isCurrentlyITEmployed" formControlName="isCurrentlyITEmployed">
+                    <label class="form-check-label" for="defaultCheck2">
+                      Currently Employed?
+                    </label>
+                </div>  
+            </div>
+
+        
+
+          <div *ngIf="showEditProperties">
+           <!-- START ADD PROPERTIES -->
+       
+          
+    
+          
+            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-paymentPlan': showPaymentPlan}">
+                <div class="pl-4 paymentPlan-addheading card-header text-white"
+                (click)="togglePaymentPlanDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
+                ADD PAYMENT PLAN
+                </div><!-- card-header -->
+                <div class="paymentPlanbody card-body">
+          
+            <div class="row" *ngFor="let item of paymentPlanList; let i = index">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentPlan"
+                    id="PaymentPlan{{i}}" 
+                    [value]="item.paymentPlanId"
+                    formControlName="paymentPlan"
+                    >
+                    <label class="form-check-label" for="PaymentPlan{{i}}">
+                        {{item.name}} - {{item.weekFrequency}}
+                    </label>
+                  </div>
+            </div>
+            </div>
+          </div>
+          
+
+            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
+                <div class="pl-4 courses-addheading card-header text-white"
+                (click)="toggleCourseDisplay()"><fa-icon icon="plus">plus</fa-icon>
+                &nbsp;ADD COURSE
+                </div><!-- card-header -->
+    
+                <div class="coursebody card-body">
+                  <div class="row" *ngFor="let item of courseList; let i = index">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="course"
+                          id="Course-{{i}}" 
+                          [value]="item.courseId"
+                          formControlName="course"
+                          >
+                          <label class="form-check-label" for="Course-{{i}}">
+                              {{item.name}} - {{item.batch}} - {{item.fee | currency:'CAD'}}
+                          </label>
+                        </div>
+                  </div>
+                </div>
+               </div>
+             
+    
+              
+           
+               
+    
+            
+              </div>   <!-- END ADD PROPERTIES -->
+             
+              
+    
+          
+         
+
+        
+        
+          </form> 
+  
+        </div>    
+  </div>

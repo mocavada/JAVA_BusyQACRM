@@ -1,0 +1,23 @@
+
+<div class="m-3 row">
+    <div class="col-5 border-right">
+        <app-add-traininglocation></app-add-traininglocation>
+    </div>
+
+    <div class="col border-left">
+        <div class="card"  *ngFor="let item of trainingLocationList; let i = index">
+            <div class="card-body border-bottom">
+           
+                
+            <h5 class="card-title">{{item.name}}</h5>
+            <h6 class="card-subtitle text-muted mb-2">Street : {{item.street}}</h6>
+            <h6 class="card-subtitle text-muted mb-2">City : {{item.city}}</h6>
+            <h6 class="card-subtitle text-muted mb-2">State : {{item.state}}</h6>
+            <h6 class="card-subtitle text-muted mb-2">Zip : {{item.zip}}</h6>
+                
+            </div>  
+            
+            </div>
+        </div>
+    </div>   
+   

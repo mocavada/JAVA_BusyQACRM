@@ -1,15 +1,22 @@
-import { Mail } from './../model/mail';
-import { Course } from './../model/course';
-import { Client } from '../model/client';
-import { Lead } from '../model/lead';
-import { LeadRequest } from '../model/lead-request';
-import { TokenStorageService } from '../auth/token-storage.service';
-import { User } from '../model/user';
-import { ApiResponse } from '../model/api-response';
+import { MailPortallink } from './../model/util-mail-portallink';
+import { MailWelcomepackage } from './../model/util-mail-welcomepackage';
+import { Router } from '@angular/router';
+import { findIndex } from 'lodash';
+import { Traininglocation } from './../model/academics-traininglocation';
+import { Trainer } from './../model/academics-trainer';
+import { CourseSchedule } from './../model/academics-courseschedule';
+import { Course } from './../model/academics-course';
+import { Lead } from './../model/client-lead';
+import { Mail } from '../model/util-mail';
+
+import { TokenStorageService } from '../security/token-storage.service';
+import { User } from '../model/auth-user';
+import { ApiResponse } from '../model/util-apiresponse';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
+
 
 
 @Injectable({
@@ -17,81 +24,191 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs';
 })
 export class SalesApiService {
   salesApiUrl = environment.serverAddress + '/sales';
-  clientResult$ = new BehaviorSubject <[Client]>(null);
+  getAllLeadsUrl = this.salesApiUrl + '/usersList/Lead/CLIENT';
+
+  getLeadsByClientStatusUrl = this.salesApiUrl + '/usersList/Lead/CLIENT/';
+
+  getLeadByEmailUrl = this.salesApiUrl + '/lead/';
+  getLeadByUsernameUrl = this.salesApiUrl + '/leadbyuser/';
+  updateLeadByEmailUrl = this.salesApiUrl + '/updateLead/';
+  updateLeadlUrl = this.salesApiUrl + '/updateLead';
+  leadToStudentUrl = this.salesApiUrl + '/leadToStudent/';
+  // COURSE
+  addCourseUrl = this.salesApiUrl + '/addCourse';
+  getAllCourseUrl = this.salesApiUrl + '/getAllCourse';
+
+  // COURSE SCHEDULE
+  addCourseScheduleUrl = this.salesApiUrl + '/addCourseSchedule';
+  getAllCourseScheduleUrl = this.salesApiUrl + '/getAllCourseSchedule';
+
+  // TRAINER
+  addTrainerUrl = this.salesApiUrl + '/addTrainer';
+  getAllTrainerUrl = this.salesApiUrl + '/getAllTrainer';
+
+  // TRAINING LOCATION
+  addTrainingLocationUrl = this.salesApiUrl + '/addTrainingLocation';
+  getAllTrainingLocationUrl = this.salesApiUrl + '/getAllTrainingLocation';
+
+  leadResult$ = new BehaviorSubject <[Lead]>(null);
   courseResult$ = new BehaviorSubject <[Course]>(null);
+  courseScheduleResult$ = new BehaviorSubject <[CourseSchedule]>(null);
+  trainerResult$ = new BehaviorSubject <[Trainer]>(null);
+  trainingLocationResult$ = new BehaviorSubject <[Traininglocation]>(null);
+
   info: any;
 
   constructor(private http: HttpClient,
-              private token: TokenStorageService) { }
+              private token: TokenStorageService,
+              private router: Router) { }
 
-  getLeadsList() {
-    this.http.get<[Client]>(this.salesApiUrl + '/leadslist').subscribe(data => {
-      this.clientResult$.next(data);
+  // LEAD
+
+
+  getAllLeads() {
+    this.http.get<[Lead]>(this.getAllLeadsUrl)
+    .subscribe(data => {
+      this.leadResult$.next(data);
     }, err => {
       console.log('Something Wrong Getting Leads List! ' + err);
     });
   }
 
-  getLeadByEmail(email: string) {
-    return this.http.get(this.salesApiUrl + '/lead/' + email);
-  }
 
-  pullCourseList(courseList: [Course]) {
-    this.courseResult$.next(courseList);
-  }
-
-  getCourseList() {
-    this.http.get<[Course]>(this.salesApiUrl + '/courselist')
+  getLeadsByClientStatus(status: string) {
+    this.http.get<[Lead]>(this.getLeadsByClientStatusUrl + status)
     .subscribe(data => {
-      this.pullCourseList(data);
+      this.leadResult$.next(data);
+    }, err => {
+      console.log('Something Wrong Getting Leads by Clent Status List! ' + err);
+      this.router.navigate(['/dashboard/sales/leadslist']);
+    });
+  }
+
+
+
+
+
+  getLeadByEmail(email: string) {
+    return this.http.get(this.getLeadByEmailUrl + email);
+  }
+
+  getLeadByUsername(username: string) {
+    return this.http.get(this.getLeadByUsernameUrl + username);
+  }
+
+  updateLeadByEmail(email: string, client: Lead) {
+    const body = JSON.stringify(client);
+    return this.http.put(this.updateLeadByEmailUrl + email, client);
+  }
+
+  updateLead(client: Lead) {
+    const body = JSON.stringify(client);
+    return this.http.put(this.updateLeadlUrl, client);
+  }
+
+
+  changeLeadToStudent(email: string) {
+    return this.http.delete(this.leadToStudentUrl + email);
+  }
+
+  // COURSES
+  addCourse(course: Course) {
+    this.http
+    .post<any>(this.addCourseUrl, course)
+    .subscribe(data => {
+      console.log(data);
+      this.courseResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Adding Course' + err);
+    });
+  }
+
+  getAllCourse() {
+    this.http.get<[Course]>(this.getAllCourseUrl)
+    .subscribe(data => {
+      this.courseResult$.next(data);
     }, err => {
       console.log('Something Wrong With Getting CourseList');
     });
   }
 
-  postClient(client: Client) {
+  // COURSES SCHEDULE
+  addCourseSchedule(courseSchedule: CourseSchedule) {
     this.http
-    .post<any>(this.salesApiUrl + '/addlead', client)
+    .post<any>(this.addCourseScheduleUrl, courseSchedule)
     .subscribe(data => {
       console.log(data);
-      this.clientResult$.next(data);
+      this.courseScheduleResult$.next(data);
     }, err => {
-      console.log('Something Wrong with Post Client' + err);
+      console.log('Something Wrong with Adding Course' + err);
     });
   }
 
-  postCourse(course: Course) {
+  getAllCourseSchedules() {
+    this.http.get<[CourseSchedule]>(this.getAllCourseScheduleUrl)
+    .subscribe(data => {
+      this.courseScheduleResult$.next(data);
+    }, err => {
+      console.log('Something Wrong With Getting CourseList');
+    });
+  }
+
+  // TRAINER SCHEDULE
+  addTrainer(trainer: Trainer) {
     this.http
-    .post<any>(this.salesApiUrl + '/addcourse', course)
+    .post<any>(this.addTrainerUrl, trainer)
     .subscribe(data => {
       console.log(data);
-      this.courseResult$.next(data);
+      this.trainerResult$.next(data);
     }, err => {
-      console.log('Something Wrong with Post Course' + err);
+      console.log('Something Wrong with Adding Trainer' + err);
     });
   }
 
-  updateLead(client: Client) {
-    return this.http
-    .patch<any>(this.salesApiUrl + '/updatelead', client)
+  getAllTrainer() {
+    this.http.get<[Trainer]>(this.getAllTrainerUrl)
     .subscribe(data => {
-      console.log(data);
-      this.clientResult$.next(data);
+      this.trainerResult$.next(data);
     }, err => {
-      console.log('Something Wrong with Post Client' + err);
+      console.log('Something Wrong With Getting Trainer');
     });
   }
 
-  updateLeadLead(email: string, client: Client) {
-    const body = JSON.stringify(client);
-    return this.http.put(this.salesApiUrl + '/updateleadlead/' + email, client);
+  // TRAINING LOCATION
+  addTrainingLocation(traininglocation: Traininglocation) {
+    this.http
+    .post<any>(this.addTrainingLocationUrl, traininglocation)
+    .subscribe(data => {
+      console.log(data);
+      this.trainingLocationResult$.next(data);
+    }, err => {
+      console.log('Something Wrong with Adding Training Location' + err);
+    });
   }
+
+  getAllTrainingLocation() {
+    this.http.get<[Traininglocation]>(this.getAllTrainingLocationUrl)
+    .subscribe(data => {
+      this.trainingLocationResult$.next(data);
+    }, err => {
+      console.log('Something Wrong With Getting Training Location');
+    });
+  }
+
+
 
   // SEND WELCOME PACKAGE, INSTRUCTORS INFO and COURSE INFO
-  sendTemplateEmail(mail: Mail) {
+  sendWelcomePackageMail(mail: MailWelcomepackage) {
     return this.http
-    .post(this.salesApiUrl + '/sendEmailWithTemplate/', mail);
+    .post(this.salesApiUrl + '/sendWelcomePackage/', mail);
   }
+
+  sendPortalLinkMail(mail: MailPortallink) {
+    return this.http
+    .post(this.salesApiUrl + '/sendPortalLink/', mail);
+  }
+
+
 
   // SEND EMAIL WITH ATTACHMENT
   sendEmailWithAttachment(email: string) {
@@ -101,6 +218,27 @@ export class SalesApiService {
 
 
 
+  // postClient(client: Lead) {
+  //   this.http
+  //   .post<any>(this.salesApiUrl + '/addlead', client)
+  //   .subscribe(data => {
+  //     console.log(data);
+  //     this.clientResult$.next(data);
+  //   }, err => {
+  //     console.log('Something Wrong with Post Client' + err);
+  //   });
+  // }
+
+   // updateLeadByEmail(client: Lead) {
+  //   return this.http
+  //   .patch<any>(this.salesApiUrl + '/updatelead', client)
+  //   .subscribe(data => {
+  //     console.log(data);
+  //     this.clientResult$.next(data);
+  //   }, err => {
+  //     console.log('Something Wrong with Lead Update' + err);
+  //   });
+  // }
 
 
 
