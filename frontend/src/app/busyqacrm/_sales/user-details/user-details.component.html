@@ -1,69 +1,90 @@
 <app-crm-header></app-crm-header>
-<h3 class="mt-0 p-2 text-white border-top border-dark w-100 bg-secondary">UPDATE PROFILE</h3>
+<h3 class="mt-0 p-2 text-white border-top border-dark w-100 bg-secondary">UPDATE LEAD</h3>
 
-<div class="m-3 row">
+<div class="m-2 row">
   <div class="col-3">
-    <!-- <p class="m-0"><b>{{leadExample.id}}</b> </p> -->
-    <p class="m-0">Client Status: <b>{{leadExample.clientStatus}}</b></p>
-   
-    <li>Registration Paid ? <b>{{leadExample.isRegistrationFeePaid}}</b></li>
-   
+    <div class="row">
+      <div class="col-12">
+        <h3 class="text-dark pt-3">{{leadExample?.id}} {{leadExample?.firstName}} {{leadExample?.lastName}}</h3>
+        <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample?.email}}</p>
+        <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample?.phoneNumber}} {{leadExample?.emergencyPhone}}</p>
+      </div>
+      <div class="col-12 mt-2 pt-2 border-top">
+        <p class="m-0 text-info"><b>Client Profile</b></p>
+        <li>Lead Source : <b>{{leadExample?.leadSource}}</b></li>
+        <li>Desired Job : <b>{{leadExample?.desiredJob}}</b></li>
+        <li *ngIf="leadExample?.isCurrentlyEmployed">Currently Employed?</li>
+        <li *ngIf="leadExample?.isCurrentlyITEmployed">IT Experienced</li>
+     
+      </div>  
+      <div class="col-12 mt-2 pt-2 border-top">
+        <p class="m-0 text-success"><b>{{leadExample?.course?.name}}</b></p>
+        <li class="text-dark">&ndash;&nbsp;{{leadExample?.course?.batch}}</li>
+        <li class="text-dark">&ndash;&nbsp;{{leadExample?.course?.fee|currency:'CAD'}}</li>
+    
+      </div>  
+     
+      <div class="col-12 mt-2 pt-2 border-top">
+          <p class="m-0 text-info"><b>Plan Details</b></p>
+          <li class="text-dark"><b>Name : </b>{{leadExample?.paymentPlan?.name}}</li>
+          <li class="text-dark"><b>Method : </b>{{leadExample?.paymentPlan?.paymentMethod}}</li>
+          <li class="text-dark"><b>No. Weeks : </b>{{leadExample?.paymentPlan?.weekFrequency}}</li>
+      </div>
+
+     
   
-    <hr>
-    <p class="m-0 p-0 text-danger">{{leadExample.comments}}</p>
-    <hr>
-    <li class="m-0 p-0 text-success" *ngIf="isWPSent"><fa-icon icon="check"></fa-icon> Welcome Package Sent</li>
-    <li class="m-0 p-0 text-success" *ngIf="isTISent"><fa-icon icon="check"></fa-icon> Trainer Info Sent</li>
-    <li class="m-0 p-0 text-success" *ngIf="isPLSent"><fa-icon icon="check"></fa-icon> Portal Link Sent</li>
-    <hr>
-    <h3 class="text-dark">{{leadExample.firstName}} {{leadExample.lastName}}</h3>
-    <small>Last Updated: {{leadExample.createdTime | date: 'short'}}</small>
-    <p class="m-0"><small><fa-icon icon="envelope"></fa-icon></small>  {{leadExample.email}}</p>
-    <p class="m-0"><small><fa-icon icon="phone"></fa-icon></small>  {{leadExample.phone}}</p>
-    <hr>
-    <p class="m-0"><b>Course Interested</b></p>
-    <li class="text-info">{{leadExample.course.id}}</li>
-    <li class="text-info">{{leadExample.course.name}}</li>
-    <li class="text-info">Location: {{leadExample.course.location}}</li>
-    <li class="text-info">Start: {{leadExample.course.startDate}}</li>
-    <li class="text-info">End: {{leadExample.course.endDate}}</li>
-    <li class="text-info">Instructor: {{leadExample.course.trainer}}</li>
-    <hr>
-    <p class="m-0"><b>Client Profile</b></p>
-    <li>Lead Source : <b>{{leadExample.leadSource}}</b></li>
-   
-    <li>Desired Job : <b>{{leadExample.desiredJob}}</b></li>
-    <li>Currently Employed ? <b>{{leadExample.currentlyEmployed}}</b></li>
-    <li>IT Related Job ? <b>{{leadExample.currentlyITEmployed}}</b></li>
+      <div class="col-12 mt-5 pt-2 border-top">
+        <p class="m-0"><b>Time Stamp</b></p>  
+        <li>Date Created: {{leadExample?.createdTime | date}}</li>
+        <li>Date Modified: {{leadExample?.modifiedTime | date}}</li> 
+      </div>
+    </div>
   </div>
 
 
-  <div class="pl-4 col border-left border-secondary col-centered">
+  <div class="pl-4 pb-5 mb-5 col border-left border-secondary col-centered">
+
+     
           <div class="row pb-2 pt-2">
               <div class="col text-danger">{{confirmationMessage}}</div>
           </div>
-          <form [formGroup]="editCLientForm" (ngSubmit)="onUpdate()" novalidate>
+
+          <form [formGroup]="editCLientForm" (ngSubmit)="onUpdate(editCLientForm)" novalidate>
             <div *ngIf="validMessage != ''">
               <h3 class="has-info">{{validMessage}}</h3>
             </div>
            
-            <div class="form-row mb-3">
-                <!-- <button class="btn btn-outline-secondary text-center mr-3 my-auto"
-                style="width:100px;" type="button"
-                [routerLink]="['/home']">CANCEL
-                </button> -->
-  
+            <div class="form-row mb-1">
+                
+                <button class="btn btn-outline-success text-center mr-3 my-auto"
+                style="width:200px" type="button" title="Edit Properties"
+                (click)="onClickEditProperties()">ADD COURSE & PLAN
+                </button>
+
                 <button class="btn btn-outline-primary text-center mr-3 my-auto"
                           style="width:100px;" type="submit"
-                          [disabled]="!editCLientForm.valid"> UPDATE
+                          [disabled]="!editCLientForm.valid"> SAVE
                 </button>
-              </div>
 
-            <!-- LEAD STATUS -->
-       
+              </div>
+            
+
+            <!-- CLIENT STATUS -->
+          <div class="row pb-3"> 
+            
+
+              <div class="col-12 mt-2">
+                  <label>Comments:</label>
+                  <textarea placeholder="" class="form-control" formControlName="comments"></textarea>
+              </div>
+          </div>
+
+            
           
            <!-- BASIC INFO -->
-
+           <div class="row">
+              <div class="col-12"><h4>Basic Info</h4></div>  
+           </div>
           <label class="mt-2" for="firstName">Full Name</label>    
           <div class="row mb-2">
               <div class="col">
@@ -75,50 +96,22 @@
                 formControlName="lastName">
               </div>
           </div>
-  
           <label class="mt-2" for="firstName">Contacts</label>    
           <div class="row">
               <div class="col">
-                <input type="text" class="form-control" placeholder="Email Address" 
-                formControlName="email">
+                <input type="text" class="form-control" placeholder="Phone Number" 
+                formControlName="phoneNumber">
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="Phone Number"
-                formControlName="phone">
+                <input type="text" class="form-control" placeholder="Emergency Phone Number"
+                formControlName="emergencyPhone">
               </div>
            </div>
-         
-          <div class="mt-3 form-group">
-              <label>Comments:</label>
-              <textarea placeholder="" class="form-control" formControlName="comments"></textarea>
-          </div>
 
-             <!-- EMPLOYMENT PROFILE -->
-             <div class="row">
-                <div class="form-group col-5">
-                    <input type="text" class="form-control" placeholder="Desired Job"
-                    formControlName="desiredJob" value="">
-                </div> 
-                <div class="form-group col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="currentlyEmployed" id="ce1" 
-                        [checked]="leadExample.currentlyEmployed" value="true" formControlName="currentlyEmployed">
-                        <label class="form-check-label" for="ce1">Currently Working?</label>
-                      </div>
-                </div>
-                <div class="form-group col">
-                    
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="currentlyITEmployed" id="cit1" 
-                        [checked]="leadExample.currentlyITEmployed" value="true" formControlName="currentlyITEmployed">
-                        <label class="form-check-label" for="cit1">Experienced IT?</label>
-                      </div> 
-                </div> 
-            </div>
-              <!-- ADDRESS -->
+                   <!-- ADDRESS -->
           <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-address': showAddress}">
-              <div class="address-addheading card-header text-white"
-              (click)="toggleAddressDisplay()"><fa-icon icon="plus"></fa-icon> ADD MAILING ADDRESS
+              <div class="pl-4 address-addheading card-header text-white"
+              (click)="toggleAddressDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;MAILING ADDRESS
               </div><!-- card-header -->
               <div class="addressbody card-body">
                 <div class="form-group">
@@ -147,29 +140,101 @@
                         <input type="text" class="form-control" id="inputZip" formControlName="mailingCountry">
                     </div>
                 </div>
-              </div>
-  
             </div>
-           
-            <!-- ADD COURSE LIST -->
+            </div>
+        
+      
+             <!-- EMPLOYMENT PROFILE -->
+             <div class="row pb-3 mt-3">
+                <div class="col-12">
+                    <h4>Employment Profile</h4>
+                </div>
+                <div class="form-group col-5 pt-2">
+                    <input type="text" class="form-control" placeholder="Desired Job"
+                    formControlName="desiredJob" value="">
+                </div> 
+                <div class="form-check col-3 pt-2">
+                    <input class="form-check-input" type="checkbox" [value]=true id="defaultCheck1"
+                    name="isCurrentlyEmployed" formControlName="isCurrentlyEmployed">
+                    <label class="form-check-label" for="defaultCheck1">
+                      IT Experienced?
+                    </label>
+                </div>
+                <div class="form-check col-3 pt-2">
+                    <input class="form-check-input" type="checkbox" [value]=true id="defaultCheck2"
+                    name="isCurrentlyITEmployed" formControlName="isCurrentlyITEmployed">
+                    <label class="form-check-label" for="defaultCheck2">
+                      Currently Employed?
+                    </label>
+                </div>  
+            </div>
+
+        
+
+          <div *ngIf="showEditProperties">
+           <!-- START ADD PROPERTIES -->
+       
+          
+    
+          
+            <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-paymentPlan': showPaymentPlan}">
+                <div class="pl-4 paymentPlan-addheading card-header text-white"
+                (click)="togglePaymentPlanDisplay()"><fa-icon icon="plus">plus</fa-icon>&nbsp;
+                ADD PAYMENT PLAN
+                </div><!-- card-header -->
+                <div class="paymentPlanbody card-body">
+          
+            <div class="row" *ngFor="let item of paymentPlanList; let i = index">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentPlan"
+                    id="PaymentPlan{{i}}" 
+                    [value]="item.paymentPlanId"
+                    formControlName="paymentPlan"
+                    >
+                    <label class="form-check-label" for="PaymentPlan{{i}}">
+                        {{item.name}} - {{item.weekFrequency}}
+                    </label>
+                  </div>
+            </div>
+            </div>
+          </div>
+          
+
             <div class="card textcenter mt-3 mb-3" [ngClass]="{'add-courses': showCourse}">
-            
-              <div class="courses-addheading card-header text-white"
-              (click)="toggleCourseDisplay()"><fa-icon icon="plus"></fa-icon> ADD COURSE
-              </div>
-              <div class="coursebody card-body">
-              <fieldset formGroupName="course">
-                <div class="form-group">
-                  <div class="form-check" *ngFor="let item of courseList; let i = index">
-                    <input class="form-check-input" type="radio" id="course{{i}}" 
-                    formControlName="id" value="{{item.id}}">
-                    <label class="form-check-label" for="course{{i}}"><p>{{item.name}}</p></label>
+                <div class="pl-4 courses-addheading card-header text-white"
+                (click)="toggleCourseDisplay()"><fa-icon icon="plus">plus</fa-icon>
+                &nbsp;ADD COURSE
+                </div><!-- card-header -->
+    
+                <div class="coursebody card-body">
+                  <div class="row" *ngFor="let item of courseList; let i = index">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="course"
+                          id="Course-{{i}}" 
+                          [value]="item.courseId"
+                          formControlName="course"
+                          >
+                          <label class="form-check-label" for="Course-{{i}}">
+                              {{item.name}} - {{item.batch}} - {{item.fee | currency:'CAD'}}
+                          </label>
+                        </div>
                   </div>
                 </div>
-              </fieldset>
-              </div>
-            </div>
+               </div>
+             
+    
+              
+           
+               
+    
             
+              </div>   <!-- END ADD PROPERTIES -->
+             
+              
+    
+          
+         
+
         
         
           </form> 

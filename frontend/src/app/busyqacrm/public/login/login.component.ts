@@ -111,7 +111,9 @@ export class LoginComponent implements OnInit {
   }
 
   onClick() {
-        this.router.navigate(['/dashboard/sales/' + this.randomUrl + this.username], { skipLocationChange: true });
+        this.router.navigate(['/dashboard/sales/' + this.randomUrl + this.username]);
+
+        // this.router.navigate(['/dashboard/sales/' + this.randomUrl + this.username], { skipLocationChange: true });
   }
 
   redirectToDashboard() {

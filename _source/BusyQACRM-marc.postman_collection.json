@@ -223,7 +223,7 @@
 		{
 			"name": "POST /audit/addDiscount",
 			"request": {
-				"url": "http://localhost:8080/audit/addDiscount",
+				"url": "http://localhost:8080/audit/addRegistrationFee",
 				"method": "POST",
 				"header": [
 					{
@@ -234,7 +234,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": " {\n    \"amount\": 50.00,\n    \"discountCode\": \"CRR45678\",\n    \"description\": \"This Certified Scrum Master course is a professional development program designed for anyone considering a career in Agile Project Management.\"\n    \n   \n      \n}"
+					"raw": " {\n    \"fee\": 350,\n    \"description\": \"Big Data\"\n    \n   \n      \n}"
 				},
 				"description": ""
 			},
@@ -339,6 +339,68 @@
 			"name": "GET /sales/getAllTrainer",
 			"request": {
 				"url": "http://localhost:8080/sales/getAllTrainer",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /admin/usersList/Lead/CLIENT",
+			"request": {
+				"url": "http://localhost:8080/sales/usersList/Lead/CLIENT",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /sales/addTrainingLocation",
+			"request": {
+				"url": "http://localhost:8080/sales/addTrainingLocation",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"amount\": 50.00,\n    \"discountCode\": \"B00TYY\",\n    \"description\": \"Summer Discount\"\n   \n   \n      \n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "V2 PUT /sales/updateLead/email",
+			"request": {
+				"url": "http://localhost:8080/sales/updateLead/ManBat@mail.ca",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Test\",\n    \"lastName\": \"Change\",\n    \"phoneNumber\": null,\n    \"emergencyPhone\": null,\n    \"clientStatus\": null,\n    \"registrationFee\": 0,\n    \"discount\": 0,\n    \"leadStatus\": null,\n    \"leadSource\": null,\n    \"comments\": null,\n    \"currentlyEmployed\": null,\n    \"currentlyITEmployed\": null,\n    \"desiredJob\": null,\n    \"paymentPlan\": null,\n    \"paymentPlanStatus\": null,\n    \"registrationFeePaid\": null,\n    \"planAgreement\": null,\n    \"mailingStreet\": null,\n    \"mailingCity\": null,\n    \"mailingState\": null,\n    \"mailingZip\": null,\n    \"mailingCountry\": null,\n    \"course\": null,\n    \"courseSchedule\": null,\n    \"trainer\": null,\n    \"trainingLocation\": null\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET audit/paymentsByStudentEmail/Naruto@gmail.com",
+			"request": {
+				"url": "http://localhost:8080/audit/paymentsByStudentEmail/Naruto@gmail.com",
 				"method": "GET",
 				"header": [],
 				"body": {},
