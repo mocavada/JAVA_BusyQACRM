@@ -1,4 +1,12 @@
 # SPRING_BusyQACRM
-CRM for BusyQA
+CRM App for BusyQA
+
+Developer: Marc Cavada
+Language: Java
+Framework: Spring
+FrontEnd: Angular Framework
+Database: MySQL
+
+
 
 
